@@ -1,5 +1,4 @@
 {
-  "draft": "Highlighted items must be completed before sales open.",
   "mentions": {
     "title": "Legal notice",
     "sections": [
@@ -72,7 +71,9 @@
       },
       {
         "h": "10. Complaints and mediation",
-        "html": "<p>For any complaint, the Client first contacts the Seller at {seller.email}.</p><p>If a dispute remains unresolved, the Client may refer it free of charge to the following consumer mediator: {seller.mediator}.</p>"
+        "html": "<p>For any complaint, the Client first contacts the Seller in writing at {seller.email}. The Seller endeavours to reply as soon as possible.</p>",
+        "ifMediator": "<p>If the complaint is not resolved, the Client may refer it free of charge to the consumer mediator the Seller belongs to: {mediator.name}, <a href=\"{mediator.url}\" target=\"_blank\" rel=\"noopener\">{mediator.url}</a>.</p>",
+        "ifNoMediator": "<p>The Client may also use conventional mediation or any other alternative dispute resolution method.</p>"
       },
       {
         "h": "11. Governing law and language",

@@ -1,5 +1,4 @@
 {
-  "draft": "Les éléments surlignés sont à compléter avant la mise en vente.",
   "mentions": {
     "title": "Mentions légales",
     "sections": [
@@ -72,7 +71,9 @@
       },
       {
         "h": "10. Réclamations et médiation",
-        "html": "<p>Pour toute réclamation, le Client contacte d’abord le Vendeur à {seller.email}.</p><p>En cas de litige non résolu, le Client peut recourir gratuitement au médiateur de la consommation suivant : {seller.mediator}.</p>"
+        "html": "<p>Pour toute réclamation, le Client contacte d’abord le Vendeur par écrit à {seller.email}. Le Vendeur s’efforce d’y répondre dans les meilleurs délais.</p>",
+        "ifMediator": "<p>Si sa réclamation n’a pas abouti, le Client peut recourir gratuitement au médiateur de la consommation dont relève le Vendeur : {mediator.name}, <a href=\"{mediator.url}\" target=\"_blank\" rel=\"noopener\">{mediator.url}</a>.</p>",
+        "ifNoMediator": "<p>Le Client peut également recourir à une médiation conventionnelle ou à tout autre mode alternatif de règlement des différends.</p>"
       },
       {
         "h": "11. Droit applicable et langue",

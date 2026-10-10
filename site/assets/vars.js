@@ -43,6 +43,7 @@ export function buildVars(config, dict, lang) {
     year: new Date().getFullYear(),
     termsDate: new Intl.DateTimeFormat(loc, { dateStyle: 'long', timeZone: 'Europe/Paris' }).format(new Date(config.termsVersion + 'T12:00:00Z')),
     seller,
+    mediator: { name: config.mediator?.name || '', url: config.mediator?.url || '' },
   };
 }
 

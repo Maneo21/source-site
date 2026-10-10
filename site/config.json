@@ -15,17 +15,38 @@
     "followUpDays": 7
   },
   "termsVersion": "2026-10-10",
+  "mediator": {
+    "name": "",
+    "url": ""
+  },
   "seller": {
     "name": "Evan Cotte",
-    "status": { "fr": "entrepreneur individuel (EI)", "en": "sole trader (entrepreneur individuel, EI)" },
-    "address": { "fr": "19 rue d’Ecancourt, 78510 Triel-sur-Seine, France", "en": "19 rue d’Ecancourt, 78510 Triel-sur-Seine, France" },
+    "status": {
+      "fr": "entrepreneur individuel (EI)",
+      "en": "sole trader (entrepreneur individuel, EI)"
+    },
+    "address": {
+      "fr": "19 rue d’Ecancourt, 78510 Triel-sur-Seine, France",
+      "en": "19 rue d’Ecancourt, 78510 Triel-sur-Seine, France"
+    },
     "email": "contact@maneo-ai.fr",
-    "phone": { "fr": "06 22 51 96 64", "en": "+33 6 22 51 96 64" },
+    "phone": {
+      "fr": "06 22 51 96 64",
+      "en": "+33 6 22 51 96 64"
+    },
     "registration": "SIREN 108 814 591 · SIRET 108 814 591 00013",
-    "vat": { "fr": "TVA non applicable, article 293 B du Code général des impôts", "en": "VAT not applicable, article 293 B of the French General Tax Code" },
+    "vat": {
+      "fr": "TVA non applicable, article 293 B du Code général des impôts",
+      "en": "VAT not applicable, article 293 B of the French General Tax Code"
+    },
     "director": "Evan Cotte",
-    "host": { "fr": "Cloudflare, Inc., 101 Townsend Street, San Francisco, CA 94107, États-Unis · +1 888 993 5273", "en": "Cloudflare, Inc., 101 Townsend Street, San Francisco, CA 94107, United States · +1 888 993 5273" },
-    "mediator": { "fr": "[Médiateur de la consommation : nom et site web]", "en": "[Consumer mediator: name and website]" },
-    "retention": { "fr": "3 ans après notre dernier échange", "en": "3 years after our last exchange" }
+    "host": {
+      "fr": "Cloudflare, Inc., 101 Townsend Street, San Francisco, CA 94107, États-Unis · +1 888 993 5273",
+      "en": "Cloudflare, Inc., 101 Townsend Street, San Francisco, CA 94107, United States · +1 888 993 5273"
+    },
+    "retention": {
+      "fr": "3 ans après notre dernier échange",
+      "en": "3 years after our last exchange"
+    }
   }
 }

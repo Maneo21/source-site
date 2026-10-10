@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>E-mails automatiques · AI Web Studio</title>
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,300..800&display=swap">
+<link rel="stylesheet" href="/assets/site.css">
+<style>
+  .wrapx { max-width: 1100px; margin: 0 auto; padding: 34px var(--gut) 70px; }
+  h1 { margin: 18px 0 8px; font: 800 clamp(36px, 8vw, 64px)/.95 var(--f-d); font-stretch: 82%; letter-spacing: -.045em; }
+  .sub { margin: 0 0 24px; color: var(--ink2); max-width: 64ch; }
+  .tabs, .sizes { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+  .tab { height: 40px; padding: 0 16px; border-radius: 999px; border: 1px solid var(--line2); font: 600 14px/1 var(--f-d); color: var(--ink2); }
+  .tab[aria-pressed="true"] { background: var(--acc); border-color: var(--acc); color: var(--acc-ink); }
+  .meta { margin: 14px 0; padding: 14px 16px; border-radius: 16px; background: var(--bg2); border: 1px solid var(--line); font-size: 14.5px; color: var(--ink2); }
+  .meta b { color: var(--ink); font-weight: 600; }
+  .stage { display: flex; justify-content: center; padding: 18px 0; border-radius: 22px; background: var(--bg2); border: 1px solid var(--line); }
+  iframe { width: 100%; max-width: 390px; height: 1000px; border: 1px solid var(--line2); border-radius: 26px; background: #09090A; transition: max-width .4s var(--ease-o); }
+  .wide iframe { max-width: 760px; }
+  .back { color: var(--ink2); font-size: 14.5px; }
+</style>
+</head>
+<body>
+<div class="wrapx">
+  <a class="back" href="/apercu">← Outils d’aperçu</a>
+  <h1>E-mails automatiques</h1>
+  <p class="sub">Voici ce qui part après chaque paiement confirmé par Stripe. Les commandes affichées sont fausses, et rien n’est envoyé depuis cet aperçu.</p>
+  <div class="tabs" data-tabs></div>
+  <div class="sizes">
+    <button class="tab" type="button" data-size="phone" aria-pressed="true">Téléphone</button>
+    <button class="tab" type="button" data-size="wide" aria-pressed="false">Ordinateur</button>
+  </div>
+  <div class="meta" data-meta></div>
+  <div class="stage" data-stage><iframe title="Aperçu de l’e-mail" data-frame></iframe></div>
+</div>
+<script type="module">
+  const $ = s => document.querySelector(s), list = await (await fetch('/apercu/api/emails')).json();
+  const tabs = $('[data-tabs]'), esc = s => s.replace(/[&<>]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' })[c]);
+  function show(id) {
+    const m = list.find(x => x.id === id) || list[0];
+    for (const b of tabs.children) b.setAttribute('aria-pressed', b.dataset.id === m.id);
+    $('[data-meta]').innerHTML = `<b>Objet :</b> ${esc(m.objet)}<br><b>De :</b> ${esc(m.de)}<br><b>À :</b> ${esc(m.a)}`;
+    $('[data-frame]').src = `/apercu/email/${m.id}`;
+    history.replaceState(null, '', `#${m.id}`);
+  }
+  for (const m of list) { const b = document.createElement('button'); b.className = 'tab'; b.type = 'button'; b.dataset.id = m.id; b.textContent = m.nom; b.addEventListener('click', () => show(m.id)); tabs.append(b); }
+  for (const b of document.querySelectorAll('[data-size]')) b.addEventListener('click', () => {
+    $('[data-stage]').classList.toggle('wide', b.dataset.size === 'wide');
+    for (const x of document.querySelectorAll('[data-size]')) x.setAttribute('aria-pressed', x === b);
+  });
+  show(location.hash.slice(1));
+</script>
+</body>
+</html>

@@ -98,7 +98,7 @@
       },
       {
         "h": "Destinataires",
-        "html": "<p>Tes données me sont destinées. Elles sont traitées pour mon compte par des prestataires techniques : Stripe (paiement) et, le cas échéant, le prestataire du moyen de paiement que tu choisis (par exemple Klarna ou Amazon Pay), Cloudflare (hébergement du site) et mon fournisseur de messagerie électronique.</p><p>Certains de ces prestataires peuvent traiter des données hors de l’Union européenne. Ces transferts sont alors encadrés par des garanties appropriées (décision d’adéquation ou clauses contractuelles types de la Commission européenne).</p>"
+        "html": "<p>Tes données me sont destinées. Elles sont traitées pour mon compte par des prestataires techniques : Stripe (paiement) et, le cas échéant, le prestataire du moyen de paiement que tu choisis (par exemple Klarna ou Amazon Pay), Cloudflare (hébergement du site), Postmark (envoi de l’e-mail automatique de confirmation de commande) et mon fournisseur de messagerie électronique.</p><p>Certains de ces prestataires peuvent traiter des données hors de l’Union européenne. Ces transferts sont alors encadrés par des garanties appropriées (décision d’adéquation ou clauses contractuelles types de la Commission européenne).</p>"
       },
       {
         "h": "Durées de conservation",

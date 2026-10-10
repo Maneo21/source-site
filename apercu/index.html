@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Outils d’aperçu · AI Web Studio</title>
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,300..800&display=swap">
+<link rel="stylesheet" href="/assets/site.css">
+<style>
+  .wrapx { max-width: 1100px; margin: 0 auto; padding: 34px var(--gut) 70px; }
+  h1 { margin: 18px 0 8px; font: 800 clamp(40px, 9vw, 76px)/.95 var(--f-d); font-stretch: 82%; letter-spacing: -.045em; }
+  .sub { margin: 0 0 30px; color: var(--ink2); max-width: 62ch; }
+  .cards { display: grid; gap: 14px; }
+  @media (min-width: 860px) { .cards { grid-template-columns: repeat(2, 1fr); } }
+  .c { padding: 22px; border-radius: 22px; background: var(--bg2); border: 1px solid var(--line); }
+  .c h2 { margin: 0 0 8px; font: 700 22px/1.15 var(--f-d); letter-spacing: -.02em; }
+  .c p { margin: 0 0 14px; color: var(--ink2); font-size: 15px; }
+  .row { display: flex; flex-wrap: wrap; gap: 8px; }
+  .qr { display: flex; gap: 18px; align-items: center; flex-wrap: wrap; }
+  .qr svg { width: 168px; height: 168px; border-radius: 14px; }
+  code { font: 500 13.5px var(--f-m); color: var(--acc); word-break: break-all; }
+  .mode { display: inline-block; margin-bottom: 12px; padding: 6px 10px; border-radius: 999px; border: 1px dashed rgba(210,255,77,.5); color: var(--acc); font: 500 11.5px/1 var(--f-m); letter-spacing: .08em; text-transform: uppercase; }
+  .todo-list { margin: 0; padding-left: 18px; color: var(--ink2); font-size: 15px; line-height: 1.55; }
+  .todo-list li { margin-bottom: 8px; }
+  .todo-list b { color: var(--ink); }
+  .wide { grid-column: 1 / -1; }
+</style>
+</head>
+<body>
+<div class="wrapx">
+  <span class="logo"><span>AI Web Studio</span><i class="caret"></i></span>
+  <h1>Outils d’aperçu</h1>
+  <p class="sub">Cette page n’existe que sur ton Mac pendant l’aperçu. Rien n’est publié.</p>
+  <div class="cards">
+    <section class="c">
+      <span class="mode" data-mode>…</span>
+      <h2>Le site</h2>
+      <p>Ouvre la page de vente comme un visiteur qui arrive de TikTok.</p>
+      <div class="row">
+        <a class="btn btn-p" href="/">Ouvrir le site</a>
+        <button class="btn btn-g" type="button" data-reset>Revoir l’écran de langue</button>
+      </div>
+    </section>
+    <section class="c">
+      <h2>Sur ton téléphone</h2>
+      <div class="qr"><div data-qr></div><div><p>Même Wi-Fi que ce Mac, puis scanne avec l’appareil photo.</p><code data-phone>…</code></div></div>
+      <p style="margin-top:14px;font-size:13.5px">Si ton Mac demande d’autoriser « node » à recevoir des connexions, clique sur Autoriser.</p>
+    </section>
+    <section class="c">
+      <h2>Pages à vérifier</h2>
+      <p>La page de remerciement (après Stripe) et les pages légales.</p>
+      <div class="row">
+        <a class="btn btn-g" href="/merci">Page de remerciement</a>
+        <a class="btn btn-g" href="/legal#cgv">CGV</a>
+      </div>
+    </section>
+    <section class="c">
+      <h2>E-mails automatiques</h2>
+      <p>Les deux e-mails envoyés après chaque paiement confirmé : la confirmation du client (FR / EN) et ta fiche de commande.</p>
+      <div class="row">
+        <a class="btn btn-g" href="/apercu/emails">Voir les e-mails</a>
+      </div>
+    </section>
+    <section class="c">
+      <h2>Mise en ligne</h2>
+      <p>Les étapes à suivre sont dans <code>PUBLIER.md</code>, les e-mails automatiques dans <code>EMAILS.md</code> et la gestion des commandes dans <code>COMMANDES.md</code>, à la racine du dossier <code>echange-ia</code>.</p>
+    </section>
+  </div>
+</div>
+<script type="module">
+  const $ = s => document.querySelector(s);
+  const j = await (await fetch('/apercu/api/info')).json();
+  $('[data-mode]').textContent = j.payment === 'test' ? 'Lien Stripe de test branché' : j.payment === 'reel' ? 'Lien Stripe RÉEL branché' : 'Lien Stripe pas encore branché';
+  if (j.qr) { $('[data-qr]').innerHTML = j.qr; $('[data-phone]').textContent = j.phone; }
+  else { $('[data-phone]').textContent = 'Wi-Fi introuvable : connecte ce Mac au même réseau que ton téléphone.'; }
+  $('[data-reset]').addEventListener('click', () => { try { localStorage.removeItem('lang'); } catch {} location.href = '/'; });
+</script>
+</body>
+</html>

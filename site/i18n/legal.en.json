@@ -98,7 +98,7 @@
       },
       {
         "h": "Recipients",
-        "html": "<p>Your data is intended for me. It is processed on my behalf by technical providers: Stripe (payment) and, where applicable, the provider of the payment method you choose (for example Klarna or Amazon Pay), Cloudflare (website hosting) and my email provider.</p><p>Some of these providers may process data outside the European Union. Such transfers are then covered by appropriate safeguards (adequacy decision or the European Commission’s standard contractual clauses).</p>"
+        "html": "<p>Your data is intended for me. It is processed on my behalf by technical providers: Stripe (payment) and, where applicable, the provider of the payment method you choose (for example Klarna or Amazon Pay), Cloudflare (website hosting), Postmark (sending the automatic order confirmation email) and my email provider.</p><p>Some of these providers may process data outside the European Union. Such transfers are then covered by appropriate safeguards (adequacy decision or the European Commission’s standard contractual clauses).</p>"
       },
       {
         "h": "Retention",

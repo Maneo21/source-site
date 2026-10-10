@@ -5,7 +5,7 @@
     "sections": [
       {
         "h": "Publisher",
-        "html": "<p>This website is published by {seller.name}, {seller.status}.</p><p>Address: {seller.address}<br>Email: {seller.email}<br>Phone: {seller.phone}<br>Registration: {seller.registration}<br>VAT: {seller.vat}</p>"
+        "html": "<p>The {brand} website is published by {seller.name}, {seller.status}.</p><p>Address: {seller.address}<br>Email: {seller.email}<br>Phone: {seller.phone}<br>Registration: {seller.registration}<br>VAT: {seller.vat}</p>"
       },
       {
         "h": "Publication director",
@@ -35,7 +35,7 @@
     "sections": [
       {
         "h": "1. Purpose",
-        "html": "<p>These terms of sale apply to the sale, on this website, of the “Personal exchange” service offered by {seller.name} (the “Seller”) to any individual acting as a consumer (the “Client”). Placing an order means accepting them.</p>"
+        "html": "<p>These terms of sale apply to the sale, on this website, of the “Accompagnement personnalisé — Création de sites avec l’IA” service (the “personal exchange”) offered under the name {brand} by {seller.name} (the “Seller”) to any individual acting as a consumer (the “Client”). Placing an order means accepting them.</p>"
       },
       {
         "h": "2. The service",
@@ -47,7 +47,7 @@
       },
       {
         "h": "4. Order and payment",
-        "html": "<p>The Client orders from the website: they review the summary of the offer, expressly ask for the service to begin (article 6), then are redirected to Stripe’s secure payment page. There, they give their email address, reply language, a short description of their project and, if they wish, their TikTok handle.</p><p>Payment is made by card or a compatible payment wallet. Card details are processed exclusively by Stripe: the Seller never has access to them.</p><p>The contract is concluded as soon as Stripe confirms the payment. The Client receives a payment receipt by email, then the Seller emails them the order confirmation before starting the service.</p>"
+        "html": "<p>The Client orders from the website: they review the summary of the offer, expressly ask for the service to begin (article 6), then are redirected to Stripe’s secure payment page. There, they give their email address, reply language, a short description of their project and, if they wish, their TikTok handle.</p><p>Payment is made using one of the methods offered on the Stripe payment page (card, Apple Pay, Klarna, Amazon Pay, etc.). Payment details are processed exclusively by Stripe and, where applicable, by the provider of the chosen payment method: the Seller never has access to them. When a payment method confirms with a delay, the order is only confirmed once the payment has actually been received.</p><p>The contract is concluded as soon as Stripe confirms the payment. The Client receives a payment receipt by email, then the Seller emails them the order confirmation before starting the service.</p>"
       },
       {
         "h": "5. Performance of the service",
@@ -97,7 +97,7 @@
       },
       {
         "h": "Recipients",
-        "html": "<p>Your data is intended for me. It is processed on my behalf by technical providers: Stripe (payment), Cloudflare (website hosting) and my email provider.</p><p>Some of these providers may process data outside the European Union. Such transfers are then covered by appropriate safeguards (adequacy decision or the European Commission’s standard contractual clauses).</p>"
+        "html": "<p>Your data is intended for me. It is processed on my behalf by technical providers: Stripe (payment) and, where applicable, the provider of the payment method you choose (for example Klarna or Amazon Pay), Cloudflare (website hosting) and my email provider.</p><p>Some of these providers may process data outside the European Union. Such transfers are then covered by appropriate safeguards (adequacy decision or the European Commission’s standard contractual clauses).</p>"
       },
       {
         "h": "Retention",

@@ -5,7 +5,7 @@
     "sections": [
       {
         "h": "Éditeur du site",
-        "html": "<p>Ce site est édité par {seller.name}, {seller.status}.</p><p>Adresse : {seller.address}<br>E-mail : {seller.email}<br>Téléphone : {seller.phone}<br>Immatriculation : {seller.registration}<br>TVA : {seller.vat}</p>"
+        "html": "<p>Le site {brand} est édité par {seller.name}, {seller.status}.</p><p>Adresse : {seller.address}<br>E-mail : {seller.email}<br>Téléphone : {seller.phone}<br>Immatriculation : {seller.registration}<br>TVA : {seller.vat}</p>"
       },
       {
         "h": "Directeur de la publication",
@@ -35,7 +35,7 @@
     "sections": [
       {
         "h": "1. Objet",
-        "html": "<p>Les présentes conditions générales de vente (CGV) s’appliquent à la vente, sur ce site, de la prestation « Échange personnalisé » proposée par {seller.name} (le « Vendeur ») à toute personne physique agissant en qualité de consommateur (le « Client »). Passer commande implique leur acceptation.</p>"
+        "html": "<p>Les présentes conditions générales de vente (CGV) s’appliquent à la vente, sur ce site, de la prestation « Accompagnement personnalisé — Création de sites avec l’IA » (ci-après l’« échange personnalisé ») proposée sous le nom {brand} par {seller.name} (le « Vendeur ») à toute personne physique agissant en qualité de consommateur (le « Client »). Passer commande implique leur acceptation.</p>"
       },
       {
         "h": "2. La prestation",
@@ -47,7 +47,7 @@
       },
       {
         "h": "4. Commande et paiement",
-        "html": "<p>Le Client passe commande depuis le site : il consulte le récapitulatif de l’offre, demande expressément le commencement de la prestation (article 6), puis est redirigé vers la page de paiement sécurisée de Stripe. Il y indique son adresse e-mail, sa langue de réponse, une courte description de son projet et, s’il le souhaite, son pseudo TikTok.</p><p>Le paiement s’effectue par carte bancaire ou par un portefeuille de paiement compatible. Les données bancaires sont traitées exclusivement par Stripe : le Vendeur n’y a jamais accès.</p><p>Le contrat est conclu dès la confirmation du paiement par Stripe. Le Client reçoit un reçu de paiement par e-mail, puis le Vendeur lui adresse par e-mail la confirmation de sa commande avant de commencer la prestation.</p>"
+        "html": "<p>Le Client passe commande depuis le site : il consulte le récapitulatif de l’offre, demande expressément le commencement de la prestation (article 6), puis est redirigé vers la page de paiement sécurisée de Stripe. Il y indique son adresse e-mail, sa langue de réponse, une courte description de son projet et, s’il le souhaite, son pseudo TikTok.</p><p>Le paiement s’effectue par l’un des moyens proposés sur la page de paiement Stripe (carte bancaire, Apple Pay, Klarna, Amazon Pay, etc.). Les données bancaires sont traitées exclusivement par Stripe et, le cas échéant, par le prestataire du moyen de paiement choisi : le Vendeur n’y a jamais accès. Lorsque la confirmation d’un moyen de paiement est différée, la commande n’est confirmée qu’à la réception effective du paiement.</p><p>Le contrat est conclu dès la confirmation du paiement par Stripe. Le Client reçoit un reçu de paiement par e-mail, puis le Vendeur lui adresse par e-mail la confirmation de sa commande avant de commencer la prestation.</p>"
       },
       {
         "h": "5. Exécution de la prestation",
@@ -97,7 +97,7 @@
       },
       {
         "h": "Destinataires",
-        "html": "<p>Tes données me sont destinées. Elles sont traitées pour mon compte par des prestataires techniques : Stripe (paiement), Cloudflare (hébergement du site) et mon fournisseur de messagerie électronique.</p><p>Certains de ces prestataires peuvent traiter des données hors de l’Union européenne. Ces transferts sont alors encadrés par des garanties appropriées (décision d’adéquation ou clauses contractuelles types de la Commission européenne).</p>"
+        "html": "<p>Tes données me sont destinées. Elles sont traitées pour mon compte par des prestataires techniques : Stripe (paiement) et, le cas échéant, le prestataire du moyen de paiement que tu choisis (par exemple Klarna ou Amazon Pay), Cloudflare (hébergement du site) et mon fournisseur de messagerie électronique.</p><p>Certains de ces prestataires peuvent traiter des données hors de l’Union européenne. Ces transferts sont alors encadrés par des garanties appropriées (décision d’adéquation ou clauses contractuelles types de la Commission européenne).</p>"
       },
       {
         "h": "Durées de conservation",

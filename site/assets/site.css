@@ -1,4 +1,4 @@
-/* source — page de vente de l'échange personnalisé
+/* AI Web Studio — page de vente de l'échange personnalisé
    Sombre, typographie forte, un seul accent (citron). Mobile d'abord. */
 
 @property --hole { syntax: '<length>'; inherits: false; initial-value: 0px; }

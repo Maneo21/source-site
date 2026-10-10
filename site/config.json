@@ -1,11 +1,11 @@
 {
-  "brand": "source",
+  "brand": "AI Web Studio",
   "creator": {
     "name": "Evan",
     "tiktok": ""
   },
   "contactEmail": "contact@maneo-ai.fr",
-  "paymentLink": "",
+  "paymentLink": "https://buy.stripe.com/28E5kEaHwfMD5z14oG9AA00",
   "offer": {
     "amount": 790,
     "currency": "EUR",

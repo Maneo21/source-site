@@ -1,0 +1,4 @@
+[
+  { "code": "fr", "name": "Français", "short": "FR", "hello": "Bonjour", "flag": "fr", "locale": "fr-FR", "stripe": "fr" },
+  { "code": "en", "name": "English", "short": "EN", "hello": "Hello", "flag": "gb", "locale": "en-GB", "stripe": "en" }
+]

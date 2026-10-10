@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="fr" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>404 · source</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#09090A">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,300..800&display=swap">
+<link rel="stylesheet" href="/assets/site.css">
+<script>document.documentElement.className='js';</script>
+<script type="module">
+  import { I } from '/assets/i18n.js';
+  try { await I.init(); await I.set(I.stored() || I.browser(), { persist: false }); } catch { /* texte français par défaut */ }
+</script>
+</head>
+<body>
+<header class="top scrolled">
+  <a class="logo" href="/" aria-label="source"><span data-brand>source</span><i class="caret"></i></a>
+</header>
+<main class="page" id="main">
+  <p class="diff-big" style="font-size:clamp(90px,30vw,220px);margin-bottom:10px"><span style="color:var(--ink);-webkit-text-stroke:0;background:none">404</span></p>
+  <h1 class="page-h1" data-i18n="notfound.title">Page introuvable.</h1>
+  <p class="page-lead" data-i18n="notfound.text">Cette page n’existe pas, ou plus.</p>
+  <a class="btn btn-p" href="/" data-i18n="notfound.cta">Retour à l’accueil</a>
+</main>
+</body>
+</html>

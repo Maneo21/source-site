@@ -1,0 +1,116 @@
+{
+  "draft": "Highlighted items must be completed before sales open.",
+  "mentions": {
+    "title": "Legal notice",
+    "sections": [
+      {
+        "h": "Publisher",
+        "html": "<p>This website is published by {seller.name}, {seller.status}.</p><p>Address: {seller.address}<br>Email: {seller.email}<br>Phone: {seller.phone}<br>Registration: {seller.registration}<br>VAT: {seller.vat}</p>"
+      },
+      {
+        "h": "Publication director",
+        "html": "<p>{seller.director}</p>"
+      },
+      {
+        "h": "Hosting",
+        "html": "<p>{seller.host}</p>"
+      },
+      {
+        "h": "Payment",
+        "html": "<p>Payments are processed by Stripe Payments Europe, Limited (Dublin, Ireland). The publisher never has access to card details.</p>"
+      },
+      {
+        "h": "Intellectual property",
+        "html": "<p>The content of this website (text, video, visuals, brand) belongs to the publisher unless stated otherwise. Any reproduction without permission is prohibited.</p>"
+      },
+      {
+        "h": "Contact",
+        "html": "<p>For any question: {seller.email}.</p>"
+      }
+    ]
+  },
+  "cgv": {
+    "title": "Terms of sale",
+    "updated": "Effective {termsDate}",
+    "sections": [
+      {
+        "h": "1. Purpose",
+        "html": "<p>These terms of sale apply to the sale, on this website, of the “Personal exchange” service offered by {seller.name} (the “Seller”) to any individual acting as a consumer (the “Client”). Placing an order means accepting them.</p>"
+      },
+      {
+        "h": "2. The service",
+        "html": "<p>The personal exchange is a short, one-to-one written coaching service, delivered by email. Based on the information provided by the Client at payment (reply language, description of their project and, where applicable, TikTok handle), the Seller personally writes a tailored answer including:</p><ul><li>explanations of the Seller’s method for building websites with artificial intelligence;</li><li>the tools the Seller uses, and those suited to the Client’s level;</li><li>advice on how to phrase requests to AI;</li><li>{prompts} example prompts tailored to the Client’s project.</li></ul><p>The Client may then ask follow-up questions by replying to the email ({followUps}) within {followUpDays} days of that answer; the Seller replies once.</p><p>The service does not include building the Client’s website, a full training course, a subscription, or support by phone or video call. The Seller has an obligation of means: no specific result is guaranteed.</p>"
+      },
+      {
+        "h": "3. Price",
+        "html": "<p>The total price of the service is {price}, payable once. {seller.vat}.</p><p>There is no subscription and no recurring payment.</p>"
+      },
+      {
+        "h": "4. Order and payment",
+        "html": "<p>The Client orders from the website: they review the summary of the offer, expressly ask for the service to begin (article 6), then are redirected to Stripe’s secure payment page. There, they give their email address, reply language, a short description of their project and, if they wish, their TikTok handle.</p><p>Payment is made by card or a compatible payment wallet. Card details are processed exclusively by Stripe: the Seller never has access to them.</p><p>The contract is concluded as soon as Stripe confirms the payment. The Client receives a payment receipt by email, then the Seller emails them the order confirmation before starting the service.</p>"
+      },
+      {
+        "h": "5. Performance of the service",
+        "html": "<p>The Seller sends their answer by email, from {seller.email}, to the email address used for payment, within {delay} of Stripe confirming the payment.</p><p>The service is only performed once Stripe has confirmed the payment. A thank-you page displayed on the website does not count as payment confirmation.</p><p>If the project description is not enough, the Seller may ask the Client for clarification; the time limit then runs from the Client’s reply.</p><p>The Client agrees to provide accurate information and to check their spam folder.</p>"
+      },
+      {
+        "id": "retractation",
+        "h": "6. Right of withdrawal",
+        "html": "<p>Under article L221-18 of the French Consumer Code, the Client has fourteen days from the conclusion of the contract to withdraw, without having to give a reason.</p><p>When ordering, the Client expressly asks for the service to begin before the end of that period (article L221-25). If the Client withdraws after the service has begun, they pay an amount proportionate to the service provided until they communicate their decision to withdraw.</p><p>Under article L221-28, 1°, the right of withdrawal can no longer be exercised once the service has been fully performed, the Client having given prior express consent to its beginning and acknowledged that they would lose their right of withdrawal once the service has been fully performed.</p><p>To exercise this right, the Client sends the Seller, before the period expires, an unambiguous statement (for example by email to {seller.email}) or the form below. The refund is made no later than fourteen days after that decision is received (article L221-24), using the same means of payment.</p><div class=\"form-box\"><p class=\"form-box-t\">Withdrawal form</p><p>To {seller.name}, {seller.address}, {seller.email}:</p><p>I hereby give notice that I withdraw from my contract for the provision of the following service:</p><p>Ordered on: …<br>Name of consumer: …<br>Address of consumer: …<br>Signature of consumer (only if this form is notified on paper): …<br>Date: …</p></div>"
+      },
+      {
+        "h": "7. Liability",
+        "html": "<p>Advice and examples are provided as guidance. The Client remains solely responsible for how they use them, and for choosing and using third-party tools and services (terms, availability, pricing), over which the Seller has no control.</p>"
+      },
+      {
+        "h": "8. Intellectual property",
+        "html": "<p>The content delivered to the Client (answer, prompts, explanations) is intended for their personal use and their own projects. Reselling it or publishing it as is requires the Seller’s permission.</p>"
+      },
+      {
+        "h": "9. Personal data",
+        "html": "<p>The Client’s data is processed in accordance with the <a href=\"#confidentialite\">privacy policy</a>.</p>"
+      },
+      {
+        "h": "10. Complaints and mediation",
+        "html": "<p>For any complaint, the Client first contacts the Seller at {seller.email}.</p><p>If a dispute remains unresolved, the Client may refer it free of charge to the following consumer mediator: {seller.mediator}.</p>"
+      },
+      {
+        "h": "11. Governing law and language",
+        "html": "<p>These terms are governed by French law. This choice does not deprive a Client living in another country of the protection granted by the mandatory provisions of that country’s law.</p><p>These terms are available in French and English. In case of discrepancy, the French version prevails.</p>"
+      }
+    ]
+  },
+  "confidentialite": {
+    "title": "Privacy policy",
+    "sections": [
+      {
+        "h": "Data controller",
+        "html": "<p>{seller.name}, {seller.address}. Contact: {seller.email}.</p>"
+      },
+      {
+        "h": "Data collected",
+        "html": "<ul><li><strong>At payment</strong>, on Stripe’s secure page: email address, name, country and payment information, along with your reply language, your project description and, if you wish, your TikTok handle. I never have access to card numbers.</li><li><strong>Our email exchanges</strong>: the content of our messages.</li><li><strong>Technical data</strong>: connection logs kept by the host for the website’s security.</li></ul>"
+      },
+      {
+        "h": "Purposes and legal bases",
+        "html": "<ul><li>Providing the personal exchange and contacting you about it: performance of the contract (article 6.1.b GDPR).</li><li>Handling payments, accounting and legal obligations: legal obligation (article 6.1.c).</li><li>Keeping the website secure: legitimate interest (article 6.1.f).</li></ul><p>Your data is never sold or used for advertising.</p>"
+      },
+      {
+        "h": "Recipients",
+        "html": "<p>Your data is intended for me. It is processed on my behalf by technical providers: Stripe (payment), Cloudflare (website hosting) and my email provider.</p><p>Some of these providers may process data outside the European Union. Such transfers are then covered by appropriate safeguards (adequacy decision or the European Commission’s standard contractual clauses).</p>"
+      },
+      {
+        "h": "Retention",
+        "html": "<ul><li>Exchange data (form, emails): for the duration of the exchange, then {seller.retention} at most.</li><li>Accounting records: 10 years, as required by article L123-22 of the French Commercial Code.</li></ul>"
+      },
+      {
+        "h": "Your rights",
+        "html": "<p>You have the right to access, rectify, erase, restrict, object to and port your data. To exercise these rights, email {seller.email}.</p><p>You can also lodge a complaint with the CNIL, the French data protection authority (cnil.fr).</p>"
+      },
+      {
+        "h": "Cookies and local storage",
+        "html": "<p>This website uses no advertising cookies and no audience measurement tools. It only stores, in your browser, the language you chose.</p><p>The website’s font is loaded from Google Fonts: your browser therefore sends your IP address to Google.</p><p>On its payment page, Stripe may set its own cookies, which are needed to secure the payment.</p>"
+      }
+    ]
+  }
+}

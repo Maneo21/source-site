@@ -1,0 +1,12 @@
+# Cloudflare Pages : en-têtes de sécurité et cache
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  X-Frame-Options: DENY
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=()
+
+/assets/media/*
+  Cache-Control: public, max-age=604800
+
+/merci*
+  Cache-Control: no-store

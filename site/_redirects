@@ -1,0 +1,4 @@
+# Cloudflare Pages : /fr et /en affichent la page d'accueil dans la bonne langue
+/fr  /  200
+/en  /  200
+/favicon.ico  /assets/favicon.svg  301

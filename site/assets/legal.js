@@ -1,0 +1,42 @@
+// Mentions légales, CGV et confidentialité, dans la langue choisie (/i18n/legal.<code>.json).
+import { I, esc, json, langSwitch, syncSwitch, swapLang } from './i18n.js';
+
+const $ = (s, r = document) => r.querySelector(s);
+const DOCS = ['mentions', 'cgv', 'confidentialite'];
+let legal = null;
+
+function where() {
+  const h = decodeURIComponent(location.hash.slice(1));
+  if (DOCS.includes(h)) return { doc: h };
+  if (h === 'retractation') return { doc: 'cgv', anchor: 'retractation' };
+  return { doc: 'mentions' };
+}
+
+function render(scroll = true) {
+  const { doc, anchor } = where(), d = legal[doc];
+  $('[data-doc-body]').innerHTML =
+    `<h1>${esc(d.title)}</h1>` + (d.updated ? `<p class="updated">${I.fmt(d.updated, {}, true)}</p>` : '') +
+    d.sections.map(s => `<h2${s.id ? ` id="${s.id}"` : ''}>${esc(s.h)}</h2>${I.fmt(s.html, {}, true)}`).join('');
+  for (const a of document.querySelectorAll('[data-doc]')) {
+    if (a.dataset.doc === doc) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current');
+  }
+  const draft = $('[data-draft]');
+  draft.hidden = !$('[data-doc-body] mark.todo');
+  draft.textContent = legal.draft;
+  document.title = `${d.title} · ${I.config.brand}`;
+  syncSwitch($('[data-langswitch]'));
+  if (anchor) requestAnimationFrame(() => document.getElementById(anchor)?.scrollIntoView({ block: 'start' }));
+  else if (scroll) scrollTo(0, 0);
+}
+
+async function load() { legal = await json(`/i18n/legal.${I.lang}.json`); }
+
+async function boot() {
+  await I.init();
+  await I.set(I.urlLang() || I.stored() || I.browser(), { persist: false });
+  await load();
+  langSwitch($('[data-langswitch]'), code => swapLang(code, async () => { await load(); render(false); }));
+  addEventListener('hashchange', () => render());
+  render(false);
+}
+boot();

@@ -1,0 +1,116 @@
+{
+  "draft": "Les éléments surlignés sont à compléter avant la mise en vente.",
+  "mentions": {
+    "title": "Mentions légales",
+    "sections": [
+      {
+        "h": "Éditeur du site",
+        "html": "<p>Ce site est édité par {seller.name}, {seller.status}.</p><p>Adresse : {seller.address}<br>E-mail : {seller.email}<br>Téléphone : {seller.phone}<br>Immatriculation : {seller.registration}<br>TVA : {seller.vat}</p>"
+      },
+      {
+        "h": "Directeur de la publication",
+        "html": "<p>{seller.director}</p>"
+      },
+      {
+        "h": "Hébergement",
+        "html": "<p>{seller.host}</p>"
+      },
+      {
+        "h": "Paiement",
+        "html": "<p>Les paiements sont traités par Stripe Payments Europe, Limited (Dublin, Irlande). L’éditeur n’a jamais accès aux données de carte bancaire.</p>"
+      },
+      {
+        "h": "Propriété intellectuelle",
+        "html": "<p>Les contenus de ce site (textes, vidéo, visuels, marque) appartiennent à l’éditeur, sauf mention contraire. Toute reproduction sans autorisation est interdite.</p>"
+      },
+      {
+        "h": "Contact",
+        "html": "<p>Pour toute question : {seller.email}.</p>"
+      }
+    ]
+  },
+  "cgv": {
+    "title": "Conditions générales de vente",
+    "updated": "En vigueur au {termsDate}",
+    "sections": [
+      {
+        "h": "1. Objet",
+        "html": "<p>Les présentes conditions générales de vente (CGV) s’appliquent à la vente, sur ce site, de la prestation « Échange personnalisé » proposée par {seller.name} (le « Vendeur ») à toute personne physique agissant en qualité de consommateur (le « Client »). Passer commande implique leur acceptation.</p>"
+      },
+      {
+        "h": "2. La prestation",
+        "html": "<p>L’échange personnalisé est un mini-accompagnement individuel, réalisé par écrit, par e-mail. À partir des informations transmises par le Client lors du paiement (langue de réponse, description de son projet et, le cas échéant, pseudo TikTok), le Vendeur rédige lui-même une réponse personnalisée comprenant :</p><ul><li>des explications sur sa méthode de création de sites web avec l’intelligence artificielle ;</li><li>les outils qu’il utilise, et ceux adaptés au niveau du Client ;</li><li>des conseils pour formuler ses demandes à l’IA ;</li><li>{prompts} exemples de prompts adaptés au projet du Client.</li></ul><p>Le Client peut ensuite poser ses questions de suivi par retour d’e-mail ({followUps}) dans les {followUpDays} jours qui suivent cette réponse ; le Vendeur y répond une fois.</p><p>La prestation ne comprend ni la création du site du Client, ni une formation complète, ni un abonnement, ni un accompagnement par téléphone ou en visioconférence. Le Vendeur est tenu d’une obligation de moyens : aucun résultat particulier n’est garanti.</p>"
+      },
+      {
+        "h": "3. Prix",
+        "html": "<p>Le prix total de la prestation est de {price}, payable en une seule fois. {seller.vat}.</p><p>Aucun abonnement ni paiement récurrent n’est mis en place.</p>"
+      },
+      {
+        "h": "4. Commande et paiement",
+        "html": "<p>Le Client passe commande depuis le site : il consulte le récapitulatif de l’offre, demande expressément le commencement de la prestation (article 6), puis est redirigé vers la page de paiement sécurisée de Stripe. Il y indique son adresse e-mail, sa langue de réponse, une courte description de son projet et, s’il le souhaite, son pseudo TikTok.</p><p>Le paiement s’effectue par carte bancaire ou par un portefeuille de paiement compatible. Les données bancaires sont traitées exclusivement par Stripe : le Vendeur n’y a jamais accès.</p><p>Le contrat est conclu dès la confirmation du paiement par Stripe. Le Client reçoit un reçu de paiement par e-mail, puis le Vendeur lui adresse par e-mail la confirmation de sa commande avant de commencer la prestation.</p>"
+      },
+      {
+        "h": "5. Exécution de la prestation",
+        "html": "<p>Le Vendeur adresse sa réponse par e-mail, depuis l’adresse {seller.email}, à l’adresse e-mail utilisée lors du paiement, en {delay} à compter de la confirmation du paiement par Stripe.</p><p>La prestation n’est exécutée qu’après la confirmation du paiement par Stripe. L’affichage d’une page de remerciement sur le site ne vaut pas confirmation du paiement.</p><p>Si la description du projet ne suffit pas, le Vendeur peut demander une précision au Client ; le délai court alors à compter de la réponse du Client.</p><p>Le Client s’engage à fournir des informations exactes et à consulter ses courriers indésirables.</p>"
+      },
+      {
+        "id": "retractation",
+        "h": "6. Droit de rétractation",
+        "html": "<p>Conformément à l’article L221-18 du Code de la consommation, le Client dispose d’un délai de quatorze jours à compter de la conclusion du contrat pour exercer son droit de rétractation, sans avoir à motiver sa décision.</p><p>Lors de sa commande, le Client demande expressément que l’exécution de la prestation commence avant la fin de ce délai (article L221-25). S’il exerce son droit de rétractation après ce commencement, il verse un montant proportionnel au service fourni jusqu’à la communication de sa décision de se rétracter.</p><p>Conformément à l’article L221-28, 1°, le droit de rétractation ne peut plus être exercé une fois la prestation pleinement exécutée, le Client ayant donné son accord préalable et exprès à ce commencement et reconnu qu’il perdrait son droit de rétractation une fois la prestation pleinement exécutée.</p><p>Pour exercer ce droit, le Client adresse au Vendeur, avant l’expiration du délai, une déclaration dénuée d’ambiguïté (par exemple par e-mail à {seller.email}) ou le formulaire ci-dessous. Le remboursement intervient au plus tard quatorze jours après la réception de cette décision (article L221-24), par le même moyen de paiement.</p><div class=\"form-box\"><p class=\"form-box-t\">Formulaire de rétractation</p><p>À l’attention de {seller.name}, {seller.address}, {seller.email} :</p><p>Je vous notifie par la présente ma rétractation du contrat portant sur la prestation de services ci-dessous :</p><p>Commandé le : …<br>Nom du consommateur : …<br>Adresse du consommateur : …<br>Signature du consommateur (uniquement en cas de notification du présent formulaire sur papier) : …<br>Date : …</p></div>"
+      },
+      {
+        "h": "7. Responsabilité",
+        "html": "<p>Les conseils et exemples fournis le sont à titre d’accompagnement. Le Client reste seul responsable de l’usage qu’il en fait, ainsi que du choix et de l’utilisation des outils et services tiers (conditions, disponibilité, tarifs), sur lesquels le Vendeur n’a aucun contrôle.</p>"
+      },
+      {
+        "h": "8. Propriété intellectuelle",
+        "html": "<p>Les contenus remis au Client (réponse, prompts, explications) sont destinés à son usage personnel et à ses propres projets. Leur revente ou leur diffusion publique en l’état n’est pas autorisée sans l’accord du Vendeur.</p>"
+      },
+      {
+        "h": "9. Données personnelles",
+        "html": "<p>Les données du Client sont traitées conformément à la <a href=\"#confidentialite\">politique de confidentialité</a>.</p>"
+      },
+      {
+        "h": "10. Réclamations et médiation",
+        "html": "<p>Pour toute réclamation, le Client contacte d’abord le Vendeur à {seller.email}.</p><p>En cas de litige non résolu, le Client peut recourir gratuitement au médiateur de la consommation suivant : {seller.mediator}.</p>"
+      },
+      {
+        "h": "11. Droit applicable et langue",
+        "html": "<p>Les présentes CGV sont soumises au droit français. Ce choix ne prive pas le Client qui réside dans un autre pays de la protection que lui assurent les dispositions impératives de la loi de ce pays.</p><p>Les CGV sont proposées en français et en anglais. En cas de divergence, la version française prévaut.</p>"
+      }
+    ]
+  },
+  "confidentialite": {
+    "title": "Politique de confidentialité",
+    "sections": [
+      {
+        "h": "Responsable du traitement",
+        "html": "<p>{seller.name}, {seller.address}. Contact : {seller.email}.</p>"
+      },
+      {
+        "h": "Données collectées",
+        "html": "<ul><li><strong>Lors du paiement</strong>, sur la page sécurisée de Stripe : adresse e-mail, nom, pays et informations de paiement, ainsi que ta langue de réponse, la description de ton projet et, si tu le souhaites, ton pseudo TikTok. Je n’ai jamais accès aux numéros de carte.</li><li><strong>Nos échanges par e-mail</strong> : le contenu de nos messages.</li><li><strong>Données techniques</strong> : journaux de connexion conservés par l’hébergeur pour la sécurité du site.</li></ul>"
+      },
+      {
+        "h": "Finalités et bases légales",
+        "html": "<ul><li>Réaliser l’échange personnalisé et te contacter à ce sujet : exécution du contrat (article 6.1.b du RGPD).</li><li>Gérer les paiements, la comptabilité et les obligations légales : obligation légale (article 6.1.c).</li><li>Assurer la sécurité du site : intérêt légitime (article 6.1.f).</li></ul><p>Tes données ne sont ni vendues, ni utilisées à des fins publicitaires.</p>"
+      },
+      {
+        "h": "Destinataires",
+        "html": "<p>Tes données me sont destinées. Elles sont traitées pour mon compte par des prestataires techniques : Stripe (paiement), Cloudflare (hébergement du site) et mon fournisseur de messagerie électronique.</p><p>Certains de ces prestataires peuvent traiter des données hors de l’Union européenne. Ces transferts sont alors encadrés par des garanties appropriées (décision d’adéquation ou clauses contractuelles types de la Commission européenne).</p>"
+      },
+      {
+        "h": "Durées de conservation",
+        "html": "<ul><li>Données de l’échange (formulaire, e-mails) : le temps de l’échange, puis {seller.retention} au maximum.</li><li>Pièces comptables : 10 ans, comme l’exige l’article L123-22 du Code de commerce.</li></ul>"
+      },
+      {
+        "h": "Tes droits",
+        "html": "<p>Tu disposes d’un droit d’accès, de rectification, d’effacement, de limitation, d’opposition et de portabilité de tes données. Pour les exercer, écris à {seller.email}.</p><p>Tu peux aussi adresser une réclamation à la CNIL (cnil.fr).</p>"
+      },
+      {
+        "h": "Cookies et stockage local",
+        "html": "<p>Ce site n’utilise ni cookie publicitaire, ni outil de mesure d’audience. Il enregistre seulement dans ton navigateur la langue que tu as choisie.</p><p>La police de caractères du site est chargée depuis Google Fonts : ton navigateur transmet alors ton adresse IP à Google.</p><p>Sur sa page de paiement, Stripe peut déposer ses propres cookies, nécessaires à la sécurité du paiement.</p>"
+      }
+    ]
+  }
+}

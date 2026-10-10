@@ -1,0 +1,266 @@
+{
+  "meta": {
+    "title": "Tu veux créer un site comme ça ? · Échange personnalisé · {price}",
+    "description": "Je t’explique ma méthode pour créer des sites premium avec l’IA : les outils, la façon de demander, des prompts adaptés à ton projet. Un vrai échange avec moi, {price}, paiement unique.",
+    "legalTitle": "Informations légales · {brand}",
+    "merciTitle": "Merci · {brand}"
+  },
+  "units": {
+    "delay": "moins de {n} h",
+    "followUps": "{n} relance|{n} relances",
+    "followUpsIncluded": "{n} relance incluse|{n} relances incluses"
+  },
+  "common": {
+    "skip": "Aller au contenu",
+    "langLabel": "Langue",
+    "close": "Fermer",
+    "home": "Accueil",
+    "optional": "facultatif"
+  },
+  "nav": {
+    "book": "Réserver"
+  },
+  "hero": {
+    "badge": "Vu sur TikTok",
+    "title": "Tu veux créer un site <span class=\"nw\"><span class=\"hl\">comme ça</span> ?</span>",
+    "sub": "Je t’explique ma méthode, les outils que j’utilise et comment parler à l’IA. Personnellement, pour ton projet.",
+    "cta": "Réserver mon échange",
+    "watch": "Voir la vidéo",
+    "facts": [
+      "Paiement unique",
+      "Sans abonnement",
+      "Réponse en {delay}"
+    ]
+  },
+  "video": {
+    "label": "Ma vidéo TikTok : un site animé créé avec l’IA",
+    "play": "Regarder avec le son",
+    "chips": [
+      "Scroll cinématique",
+      "3D en temps réel",
+      "Motion design",
+      "Fait avec l’IA"
+    ],
+    "player": "Lecteur vidéo",
+    "pause": "Pause",
+    "resume": "Lecture",
+    "mute": "Couper le son",
+    "unmute": "Activer le son",
+    "seek": "Position dans la vidéo",
+    "replay": "Revoir",
+    "endTitle": "Tu veux apprendre à faire ça ?",
+    "endSub": "Je t’explique comment, pour ton projet."
+  },
+  "marquee": [
+    "Motion design",
+    "Animations au scroll",
+    "3D",
+    "Typographie",
+    "Mise en page",
+    "Prompts",
+    "Méthode",
+    "Outils IA"
+  ],
+  "diff": {
+    "kicker": "En commentaire, on me demande",
+    "big": "« Prompt ? »",
+    "title": "Un prompt seul ne suffit pas.",
+    "text": "Le même prompt, copié-collé, ne donnera pas le même site. Ce qui compte, c’est la méthode. Et ton projet.",
+    "pack": {
+      "title": "Un pack de prompts",
+      "items": [
+        "Le même pour tout le monde",
+        "Tu copies, tu colles… et tu bloques",
+        "Personne pour te répondre"
+      ]
+    },
+    "me": {
+      "title": "Cet échange avec moi",
+      "items": [
+        "Pensé pour ton projet",
+        "Ma méthode, expliquée simplement",
+        "Tes questions, mes réponses"
+      ]
+    }
+  },
+  "learn": {
+    "kicker": "Ce que tu vas apprendre",
+    "title": "Ce qu’il y a derrière ces sites.",
+    "items": [
+      {
+        "t": "Ma méthode",
+        "d": "Comment je passe d’une idée à un site animé, étape par étape."
+      },
+      {
+        "t": "Mes outils",
+        "d": "Ceux que j’utilise vraiment, et par lesquels commencer selon ton niveau."
+      },
+      {
+        "t": "Parler à l’IA",
+        "d": "Formuler, corriger, recommencer : la façon de demander qui change tout."
+      },
+      {
+        "t": "Tes prompts",
+        "d": "Des exemples concrets, écrits pour ton projet à toi."
+      }
+    ]
+  },
+  "get": {
+    "kicker": "Ce que tu reçois",
+    "title": "Une vraie réponse, rien que pour toi.",
+    "ticket": "Échange personnalisé",
+    "items": [
+      "Ma réponse écrite pour ton projet, par e-mail",
+      "La méthode et les outils adaptés à ton niveau",
+      "{prompts} exemples de prompts pour ton site",
+      "{followUpsIncluded} pour tes questions, sous {followUpDays} jours"
+    ],
+    "delay": "Réponse en {delay} après ton paiement",
+    "once": "Paiement unique · sans abonnement",
+    "exLabel": "Exemple illustratif",
+    "exProjectKey": "Projet",
+    "exProject": "portfolio d’une photographe, ambiance cinéma",
+    "exPrompt": "« Crée une page d’accueil plein écran sur fond noir profond. Le nom apparaît lettre par lettre, puis la première photo s’ouvre en fondu au défilement, comme le générique d’un film… »",
+    "exNote": "Dans ta réponse : des prompts comme celui-ci, pensés pour ton projet, avec l’explication de chaque choix."
+  },
+  "how": {
+    "kicker": "Comment ça se passe",
+    "title": "Quatre étapes. Aucune surprise.",
+    "steps": [
+      {
+        "t": "Tu réserves",
+        "d": "Paiement unique, sécurisé par Stripe. Aucun abonnement."
+      },
+      {
+        "t": "Tu me décris ton projet",
+        "d": "Directement sur la page de paiement : ton projet en une phrase, ta langue, et ton pseudo TikTok si tu veux."
+      },
+      {
+        "t": "Je te réponds, personnellement",
+        "d": "Dans les heures qui suivent, toujours en {delay}, par e-mail : la méthode, les outils et tes prompts."
+      },
+      {
+        "t": "Tu poses tes questions",
+        "d": "{followUpsIncluded} pour aller plus loin, sous {followUpDays} jours."
+      }
+    ]
+  },
+  "human": {
+    "kicker": "Pas de bot",
+    "quote": "C’est moi qui lis ton projet. Et c’est moi qui te réponds.",
+    "sign": "{creator} · créateur de la vidéo",
+    "tiktok": "Me suivre sur TikTok",
+    "notTitle": "Ce que ce n’est pas",
+    "not": [
+      "Je ne crée pas ton site à ta place",
+      "Ce n’est pas une formation de 10 heures",
+      "Pas d’abonnement"
+    ]
+  },
+  "price": {
+    "kicker": "Le prix",
+    "note": "Paiement unique. Sans abonnement.",
+    "cta": "Réserver mon échange",
+    "secure": "Paiement sécurisé par Stripe",
+    "delay": "Réponse en {delay}"
+  },
+  "faq": {
+    "title": "Questions fréquentes",
+    "items": [
+      {
+        "q": "Tu crées mon site à ma place ?",
+        "a": "Non. Je t’explique comment le créer toi-même avec l’IA : la méthode, les outils et des prompts adaptés. Tu restes aux commandes."
+      },
+      {
+        "q": "Je débute complètement. C’est pour moi ?",
+        "a": "Oui. Dis-le dans la description de ton projet : j’adapte mes explications à ton niveau."
+      },
+      {
+        "q": "Comment se passe l’échange ?",
+        "a": "Sur la page de paiement, tu décris ton projet en une phrase. Je te réponds personnellement par e-mail en {delay}, puis tu as {followUpsIncluded} pour tes questions."
+      },
+      {
+        "q": "Faut-il payer des outils ?",
+        "a": "Certains outils sont gratuits, d’autres payants. Je t’indique ceux que j’utilise et par où commencer selon ton budget."
+      },
+      {
+        "q": "Pourquoi un prix aussi bas ?",
+        "a": "Parce que c’est un échange ciblé, pas une formation. Juste ce qu’il faut pour lancer ton projet."
+      },
+      {
+        "q": "Et si je change d’avis ?",
+        "a": "Tu disposes d’un droit de rétractation de 14 jours, dans les conditions prévues par les <a href=\"/legal#retractation\">CGV</a>. En commandant, tu demandes que l’échange commence tout de suite, et tu perds ce droit une fois ma réponse entièrement envoyée."
+      },
+      {
+        "q": "Mon paiement est-il sécurisé ?",
+        "a": "Oui. Il est géré par Stripe. Je n’ai jamais accès à tes données bancaires."
+      }
+    ]
+  },
+  "footer": {
+    "tagline": "Un échange personnel avec le créateur de la vidéo.",
+    "mentions": "Mentions légales",
+    "cgv": "CGV",
+    "privacy": "Confidentialité",
+    "contact": "Contact",
+    "rights": "© {year} {brand}",
+    "stripe": "Paiement sécurisé par Stripe"
+  },
+  "sticky": {
+    "cta": "Réserver mon échange"
+  },
+  "sheet": {
+    "kicker": "Récapitulatif",
+    "title": "Ton échange personnalisé",
+    "total": "Total",
+    "once": "Paiement unique · sans abonnement",
+    "consent": "Je demande que l’échange commence dès mon paiement et je reconnais perdre mon droit de rétractation une fois la prestation entièrement exécutée.",
+    "legal": "En continuant, tu acceptes les <a href=\"/legal#cgv\">CGV</a> et la <a href=\"/legal#confidentialite\">politique de confidentialité</a>.",
+    "pay": "Continuer vers le paiement",
+    "redirect": "Tu vas être redirigé vers Stripe pour payer en toute sécurité. Tu y indiqueras ta langue, ton projet et, si tu veux, ton pseudo TikTok.",
+    "consentRequired": "Coche la case pour continuer.",
+    "error": "Le paiement n’a pas pu démarrer. Réessaie dans un instant.",
+    "unavailable": "Le paiement n’est pas encore ouvert. Reviens très vite.",
+    "test": "Mode test Stripe : aucun paiement réel"
+  },
+  "merci": {
+    "kicker": "Commande envoyée",
+    "title": "Merci !",
+    "lead": "Voici exactement comment se passe notre échange.",
+    "steps": [
+      {
+        "t": "Ton reçu Stripe",
+        "d": "Stripe t’envoie un reçu par e-mail : c’est lui qui confirme ton paiement. Je commence dès que ton paiement est validé chez Stripe."
+      },
+      {
+        "t": "Je lis ton projet",
+        "d": "À partir de ce que tu as écrit sur la page de paiement : ta langue, ton projet et ton pseudo TikTok."
+      },
+      {
+        "t": "Ma réponse, en {delay}",
+        "d": "Dans les heures qui suivent, je t’écris personnellement depuis {contact}, à l’adresse e-mail utilisée pour le paiement : la méthode, les outils adaptés à ton niveau et {prompts} exemples de prompts pour ton projet."
+      },
+      {
+        "t": "Tes questions",
+        "d": "Réponds simplement à mon e-mail : {followUpsIncluded} pour tes questions, sous {followUpDays} jours."
+      }
+    ],
+    "tip": "Ajoute {contact} à tes contacts pour être sûr de recevoir ma réponse.",
+    "help": "Rien reçu après 24 h ? Regarde dans tes spams et l’onglet Promotions, puis écris-moi à {contact}.",
+    "notPaid": "Tu as quitté la page de paiement sans payer ? Aucun montant n’a été débité.",
+    "back": "Retour au site"
+  },
+  "legal": {
+    "back": "Retour",
+    "tabs": {
+      "mentions": "Mentions légales",
+      "cgv": "CGV",
+      "confidentialite": "Confidentialité"
+    }
+  },
+  "notfound": {
+    "title": "Page introuvable.",
+    "text": "Cette page n’existe pas, ou plus.",
+    "cta": "Retour à l’accueil"
+  }
+}

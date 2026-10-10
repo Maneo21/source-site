@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="fr" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Merci · source</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#09090A">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,300..800&display=swap">
+<link rel="stylesheet" href="/assets/site.css">
+<script>document.documentElement.className='js';try{var l=localStorage.getItem('lang');if(l)document.documentElement.lang=l}catch(e){}</script>
+<script type="module" src="/assets/merci.js"></script>
+</head>
+<body>
+<header class="top scrolled" data-top>
+  <a class="logo" href="/" aria-label="source"><span data-brand>source</span><i class="caret"></i></a>
+  <div class="top-r"><div class="lang-switch" role="group" data-langswitch data-i18n-attr="aria-label:common.langLabel"></div></div>
+</header>
+
+<main class="page" id="main">
+  <svg class="okmark" viewBox="0 0 80 80" aria-hidden="true"><circle cx="40" cy="40" r="36"/><path d="M25 41l10 10 21-22"/></svg>
+  <p class="kick" data-i18n="merci.kicker">Commande envoyée</p>
+  <h1 class="page-h1" data-i18n="merci.title">Merci !</h1>
+  <p class="page-lead" data-i18n="merci.lead">Voici exactement comment se passe notre échange.</p>
+  <div class="steps merci-steps" style="--p:1">
+    <span class="st-line" aria-hidden="true"><i></i></span>
+    <ol class="st-list">
+        <li class="step on"><span class="st-n">1</span><div><h3 data-i18n="merci.steps.0.t"></h3><p data-i18n="merci.steps.0.d"></p></div></li>
+        <li class="step on"><span class="st-n">2</span><div><h3 data-i18n="merci.steps.1.t"></h3><p data-i18n="merci.steps.1.d"></p></div></li>
+        <li class="step on"><span class="st-n">3</span><div><h3 data-i18n="merci.steps.2.t"></h3><p data-i18n="merci.steps.2.d"></p></div></li>
+        <li class="step on"><span class="st-n">4</span><div><h3 data-i18n="merci.steps.3.t"></h3><p data-i18n="merci.steps.3.d"></p></div></li>
+    </ol>
+  </div>
+  <div class="merci-note">
+    <p data-i18n="merci.tip"></p>
+    <p data-i18n="merci.help"></p>
+    <p class="muted" data-i18n="merci.notPaid"></p>
+  </div>
+  <a class="btn btn-g" href="/" data-i18n="merci.back">Retour au site</a>
+</main>
+</body>
+</html>

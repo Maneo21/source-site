@@ -332,5 +332,13 @@
         ]
       }
     ]
+  },
+  "tt": {
+    "kicker": "Tu arrives de TikTok",
+    "title": "Ouvre le site dans ton navigateur.",
+    "text": "Pour une meilleure immersion dans le site.",
+    "step1": "Touche <b class=\"tt-kbd\">•••</b> en haut à droite",
+    "step2": "Choisis <b>« Ouvrir dans le navigateur »</b>",
+    "stay": "Rester ici"
   }
 }

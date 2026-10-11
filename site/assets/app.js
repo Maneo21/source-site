@@ -274,19 +274,55 @@ function welcome() {
     done = true; clearInterval(cycle);
     btn?.classList.add('is-picked');
     if (code !== I.lang) { await I.set(code); pageText(); } else I.remember(code);
-    const r = (btn || box).getBoundingClientRect();
-    w.style.setProperty('--x', `${r.left + r.width / 2}px`);
-    w.style.setProperty('--y', `${r.top + r.height / 2}px`);
     await wait(RM ? 0 : 170);
-    w.classList.add('out');
-    start();
-    setTimeout(() => { root.classList.remove('is-welcome'); w.hidden = true; }, RM ? 0 : 1150);
+    // depuis TikTok, l'invitation à changer de navigateur s'affiche dans la langue choisie, avant le site
+    reveal(w, fromTikTok() ? await ttHint() : btn || box);
   };
   // Le choix peut avoir été fait avant le chargement de ce script (bouton déjà actif dans la page).
   window.__onPick = () => { const p = window.__pick; if (p) choose(p.code, p.el); };
   if (window.__pick) window.__onPick();
   box.addEventListener('click', e => { const b = e.target.closest('[data-code]'); if (b) choose(b.dataset.code, b); });
   document.addEventListener('keydown', e => { if (e.key === 'Escape' && !done) { const b = $('.is-sug', box); choose(b.dataset.code, b); } });
+}
+
+// L'écran d'accueil s'ouvre en cercle depuis le bouton touché, et le site démarre.
+function reveal(w, from) {
+  const r = from.getBoundingClientRect();
+  w.style.setProperty('--x', `${r.left + r.width / 2}px`);
+  w.style.setProperty('--y', `${r.top + r.height / 2}px`);
+  w.classList.add('out');
+  start();
+  setTimeout(() => { root.classList.remove('is-welcome', 'is-tt'); w.hidden = true; }, RM ? 0 : 1150);
+}
+
+/* ---------- arrivée depuis le navigateur intégré de TikTok ---------- */
+// La page le repère avant tout affichage (classe « is-tt », posée dans index.html) et propose
+// d'ouvrir le site dans le vrai navigateur. « Rester ici » continue normalement ; le choix est gardé 24 h.
+const fromTikTok = () => root.classList.contains('is-tt');
+function ttHint() {
+  return new Promise(resolve => {
+    const w = $('#welcome'), stay = $('[data-tt-stay]', w);
+    for (const el of [$('main'), $('[data-top]'), $('.foot')]) el.inert = true;
+    // L'adresse porte la langue : ouverte dans le navigateur, la page arrive directement sur le site.
+    try {
+      const u = new URL(location.href);
+      u.searchParams.set('lang', I.lang);
+      u.searchParams.delete('tiktok');
+      history.replaceState(history.state, '', u);
+    } catch { /* adresse inchangée */ }
+    w.hidden = false;
+    w.setAttribute('aria-labelledby', 'tt-title');
+    w.classList.add('show-tt');
+    const go = () => {
+      if (!stay.isConnected || w.classList.contains('out')) return;
+      try { localStorage.setItem('tt', String(Date.now())); } catch { /* navigation privée */ }
+      document.removeEventListener('keydown', onKey);
+      resolve(stay);
+    };
+    const onKey = e => { if (e.key === 'Escape') go(); };
+    stay.addEventListener('click', go, { once: true });
+    document.addEventListener('keydown', onKey);
+  });
 }
 
 function start() {
@@ -599,7 +635,7 @@ function frame() {
 /* ---------- barre de réservation (téléphone) ---------- */
 const seen = new Set();
 function updSticky() {
-  els.sticky?.classList.toggle('on', started && seen.size === 0 && overlays === 0 && !root.classList.contains('is-welcome'));
+  els.sticky?.classList.toggle('on', started && seen.size === 0 && overlays === 0 && !root.classList.contains('is-welcome') && !root.classList.contains('is-tt'));
 }
 
 // « soft » : le calque couvre l'écran et absorbe lui-même les gestes (touch-action: none), sans modifier la page.
@@ -910,7 +946,7 @@ async function boot() {
   try {
     await I.init();
   } catch {
-    root.classList.remove('is-welcome');
+    root.classList.remove('is-welcome', 'is-tt');
     $$('[data-h], [data-r], [data-split]').forEach(el => el.classList.add('in'));
     return;
   }
@@ -919,6 +955,8 @@ async function boot() {
   wire();
   langSwitch($('[data-langswitch]'), code => swapLang(code, () => { pageText(); replayVisible(); kick(); }));
   pageText();
-  if (known) { root.classList.remove('is-welcome'); start(); } else welcome();
+  if (!known) welcome();
+  else if (fromTikTok()) reveal($('#welcome'), await ttHint());
+  else { root.classList.remove('is-welcome'); start(); }
 }
 boot();

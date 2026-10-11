@@ -332,5 +332,13 @@
         ]
       }
     ]
+  },
+  "tt": {
+    "kicker": "Coming from TikTok",
+    "title": "Open the site in your browser.",
+    "text": "For a more immersive experience.",
+    "step1": "Tap <b class=\"tt-kbd\">•••</b> at the top right",
+    "step2": "Choose <b>“Open in browser”</b>",
+    "stay": "Stay here"
   }
 }

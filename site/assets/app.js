@@ -26,28 +26,91 @@ const els = {};
 let started = false, overlays = 0;
 let lastKind = null, kindTouched = false;
 
-/* ---------- appui volontaire ou geste de défilement ? ---------- */
-// Une vidéo ne s'ouvre que sur un vrai appui : page immobile, doigt qui n'a pas glissé.
-const press = { x: 0, y: 0, sy: 0, moving: false, cancelled: false, type: '', up: -1e9 };
-let lastScroll = -1e9;
-function watchPress() {
-  addEventListener('scroll', () => { lastScroll = performance.now(); }, { passive: true });
-  document.addEventListener('pointerdown', e => {
-    press.x = e.clientX; press.y = e.clientY; press.sy = scrollY; press.type = e.pointerType; press.cancelled = false;
-    // un doigt posé pendant que la page défile encore sert à l'arrêter, pas à cliquer
-    press.moving = e.pointerType !== 'mouse' && performance.now() - lastScroll < 240;
-  }, { capture: true, passive: true });
-  document.addEventListener('pointerup', () => { press.up = performance.now(); }, { capture: true, passive: true });
-  document.addEventListener('pointercancel', () => { press.cancelled = true; }, { capture: true, passive: true });
+/* ---------- appui volontaire, glissement ou clic fantôme ? ---------- */
+// Dans certains navigateurs intégrés (TikTok, Instagram…), un « clic » peut arriver à la fin d'un défilement,
+// sans véritable appui. On suit donc chaque geste nous-mêmes, avec les événements tactiles ET les pointeurs,
+// puis on classe chaque clic :
+//   'mouse'   clic de souris                         'tap'     appui net du doigt, page immobile
+//   'key'     clavier, lecteur d'écran               'ghost'   clic de fin de défilement ou de glissement
+//   'unknown' clic au doigt sans geste observé (refusé pour ouvrir une vidéo)
+const TOUCH = navigator.maxTouchPoints > 0 || 'ontouchstart' in window;
+const COARSE = matchMedia('(pointer: coarse)').matches;
+const SLOP = 14; // au-delà de cette distance (px), le doigt a glissé
+const G = { type: '', live: false, dirty: false, seen: false, x: 0, y: 0, sy: 0, max: 0, end: -1e9, last: -1e9 };
+const KIND = new WeakMap(), ACT = new Set(['mouse', 'tap', 'key']);
+let lastScroll = -1e9, closedAt = -1e9, verdict = { t: -1e9, kind: '' };
+
+function gStart(x, y, type) {
+  const now = performance.now();
+  Object.assign(G, { type, live: true, seen: true, x, y, sy: scrollY, max: 0, last: now });
+  // un doigt posé pendant que la page défile encore sert à l'arrêter, pas à cliquer
+  G.dirty = type !== 'mouse' && now - lastScroll < 240;
 }
-// Sans pointeur juste avant (clavier, lecteur d'écran), l'activation est toujours volontaire.
-const viaPointer = e => e.detail !== 0 && performance.now() - press.up < 800;
-function deliberate(e) {
-  if (!viaPointer(e)) return true;
-  if (press.cancelled || press.moving || Math.abs(scrollY - press.sy) > 2) return false;
-  return Math.hypot(e.clientX - press.x, e.clientY - press.y) <= 12;
+function gMove(x, y) {
+  G.last = performance.now();
+  if (G.type === 'mouse') return;
+  G.max = Math.max(G.max, Math.hypot(x - G.x, y - G.y));
+  if (G.max > SLOP) G.dirty = true;
 }
-const byTouch = e => viaPointer(e) && press.type !== 'mouse';
+function gEnd(cancelled) {
+  G.last = G.end = performance.now();
+  if (G.type !== 'mouse' && (cancelled || Math.abs(scrollY - G.sy) > 2)) G.dirty = true;
+  G.live = false;
+}
+function watchGestures() {
+  const o = { capture: true, passive: true };
+  addEventListener('scroll', () => { lastScroll = performance.now(); if (G.live && G.type !== 'mouse') G.dirty = true; }, { passive: true });
+  document.addEventListener('pointerdown', e => gStart(e.clientX, e.clientY, e.pointerType || 'touch'), o);
+  document.addEventListener('pointermove', e => { if (G.live && e.pointerType !== 'mouse') gMove(e.clientX, e.clientY); }, o);
+  document.addEventListener('pointerup', () => gEnd(false), o);
+  document.addEventListener('pointercancel', () => gEnd(true), o);
+  // Les événements tactiles continuent pendant un défilement, et existent même là où les pointeurs manquent.
+  document.addEventListener('touchstart', e => {
+    const t = e.touches[0];
+    if (!t) return;
+    if (!(G.live && G.type !== 'mouse' && performance.now() - G.last < 120)) gStart(t.clientX, t.clientY, 'touch');
+    if (e.touches.length > 1) G.dirty = true;
+  }, o);
+  document.addEventListener('touchmove', e => { const t = e.touches[0]; if (t && G.type !== 'mouse') gMove(t.clientX, t.clientY); }, o);
+  document.addEventListener('touchend', e => { if (!e.touches.length && G.type !== 'mouse') gEnd(false); }, o);
+  document.addEventListener('touchcancel', () => { if (G.type !== 'mouse') gEnd(true); }, o);
+  // Premier à recevoir chaque clic : un clic fantôme s'arrête ici et n'active rien (ni vidéo, ni bouton, ni lien).
+  document.addEventListener('click', e => {
+    const k = kindOf(e);
+    diag(`clic ${k} · ${e.target.closest?.('[data-play],[data-book],[data-step],.dcard,.ucard,a,button,summary,label')?.className?.toString().split(' ')[0] || e.target.tagName} · d${e.detail} · glissé ${Math.round(G.max)}px${G.dirty ? ' · geste écarté' : ''}`);
+    if (k === 'ghost') { e.preventDefault(); e.stopImmediatePropagation(); }
+  }, true);
+}
+function kindOf(e) {
+  if (KIND.has(e)) return KIND.get(e);
+  const now = performance.now();
+  let k;
+  if (verdict.kind && now - verdict.t < 60) k = verdict.kind; // clic relayé par le navigateur (libellé → case à cocher)
+  else if (e.detail === 0) k = 'key';
+  else if (G.type === 'mouse' && now - G.end < 1500) k = 'mouse';
+  else if (G.type && G.type !== 'mouse' && (G.live || now - G.end < 900 || now - G.last < 900)) k = !G.live && !G.dirty && Math.hypot(e.clientX - G.x, e.clientY - G.y) <= 30 ? 'tap' : 'ghost';
+  else if (TOUCH && now - lastScroll < 250) k = 'ghost';
+  else k = !TOUCH ? 'mouse' : G.seen ? 'unknown' : 'tap';
+  KIND.set(e, k);
+  if (k === 'tap' || k === 'mouse') verdict = { t: now, kind: k };
+  return k;
+}
+// Une vidéo ne s'ouvre que sur un appui reconnu, et jamais dans l'instant qui suit la fermeture du lecteur.
+const mayOpen = e => ACT.has(kindOf(e)) && performance.now() - closedAt > 400;
+
+// Journal à l'écran, seulement avec « ?diag=1 » dans l'adresse : sert à comprendre un navigateur intégré.
+const DIAG = /[?&]diag=1(&|$)/.test(location.search);
+let diagEl = null, diagLines = [];
+function diag(msg) {
+  if (!DIAG) return;
+  if (!diagEl) {
+    diagEl = document.createElement('pre');
+    diagEl.style.cssText = 'position:fixed;z-index:999;left:6px;right:6px;bottom:calc(env(safe-area-inset-bottom) + 92px);margin:0;padding:8px 10px;border-radius:10px;background:rgba(0,0,0,.86);color:#D2FF4D;font:10px/1.35 ui-monospace,Menlo,monospace;white-space:pre-wrap;word-break:break-all;pointer-events:none';
+    document.body.append(diagEl);
+  }
+  diagLines = [...diagLines, `${(performance.now() / 1000).toFixed(1)}s ${msg}`].slice(-11);
+  diagEl.textContent = `${navigator.userAgent.slice(-96)}\npointeurs:${'onpointerdown' in window ? 'oui' : 'non'} tactile:${TOUCH ? 'oui' : 'non'} grossier:${COARSE ? 'oui' : 'non'}\n${diagLines.join('\n')}`;
+}
 
 /* ---------- titres découpés en mots ---------- */
 function split(el) {
@@ -364,22 +427,23 @@ function initDeck() {
     c.video.addEventListener('playing', () => c.el.classList.add('playing'), { once: true });
     c.img.addEventListener('load', () => { if (k === D.i) paintAmbi(); });
     c.el.addEventListener('click', e => {
-      if (performance.now() - D.swiped < 450 || !deliberate(e)) return;
+      const kind = kindOf(e);
+      if (performance.now() - D.swiped < 450 || !ACT.has(kind)) return;
       if (k !== D.i) { deckGo(k, true); return; }
-      // au doigt, seule la pastille de lecture ouvre la vidéo complète
-      if (byTouch(e)) nudgePlay(); else openPlayer(k, c.el);
+      // seule la souris ouvre la vidéo en cliquant sur l'image ; au doigt, la pastille de lecture se signale
+      if (kind === 'mouse' && mayOpen(e)) openPlayer(k, c.el, kind); else if (kind === 'tap') nudgePlay();
     });
   });
   D.sg.forEach((b, k) => b.addEventListener('click', e => {
     e.stopPropagation();
-    if (!deliberate(e)) return;
+    if (!ACT.has(kindOf(e))) return;
     if (k !== D.i) { deckGo(k, true); return; }
     const v = D.cards[k].video;
     D.t0 = performance.now();
     if (v.getAttribute('src')) { try { v.currentTime = 0; } catch { /* pas encore chargée */ } }
   }));
   // flèches de chaque côté, et touches fléchées quand le bloc a le focus
-  for (const b of $$('[data-step]', deck)) b.addEventListener('click', e => { e.stopPropagation(); if (deliberate(e)) deckGo(D.i + Number(b.dataset.step), true); });
+  for (const b of $$('[data-step]', deck)) b.addEventListener('click', e => { e.stopPropagation(); if (ACT.has(kindOf(e))) deckGo(D.i + Number(b.dataset.step), true); });
   deck.addEventListener('keydown', e => {
     if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
     e.preventDefault();
@@ -538,9 +602,13 @@ function updSticky() {
   els.sticky?.classList.toggle('on', started && seen.size === 0 && overlays === 0 && !root.classList.contains('is-welcome'));
 }
 
-function lock(on) {
+// « soft » : le calque couvre l'écran et absorbe lui-même les gestes (touch-action: none), sans modifier la page.
+// Les navigateurs intégrés supportent mal qu'on coupe puis rétablisse le défilement de la page (overflow: hidden).
+let hardLocks = 0;
+function lock(on, soft = false) {
   overlays = Math.max(0, overlays + (on ? 1 : -1));
-  root.classList.toggle('is-locked', overlays > 0);
+  if (!soft) hardLocks = Math.max(0, hardLocks + (on ? 1 : -1));
+  root.classList.toggle('is-locked', hardLocks > 0);
   updSticky();
 }
 
@@ -593,7 +661,7 @@ function checkout(e) {
 }
 
 /* ---------- lecteur vidéo ---------- */
-const P = { open: false, hideT: 0, drag: null, k: 0, origin: null };
+const P = { open: false, closing: false, soft: false, focus: true, hideT: 0, drag: null, k: 0, origin: null };
 const fmtT = s => { s = Math.max(0, Math.floor(s || 0)); return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`; };
 function pui(show = true) {
   const el = els.player;
@@ -607,18 +675,22 @@ function flipFrom(fr, from) {
   return `translate(${(from.left + from.width / 2 - to.left - to.width / 2).toFixed(1)}px, ${(from.top + from.height / 2 - to.top - to.height / 2).toFixed(1)}px) scale(${s.toFixed(4)})`;
 }
 const onScreen = el => { const r = el?.getBoundingClientRect(); return r && r.width > 0 && r.bottom > 0 && r.top < innerHeight ? r : null; };
-function openPlayer(k = D.i, origin = null) {
-  if (P.open) return;
+function openPlayer(k = D.i, origin = null, kind = 'key') {
+  if (P.open || P.closing) return;
   if (!els.sheet.hidden) closeSheet();
   const el = els.player, fr = $('.player-frame', el), v = els.pvideo, u = U[k] || U[0];
   P.open = true;
   P.k = k;
   P.origin = origin || D.cards[D.i]?.el || null;
   lastKind = u.kind;
+  // le focus n'est déplacé (puis rendu) que pour le clavier et la souris : au doigt, il reste où il est
+  P.focus = kind !== 'tap';
+  P.soft = COARSE;
   lastFocus = document.activeElement;
   el.hidden = false;
-  el.classList.remove('ended');
-  lock(true);
+  el.classList.remove('ended', 'closing');
+  lock(true, P.soft);
+  diag(`lecteur ouvert (${u.key}, ${kind})`);
   deckPlay();
   uniSet(V.on);
   if (v.dataset.key !== u.key) { v.dataset.key = u.key; v.poster = `${MEDIA}${u.key}-poster.webp`; v.src = `${MEDIA}${u.key}.mp4`; }
@@ -635,35 +707,52 @@ function openPlayer(k = D.i, origin = null) {
     else if (!RM) fr.animate([{ opacity: 0, transform: 'translateY(30px) scale(.96)' }, { opacity: 1, transform: 'none' }], { duration: 500, easing: 'cubic-bezier(.16,1,.3,1)' });
   });
   pui();
-  setTimeout(() => $('.p-x', el).focus({ preventScroll: true }), 80);
+  if (P.focus) setTimeout(() => { if (P.open) $('.p-x', el).focus({ preventScroll: true }); }, 80);
   requestAnimationFrame(ptick);
 }
 function closePlayer() {
   if (!P.open) return;
   P.open = false;
+  P.closing = true;
+  P.drag = null;
+  closedAt = performance.now();
   const el = els.player, fr = $('.player-frame', el), v = els.pvideo;
   v.pause();
   el.classList.remove('open');
+  el.classList.add('closing'); // dès cet instant, le lecteur ne reçoit plus aucun geste
   const to = RM ? null : onScreen(P.origin);
   const cur = getComputedStyle(fr).transform;
   const anim = RM ? null : fr.animate(
     to ? [{ transform: cur === 'none' ? 'none' : cur }, { transform: flipFrom(fr, to), borderRadius: '34px', opacity: .9 }]
        : [{ transform: cur === 'none' ? 'none' : cur, opacity: 1 }, { transform: 'translateY(40px) scale(.95)', opacity: 0 }],
     { duration: to ? 520 : 320, easing: 'cubic-bezier(.4,0,.2,1)', fill: 'forwards' });
+  let ended = false;
   const done = () => {
-    el.hidden = true; anim?.cancel(); fr.style.transform = '';
-    lock(false); D.t0 = performance.now(); deckPlay(); uniSet(V.on); kick(); lastFocus?.focus?.({ preventScroll: true });
+    if (ended) return;
+    ended = true;
+    P.closing = false;
+    el.hidden = true; el.classList.remove('closing'); anim?.cancel(); fr.style.transform = '';
+    // La vidéo est déchargée : rien ne peut la relancer tant que le lecteur est fermé, et le son du téléphone est libéré.
+    v.removeAttribute('src'); delete v.dataset.key;
+    try { v.load(); } catch { /* rien à décharger */ }
+    if (el.contains(document.activeElement)) document.activeElement.blur();
+    lock(false, P.soft); D.t0 = performance.now(); deckPlay(); uniSet(V.on); kick();
+    if (P.focus) lastFocus?.focus?.({ preventScroll: true });
+    diag('lecteur fermé');
   };
-  if (anim) anim.finished.then(done, done); else done();
+  // La fin de l'animation ferme le lecteur ; un minuteur le garantit si le navigateur ne la signale pas.
+  if (anim) { anim.finished.then(done, done); setTimeout(done, (to ? 520 : 320) + 150); } else done();
 }
 function ptoggle() {
   const v = els.pvideo;
+  if (!P.open) return;
   if (els.player.classList.contains('ended')) { replay(); return; }
   if (v.paused) v.play().catch(() => {}); else v.pause();
   pui();
 }
 function replay() {
   const v = els.pvideo;
+  if (!P.open) return;
   els.player.classList.remove('ended');
   v.currentTime = 0; v.play().catch(() => {});
   pui();
@@ -699,7 +788,7 @@ function wirePlayer() {
 
   // toucher : un appui affiche les commandes ou met en pause ; glisser vers le bas ferme
   fr.addEventListener('pointerdown', e => {
-    if (e.target.closest('button')) return;
+    if (!P.open || e.target.closest('button')) return;
     P.drag = { y0: e.clientY, x0: e.clientX, dy: 0, id: e.pointerId, moved: false };
     fr.setPointerCapture(e.pointerId);
   });
@@ -717,6 +806,7 @@ function wirePlayer() {
     const d = P.drag;
     if (!d || d.id !== e.pointerId) return;
     P.drag = null;
+    if (!P.open) return;
     $('.player-bg', el).style.opacity = '';
     if (d.moved && d.dy > 110) { closePlayer(); return; }
     if (d.moved) { fr.animate([{ transform: fr.style.transform }, { transform: 'none' }], { duration: 400, easing: 'cubic-bezier(.16,1,.3,1)' }); fr.style.transform = ''; return; }
@@ -789,20 +879,21 @@ function wire() {
     sticky: $('[data-sticky]'), sheet: $('#sheet'), form: $('[data-checkout]'), player: $('#player'), pvideo: $('.pvideo'),
   });
   els.stepItems = $$('.step');
-  watchPress();
+  watchGestures();
   addEventListener('scroll', kick, { passive: true });
   addEventListener('resize', kick);
   const sio = new IntersectionObserver(es => { for (const e of es) e.isIntersecting ? seen.add(e.target) : seen.delete(e.target); updSticky(); });
   $$('[data-hide-sticky]').forEach(el => sio.observe(el));
   document.addEventListener('click', e => {
-    // au doigt, seul un bouton de lecture ouvre une vidéo ; à la souris, toute la carte d'un univers est cliquable
-    const play = e.target.closest('[data-play]') || (byTouch(e) ? null : e.target.closest('.ucard')?.querySelector('[data-play]'));
+    const kind = kindOf(e);
+    // un vrai bouton de lecture ouvre une vidéo ; à la souris seulement, toute la carte d'un univers est cliquable
+    const play = e.target.closest('[data-play]') || (kind === 'mouse' ? e.target.closest('.ucard')?.querySelector('[data-play]') : null);
     if (e.target.closest('[data-book]')) { e.preventDefault(); openSheet(); }
     else if (play) {
       e.preventDefault();
-      if (!deliberate(e)) return;
+      if (!mayOpen(e)) { diag(`ouverture refusée (${kind})`); return; }
       const k = U.findIndex(u => u.key === play.dataset.play), card = play.closest('.ucard');
-      openPlayer(k < 0 ? D.i : k, card ? $('.u-in', card) : null);
+      openPlayer(k < 0 ? D.i : k, card ? $('.u-in', card) : null, kind);
     } else if (e.target.closest('#sheet [data-close]')) closeSheet();
   });
   document.addEventListener('keydown', e => { if (e.key === 'Escape' && !els.sheet.hidden) closeSheet(); });

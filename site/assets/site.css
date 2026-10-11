@@ -545,9 +545,10 @@ html[lang="en"] .ex-k::after { content: ":"; }
 .mode-tag[hidden] { display: none; }
 
 /* ---------- lecteur vidéo ---------- */
-.player { position: fixed; inset: 0; z-index: 70; display: grid; place-items: center; }
+.player { position: fixed; inset: 0; z-index: 70; display: grid; place-items: center; touch-action: none; overscroll-behavior: contain; }
+.player.closing, .player.closing * { pointer-events: none !important; }
 .player[hidden] { display: none; }
-.player-bg { position: absolute; inset: 0; background: rgba(4, 4, 5, .9); -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); opacity: 0; transition: opacity .5s; }
+.player-bg { position: absolute; inset: 0; touch-action: none; background: rgba(4, 4, 5, .9); -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); opacity: 0; transition: opacity .5s; }
 .player.open .player-bg { opacity: 1; }
 .player-frame { position: relative; height: min(88svh, calc((100vw - 24px) * 16 / 9)); aspect-ratio: 9 / 16; overflow: hidden; border-radius: 28px; background: #000; transform-origin: 50% 50%; box-shadow: 0 40px 120px rgba(0, 0, 0, .75), 0 0 0 1px rgba(255, 255, 255, .1); touch-action: none; }
 .pvideo { width: 100%; height: 100%; object-fit: cover; background: #000; }

@@ -41,7 +41,9 @@
       "Paiement unique",
       "Sans abonnement",
       "Réponse en {delay}"
-    ]
+    ],
+    "prev": "Vidéo précédente",
+    "next": "Vidéo suivante"
   },
   "video": {
     "play": "Regarder avec le son",

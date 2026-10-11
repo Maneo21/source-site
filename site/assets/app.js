@@ -26,6 +26,29 @@ const els = {};
 let started = false, overlays = 0;
 let lastKind = null, kindTouched = false;
 
+/* ---------- appui volontaire ou geste de défilement ? ---------- */
+// Une vidéo ne s'ouvre que sur un vrai appui : page immobile, doigt qui n'a pas glissé.
+const press = { x: 0, y: 0, sy: 0, moving: false, cancelled: false, type: '', up: -1e9 };
+let lastScroll = -1e9;
+function watchPress() {
+  addEventListener('scroll', () => { lastScroll = performance.now(); }, { passive: true });
+  document.addEventListener('pointerdown', e => {
+    press.x = e.clientX; press.y = e.clientY; press.sy = scrollY; press.type = e.pointerType; press.cancelled = false;
+    // un doigt posé pendant que la page défile encore sert à l'arrêter, pas à cliquer
+    press.moving = e.pointerType !== 'mouse' && performance.now() - lastScroll < 240;
+  }, { capture: true, passive: true });
+  document.addEventListener('pointerup', () => { press.up = performance.now(); }, { capture: true, passive: true });
+  document.addEventListener('pointercancel', () => { press.cancelled = true; }, { capture: true, passive: true });
+}
+// Sans pointeur juste avant (clavier, lecteur d'écran), l'activation est toujours volontaire.
+const viaPointer = e => e.detail !== 0 && performance.now() - press.up < 800;
+function deliberate(e) {
+  if (!viaPointer(e)) return true;
+  if (press.cancelled || press.moving || Math.abs(scrollY - press.sy) > 2) return false;
+  return Math.hypot(e.clientX - press.x, e.clientY - press.y) <= 12;
+}
+const byTouch = e => viaPointer(e) && press.type !== 'mouse';
+
 /* ---------- titres découpés en mots ---------- */
 function split(el) {
   let i = 0;
@@ -219,7 +242,7 @@ function start() {
 const autoplay = !RM && !SAVE;
 const STILL = 6000;   // sans lecture automatique, durée d'affichage d'une carte (ms)
 const STALL = 10000;  // si une vidéo ne démarre pas, on passe quand même à la suivante (ms)
-const D = { i: 0, cards: [], sg: [], vis: false, busy: false, raf: 0, t0: 0, n: 0, swiped: 0 };
+const D = { i: 0, cards: [], sg: [], vis: false, busy: false, drag: false, used: false, raf: 0, t0: 0, n: 0, swiped: 0 };
 const MID = {
   in: ['translate3d(58%,-3%,0) rotate(13deg) scale(.9)', 'translate3d(-58%,-3%,0) rotate(-13deg) scale(.9)'],
   out: ['translate3d(-34%,1%,0) rotate(-7deg) scale(.93)', 'translate3d(34%,1%,0) rotate(7deg) scale(.93)'],
@@ -250,7 +273,7 @@ function deckTick() {
   let p = 0;
   if (autoplay) {
     if (v.duration) p = v.currentTime / v.duration;
-    if (v.ended && !D.busy) deckGo(D.i + 1);
+    if (v.ended && !D.busy && !D.drag) deckGo(D.i + 1);
     if (v.readyState < 2 && now - D.t0 > STALL && !D.busy) { deckGo(D.i + 1); }
     // la vidéo suivante commence à charger pendant que celle-ci joue
     const next = D.cards[(D.i + 1) % U.length].video;
@@ -285,6 +308,7 @@ function deckGo(i, user = false) {
   if (i === D.i || D.busy || !D.cards.length || els.deck.classList.contains('fanning')) return;
   const deck = els.deck, prev = D.i, fwd = (i - prev + U.length) % U.length === 1;
   const from = D.cards.map(c => getComputedStyle(c.el).transform);
+  for (const c of D.cards) c.el.style.transform = '';
   D.i = i;
   D.t0 = performance.now();
   D.cards.forEach((c, k) => { c.el.dataset.slot = (k - i + U.length) % U.length; });
@@ -310,8 +334,23 @@ function deckGo(i, user = false) {
   rotTo(i);
   deckSync();
   paintAmbi();
-  if (user) lastKind = U[i].kind;
+  if (user) { lastKind = U[i].kind; deckUsed(); }
   deckPlay();
+}
+// Dès que le visiteur a navigué lui-même, les invitations à le faire s'arrêtent.
+function deckUsed() { if (!D.used) { D.used = true; els.deck.classList.add('used'); } }
+// Au premier affichage, la carte de devant s'écarte un instant : on devine la suivante.
+function deckHint() {
+  if (RM || D.used || D.busy || D.drag || !D.vis || P.open) return;
+  const a = D.cards[D.i].el, b = D.cards[(D.i + 1) % U.length].el, tb = getComputedStyle(b).transform;
+  const o = { duration: 1300, easing: 'cubic-bezier(.45,0,.2,1)' };
+  a.animate([{ transform: 'none' }, { transform: 'translate3d(-9%,0,0) rotate(-3.5deg)', offset: .42 }, { transform: 'none' }], o);
+  b.animate([{ transform: tb }, { transform: 'translate3d(36%,1%,0) rotate(10deg) scale(.9)', offset: .42 }, { transform: tb }], o);
+}
+// Un appui au doigt sur l'image n'ouvre rien : la pastille de lecture se signale.
+function nudgePlay() {
+  const b = $('.vplay', els.deck);
+  b.classList.remove('nudge'); void b.offsetWidth; b.classList.add('nudge');
 }
 function initDeck() {
   const deck = els.deck;
@@ -321,31 +360,70 @@ function initDeck() {
   D.sg = $$('.sg', deck);
   D.cards = $$('.dcard', deck).map(el => ({ el, video: $('video', el), img: $('img', el) }));
   D.cards.forEach((c, k) => {
-    c.video.addEventListener('ended', () => { if (k === D.i) deckGo(D.i + 1); });
+    c.video.addEventListener('ended', () => { if (k === D.i && !D.drag) deckGo(D.i + 1); });
     c.video.addEventListener('playing', () => c.el.classList.add('playing'), { once: true });
     c.img.addEventListener('load', () => { if (k === D.i) paintAmbi(); });
-    c.el.addEventListener('click', () => {
-      if (performance.now() - D.swiped < 450) return;
-      if (k === D.i) openPlayer(k, c.el); else deckGo(k, true);
+    c.el.addEventListener('click', e => {
+      if (performance.now() - D.swiped < 450 || !deliberate(e)) return;
+      if (k !== D.i) { deckGo(k, true); return; }
+      // au doigt, seule la pastille de lecture ouvre la vidéo complète
+      if (byTouch(e)) nudgePlay(); else openPlayer(k, c.el);
     });
   });
   D.sg.forEach((b, k) => b.addEventListener('click', e => {
     e.stopPropagation();
+    if (!deliberate(e)) return;
     if (k !== D.i) { deckGo(k, true); return; }
     const v = D.cards[k].video;
     D.t0 = performance.now();
     if (v.getAttribute('src')) { try { v.currentTime = 0; } catch { /* pas encore chargée */ } }
   }));
-  // glisser à gauche ou à droite change de carte ; le défilement vertical reste libre
+  // flèches de chaque côté, et touches fléchées quand le bloc a le focus
+  for (const b of $$('[data-step]', deck)) b.addEventListener('click', e => { e.stopPropagation(); if (deliberate(e)) deckGo(D.i + Number(b.dataset.step), true); });
+  deck.addEventListener('keydown', e => {
+    if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+    e.preventDefault();
+    deckGo(D.i + (e.key === 'ArrowRight' ? 1 : -1), true);
+  });
+  // Au doigt : la carte de devant suit un glissement horizontal ; lâchée assez loin, elle laisse sa place.
+  // Un geste vertical n'est jamais retenu : le navigateur fait défiler la page (touch-action: pan-y).
   let sw = null;
-  deck.addEventListener('pointerdown', e => { sw = e.pointerType === 'mouse' ? null : { x: e.clientX, y: e.clientY, id: e.pointerId }; });
-  deck.addEventListener('pointerup', e => {
+  const settle = () => {
+    const el = D.cards[D.i].el, cur = el.style.transform;
+    el.style.transform = '';
+    if (cur && !RM) el.animate([{ transform: cur }, { transform: 'none' }], { duration: 420, easing: 'cubic-bezier(.16,1,.3,1)' });
+  };
+  deck.addEventListener('pointerdown', e => {
+    sw = e.pointerType === 'mouse' || D.busy || e.target.closest('button') ? null : { x: e.clientX, y: e.clientY, id: e.pointerId, dx: 0, lock: false, t: performance.now() };
+  });
+  deck.addEventListener('pointermove', e => {
     if (!sw || sw.id !== e.pointerId) return;
     const dx = e.clientX - sw.x, dy = e.clientY - sw.y;
-    sw = null;
-    if (Math.abs(dx) > 34 && Math.abs(dx) > Math.abs(dy) * 1.3) { D.swiped = performance.now(); deckGo(D.i + (dx < 0 ? 1 : -1), true); }
+    if (!sw.lock) {
+      if (Math.abs(dy) > 10 && Math.abs(dy) >= Math.abs(dx)) { sw = null; return; }
+      if (Math.abs(dx) < 8 || Math.abs(dx) < Math.abs(dy) * 1.2) return;
+      sw.lock = true; D.drag = true;
+      try { deck.setPointerCapture(e.pointerId); } catch { /* pointeur déjà relâché */ }
+    }
+    sw.dx = dx;
+    D.swiped = performance.now();
+    if (!RM) D.cards[D.i].el.style.transform = `translate3d(${(dx * .8).toFixed(1)}px,0,0) rotate(${(dx * .035).toFixed(2)}deg)`;
   });
-  deck.addEventListener('pointercancel', () => { sw = null; });
+  const drop = e => {
+    if (!sw || sw.id !== e.pointerId) return;
+    const s = sw;
+    sw = null;
+    if (!s.lock) return;
+    D.drag = false;
+    D.swiped = performance.now();
+    const far = Math.abs(s.dx) > Math.max(44, deck.offsetWidth * .22);
+    const fast = Math.abs(s.dx) > 24 && Math.abs(s.dx) / Math.max(1, performance.now() - s.t) > .45;
+    const was = D.i;
+    if (e.type === 'pointerup' && (far || fast)) deckGo(D.i + (s.dx < 0 ? 1 : -1), true);
+    if (D.i === was) settle();
+  };
+  deck.addEventListener('pointerup', drop);
+  deck.addEventListener('pointercancel', drop);
   new IntersectionObserver(([e]) => { D.vis = e.isIntersecting; D.t0 = performance.now(); deckPlay(); }, { threshold: .2 }).observe(deck);
   paintAmbi();
   deckSync();
@@ -353,6 +431,8 @@ function initDeck() {
   deck.classList.add('fanning', 'fan');
   setTimeout(() => deck.classList.remove('fanning'), RM ? 0 : 1500);
   setTimeout(() => deck.classList.add('ready'), RM ? 0 : 2300);
+  setTimeout(deckHint, 3100);
+  setTimeout(deckUsed, 24000);
 }
 
 /* ---------- les trois univers ---------- */
@@ -709,15 +789,18 @@ function wire() {
     sticky: $('[data-sticky]'), sheet: $('#sheet'), form: $('[data-checkout]'), player: $('#player'), pvideo: $('.pvideo'),
   });
   els.stepItems = $$('.step');
+  watchPress();
   addEventListener('scroll', kick, { passive: true });
   addEventListener('resize', kick);
   const sio = new IntersectionObserver(es => { for (const e of es) e.isIntersecting ? seen.add(e.target) : seen.delete(e.target); updSticky(); });
   $$('[data-hide-sticky]').forEach(el => sio.observe(el));
   document.addEventListener('click', e => {
-    const play = e.target.closest('[data-play]') || e.target.closest('.ucard')?.querySelector('[data-play]');
+    // au doigt, seul un bouton de lecture ouvre une vidéo ; à la souris, toute la carte d'un univers est cliquable
+    const play = e.target.closest('[data-play]') || (byTouch(e) ? null : e.target.closest('.ucard')?.querySelector('[data-play]'));
     if (e.target.closest('[data-book]')) { e.preventDefault(); openSheet(); }
     else if (play) {
       e.preventDefault();
+      if (!deliberate(e)) return;
       const k = U.findIndex(u => u.key === play.dataset.play), card = play.closest('.ucard');
       openPlayer(k < 0 ? D.i : k, card ? $('.u-in', card) : null);
     } else if (e.target.closest('#sheet [data-close]')) closeSheet();

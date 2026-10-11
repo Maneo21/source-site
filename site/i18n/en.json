@@ -41,7 +41,9 @@
       "One-time payment",
       "No subscription",
       "Reply within {delay}"
-    ]
+    ],
+    "prev": "Previous video",
+    "next": "Next video"
   },
   "video": {
     "play": "Watch with sound",

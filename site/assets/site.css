@@ -163,7 +163,7 @@ main, .foot, .top-r, .sticky .btn { transition: opacity .3s var(--ease-o); }
 .deck { position: relative; isolation: isolate; width: var(--cw); aspect-ratio: 9 / 16; perspective: 1400px; touch-action: pan-y; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
 .deck-tilt { position: absolute; inset: 0; transform: rotate(-2.5deg); will-change: transform; }
 .dcard { position: absolute; inset: 0; margin: 0; overflow: hidden; border-radius: clamp(22px, 6.4vw, 34px); background: #050505; border: 1px solid rgba(255, 255, 255, .15); box-shadow: 0 50px 90px -40px rgba(0, 0, 0, .95), 0 0 0 7px rgba(255, 255, 255, .025); isolation: isolate; cursor: pointer; }
-.dcard img, .dcard video { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; object-fit: cover; }
+.dcard img, .dcard video { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; object-fit: cover; -webkit-user-drag: none; }
 .dcard video { opacity: 0; transition: opacity .5s; }
 .dcard.playing video { opacity: 1; }
 .ddim { position: absolute; inset: 0; z-index: 2; background: #070708; opacity: 0; pointer-events: none; transition: opacity .8s var(--ease-o); }
@@ -209,6 +209,22 @@ main, .foot, .top-r, .sticky .btn { transition: opacity .3s var(--ease-o); }
 .vchip.is-label b { font-weight: 500; opacity: .55; }
 .deck.ready .vchip { transition-delay: 0s; transition-duration: .32s, .45s; }
 .deck.swap .vchip { opacity: 0; scale: .9; transition-duration: .16s; }
+.dnav { position: absolute; z-index: 6; top: 42%; display: grid; place-items: center; width: 40px; height: 40px; margin-top: -20px; border-radius: 50%; background: rgba(17, 17, 19, .8); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, .22); color: var(--ink); box-shadow: 0 12px 30px -10px rgba(0, 0, 0, .85); transition: opacity .7s var(--ease-o), scale .9s var(--ease-o), background-color .3s, color .3s, border-color .3s, transform .5s var(--ease-o); }
+.dnav::before { content: ""; position: absolute; inset: -7px; border-radius: 50%; }
+.dnav svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+.dnav-p { left: -27px; }
+.dnav-n { right: -27px; }
+.dnav:active { transform: scale(.9); }
+@media (hover: hover) { .dnav:hover { background: var(--acc); border-color: var(--acc); color: var(--acc-ink); } }
+.js .dnav { opacity: 0; scale: .8; }
+.in .dnav { opacity: 1; scale: 1; transition-delay: 1.75s, 1.75s, 0s, 0s, 0s, 0s; }
+.deck.ready .dnav { transition-delay: 0s; }
+/* tant que le visiteur n'a pas navigué, la flèche « suivant » se signale doucement */
+.deck.ready:not(.used) .dnav-n::after { content: ""; position: absolute; inset: 0; border-radius: 50%; pointer-events: none; animation: live 2.4s infinite; }
+.deck.ready:not(.used) .dnav-n svg { animation: dnudge 2.4s var(--ease-io) infinite; }
+@keyframes dnudge { 0%, 55%, 100% { transform: none; } 28% { transform: translateX(3.5px); } }
+.vplay.nudge { animation: vnudge .75s var(--ease-o); }
+@keyframes vnudge { 0% { box-shadow: 0 0 0 0 rgba(210, 255, 77, .6); } 30% { transform: scale(1.05); } 100% { box-shadow: 0 0 0 16px rgba(210, 255, 77, 0); } }
 .arrow { position: absolute; z-index: 4; width: 58px; height: 58px; top: -30px; right: calc(50% - var(--cw) / 2 - 44px); fill: none; stroke: var(--acc); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; overflow: visible; }
 .arrow path { stroke-dasharray: 1; stroke-dashoffset: 1; }
 .in .arrow-l { stroke-dashoffset: 0; transition: stroke-dashoffset .8s var(--ease-o) 1.05s; }
@@ -234,7 +250,11 @@ main, .foot, .top-r, .sticky .btn { transition: opacity .3s var(--ease-o); }
   .arrow { width: 84px; height: 84px; top: 21%; right: auto; left: -112px; transform: scaleX(-1) rotate(38deg); }
   .deck { width: auto; height: min(68svh, 640px); }
   .c1 { left: auto; right: -25%; top: 9%; }
-  .c2 { right: auto; left: -30%; top: 43%; }
+  .c2 { right: auto; left: -30%; top: 35%; }
+  .dnav { top: 52%; width: 46px; height: 46px; margin-top: -23px; }
+  .dnav-p { left: -32px; }
+  .dnav-n { right: -32px; }
+  .dnav svg { width: 20px; height: 20px; }
   .c3 { display: flex; right: -23%; top: 62%; }
   .c4 { left: -24%; top: 79%; }
 }
@@ -258,7 +278,7 @@ main, .foot, .top-r, .sticky .btn { transition: opacity .3s var(--ease-o); }
 /* les trois univers : cartes qui se recouvrent (téléphone), trois colonnes (ordinateur) */
 .sec { scroll-margin-top: calc(-1 * clamp(30px, 8vw, 110px)); }
 .ucards { display: grid; gap: 24svh; margin-top: 44px; }
-.ucard { --st: calc(var(--top-h) + env(safe-area-inset-top) + 10px); position: sticky; top: var(--st); height: min(calc(100svh - var(--top-h) - env(safe-area-inset-top) - 114px), 640px); min-height: 380px; cursor: pointer; }
+.ucard { --st: calc(var(--top-h) + env(safe-area-inset-top) + 10px); position: sticky; top: var(--st); height: min(calc(100svh - var(--top-h) - env(safe-area-inset-top) - 114px), 640px); min-height: 380px; }
 .ucard:nth-child(2) { top: calc(var(--st) + 10px); }
 .ucard:nth-child(3) { top: calc(var(--st) + 20px); }
 .u-in { position: relative; height: 100%; overflow: hidden; border-radius: 30px; background: #050505; border: 1px solid var(--line2); box-shadow: 0 -22px 50px -22px rgba(0, 0, 0, .95); isolation: isolate; transform-origin: 50% 0; will-change: transform; }
@@ -292,7 +312,7 @@ main, .foot, .top-r, .sticky .btn { transition: opacity .3s var(--ease-o); }
   .u-body { padding: 26px 22px 22px; }
   .uni-note { margin-top: 34px; }
 }
-@media (min-width: 900px) and (hover: hover) { .ucard:hover .u-in { transform: translateY(-8px); } .u-play:hover { background: rgba(10, 10, 11, .78); } }
+@media (min-width: 900px) and (hover: hover) { .ucard { cursor: pointer; } .ucard:hover .u-in { transform: translateY(-8px); } .u-play:hover { background: rgba(10, 10, 11, .78); } }
 
 /* pas un pack de prompts */
 .diff-big { margin: 0 0 34px; font-family: var(--f-d); font-weight: 800; font-stretch: 78%; font-size: clamp(56px, 20vw, 230px); line-height: .88; letter-spacing: -.05em; white-space: nowrap; }

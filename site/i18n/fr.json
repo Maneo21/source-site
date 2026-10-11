@@ -1,7 +1,7 @@
 {
   "meta": {
-    "title": "Tu veux créer un site comme ça ? · Échange personnalisé · {price}",
-    "description": "Je t’explique ma méthode pour créer des sites premium avec l’IA : les outils, la façon de demander, des prompts adaptés à ton projet. Un vrai échange avec moi, {price}, paiement unique.",
+    "title": "Sites, pubs et motion design avec l’IA · Échange personnalisé · {price}",
+    "description": "Sites web, vidéos publicitaires, motion design : je t’explique ma méthode pour obtenir un résultat professionnel avec l’IA. Un vrai échange avec moi, {price}, paiement unique.",
     "legalTitle": "Informations légales · {brand}",
     "merciTitle": "Merci · {brand}"
   },
@@ -18,12 +18,23 @@
     "optional": "facultatif"
   },
   "nav": {
-    "book": "Réserver"
+    "book": "Réserver",
+    "label": "Sections de la page",
+    "uni": "Univers",
+    "method": "Méthode",
+    "how": "Déroulé",
+    "faq": "Questions"
   },
   "hero": {
-    "badge": "Vu sur TikTok",
-    "title": "Tu veux créer un site <span class=\"nw\"><span class=\"hl\">comme ça</span> ?</span>",
-    "sub": "Je t’explique ma méthode, les outils que j’utilise et comment parler à l’IA. Personnellement, pour ton projet.",
+    "aria": "Tu veux créer un site, une pub ou du motion design comme ça ?",
+    "pre": "Tu veux créer",
+    "words": [
+      "un site",
+      "une pub",
+      "du motion"
+    ],
+    "post": "comme ça ?",
+    "sub": "Sites, pubs, motion design : je t’explique ma méthode, mes outils et comment parler à l’IA. Personnellement, pour ton projet.",
     "cta": "Réserver mon échange",
     "watch": "Voir la vidéo",
     "facts": [
@@ -33,14 +44,7 @@
     ]
   },
   "video": {
-    "label": "Ma vidéo TikTok : un site animé créé avec l’IA",
     "play": "Regarder avec le son",
-    "chips": [
-      "Scroll cinématique",
-      "3D en temps réel",
-      "Motion design",
-      "Fait avec l’IA"
-    ],
     "player": "Lecteur vidéo",
     "pause": "Pause",
     "resume": "Lecture",
@@ -52,11 +56,12 @@
     "endSub": "Je t’explique comment, pour ton projet."
   },
   "marquee": [
+    "Sites web",
+    "Vidéos publicitaires",
     "Motion design",
-    "Animations au scroll",
-    "3D",
-    "Typographie",
-    "Mise en page",
+    "Animations",
+    "Transitions",
+    "Effets visuels",
     "Prompts",
     "Méthode",
     "Outils IA"
@@ -65,7 +70,7 @@
     "kicker": "En commentaire, on me demande",
     "big": "« Prompt ? »",
     "title": "Un prompt seul ne suffit pas.",
-    "text": "Le même prompt, copié-collé, ne donnera pas le même site. Ce qui compte, c’est la méthode. Et ton projet.",
+    "text": "Le même prompt, copié-collé, ne donnera pas le même résultat. Ce qui compte, c’est la méthode. Et ton projet.",
     "pack": {
       "title": "Un pack de prompts",
       "items": [
@@ -85,11 +90,11 @@
   },
   "learn": {
     "kicker": "Ce que tu vas apprendre",
-    "title": "Ce qu’il y a derrière ces sites.",
+    "title": "Ce qu’il y a derrière ces créations.",
     "items": [
       {
         "t": "Ma méthode",
-        "d": "Comment je passe d’une idée à un site animé, étape par étape."
+        "d": "Comment je passe d’une idée à un résultat professionnel, étape par étape."
       },
       {
         "t": "Mes outils",
@@ -112,7 +117,7 @@
     "items": [
       "Ma réponse écrite pour ton projet, par e-mail",
       "La méthode et les outils adaptés à ton niveau",
-      "{prompts} exemples de prompts pour ton site",
+      "{prompts} exemples de prompts pour ton projet",
       "{followUpsIncluded} pour tes questions, sous {followUpDays} jours"
     ],
     "delay": "Réponse en {delay} après ton paiement",
@@ -148,17 +153,17 @@
   "human": {
     "kicker": "Pas de bot",
     "quote": "C’est moi qui lis ton projet. Et c’est moi qui te réponds.",
-    "sign": "{creator} · créateur de la vidéo",
+    "sign": "{creator} · créateur des vidéos",
     "tiktok": "Me suivre sur TikTok",
     "notTitle": "Ce que ce n’est pas",
     "not": [
-      "Je ne crée pas ton site à ta place",
+      "Je ne réalise pas ton site ou ta vidéo à ta place",
       "Ce n’est pas une formation de 10 heures",
       "Pas d’abonnement"
     ]
   },
   "price": {
-    "kicker": "Le prix",
+    "kicker": "Le prix de l’échange",
     "note": "Paiement unique. Sans abonnement.",
     "cta": "Réserver mon échange",
     "secure": "Paiement sécurisé par Stripe",
@@ -168,8 +173,12 @@
     "title": "Questions fréquentes",
     "items": [
       {
-        "q": "Tu crées mon site à ma place ?",
-        "a": "Non. Je t’explique comment le créer toi-même avec l’IA : la méthode, les outils et des prompts adaptés. Tu restes aux commandes."
+        "q": "Tu réalises mon site ou ma vidéo à ma place ?",
+        "a": "Non. Les {price} sont le prix de notre échange, pas celui d’un site ou d’une vidéo. Je t’explique comment créer toi-même avec l’IA : la méthode, les outils et des prompts adaptés. Tu restes aux commandes."
+      },
+      {
+        "q": "Ça marche aussi pour une vidéo ou du motion design ?",
+        "a": "Oui. Site web, vidéo publicitaire, motion design ou autre projet : indique-le au moment de réserver, j’adapte ma réponse."
       },
       {
         "q": "Je débute complètement. C’est pour moi ?",
@@ -198,13 +207,14 @@
     ]
   },
   "footer": {
-    "tagline": "Un échange personnel avec le créateur de la vidéo.",
+    "tagline": "Un échange personnel avec le créateur de ces vidéos.",
     "mentions": "Mentions légales",
     "cgv": "CGV",
     "privacy": "Confidentialité",
     "contact": "Contact",
     "rights": "© {year} {brand}",
-    "stripe": "Paiement sécurisé par Stripe"
+    "stripe": "Paiement sécurisé par Stripe",
+    "legal": "{brand} est édité par {seller.name}, {seller.status} · {seller.registration}"
   },
   "sticky": {
     "cta": "Réserver mon échange"
@@ -221,7 +231,14 @@
     "consentRequired": "Coche la case pour continuer.",
     "error": "Le paiement n’a pas pu démarrer. Réessaie dans un instant.",
     "unavailable": "Le paiement n’est pas encore ouvert. Reviens très vite.",
-    "test": "Mode test Stripe : aucun paiement réel"
+    "test": "Mode test Stripe : aucun paiement réel",
+    "kindLabel": "Ton projet",
+    "kinds": {
+      "site": "Site web",
+      "pub": "Vidéo pub",
+      "motion": "Motion",
+      "autre": "Autre"
+    }
   },
   "merci": {
     "kicker": "Commande envoyée",
@@ -262,5 +279,56 @@
     "title": "Page introuvable.",
     "text": "Cette page n’existe pas, ou plus.",
     "cta": "Retour à l’accueil"
+  },
+  "uni": {
+    "kicker": "Trois univers",
+    "title": "Ce que tu peux créer.",
+    "text": "Tu choisis ton terrain. Je t’explique comment obtenir un résultat professionnel.",
+    "note": "Trois exemples créés avec l’IA. L’échange t’explique comment y arriver : je ne les réalise pas à ta place.",
+    "play": "Voir la vidéo",
+    "items": [
+      {
+        "short": "Sites web",
+        "t": "Sites web",
+        "tags": [
+          "Sites professionnels",
+          "Boutiques",
+          "Applications"
+        ],
+        "chips": [
+          "Vu sur TikTok",
+          "Scroll cinématique",
+          "3D en temps réel"
+        ]
+      },
+      {
+        "short": "Pubs IA",
+        "t": "Vidéos publicitaires IA",
+        "tags": [
+          "Publicités TikTok",
+          "Vidéos de produits",
+          "Créations commerciales"
+        ],
+        "chips": [
+          "Format TikTok",
+          "Vidéo produit",
+          "15 secondes"
+        ]
+      },
+      {
+        "short": "Motion design",
+        "t": "Motion design premium",
+        "tags": [
+          "Animations avancées",
+          "Transitions",
+          "Effets visuels"
+        ],
+        "chips": [
+          "100 % code",
+          "Aucune caméra",
+          "Son compris"
+        ]
+      }
+    ]
   }
 }

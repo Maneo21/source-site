@@ -7,7 +7,8 @@ const TYPES = new Set(['checkout.session.completed', 'checkout.session.async_pay
 const TOLERANCE = 300;            // secondes : une signature plus ancienne est refusée
 const KEEP = 60 * 60 * 24 * 180;  // l'état « déjà envoyé » est gardé 180 jours
 const TIMEOUT = 6000;             // millisecondes laissées à Postmark pour répondre
-const RECIPIENT = new Set([300, 406]); // refus liés à l'adresse du destinataire
+const RECIPIENT = new Set([300, 406]);
+const KINDS = ['site', 'pub', 'motion', 'autre']; // types de projet proposés dans le récapitulatif du site // refus liés à l'adresse du destinataire
 const DEFAULTS = { brand: 'AI Web Studio', contactEmail: 'contact@maneo-ai.fr', offer: { replyHours: 24 }, seller: {} };
 const POSTMARK = {
   10: 'Jeton Postmark refusé : la variable POSTMARK_TOKEN est incorrecte.',
@@ -74,7 +75,8 @@ export function readOrder(session, event) {
     else if (!o.project && /projet|project|site|description|idee|idea/.test(id)) o.project = value;
     else o.others.push({ label, value });
   }
-  const ref = clean(session.client_reference_id).match(/^site_([a-z]{2})_cgv-([\d-]+)_retractation-ok$/);
+  // Référence posée par le site : langue, version des CGV acceptée, puis type de projet s'il a été choisi.
+  const ref = clean(session.client_reference_id).match(/^site_([a-z]{2})_cgv-([\d-]+)_retractation-ok(?:_type-([a-z]+))?$/);
   const email = clean(session.customer_details?.email || session.customer_email).replace(/[\r\n]/g, '');
   return {
     ...o,
@@ -88,7 +90,8 @@ export function readOrder(session, event) {
     currency: session.currency,
     at: event.created || session.created || Math.floor(Date.now() / 1000),
     consent: !!ref,
-    cgv: ref?.[2] || null
+    cgv: ref?.[2] || null,
+    kind: KINDS.includes(ref?.[3]) ? ref[3] : null
   };
 }
 

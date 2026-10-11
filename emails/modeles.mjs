@@ -26,8 +26,9 @@ const T = {
     reply: h => ['Vous recevrez une réponse personnalisée dans les prochaines heures, ', `sous ${h}\u00A0h maximum`, ', directement par e-mail.'],
     bye: 'À très bientôt,',
     recap: 'Votre commande',
-    k: { product: 'Prestation', amount: 'Montant', ref: 'Référence', date: 'Date', project: 'Votre projet' },
-    product: 'Accompagnement personnalisé — Création de sites avec l’IA',
+    k: { product: 'Prestation', amount: 'Montant', ref: 'Référence', date: 'Date', kind: 'Type de projet', project: 'Votre projet' },
+    kinds: { site: 'Site web', pub: 'Vidéo publicitaire', motion: 'Motion design', autre: 'Autre projet' },
+    product: 'Accompagnement personnalisé — Création avec l’IA',
     once: 'paiement unique',
     help: 'Une question\u00A0? Répondez simplement à cet e-mail.',
     waived: 'Comme vous l’avez demandé lors de votre commande, la prestation commence immédiatement. Vous avez reconnu perdre votre droit de rétractation une fois celle-ci entièrement exécutée.',
@@ -50,8 +51,9 @@ const T = {
     reply: h => ['You’ll receive a personalised reply by email in the next few hours, ', `within ${h} hours at most`, '.'],
     bye: 'Speak soon,',
     recap: 'Your order',
-    k: { product: 'Service', amount: 'Amount', ref: 'Reference', date: 'Date', project: 'Your project' },
-    product: 'Personal coaching — Building websites with AI',
+    k: { product: 'Service', amount: 'Amount', ref: 'Reference', date: 'Date', kind: 'Project type', project: 'Your project' },
+    kinds: { site: 'Website', pub: 'Video ad', motion: 'Motion design', autre: 'Other project' },
+    product: 'Personal coaching — Creating with AI',
     once: 'one-time payment',
     help: 'Any questions? Just reply to this email.',
     waived: 'As you requested when ordering, the service starts immediately. You acknowledged that you lose your right of withdrawal once it has been fully performed.',
@@ -174,6 +176,8 @@ export function clientMail(order, ctx) {
   const subject = `${order.live ? '' : '[TEST] '}${t.subject(brand)}`;
 
   const list = [[t.k.product, esc(t.product)], [t.k.amount, `${b(esc(price))} · ${esc(t.once)}`], [t.k.ref, `<span style="font-family:${MONO};font-size:14px;">${esc(order.ref)}</span>`], [t.k.date, esc(date)]];
+  const kind = t.kinds[order.kind] || '';
+  if (kind) list.push([t.k.kind, esc(kind)]);
   if (project) list.push([t.k.project, esc(t.quote(project)).replace(/\n/g, '<br>')]);
 
   const body = `${head(chip(`✓ ${t.chip}`) + (order.live ? '' : ` ${chip('Test', true)}`), esc(t.title))}
@@ -201,6 +205,7 @@ ${card(t.recap, list)}
     `${t.k.amount} : ${price} · ${t.once}`,
     `${t.k.ref} : ${order.ref}`,
     `${t.k.date} : ${date}`,
+    kind ? `${t.k.kind} : ${kind}` : null,
     project ? `${t.k.project} : ${t.quote(project)}` : null,
     '', t.help, '',
     legal,
@@ -234,6 +239,7 @@ export function adminMail(order, ctx, client = { sent: true }) {
     ['Client', order.email ? link(`mailto:${order.email}`, esc(order.email), C.acc) : empty],
     ['Langue', esc(langName)],
     ['Pseudo TikTok', tiktok],
+    ['Type de projet', T.fr.kinds[order.kind] ? esc(T.fr.kinds[order.kind]) : `<span style="color:${C.ink3};">Non précisé</span>`],
     ['Projet', project],
     ...order.others.map(o => [o.label, o.value ? esc(o.value) : empty]),
     ['Date', esc(date)],
@@ -266,6 +272,7 @@ ${mailto ? button(mailto, 'Répondre au client', true) : ''}${stripeUrl ? button
     `Client : ${order.email || 'non renseigné'}`,
     `Langue : ${langName}`,
     `Pseudo TikTok : ${order.tiktok || 'non renseigné'}${order.tiktokUrl ? ` (${order.tiktokUrl})` : ''}`,
+    `Type de projet : ${T.fr.kinds[order.kind] || 'non précisé'}`,
     `Projet : ${order.project || 'non renseigné'}`,
     ...order.others.map(o => `${o.label} : ${o.value || 'non renseigné'}`),
     `Date : ${date}`,

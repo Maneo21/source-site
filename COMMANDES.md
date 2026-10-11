@@ -3,10 +3,10 @@
 ## Le déroulé
 
 1. **Tu reçois l’e-mail « Nouvelle commande · 7,90 € »** sur contact@maneo-ai.fr.
-   Il part seulement après confirmation du paiement par Stripe. Il contient tout : e-mail du client, langue, pseudo TikTok, projet, date, référence et heure limite de réponse.
+   Il part seulement après confirmation du paiement par Stripe. Il contient tout : e-mail du client, langue, pseudo TikTok, type de projet (site web, vidéo publicitaire, motion design ou autre), description, date, référence et heure limite de réponse.
 2. **Le client a déjà reçu sa confirmation** automatiquement, dans sa langue. La ligne « E-mail client » de ta fiche le confirme.
    Si elle indique « Non envoyée », écris-lui toi-même avec le modèle de secours ci-dessous.
-3. **En moins de 24 h** : clique sur **Répondre** (ou sur le bouton « Répondre au client ») et envoie ta réponse personnalisée : méthode, outils, 3 prompts. Réponds en anglais si la fiche indique « English ».
+3. **En moins de 24 h** : clique sur **Répondre** (ou sur le bouton « Répondre au client ») et envoie ta réponse personnalisée, adaptée au type de projet : méthode, outils, 3 prompts. Réponds en anglais si la fiche indique « English ».
 4. **Suivi** : si le client répond dans les 7 jours, tu réponds une fois à ses questions.
 5. **Remboursement ou rétractation** : Stripe → **Paiements** → **⋯** → **Rembourser**. Le bouton « Voir dans Stripe » de la fiche ouvre directement le paiement.
 

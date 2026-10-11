@@ -1,7 +1,7 @@
 {
   "meta": {
-    "title": "Want to build a site like this? · 1:1 exchange · {price}",
-    "description": "I’ll show you how I build premium websites with AI: the tools, how I prompt, and prompts written for your project. A real exchange with me, {price}, one-time payment.",
+    "title": "Websites, ads and motion design with AI · 1:1 exchange · {price}",
+    "description": "Websites, video ads, motion design: I’ll show you my method for getting a professional result with AI. A real exchange with me, {price}, one-time payment.",
     "legalTitle": "Legal information · {brand}",
     "merciTitle": "Thank you · {brand}"
   },
@@ -18,12 +18,23 @@
     "optional": "optional"
   },
   "nav": {
-    "book": "Book"
+    "book": "Book",
+    "label": "Page sections",
+    "uni": "Creations",
+    "method": "Method",
+    "how": "How it works",
+    "faq": "FAQ"
   },
   "hero": {
-    "badge": "Seen on TikTok",
-    "title": "Want to build a site <span class=\"nw\"><span class=\"hl\">like this</span>?</span>",
-    "sub": "I’ll walk you through my method, the tools I use and how to talk to AI. Personally, for your project.",
+    "aria": "Want to create a website, an ad or motion design like this?",
+    "pre": "Want to create",
+    "words": [
+      "a website",
+      "an ad",
+      "motion design"
+    ],
+    "post": "like this?",
+    "sub": "Websites, ads, motion design: I’ll walk you through my method, my tools and how to talk to AI. Personally, for your project.",
     "cta": "Book my session",
     "watch": "Watch the video",
     "facts": [
@@ -33,14 +44,7 @@
     ]
   },
   "video": {
-    "label": "My TikTok video: an animated website built with AI",
     "play": "Watch with sound",
-    "chips": [
-      "Cinematic scroll",
-      "Real-time 3D",
-      "Motion design",
-      "Made with AI"
-    ],
     "player": "Video player",
     "pause": "Pause",
     "resume": "Play",
@@ -52,11 +56,12 @@
     "endSub": "I’ll show you how, for your project."
   },
   "marquee": [
+    "Websites",
+    "Video ads",
     "Motion design",
-    "Scroll animations",
-    "3D",
-    "Typography",
-    "Layout",
+    "Animation",
+    "Transitions",
+    "Visual effects",
     "Prompts",
     "Method",
     "AI tools"
@@ -65,7 +70,7 @@
     "kicker": "In the comments, people ask me",
     "big": "“Prompt?”",
     "title": "A prompt alone won’t get you there.",
-    "text": "Copy and paste the same prompt and you won’t get the same site. What matters is the method. And your project.",
+    "text": "Copy and paste the same prompt and you won’t get the same result. What matters is the method. And your project.",
     "pack": {
       "title": "A prompt pack",
       "items": [
@@ -85,11 +90,11 @@
   },
   "learn": {
     "kicker": "What you’ll learn",
-    "title": "What’s behind these sites.",
+    "title": "What’s behind this work.",
     "items": [
       {
         "t": "My method",
-        "d": "How I go from an idea to an animated website, step by step."
+        "d": "How I go from an idea to a professional result, step by step."
       },
       {
         "t": "My tools",
@@ -112,7 +117,7 @@
     "items": [
       "My written answer for your project, by email",
       "The method and tools that fit your level",
-      "{prompts} example prompts for your site",
+      "{prompts} example prompts for your project",
       "{followUpsIncluded} for your questions, within {followUpDays} days"
     ],
     "delay": "Reply within {delay} of your payment",
@@ -148,17 +153,17 @@
   "human": {
     "kicker": "No bot",
     "quote": "I read your project. And I’m the one who answers.",
-    "sign": "{creator} · creator of the video",
+    "sign": "{creator} · creator of the videos",
     "tiktok": "Follow me on TikTok",
     "notTitle": "What this isn’t",
     "not": [
-      "I won’t build your site for you",
+      "I won’t make your site or video for you",
       "It’s not a 10-hour course",
       "No subscription"
     ]
   },
   "price": {
-    "kicker": "The price",
+    "kicker": "The price of the exchange",
     "note": "One-time payment. No subscription.",
     "cta": "Book my session",
     "secure": "Secure payment by Stripe",
@@ -168,8 +173,12 @@
     "title": "Questions",
     "items": [
       {
-        "q": "Will you build my site for me?",
-        "a": "No. I show you how to build it yourself with AI: the method, the tools and prompts tailored to you. You stay in control."
+        "q": "Will you make my site or video for me?",
+        "a": "No. {price} is the price of our exchange, not of a website or a video. I show you how to create it yourself with AI: the method, the tools and prompts tailored to you. You stay in control."
+      },
+      {
+        "q": "Does it work for a video or motion design too?",
+        "a": "Yes. Website, video ad, motion design or something else: say which when you book, and I’ll tailor my answer."
       },
       {
         "q": "I’m a complete beginner. Is this for me?",
@@ -198,13 +207,14 @@
     ]
   },
   "footer": {
-    "tagline": "A personal exchange with the creator of the video.",
+    "tagline": "A personal exchange with the creator of these videos.",
     "mentions": "Legal notice",
     "cgv": "Terms of sale",
     "privacy": "Privacy",
     "contact": "Contact",
     "rights": "© {year} {brand}",
-    "stripe": "Secure payment by Stripe"
+    "stripe": "Secure payment by Stripe",
+    "legal": "{brand} is published by {seller.name}, {seller.status} · {seller.registration}"
   },
   "sticky": {
     "cta": "Book my session"
@@ -221,7 +231,14 @@
     "consentRequired": "Tick the box to continue.",
     "error": "Payment couldn’t start. Please try again in a moment.",
     "unavailable": "Payments aren’t open yet. Come back very soon.",
-    "test": "Stripe test mode: no real payment"
+    "test": "Stripe test mode: no real payment",
+    "kindLabel": "Your project",
+    "kinds": {
+      "site": "Website",
+      "pub": "Video ad",
+      "motion": "Motion",
+      "autre": "Other"
+    }
   },
   "merci": {
     "kicker": "Order sent",
@@ -262,5 +279,56 @@
     "title": "Page not found.",
     "text": "This page doesn’t exist, or no longer does.",
     "cta": "Back to home"
+  },
+  "uni": {
+    "kicker": "Three ways to create",
+    "title": "What you can make.",
+    "text": "You pick the field. I show you how to get a professional result.",
+    "note": "Three examples made with AI. The exchange shows you how to get there: I don’t make them for you.",
+    "play": "Watch the video",
+    "items": [
+      {
+        "short": "Websites",
+        "t": "Websites",
+        "tags": [
+          "Professional sites",
+          "Online shops",
+          "Apps"
+        ],
+        "chips": [
+          "Seen on TikTok",
+          "Cinematic scroll",
+          "Real-time 3D"
+        ]
+      },
+      {
+        "short": "AI ads",
+        "t": "AI video ads",
+        "tags": [
+          "TikTok ads",
+          "Product videos",
+          "Commercials"
+        ],
+        "chips": [
+          "TikTok format",
+          "Product video",
+          "15 seconds"
+        ]
+      },
+      {
+        "short": "Motion design",
+        "t": "Premium motion design",
+        "tags": [
+          "Advanced animation",
+          "Transitions",
+          "Visual effects"
+        ],
+        "chips": [
+          "100% code",
+          "No camera",
+          "Sound included"
+        ]
+      }
+    ]
   }
 }

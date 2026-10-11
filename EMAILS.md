@@ -3,7 +3,7 @@
 Dès que **Stripe confirme un paiement**, deux e-mails partent tout seuls :
 
 1. **Au client** : sa confirmation de commande, en français ou en anglais selon le champ « Langue souhaitée ».
-2. **À toi** (contact@maneo-ai.fr) : la fiche de la commande. Elle contient l’e-mail du client, sa langue, son pseudo TikTok, son projet, la date, la référence et l’heure limite de réponse. Le bouton « Répondre » de ta messagerie écrit directement au client.
+2. **À toi** (contact@maneo-ai.fr) : la fiche de la commande. Elle contient l’e-mail du client, sa langue, son pseudo TikTok, le type de projet choisi sur le site (site web, vidéo publicitaire, motion design ou autre), sa description, la date, la référence et l’heure limite de réponse. Le bouton « Répondre » de ta messagerie écrit directement au client.
 
 Expéditeur des deux e-mails : `AI Web Studio <contact@maneo-ai.fr>`.
 

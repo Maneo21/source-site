@@ -3,12 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Tu veux créer un site comme ça ? · Échange personnalisé · 7,90 €</title>
-<meta name="description" content="Je t’explique ma méthode pour créer des sites premium avec l’IA : les outils, la façon de demander, des prompts adaptés à ton projet. Un vrai échange avec moi, 7,90 €, paiement unique.">
+<title>Sites, pubs et motion design avec l’IA · Échange personnalisé · 7,90 €</title>
+<meta name="description" content="Sites web, vidéos publicitaires, motion design : je t’explique ma méthode pour obtenir un résultat professionnel avec l’IA. Un vrai échange avec moi, 7,90 €, paiement unique.">
 <meta name="theme-color" content="#09090A">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Tu veux créer un site comme ça ?">
-<meta property="og:description" content="Un échange personnalisé avec moi pour créer ton site avec l’IA. 7,90 €, paiement unique.">
+<meta property="og:site_name" content="AI Web Studio">
+<meta property="og:title" content="Sites, pubs et motion design avec l’IA">
+<meta property="og:description" content="Un échange personnalisé avec moi pour ton projet : site web, vidéo publicitaire ou motion design. 7,90 €, paiement unique.">
 <meta property="og:url" content="https://source-site.pages.dev/">
 <meta property="og:image" content="https://source-site.pages.dev/assets/media/og.jpg">
 <meta name="twitter:card" content="summary_large_image">
@@ -16,10 +17,11 @@
 <link rel="alternate" hreflang="en" href="https://source-site.pages.dev/en">
 <link rel="alternate" hreflang="x-default" href="https://source-site.pages.dev/">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,300..800&display=swap">
-<link rel="preload" as="image" href="/assets/media/teaser-poster.webp" fetchpriority="high">
+<link rel="preload" as="image" href="/assets/media/sites-poster.webp" fetchpriority="high">
 <link rel="modulepreload" href="/assets/i18n.js">
 <link rel="modulepreload" href="/assets/vars.js">
 <link rel="preload" href="/config.json" as="fetch" crossorigin>
@@ -64,6 +66,12 @@ var c=l||((navigator.language||'fr').slice(0,2).toLowerCase()),k=document.create
 
 <header class="top" data-top>
   <a class="logo" href="/" aria-label="AI Web Studio"><span data-brand>AI Web Studio</span><i class="caret"></i></a>
+  <nav class="top-nav" data-i18n-attr="aria-label:nav.label">
+    <a href="#univers" data-i18n="nav.uni">Univers</a>
+    <a href="#methode" data-i18n="nav.method">Méthode</a>
+    <a href="#deroulement" data-i18n="nav.how">Déroulé</a>
+    <a href="#faq" data-i18n="nav.faq">Questions</a>
+  </nav>
   <div class="top-r">
     <div class="lang-switch" role="group" data-langswitch data-i18n-attr="aria-label:common.langLabel"></div>
     <button class="btn btn-s" type="button" data-book><span data-i18n="nav.book">Réserver</span></button>
@@ -73,35 +81,47 @@ var c=l||((navigator.language||'fr').slice(0,2).toLowerCase()),k=document.create
 
 <main id="main">
 
-  <!-- 1. Accroche + vidéo -->
+  <!-- 1. Accroche + les trois vidéos -->
   <section class="hero" id="top">
     <div class="hero-head">
-      <p class="tt-chip" data-h style="--d:0ms"><i class="live"></i><span data-i18n="hero.badge">Vu sur TikTok</span></p>
-      <h1 class="h-hero" data-split data-h data-i18n-html="hero.title">Tu veux créer un site <span class="nw"><span class="hl">comme ça</span>&nbsp;?</span></h1>
+      <h1 class="h-hero" data-h data-i18n-attr="aria-label:hero.aria" aria-label="Tu veux créer un site, une pub ou du motion design comme ça ?">
+        <span class="hh-l" aria-hidden="true" data-split data-i18n="hero.pre">Tu veux créer</span>
+        <span class="hh-rot" aria-hidden="true" data-rot><span class="rot-w on">un site</span></span>
+        <span class="hh-l" aria-hidden="true" data-split data-i18n="hero.post" style="--d:230ms">comme ça ?</span>
+      </h1>
     </div>
 
     <div class="hero-media" data-h style="--d:350ms">
       <svg class="arrow" viewBox="0 0 120 120" aria-hidden="true"><path class="arrow-l" pathLength="1" d="M104 10C66 8 30 34 36 96"/><path class="arrow-h" pathLength="1" d="M21 82l15 16 14-17"/></svg>
-      <figure class="vcard" data-vcard>
+      <div class="deck" data-deck>
         <canvas class="ambi" width="18" height="32" aria-hidden="true"></canvas>
-        <div class="vcard-in">
-          <video class="teaser" muted playsinline loop preload="none" disablepictureinpicture disableremoteplayback poster="/assets/media/teaser-poster.webp" data-i18n-attr="aria-label:video.label"></video>
-          <span class="vshine" aria-hidden="true"></span>
-          <button class="vplay" type="button" data-play>
-            <span class="vplay-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg></span>
-            <span class="vplay-t" data-i18n="video.play">Regarder avec le son</span>
-            <span class="vdur">0:22</span>
-          </button>
+        <div class="deck-tilt">
+          <figure class="dcard" data-slot="0"><img src="/assets/media/sites-poster.webp" alt="" width="720" height="1280" fetchpriority="high"><video muted playsinline preload="none" disablepictureinpicture disableremoteplayback tabindex="-1" aria-hidden="true"></video><i class="ddim"></i></figure>
+          <figure class="dcard" data-slot="1"><img src="/assets/media/pub-poster.webp" alt="" width="720" height="1280" decoding="async" fetchpriority="low"><video muted playsinline preload="none" disablepictureinpicture disableremoteplayback tabindex="-1" aria-hidden="true"></video><i class="ddim"></i></figure>
+          <figure class="dcard" data-slot="2"><img src="/assets/media/motion-poster.webp" alt="" width="720" height="1280" decoding="async" fetchpriority="low"><video muted playsinline preload="none" disablepictureinpicture disableremoteplayback tabindex="-1" aria-hidden="true"></video><i class="ddim"></i></figure>
+          <div class="deck-ui">
+            <div class="sgs" role="tablist" data-i18n-attr="aria-label:uni.kicker">
+              <button class="sg on" type="button" role="tab" aria-selected="true" data-go="0"><i></i></button>
+              <button class="sg" type="button" role="tab" aria-selected="false" data-go="1"><i></i></button>
+              <button class="sg" type="button" role="tab" aria-selected="false" data-go="2"><i></i></button>
+            </div>
+            <span class="vshine" aria-hidden="true"></span>
+            <button class="vplay" type="button" data-play>
+              <span class="vplay-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg></span>
+              <span class="vplay-t" data-i18n="video.play">Regarder avec le son</span>
+              <span class="vdur" data-dur>0:22</span>
+            </button>
+          </div>
         </div>
-        <span class="vchip c1" aria-hidden="true"><i></i><span data-i18n="video.chips.0">Scroll cinématique</span></span>
-        <span class="vchip c2" aria-hidden="true"><i></i><span data-i18n="video.chips.1">3D en temps réel</span></span>
-        <span class="vchip c3" aria-hidden="true"><i></i><span data-i18n="video.chips.2">Motion design</span></span>
-        <span class="vchip c4" aria-hidden="true"><i></i><span data-i18n="video.chips.3">Fait avec l’IA</span></span>
-      </figure>
+        <span class="vchip c1 is-label" aria-hidden="true"><b data-chip-n>01</b><span data-chip="0">Sites web</span></span>
+        <span class="vchip c2" aria-hidden="true"><i></i><span data-chip="1">Vu sur TikTok</span></span>
+        <span class="vchip c3" aria-hidden="true"><i></i><span data-chip="2">Scroll cinématique</span></span>
+        <span class="vchip c4" aria-hidden="true"><i></i><span data-chip="3">3D en temps réel</span></span>
+      </div>
     </div>
 
     <div class="hero-body">
-      <p class="hero-sub" data-h style="--d:520ms" data-i18n="hero.sub">Je t’explique ma méthode, les outils que j’utilise et comment parler à l’IA. Personnellement, pour ton projet.</p>
+      <p class="hero-sub" data-h style="--d:520ms" data-i18n="hero.sub">Sites, pubs, motion design : je t’explique ma méthode, mes outils et comment parler à l’IA. Personnellement, pour ton projet.</p>
       <div class="hero-cta" data-h style="--d:640ms" data-hide-sticky>
         <button class="btn btn-p" type="button" data-book><span data-i18n="hero.cta">Réserver mon échange</span><span class="btn-price" data-price>7,90 €</span></button>
         <button class="btn btn-g" type="button" data-play><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg><span data-i18n="hero.watch">Voir la vidéo</span></button>
@@ -109,20 +129,71 @@ var c=l||((navigator.language||'fr').slice(0,2).toLowerCase()),k=document.create
       <ul class="facts" data-h style="--d:760ms">
         <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span data-i18n="hero.facts.0">Paiement unique</span></li>
         <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span data-i18n="hero.facts.1">Sans abonnement</span></li>
-        <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span data-i18n="hero.facts.2">Réponse sous 2 jours ouvrés</span></li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span data-i18n="hero.facts.2">Réponse en moins de 24 h</span></li>
       </ul>
     </div>
   </section>
 
   <div class="marquee" aria-hidden="true"><div class="mq-track" data-marquee></div></div>
 
-  <!-- 2. Pas un pack de prompts -->
+  <!-- 2. Les trois univers -->
+  <section class="sec uni" id="univers">
+    <div class="wrap">
+      <p class="kick" data-r data-i18n="uni.kicker">Trois univers</p>
+      <h2 class="h2" data-split data-i18n="uni.title">Ce que tu peux créer.</h2>
+      <p class="lead" data-r data-i18n="uni.text">Tu choisis ton terrain. Je t’explique comment obtenir un résultat professionnel.</p>
+      <div class="ucards" data-ucards>
+        <article class="ucard">
+          <div class="u-in">
+            <div class="u-media"><img src="/assets/media/sites-poster.webp" alt="" width="720" height="1280" loading="lazy" decoding="async"><video muted playsinline preload="none" disablepictureinpicture disableremoteplayback tabindex="-1" aria-hidden="true"></video></div>
+            <i class="u-grad" aria-hidden="true"></i>
+            <p class="u-n" aria-hidden="true"><b>01</b> / 03</p>
+            <div class="u-body">
+              <h3 class="u-t" data-i18n="uni.items.0.t">Sites web</h3>
+              <ul class="u-tags"><li data-i18n="uni.items.0.tags.0">Sites professionnels</li><li data-i18n="uni.items.0.tags.1">Boutiques</li><li data-i18n="uni.items.0.tags.2">Applications</li></ul>
+              <button class="u-play" type="button" data-play="sites"><span class="vplay-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg></span><span class="u-play-t" data-i18n="uni.play">Voir la vidéo</span><span class="vdur">0:22</span></button>
+            </div>
+            <i class="u-shade" aria-hidden="true"></i>
+          </div>
+        </article>
+        <article class="ucard">
+          <div class="u-in">
+            <div class="u-media"><img src="/assets/media/pub-poster.webp" alt="" width="720" height="1280" loading="lazy" decoding="async"><video muted playsinline preload="none" disablepictureinpicture disableremoteplayback tabindex="-1" aria-hidden="true"></video></div>
+            <i class="u-grad" aria-hidden="true"></i>
+            <p class="u-n" aria-hidden="true"><b>02</b> / 03</p>
+            <div class="u-body">
+              <h3 class="u-t" data-i18n="uni.items.1.t">Vidéos publicitaires IA</h3>
+              <ul class="u-tags"><li data-i18n="uni.items.1.tags.0">Publicités TikTok</li><li data-i18n="uni.items.1.tags.1">Vidéos de produits</li><li data-i18n="uni.items.1.tags.2">Créations commerciales</li></ul>
+              <button class="u-play" type="button" data-play="pub"><span class="vplay-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg></span><span class="u-play-t" data-i18n="uni.play">Voir la vidéo</span><span class="vdur">0:15</span></button>
+            </div>
+            <i class="u-shade" aria-hidden="true"></i>
+          </div>
+        </article>
+        <article class="ucard">
+          <div class="u-in">
+            <div class="u-media"><img src="/assets/media/motion-poster.webp" alt="" width="720" height="1280" loading="lazy" decoding="async"><video muted playsinline preload="none" disablepictureinpicture disableremoteplayback tabindex="-1" aria-hidden="true"></video></div>
+            <i class="u-grad" aria-hidden="true"></i>
+            <p class="u-n" aria-hidden="true"><b>03</b> / 03</p>
+            <div class="u-body">
+              <h3 class="u-t" data-i18n="uni.items.2.t">Motion design premium</h3>
+              <ul class="u-tags"><li data-i18n="uni.items.2.tags.0">Animations avancées</li><li data-i18n="uni.items.2.tags.1">Transitions</li><li data-i18n="uni.items.2.tags.2">Effets visuels</li></ul>
+              <button class="u-play" type="button" data-play="motion"><span class="vplay-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg></span><span class="u-play-t" data-i18n="uni.play">Voir la vidéo</span><span class="vdur">0:18</span></button>
+            </div>
+            <i class="u-shade" aria-hidden="true"></i>
+          </div>
+        </article>
+      </div>
+      <p class="uni-note" data-r data-i18n="uni.note">Trois exemples créés avec l’IA. L’échange t’explique comment y arriver : je ne les réalise pas à ta place.</p>
+    </div>
+  </section>
+
+  <!-- 3. Pas un pack de prompts -->
   <section class="sec diff" id="methode">
     <div class="wrap">
       <p class="kick" data-r data-i18n="diff.kicker">En commentaire, on me demande</p>
       <p class="diff-big" data-r><span data-i18n="diff.big">« Prompt ? »</span></p>
       <h2 class="h2" data-split data-i18n="diff.title">Un prompt seul ne suffit pas.</h2>
-      <p class="lead" data-r data-i18n="diff.text">Le même prompt, copié-collé, ne donnera pas le même site. Ce qui compte, c’est la méthode. Et ton projet.</p>
+      <p class="lead" data-r data-i18n="diff.text">Le même prompt, copié-collé, ne donnera pas le même résultat. Ce qui compte, c’est la méthode. Et ton projet.</p>
       <div class="vs">
         <div class="vs-card is-pack" data-r data-spot>
           <div class="vs-ic" aria-hidden="true">
@@ -151,11 +222,11 @@ var c=l||((navigator.language||'fr').slice(0,2).toLowerCase()),k=document.create
     </div>
   </section>
 
-  <!-- 3. Ce que tu vas apprendre -->
+  <!-- 4. Ce que tu vas apprendre -->
   <section class="sec learn" id="apprendre">
     <div class="wrap">
       <p class="kick" data-r data-i18n="learn.kicker">Ce que tu vas apprendre</p>
-      <h2 class="h2" data-split data-i18n="learn.title">Ce qu’il y a derrière ces sites.</h2>
+      <h2 class="h2" data-split data-i18n="learn.title">Ce qu’il y a derrière ces créations.</h2>
       <ol class="lrows">
         <li class="lrow" data-r><span class="lnum">01</span><div><h3 data-i18n="learn.items.0.t">Ma méthode</h3><p data-i18n="learn.items.0.d"></p></div></li>
         <li class="lrow" data-r><span class="lnum">02</span><div><h3 data-i18n="learn.items.1.t">Mes outils</h3><p data-i18n="learn.items.1.d"></p></div></li>
@@ -165,7 +236,7 @@ var c=l||((navigator.language||'fr').slice(0,2).toLowerCase()),k=document.create
     </div>
   </section>
 
-  <!-- 4. Ce que tu reçois -->
+  <!-- 5. Ce que tu reçois -->
   <section class="sec get" id="offre">
     <div class="wrap">
       <p class="kick" data-r data-i18n="get.kicker">Ce que tu reçois</p>
@@ -199,7 +270,7 @@ var c=l||((navigator.language||'fr').slice(0,2).toLowerCase()),k=document.create
     </div>
   </section>
 
-  <!-- 5. Comment ça se passe -->
+  <!-- 6. Comment ça se passe -->
   <section class="sec how" id="deroulement">
     <div class="wrap">
       <p class="kick" data-r data-i18n="how.kicker">Comment ça se passe</p>
@@ -216,7 +287,7 @@ var c=l||((navigator.language||'fr').slice(0,2).toLowerCase()),k=document.create
     </div>
   </section>
 
-  <!-- 6. Un humain -->
+  <!-- 7. Un humain -->
   <section class="sec human" id="moi">
     <div class="wrap">
       <p class="kick" data-r data-i18n="human.kicker">Pas de bot</p>
@@ -237,10 +308,10 @@ var c=l||((navigator.language||'fr').slice(0,2).toLowerCase()),k=document.create
     </div>
   </section>
 
-  <!-- 7. Prix -->
+  <!-- 8. Prix -->
   <section class="sec price" id="reserver" data-hide-sticky>
     <div class="wrap">
-      <p class="kick" data-r data-i18n="price.kicker">Le prix</p>
+      <p class="kick" data-r data-i18n="price.kicker">Le prix de l’échange</p>
       <p class="big-price" data-r data-roll>7,90 €</p>
       <p class="price-note" data-r data-i18n="price.note">Paiement unique. Sans abonnement.</p>
       <div data-r style="--d:120ms"><button class="btn btn-p btn-xl" type="button" data-book><span data-i18n="price.cta">Réserver mon échange</span><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></div>
@@ -251,7 +322,7 @@ var c=l||((navigator.language||'fr').slice(0,2).toLowerCase()),k=document.create
     </div>
   </section>
 
-  <!-- 8. FAQ -->
+  <!-- 9. FAQ -->
   <section class="sec faq" id="faq">
     <div class="wrap">
       <h2 class="h2" data-split data-i18n="faq.title">Questions fréquentes</h2>
@@ -263,6 +334,7 @@ var c=l||((navigator.language||'fr').slice(0,2).toLowerCase()),k=document.create
         <details class="qa" data-r><summary><span data-i18n="faq.items.4.q"></span><i class="pm" aria-hidden="true"></i></summary><div class="qa-a"><p data-i18n-html="faq.items.4.a"></p></div></details>
         <details class="qa" data-r><summary><span data-i18n="faq.items.5.q"></span><i class="pm" aria-hidden="true"></i></summary><div class="qa-a"><p data-i18n-html="faq.items.5.a"></p></div></details>
         <details class="qa" data-r><summary><span data-i18n="faq.items.6.q"></span><i class="pm" aria-hidden="true"></i></summary><div class="qa-a"><p data-i18n-html="faq.items.6.a"></p></div></details>
+        <details class="qa" data-r><summary><span data-i18n="faq.items.7.q"></span><i class="pm" aria-hidden="true"></i></summary><div class="qa-a"><p data-i18n-html="faq.items.7.a"></p></div></details>
       </div>
     </div>
   </section>
@@ -273,7 +345,7 @@ var c=l||((navigator.language||'fr').slice(0,2).toLowerCase()),k=document.create
   <div class="wrap">
     <div class="foot-top">
       <a class="logo" href="/" aria-label="AI Web Studio"><span data-brand>AI Web Studio</span><i class="caret"></i></a>
-      <p data-i18n="footer.tagline">Un échange personnel avec le créateur de la vidéo.</p>
+      <p data-i18n="footer.tagline">Un échange personnel avec le créateur de ces vidéos.</p>
     </div>
     <nav class="foot-links">
       <a href="/legal#mentions" data-i18n="footer.mentions">Mentions légales</a>
@@ -281,7 +353,7 @@ var c=l||((navigator.language||'fr').slice(0,2).toLowerCase()),k=document.create
       <a href="/legal#confidentialite" data-i18n="footer.privacy">Confidentialité</a>
       <a data-contact data-i18n="footer.contact">Contact</a>
     </nav>
-    <p class="foot-legal"><span data-i18n="footer.rights">© 2026 AI Web Studio</span> · <span data-i18n="footer.stripe">Paiement sécurisé par Stripe</span></p>
+    <p class="foot-legal"><span data-i18n="footer.rights">© 2026 AI Web Studio</span> · <span data-i18n="footer.stripe">Paiement sécurisé par Stripe</span><br><span data-i18n="footer.legal"></span></p>
   </div>
 </footer>
 
@@ -305,8 +377,16 @@ var c=l||((navigator.language||'fr').slice(0,2).toLowerCase()),k=document.create
       <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span data-i18n="get.items.3"></span></li>
       <li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg><span data-i18n="get.delay"></span></li>
     </ul>
-    <div class="sheet-total"><span data-i18n="sheet.total">Total</span><strong data-price>7,90 €</strong></div>
-    <p class="sheet-once" data-i18n="sheet.once">Paiement unique · sans abonnement</p>
+    <fieldset class="kinds">
+      <legend data-i18n="sheet.kindLabel">Ton projet</legend>
+      <div class="kinds-row">
+        <label class="kind"><input type="radio" name="kind" value="site"><span data-i18n="sheet.kinds.site">Site web</span></label>
+        <label class="kind"><input type="radio" name="kind" value="pub"><span data-i18n="sheet.kinds.pub">Vidéo pub</span></label>
+        <label class="kind"><input type="radio" name="kind" value="motion"><span data-i18n="sheet.kinds.motion">Motion</span></label>
+        <label class="kind"><input type="radio" name="kind" value="autre"><span data-i18n="sheet.kinds.autre">Autre</span></label>
+      </div>
+    </fieldset>
+    <div class="sheet-total"><span><span data-i18n="sheet.total">Total</span><small data-i18n="sheet.once">Paiement unique · sans abonnement</small></span><strong data-price>7,90 €</strong></div>
     <label class="check">
       <input type="checkbox" name="consent" required>
       <span class="box" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>
@@ -328,7 +408,7 @@ var c=l||((navigator.language||'fr').slice(0,2).toLowerCase()),k=document.create
 <div class="player" id="player" role="dialog" aria-modal="true" data-i18n-attr="aria-label:video.player" hidden>
   <div class="player-bg" data-pclose></div>
   <div class="player-frame">
-    <video class="pvideo" playsinline preload="none" data-poster="/assets/media/video-poster.webp" disablepictureinpicture></video>
+    <video class="pvideo" playsinline preload="none" disablepictureinpicture></video>
     <button class="p-x" type="button" data-pclose data-i18n-attr="aria-label:common.close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
     <button class="p-big" type="button" data-ptoggle data-i18n-attr="aria-label:video.resume"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg></button>
     <div class="p-ui">

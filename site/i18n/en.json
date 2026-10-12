@@ -117,7 +117,7 @@
       "{prompts} example prompts for your project",
       "{followUpsIncluded} for your questions, within {followUpDays} days"
     ],
-    "delay": "A near-instant reply, {replyHours} hours at most",
+    "delay": "A near-instant reply after your order",
     "once": "One-time payment · no subscription",
     "exLabel": "Illustrative example",
     "exPrompt": "“Build a full-screen homepage on a deep black background. The name appears letter by letter, then the first photo fades in as you scroll, like the opening credits of a film…”",
@@ -148,7 +148,7 @@
       },
       {
         "t": "I answer you, personally",
-        "d": "Almost immediately, and always within {delay}, on TikTok or by email: the method, the tools and your prompts."
+        "d": "Almost right after your order, on TikTok or by email: the method, the tools and your prompts."
       },
       {
         "t": "You ask your questions",
@@ -190,7 +190,7 @@
       },
       {
         "q": "How does the exchange work?",
-        "a": "Before paying, you choose where to get my reply: on TikTok or by email. On the payment page, you describe your project in one sentence. I reply personally, almost immediately and always within {delay}, then you get {followUpsIncluded} for your questions."
+        "a": "Before paying, you choose where to get my reply: on TikTok or by email. On the payment page, you describe your project in one sentence. I reply personally, almost right after your order, then you get {followUpsIncluded} for your questions."
       },
       {
         "q": "Do I need to pay for tools?",
@@ -222,7 +222,7 @@
   },
   "sticky": {
     "cta": "Book my session",
-    "note": "A near-instant reply, on TikTok or by email"
+    "note": "A near-instant reply after your order"
   },
   "sheet": {
     "kicker": "Summary",
@@ -268,7 +268,7 @@
       },
       {
         "t": "My reply, almost immediately",
-        "d": "I write to you personally as soon as I get your order, and always within {delay}: as a direct message on TikTok if you chose it, otherwise from {contact}, at the email address you used to pay. You’ll find the method, the tools that fit your level and {prompts} example prompts for your project."
+        "d": "I write to you personally as soon as I get your order: as a direct message on TikTok if you chose it, otherwise from {contact}, at the email address you used to pay. You’ll find the method, the tools that fit your level and {prompts} example prompts for your project."
       },
       {
         "t": "Your questions",
@@ -276,7 +276,7 @@
       }
     ],
     "tip": "By email: add {contact} to your contacts. On TikTok: check your message requests too.",
-    "help": "Nothing after 24 hours? Check your spam, your Promotions tab and your TikTok message requests, then email me at {contact}.",
+    "help": "Nothing yet? Check your spam, your Promotions tab and your TikTok message requests, then email me at {contact}.",
     "notPaid": "Left the payment page without paying? You haven’t been charged.",
     "back": "Back to the site"
   },
@@ -354,8 +354,8 @@
   },
   "brief": [
     {
-      "v": "{replyHours} h",
-      "l": "at most. I reply as soon as I get your order."
+      "v": "Fast",
+      "l": "my reply comes almost right after your order"
     },
     {
       "v": "{prompts} prompts",
@@ -385,7 +385,7 @@
       },
       {
         "t": "A near-instant reply",
-        "d": "I reply as soon as I get your order, always within {delay}. On TikTok or by email, your choice."
+        "d": "I reply as soon as I get your order. On TikTok or by email, your choice."
       },
       {
         "t": "A real person",

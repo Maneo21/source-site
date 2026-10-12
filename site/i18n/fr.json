@@ -117,7 +117,7 @@
       "{prompts} exemples de prompts pour ton projet",
       "{followUpsIncluded} pour tes questions, sous {followUpDays} jours"
     ],
-    "delay": "Réponse presque immédiate, {replyHours} h maximum",
+    "delay": "Réponse presque immédiate après ta commande",
     "once": "Paiement unique · sans abonnement",
     "exLabel": "Exemple illustratif",
     "exPrompt": "« Crée une page d’accueil plein écran sur fond noir profond. Le nom apparaît lettre par lettre, puis la première photo s’ouvre en fondu au défilement, comme le générique d’un film… »",
@@ -148,7 +148,7 @@
       },
       {
         "t": "Je te réponds, personnellement",
-        "d": "Presque immédiatement, et toujours en {delay}, sur TikTok ou par e-mail : la méthode, les outils et tes prompts."
+        "d": "Presque immédiatement après ta commande, sur TikTok ou par e-mail : la méthode, les outils et tes prompts."
       },
       {
         "t": "Tu poses tes questions",
@@ -190,7 +190,7 @@
       },
       {
         "q": "Comment se passe l’échange ?",
-        "a": "Avant de payer, tu choisis où recevoir ma réponse : sur TikTok ou par e-mail. Sur la page de paiement, tu décris ton projet en une phrase. Je te réponds personnellement, presque immédiatement et toujours en {delay}, puis tu as {followUpsIncluded} pour tes questions."
+        "a": "Avant de payer, tu choisis où recevoir ma réponse : sur TikTok ou par e-mail. Sur la page de paiement, tu décris ton projet en une phrase. Je te réponds personnellement, presque immédiatement après ta commande, puis tu as {followUpsIncluded} pour tes questions."
       },
       {
         "q": "Faut-il payer des outils ?",
@@ -222,7 +222,7 @@
   },
   "sticky": {
     "cta": "Réserver mon échange",
-    "note": "Réponse presque immédiate, sur TikTok ou par e-mail"
+    "note": "Réponse presque immédiate après ta commande"
   },
   "sheet": {
     "kicker": "Récapitulatif",
@@ -268,7 +268,7 @@
       },
       {
         "t": "Ma réponse, presque immédiate",
-        "d": "Je t’écris personnellement dès que je reçois ta commande, et toujours en {delay} : en message privé sur TikTok si tu l’as choisi, sinon depuis {contact}, à l’adresse e-mail du paiement. Tu y trouves la méthode, les outils adaptés à ton niveau et {prompts} exemples de prompts pour ton projet."
+        "d": "Je t’écris personnellement dès que je reçois ta commande : en message privé sur TikTok si tu l’as choisi, sinon depuis {contact}, à l’adresse e-mail du paiement. Tu y trouves la méthode, les outils adaptés à ton niveau et {prompts} exemples de prompts pour ton projet."
       },
       {
         "t": "Tes questions",
@@ -276,7 +276,7 @@
       }
     ],
     "tip": "Par e-mail : ajoute {contact} à tes contacts. Sur TikTok : regarde aussi tes demandes de messages.",
-    "help": "Rien reçu après 24 h ? Regarde tes spams, l’onglet Promotions et tes demandes de messages TikTok, puis écris-moi à {contact}.",
+    "help": "Rien reçu ? Regarde tes spams, l’onglet Promotions et tes demandes de messages TikTok, puis écris-moi à {contact}.",
     "notPaid": "Tu as quitté la page de paiement sans payer ? Aucun montant n’a été débité.",
     "back": "Retour au site"
   },
@@ -354,8 +354,8 @@
   },
   "brief": [
     {
-      "v": "{replyHours} h",
-      "l": "au maximum. Je réponds dès que je reçois ta commande."
+      "v": "Très vite",
+      "l": "ma réponse arrive presque immédiatement après ta commande"
     },
     {
       "v": "{prompts} prompts",
@@ -385,7 +385,7 @@
       },
       {
         "t": "Réponse presque immédiate",
-        "d": "Je réponds dès que je reçois ta commande, toujours en {delay}. Sur TikTok ou par e-mail, au choix."
+        "d": "Je réponds dès que je reçois ta commande. Sur TikTok ou par e-mail, au choix."
       },
       {
         "t": "Un vrai interlocuteur",

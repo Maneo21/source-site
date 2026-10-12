@@ -32,9 +32,10 @@
 try{l=localStorage.getItem('lang')}catch(e){}
 var q=/[?&]lang=([a-z]{2})(&|$)/.exec(location.search),p=/^\/([a-z]{2})(\/|$)/.exec(location.pathname);
 if(q)l=q[1];else if(p)l=p[1];
-if(l)d.lang=l;else d.classList.add('is-welcome');
 var t=0;try{t=+localStorage.getItem('tt')||0}catch(e){}
-if((/BytedanceWebview|musical_ly|trill_|TikTok/i.test(navigator.userAgent)||/[?&]tiktok=1(&|$)/.test(location.search))&&Date.now()-t>864e5)d.classList.add('is-tt');
+var tt=(/BytedanceWebview|musical_ly|trill_|TikTok/i.test(navigator.userAgent)||/[?&]tiktok=1(&|$)/.test(location.search))&&Date.now()-t>864e5;
+if(tt)d.classList.add('is-tt');
+if(l)d.lang=l;else if(!tt)d.classList.add('is-welcome');
 var c=l||((navigator.language||'fr').slice(0,2).toLowerCase()),k=document.createElement('link');k.rel='preload';k.as='fetch';k.crossOrigin='anonymous';k.href='/i18n/'+(/^[a-z]{2}$/.test(c)?c:'fr')+'.json';document.head.appendChild(k)})();
 </script>
 <script type="module" src="/assets/app.js"></script>
@@ -68,6 +69,7 @@ var c=l||((navigator.language||'fr').slice(0,2).toLowerCase()),k=document.create
   <div class="welcome-in tt" data-tt>
     <svg class="tt-arrow" viewBox="0 0 120 120" aria-hidden="true"><path class="tt-l" pathLength="1" d="M16 110C20 62 50 28 100 22"/><path class="tt-h" pathLength="1" d="M82 6l20 16-18 17"/></svg>
     <span class="tt-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+    <div class="lang-switch tt-lang" role="group" data-tt-lang data-i18n-attr="aria-label:common.langLabel"></div>
     <p class="kick" data-i18n="tt.kicker">Tu arrives de TikTok</p>
     <p class="tt-title" id="tt-title" data-i18n="tt.title">Ouvre le site dans ton navigateur.</p>
     <p class="tt-text" data-i18n="tt.text">Pour une meilleure immersion dans le site.</p>
@@ -80,6 +82,7 @@ var c=l||((navigator.language||'fr').slice(0,2).toLowerCase()),k=document.create
 </div>
 
 <header class="top" data-top>
+  <i class="prog" aria-hidden="true"></i>
   <a class="logo" href="/" aria-label="AI Web Studio"><span data-brand>AI Web Studio</span><i class="caret"></i></a>
   <nav class="top-nav" data-i18n-attr="aria-label:nav.label">
     <a href="#univers" data-i18n="nav.uni">Univers</a>
@@ -98,6 +101,7 @@ var c=l||((navigator.language||'fr').slice(0,2).toLowerCase()),k=document.create
 
   <!-- 1. Accroche + les trois vidéos -->
   <section class="hero" id="top">
+    <div class="aura" aria-hidden="true"><i></i><i></i></div>
     <div class="hero-head">
       <h1 class="h-hero" data-h data-i18n-attr="aria-label:hero.aria" aria-label="Tu veux créer un site, une pub ou du motion design comme ça ?">
         <span class="hh-l" aria-hidden="true" data-split data-i18n="hero.pre">Tu veux créer</span>
@@ -143,10 +147,11 @@ var c=l||((navigator.language||'fr').slice(0,2).toLowerCase()),k=document.create
         <button class="btn btn-p" type="button" data-book><span data-i18n="hero.cta">Réserver mon échange</span><span class="btn-price" data-price>7,90 €</span></button>
         <button class="btn btn-g" type="button" data-play><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg><span data-i18n="hero.watch">Voir la vidéo</span></button>
       </div>
-      <ul class="facts" data-h style="--d:760ms">
-        <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span data-i18n="hero.facts.0">Paiement unique</span></li>
-        <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span data-i18n="hero.facts.1">Sans abonnement</span></li>
-        <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span data-i18n="hero.facts.2">Réponse en moins de 24 h</span></li>
+      <ul class="brief" data-h style="--d:760ms">
+        <li><strong data-count data-i18n="brief.0.v">24 h</strong><span data-i18n="brief.0.l">maximum pour recevoir ma réponse</span></li>
+        <li><strong data-count data-i18n="brief.1.v">3 prompts</strong><span data-i18n="brief.1.l">écrits pour ton projet</span></li>
+        <li><strong data-count data-i18n="brief.2.v">1 relance</strong><span data-i18n="brief.2.l">pour tes questions, sous 7 jours</span></li>
+        <li><strong data-i18n="brief.3.v">1 : 1</strong><span data-i18n="brief.3.l">avec moi, par e-mail</span></li>
       </ul>
     </div>
   </section>
@@ -277,10 +282,18 @@ var c=l||((navigator.language||'fr').slice(0,2).toLowerCase()),k=document.create
           <span class="tk-sheen" aria-hidden="true"></span>
         </article>
 
-        <figure class="ex" data-r style="--d:140ms">
+        <figure class="ex mail" data-r style="--d:140ms">
           <div class="ex-top"><span class="ex-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="ex-lbl" data-i18n="get.exLabel">Exemple illustratif</span></div>
-          <p class="ex-proj"><span class="ex-k" data-i18n="get.exProjectKey">Projet</span><span data-i18n="get.exProject"></span></p>
-          <p class="ex-prompt" data-type></p>
+          <dl class="mail-head">
+            <div><dt data-i18n="get.mail.from">De</dt><dd><span class="mail-av" aria-hidden="true" data-initial>E</span><span data-i18n="get.mail.sender">Evan · AI Web Studio</span></dd></div>
+            <div><dt data-i18n="get.mail.subject">Objet</dt><dd data-i18n="get.mail.title">Ton plan pour ton portfolio</dd></div>
+          </dl>
+          <ol class="mail-body">
+            <li><span class="mail-n" aria-hidden="true">01</span><div><h4 data-i18n="get.mail.s1">La méthode, étape par étape</h4><p class="sk" aria-hidden="true"><i></i><i></i><i></i></p></div></li>
+            <li><span class="mail-n" aria-hidden="true">02</span><div><h4 data-i18n="get.mail.s2">Les outils adaptés à ton niveau</h4><p class="sk sk-chips" aria-hidden="true"><i></i><i></i><i></i></p></div></li>
+            <li><span class="mail-n" aria-hidden="true">03</span><div><h4 data-i18n="get.mail.s3">3 prompts écrits pour ton projet</h4><p class="ex-prompt" data-type></p></div></li>
+            <li><span class="mail-n" aria-hidden="true">04</span><div><h4 data-i18n="get.mail.s4">Tes questions</h4><p class="mail-t" data-i18n="get.mail.s4d">1 relance incluse, sous 7 jours</p></div></li>
+          </ol>
           <figcaption class="ex-note" data-i18n="get.exNote"></figcaption>
         </figure>
       </div>
@@ -314,6 +327,7 @@ var c=l||((navigator.language||'fr').slice(0,2).toLowerCase()),k=document.create
         <span class="sig-t" data-i18n-html="human.sign"></span>
         <a class="sig-tt" data-tiktok hidden target="_blank" rel="noopener"><span data-i18n="human.tiktok">Me suivre sur TikTok</span> ↗</a>
       </div>
+      <ul class="proof" data-proof data-r hidden></ul>
       <div class="nots" data-r>
         <p class="kick" data-i18n="human.notTitle">Ce que ce n’est pas</p>
         <ul>
@@ -332,9 +346,15 @@ var c=l||((navigator.language||'fr').slice(0,2).toLowerCase()),k=document.create
       <p class="big-price" data-r data-roll>7,90 €</p>
       <p class="price-note" data-r data-i18n="price.note">Paiement unique. Sans abonnement.</p>
       <div data-r style="--d:120ms"><button class="btn btn-p btn-xl" type="button" data-book><span data-i18n="price.cta">Réserver mon échange</span><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></div>
-      <ul class="price-meta" data-r style="--d:200ms">
-        <li><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10.5" width="14" height="10" rx="2.5"/><path d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5"/></svg><span data-i18n="price.secure">Paiement sécurisé par Stripe</span></li>
-        <li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg><span data-i18n="price.delay"></span></li>
+      <ul class="pay" data-r style="--d:180ms" data-i18n-attr="aria-label:trust.methodsLabel">
+        <li data-i18n="trust.methods.0">Carte bancaire</li><li data-i18n="trust.methods.1">Apple Pay</li><li data-i18n="trust.methods.2">Klarna</li>
+      </ul>
+      <p class="pay-note" data-r style="--d:200ms" data-i18n="trust.methodsNote">Moyens de paiement proposés par Stripe, selon ton appareil et ton pays.</p>
+      <ul class="trust">
+        <li data-r><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10.5" width="14" height="10" rx="2.5"/><path d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5"/></svg><div><strong data-i18n="trust.items.0.t">Paiement sécurisé</strong><span data-i18n="trust.items.0.d"></span></div></li>
+        <li data-r style="--d:70ms"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg><div><strong data-i18n="trust.items.1.t">Réponse en moins de 24 h</strong><span data-i18n="trust.items.1.d"></span></div></li>
+        <li data-r style="--d:140ms"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8.5" r="3.6"/><path d="M5 19.5c1.2-3.4 3.8-5 7-5s5.8 1.6 7 5"/></svg><div><strong data-i18n="trust.items.2.t">Un vrai interlocuteur</strong><span data-i18n="trust.items.2.d"></span></div></li>
+        <li data-r style="--d:210ms"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 12a7.5 7.5 0 1 0 2.2-5.3M4.5 4.5v4h4"/></svg><div><strong data-i18n="trust.items.3.t">Droit de rétractation</strong><span data-i18n-html="trust.items.3.d"></span></div></li>
       </ul>
     </div>
   </section>
@@ -377,6 +397,7 @@ var c=l||((navigator.language||'fr').slice(0,2).toLowerCase()),k=document.create
 <!-- Barre de réservation (téléphone) -->
 <div class="sticky" data-sticky>
   <button class="btn btn-p" type="button" data-book><span data-i18n="sticky.cta">Réserver mon échange</span><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+  <p class="sticky-t" data-i18n="sticky.note">Réponse personnelle par e-mail, en moins de 24 h</p>
 </div>
 
 <!-- Récapitulatif avant paiement -->
@@ -415,6 +436,7 @@ var c=l||((navigator.language||'fr').slice(0,2).toLowerCase()),k=document.create
       <span data-i18n="sheet.pay">Continuer vers le paiement</span>
       <span class="spin" aria-hidden="true"></span>
     </button>
+    <p class="sheet-safe"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10.5" width="14" height="10" rx="2.5"/><path d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5"/></svg><span data-i18n="sheet.safe">Paiement chiffré, géré par Stripe</span></p>
     <p class="sheet-small" data-i18n="sheet.redirect"></p>
     <p class="sheet-small" data-i18n-html="sheet.legal"></p>
     <p class="mode-tag" data-mode-tag hidden></p>

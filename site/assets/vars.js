@@ -38,6 +38,7 @@ export function buildVars(config, dict, lang) {
     replyHours: o.replyHours,
     prompts: o.prompts,
     followUps: plural(u.followUps, o.followUps, loc),
+    followUpCount: o.followUps,
     followUpsIncluded: plural(u.followUpsIncluded, o.followUps, loc),
     followUpDays: o.followUpDays,
     year: new Date().getFullYear(),

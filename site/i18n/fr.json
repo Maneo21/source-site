@@ -37,11 +37,6 @@
     "sub": "Sites, pubs, motion design : je t’explique ma méthode, mes outils et comment parler à l’IA. Personnellement, pour ton projet.",
     "cta": "Réserver mon échange",
     "watch": "Voir la vidéo",
-    "facts": [
-      "Paiement unique",
-      "Sans abonnement",
-      "Réponse en {delay}"
-    ],
     "prev": "Vidéo précédente",
     "next": "Vidéo suivante"
   },
@@ -125,10 +120,19 @@
     "delay": "Réponse en {delay} après ton paiement",
     "once": "Paiement unique · sans abonnement",
     "exLabel": "Exemple illustratif",
-    "exProjectKey": "Projet",
-    "exProject": "portfolio d’une photographe, ambiance cinéma",
     "exPrompt": "« Crée une page d’accueil plein écran sur fond noir profond. Le nom apparaît lettre par lettre, puis la première photo s’ouvre en fondu au défilement, comme le générique d’un film… »",
-    "exNote": "Dans ta réponse : des prompts comme celui-ci, pensés pour ton projet, avec l’explication de chaque choix."
+    "exNote": "Exemple de structure, sur le projet « portfolio d’une photographe ». Ta réponse est écrite pour ton projet, avec l’explication de chaque choix.",
+    "mail": {
+      "from": "De",
+      "sender": "{creator} · {brand}",
+      "subject": "Objet",
+      "title": "Ton plan pour ton portfolio",
+      "s1": "La méthode, étape par étape",
+      "s2": "Les outils adaptés à ton niveau",
+      "s3": "{prompts} prompts écrits pour ton projet",
+      "s4": "Tes questions",
+      "s4d": "{followUpsIncluded}, sous {followUpDays} jours"
+    }
   },
   "how": {
     "kicker": "Comment ça se passe",
@@ -167,9 +171,7 @@
   "price": {
     "kicker": "Le prix de l’échange",
     "note": "Paiement unique. Sans abonnement.",
-    "cta": "Réserver mon échange",
-    "secure": "Paiement sécurisé par Stripe",
-    "delay": "Réponse en {delay}"
+    "cta": "Réserver mon échange"
   },
   "faq": {
     "title": "Questions fréquentes",
@@ -219,7 +221,8 @@
     "legal": "{brand} est édité par {seller.name}, {seller.status} · {seller.registration}"
   },
   "sticky": {
-    "cta": "Réserver mon échange"
+    "cta": "Réserver mon échange",
+    "note": "Réponse personnelle par e-mail, en {delay}"
   },
   "sheet": {
     "kicker": "Récapitulatif",
@@ -240,7 +243,8 @@
       "pub": "Vidéo pub",
       "motion": "Motion",
       "autre": "Autre"
-    }
+    },
+    "safe": "Paiement chiffré, géré par Stripe"
   },
   "merci": {
     "kicker": "Commande envoyée",
@@ -340,5 +344,50 @@
     "step1": "Touche <b class=\"tt-kbd\">•••</b> en haut à droite",
     "step2": "Choisis <b>« Ouvrir dans le navigateur »</b>",
     "stay": "Rester ici"
+  },
+  "brief": [
+    {
+      "v": "{replyHours} h",
+      "l": "maximum pour recevoir ma réponse"
+    },
+    {
+      "v": "{prompts} prompts",
+      "l": "écrits pour ton projet"
+    },
+    {
+      "v": "{followUps}",
+      "l": "pour tes questions, sous {followUpDays} jours"
+    },
+    {
+      "v": "1 : 1",
+      "l": "avec moi, par e-mail"
+    }
+  ],
+  "trust": {
+    "methodsLabel": "Moyens de paiement",
+    "methods": [
+      "Carte bancaire",
+      "Apple Pay",
+      "Klarna"
+    ],
+    "methodsNote": "Moyens de paiement proposés par Stripe, selon ton appareil et ton pays.",
+    "items": [
+      {
+        "t": "Paiement sécurisé",
+        "d": "Géré par Stripe. Je n’ai jamais accès à tes données bancaires."
+      },
+      {
+        "t": "Réponse en {delay}",
+        "d": "Par e-mail, écrite pour ton projet."
+      },
+      {
+        "t": "Un vrai interlocuteur",
+        "d": "{creator} lit ton projet et te répond lui-même. Entreprise déclarée en France."
+      },
+      {
+        "t": "Droit de rétractation",
+        "d": "14 jours, tant que ma réponse n’a pas été entièrement envoyée. Détails dans les <a href=\"/legal#retractation\">CGV</a>."
+      }
+    ]
   }
 }

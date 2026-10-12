@@ -37,11 +37,6 @@
     "sub": "Websites, ads, motion design: I’ll walk you through my method, my tools and how to talk to AI. Personally, for your project.",
     "cta": "Book my session",
     "watch": "Watch the video",
-    "facts": [
-      "One-time payment",
-      "No subscription",
-      "Reply within {delay}"
-    ],
     "prev": "Previous video",
     "next": "Next video"
   },
@@ -125,10 +120,19 @@
     "delay": "Reply within {delay} of your payment",
     "once": "One-time payment · no subscription",
     "exLabel": "Illustrative example",
-    "exProjectKey": "Project",
-    "exProject": "a photographer’s portfolio, cinematic mood",
     "exPrompt": "“Build a full-screen homepage on a deep black background. The name appears letter by letter, then the first photo fades in as you scroll, like the opening credits of a film…”",
-    "exNote": "In your answer: prompts like this one, designed for your project, with the reasoning behind each choice."
+    "exNote": "Example structure, for a “photographer’s portfolio” project. Your answer is written for your own project, with the reasoning behind each choice.",
+    "mail": {
+      "from": "From",
+      "sender": "{creator} · {brand}",
+      "subject": "Subject",
+      "title": "Your plan for your portfolio",
+      "s1": "The method, step by step",
+      "s2": "The tools that fit your level",
+      "s3": "{prompts} prompts written for your project",
+      "s4": "Your questions",
+      "s4d": "{followUpsIncluded}, within {followUpDays} days"
+    }
   },
   "how": {
     "kicker": "How it works",
@@ -167,9 +171,7 @@
   "price": {
     "kicker": "The price of the exchange",
     "note": "One-time payment. No subscription.",
-    "cta": "Book my session",
-    "secure": "Secure payment by Stripe",
-    "delay": "Reply within {delay}"
+    "cta": "Book my session"
   },
   "faq": {
     "title": "Questions",
@@ -219,7 +221,8 @@
     "legal": "{brand} is published by {seller.name}, {seller.status} · {seller.registration}"
   },
   "sticky": {
-    "cta": "Book my session"
+    "cta": "Book my session",
+    "note": "A personal reply by email, within {delay}"
   },
   "sheet": {
     "kicker": "Summary",
@@ -240,7 +243,8 @@
       "pub": "Video ad",
       "motion": "Motion",
       "autre": "Other"
-    }
+    },
+    "safe": "Encrypted payment, handled by Stripe"
   },
   "merci": {
     "kicker": "Order sent",
@@ -340,5 +344,50 @@
     "step1": "Tap <b class=\"tt-kbd\">•••</b> at the top right",
     "step2": "Choose <b>“Open in browser”</b>",
     "stay": "Stay here"
+  },
+  "brief": [
+    {
+      "v": "{replyHours} h",
+      "l": "at most to get my reply"
+    },
+    {
+      "v": "{prompts} prompts",
+      "l": "written for your project"
+    },
+    {
+      "v": "{followUpCount} follow-up",
+      "l": "for your questions, within {followUpDays} days"
+    },
+    {
+      "v": "1:1",
+      "l": "with me, by email"
+    }
+  ],
+  "trust": {
+    "methodsLabel": "Payment methods",
+    "methods": [
+      "Card",
+      "Apple Pay",
+      "Klarna"
+    ],
+    "methodsNote": "Payment methods offered by Stripe, depending on your device and country.",
+    "items": [
+      {
+        "t": "Secure payment",
+        "d": "Handled by Stripe. I never see your card details."
+      },
+      {
+        "t": "Reply within {delay}",
+        "d": "By email, written for your project."
+      },
+      {
+        "t": "A real person",
+        "d": "{creator} reads your project and answers himself. Business registered in France."
+      },
+      {
+        "t": "Right of withdrawal",
+        "d": "14 days, as long as my answer hasn’t been fully delivered. Details in the <a href=\"/legal#retractation\">terms of sale</a>."
+      }
+    ]
   }
 }

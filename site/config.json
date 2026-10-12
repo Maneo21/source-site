@@ -2,8 +2,10 @@
   "brand": "AI Web Studio",
   "creator": {
     "name": "Evan",
-    "tiktok": ""
+    "tiktok": "",
+    "photo": ""
   },
+  "proof": [],
   "contactEmail": "contact@maneo-ai.fr",
   "paymentLink": "https://buy.stripe.com/28E5kEaHwfMD5z14oG9AA00",
   "offer": {

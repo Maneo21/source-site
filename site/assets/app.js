@@ -1,5 +1,6 @@
 // Page de vente : accueil de langue, animations, vidéos des trois univers, récapitulatif avant paiement.
 import { I, esc, langSwitch, syncSwitch, swapLang } from './i18n.js';
+import { pick } from './vars.js';
 
 const $ = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
@@ -144,6 +145,7 @@ function pageText() {
   buildSig();
   buildDeckText();
   syncSwitch($('[data-langswitch]'));
+  if ($('[data-tt-lang]')?.childElementCount) syncSwitch($('[data-tt-lang]'));
   modeTag();
 }
 
@@ -190,12 +192,39 @@ function buildExample() {
 }
 
 function buildSig() {
-  const name = I.config.creator?.name || '';
-  const ini = $('[data-initial]');
-  if (ini) ini.textContent = /^\[/.test(name) || !name ? '✦' : name.trim()[0].toUpperCase();
-  const tt = (I.config.creator?.tiktok || '').replace(/^@/, '');
+  const c = I.config.creator || {}, name = c.name || '';
+  const letter = /^\[/.test(name) || !name ? '✦' : name.trim()[0].toUpperCase();
+  for (const el of $$('[data-initial]')) el.textContent = letter;
+  // Photo et chiffres : affichés seulement s'ils sont renseignés dans config.json. Rien n'est inventé.
+  const photo = String(c.photo || '').trim(), av = $('.sig .avatar');
+  if (av && /^\/[\w./-]+\.(webp|jpe?g|png)$/i.test(photo)) { av.style.backgroundImage = `url("${photo}")`; av.classList.add('has-photo'); }
+  const tt = String(c.tiktok || '').replace(/^@/, '');
   const a = $('[data-tiktok]');
   if (a && tt) { a.href = `https://www.tiktok.com/@${encodeURIComponent(tt)}`; a.hidden = false; }
+  const proof = $('[data-proof]'), items = (Array.isArray(I.config.proof) ? I.config.proof : []).filter(p => p && String(p.value ?? '').trim());
+  if (proof) {
+    proof.hidden = !items.length;
+    proof.innerHTML = items.map(p => `<li><strong>${esc(p.value)}</strong><span>${esc(pick(p.label, I.lang) || '')}</span></li>`).join('');
+  }
+}
+
+// Les repères de l'offre comptent jusqu'à leur valeur quand ils arrivent à l'écran.
+function countUp(box) {
+  if (RM) return;
+  for (const el of $$('[data-count]', box)) {
+    const full = el.textContent, m = full.match(/^(\D*)(\d+)([\s\S]*)$/);
+    if (!m) continue;
+    const n = Number(m[2]), t0 = performance.now(), dur = 700 + Math.min(n, 30) * 22;
+    let shown = full;
+    const tick = now => {
+      if (el.textContent !== shown) return; // le texte a changé entre-temps (autre langue) : on n'y touche plus
+      const p = clamp((now - t0) / dur);
+      shown = p < 1 ? m[1] + Math.round(n * (1 - Math.pow(1 - p, 3))) + m[3] : full;
+      el.textContent = shown;
+      if (p < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  }
 }
 
 // Le mot qui tourne dans le titre, le nom des onglets et les étiquettes autour des vidéos.
@@ -275,8 +304,7 @@ function welcome() {
     btn?.classList.add('is-picked');
     if (code !== I.lang) { await I.set(code); pageText(); } else I.remember(code);
     await wait(RM ? 0 : 170);
-    // depuis TikTok, l'invitation à changer de navigateur s'affiche dans la langue choisie, avant le site
-    reveal(w, fromTikTok() ? await ttHint() : btn || box);
+    reveal(w, btn || box);
   };
   // Le choix peut avoir été fait avant le chargement de ce script (bouton déjà actif dans la page).
   window.__onPick = () => { const p = window.__pick; if (p) choose(p.code, p.el); };
@@ -298,24 +326,31 @@ function reveal(w, from) {
 /* ---------- arrivée depuis le navigateur intégré de TikTok ---------- */
 // La page le repère avant tout affichage (classe « is-tt », posée dans index.html) et propose
 // d'ouvrir le site dans le vrai navigateur. « Rester ici » continue normalement ; le choix est gardé 24 h.
+// C'est le seul écran avant le site : la langue est détectée, et se change sur place si besoin.
 const fromTikTok = () => root.classList.contains('is-tt');
 function ttHint() {
   return new Promise(resolve => {
     const w = $('#welcome'), stay = $('[data-tt-stay]', w);
     for (const el of [$('main'), $('[data-top]'), $('.foot')]) el.inert = true;
     // L'adresse porte la langue : ouverte dans le navigateur, la page arrive directement sur le site.
-    try {
-      const u = new URL(location.href);
-      u.searchParams.set('lang', I.lang);
-      u.searchParams.delete('tiktok');
-      history.replaceState(history.state, '', u);
-    } catch { /* adresse inchangée */ }
+    const urlLang = () => {
+      try {
+        const u = new URL(location.href);
+        u.searchParams.set('lang', I.lang);
+        u.searchParams.delete('tiktok');
+        history.replaceState(history.state, '', u);
+      } catch { /* adresse inchangée */ }
+    };
+    urlLang();
+    const sw = $('[data-tt-lang]', w);
+    if (sw && !sw.childElementCount) langSwitch(sw, async code => { await I.set(code, { persist: false }); pageText(); urlLang(); });
     w.hidden = false;
     w.setAttribute('aria-labelledby', 'tt-title');
     w.classList.add('show-tt');
     const go = () => {
       if (!stay.isConnected || w.classList.contains('out')) return;
       try { localStorage.setItem('tt', String(Date.now())); } catch { /* navigation privée */ }
+      I.remember(I.lang);
       document.removeEventListener('keydown', onKey);
       resolve(stay);
     };
@@ -332,6 +367,8 @@ function start() {
   requestAnimationFrame(() => $$('.hero [data-h]').forEach(el => el.classList.add('in')));
   $$('[data-r], [data-split]').forEach(el => { if (!el.closest('.hero')) io.observe(el); });
   setTimeout(() => { initDeck(); initUni(); }, RM ? 0 : 450);
+  const brief = $('.brief');
+  if (brief) new IntersectionObserver((es, o) => { if (es.some(e => e.isIntersecting)) { o.disconnect(); setTimeout(() => countUp(brief), 250); } }, { threshold: .5 }).observe(brief);
   setTimeout(updSticky, RM ? 0 : 1700);
   kick();
 }
@@ -590,13 +627,21 @@ function initUni() {
 }
 
 /* ---------- effets liés au défilement et au pointeur ---------- */
-const fx = { tx: 0, ty: 0, cx: 0, cy: 0 };
+const fx = { tx: 0, ty: 0, cx: 0, cy: 0, y0: 0, rate: 1 };
 let ticking = false;
 function kick() { if (!ticking) { ticking = true; requestAnimationFrame(frame); } }
 function frame() {
   ticking = false;
   const vh = innerHeight, y = scrollY;
   els.top.classList.toggle('scrolled', y > 8);
+  els.top.style.setProperty('--sp', clamp(y / Math.max(1, document.documentElement.scrollHeight - vh)).toFixed(4));
+  if (!RM && els.mq) {
+    fx.rate = lerp(fx.rate, 1 + clamp(Math.abs(y - fx.y0) / 24, 0, 3.4), .16);
+    const a = els.mqAnim || (els.mqAnim = els.mq.getAnimations?.()[0]);
+    if (a) a.playbackRate = Math.abs(fx.rate - 1) < .02 ? 1 : fx.rate;
+    if (Math.abs(fx.rate - 1) >= .02) kick();
+  }
+  fx.y0 = y;
 
   const tilt = els.tilt;
   if (tilt && y < vh * 1.6) {
@@ -911,7 +956,7 @@ function wireDesktop() {
 /* ---------- démarrage ---------- */
 function wire() {
   Object.assign(els, {
-    top: $('[data-top]'), deck: $('[data-deck]'), tilt: $('.deck-tilt'), steps: $('[data-steps]'), quote: $('[data-quote]'),
+    top: $('[data-top]'), mq: $('[data-marquee]'), deck: $('[data-deck]'), tilt: $('.deck-tilt'), steps: $('[data-steps]'), quote: $('[data-quote]'),
     sticky: $('[data-sticky]'), sheet: $('#sheet'), form: $('[data-checkout]'), player: $('#player'), pvideo: $('.pvideo'),
   });
   els.stepItems = $$('.step');
@@ -955,8 +1000,8 @@ async function boot() {
   wire();
   langSwitch($('[data-langswitch]'), code => swapLang(code, () => { pageText(); replayVisible(); kick(); }));
   pageText();
-  if (!known) welcome();
-  else if (fromTikTok()) reveal($('#welcome'), await ttHint());
+  if (fromTikTok()) reveal($('#welcome'), await ttHint());
+  else if (!known) welcome();
   else { root.classList.remove('is-welcome'); start(); }
 }
 boot();

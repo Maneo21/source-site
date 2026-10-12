@@ -1,4 +1,4 @@
-// Page de vente : accueil de langue, animations, vidéos des trois univers, récapitulatif avant paiement.
+// Page de vente : accueil de langue, animations, vidéos des trois univers, les deux formules, récapitulatif avant paiement.
 import { I, esc, langSwitch, syncSwitch, swapLang } from './i18n.js';
 import { pick } from './vars.js';
 
@@ -21,11 +21,17 @@ const U = [
   { key: 'pub', kind: 'pub', dur: '0:15' },
   { key: 'motion', kind: 'motion', dur: '0:18' },
 ];
-const KINDS = ['site', 'pub', 'motion', 'autre'];
+// Les deux formules. « guide » : l'échange personnalisé (je t'explique). « creation » : la création sur mesure (je réalise et je livre).
+// Chaque formule a son lien de paiement Stripe et ses types de projet.
+const OFFERS = ['guide', 'creation'];
+const KINDS = { guide: ['site', 'pub', 'motion', 'autre'], creation: ['site', 'pub', 'motion'] };
+// Aperçu sur le Mac (et non site public). « ?public=1 » montre l'aperçu comme le verra un visiteur.
+const PREVIEW = /^(localhost|127\.|192\.168\.|10\.|172\.(1[6-9]|2\d|3[01])\.)/.test(location.hostname) && !/[?&]public=1(&|$)/.test(location.search);
 
 const els = {};
 let started = false, overlays = 0;
 let lastKind = null, kindTouched = false;
+let offer = 'guide', howTab = 'guide';
 
 /* ---------- appui volontaire, glissement ou clic fantôme ? ---------- */
 // Dans certains navigateurs intégrés (TikTok, Instagram…), un « clic » peut arriver à la fin d'un défilement,
@@ -140,13 +146,15 @@ function pageText() {
   $('meta[name="description"]')?.setAttribute('content', I.t('meta.description'));
   $$('[data-split]').forEach(split);
   buildMarquee();
-  buildPrice();
+  buildRolls();
   buildExample();
+  buildHow();
+  offerState();
+  sheetText();
   buildSig();
   buildDeckText();
   syncSwitch($('[data-langswitch]'));
   if ($('[data-tt-lang]')?.childElementCount) syncSwitch($('[data-tt-lang]'));
-  modeTag();
 }
 
 function buildMarquee() {
@@ -155,17 +163,37 @@ function buildMarquee() {
   $('[data-marquee]').innerHTML = `<div class="mq-g">${one}</div><div class="mq-g">${one}</div>`;
 }
 
-function buildPrice() {
-  const el = $('[data-roll]');
-  if (!el) return;
-  const s = I.vars.price;
-  let k = 0;
-  el.innerHTML = `<span class="sr">${esc(s)}</span>` + [...s].map(ch => {
-    if (/\d/.test(ch)) return `<span class="dg" aria-hidden="true"><span class="dg-col" style="--v:${ch};--k:${k++}">${Array.from({ length: 20 }, (_, n) => `<span>${n % 10}</span>`).join('')}</span></span>`;
-    if (/\s/.test(ch)) return '<span class="sp" aria-hidden="true"></span>';
-    if (/[.,]/.test(ch)) return `<span class="pt" aria-hidden="true">${ch}</span>`;
-    return `<span class="cur" aria-hidden="true">${esc(ch)}</span>`;
-  }).join('');
+// Les prix des deux formules : chaque chiffre est une colonne qui défile jusqu'à sa valeur.
+function buildRolls() {
+  for (const el of $$('[data-roll]')) {
+    const s = el.dataset.roll === 'creation' ? I.vars.priceCreation : I.vars.price;
+    let k = 0;
+    el.innerHTML = `<span class="sr">${esc(s)}</span>` + [...s].map(ch => {
+      if (/\d/.test(ch)) return `<span class="dg" aria-hidden="true"><span class="dg-col" style="--v:${ch};--k:${k++}">${Array.from({ length: 20 }, (_, n) => `<span>${n % 10}</span>`).join('')}</span></span>`;
+      if (/\s/.test(ch)) return '<span class="sp" aria-hidden="true"></span>';
+      if (/[.,]/.test(ch)) return `<span class="pt" aria-hidden="true">${ch}</span>`;
+      return `<span class="cur" aria-hidden="true">${esc(ch)}</span>`;
+    }).join('');
+  }
+}
+
+// Comment ça se passe : trois étapes et un aperçu, pour la formule de l'onglet choisi.
+function buildHow(animate = false) {
+  const box = $('[data-steps]'), tabs = $('[data-tabs]');
+  if (!box || !tabs) return;
+  const steps = I.raw(`how.${howTab}.steps`) || [];
+  const fill = () => {
+    $$('.step', box).forEach((li, k) => {
+      $('[data-step-t]', li).textContent = I.fmt(steps[k]?.t || '');
+      $('[data-step-d]', li).textContent = I.fmt(steps[k]?.d || '');
+    });
+    box.classList.remove('swap');
+  };
+  tabs.style.setProperty('--i', OFFERS.indexOf(howTab));
+  for (const b of $$('[data-tab]', tabs)) b.setAttribute('aria-selected', String(b.dataset.tab === howTab));
+  for (const v of $$('[data-view]')) v.hidden = v.dataset.view !== howTab;
+  if (animate && !RM) { box.classList.add('swap'); setTimeout(fill, 220); } else fill();
+  if (animate && howTab === 'guide') $('[data-type]')?._type?.();
 }
 
 let typed = false, typeTimer = 0;
@@ -215,25 +243,6 @@ function buildSig() {
   }
 }
 
-// Les repères de l'offre comptent jusqu'à leur valeur quand ils arrivent à l'écran.
-function countUp(box) {
-  if (RM) return;
-  for (const el of $$('[data-count]', box)) {
-    const full = el.textContent, m = full.match(/^(\D*)(\d+)([\s\S]*)$/);
-    if (!m) continue;
-    const n = Number(m[2]), t0 = performance.now(), dur = 700 + Math.min(n, 30) * 22;
-    let shown = full;
-    const tick = now => {
-      if (el.textContent !== shown) return; // le texte a changé entre-temps (autre langue) : on n'y touche plus
-      const p = clamp((now - t0) / dur);
-      shown = p < 1 ? m[1] + Math.round(n * (1 - Math.pow(1 - p, 3))) + m[3] : full;
-      el.textContent = shown;
-      if (p < 1) requestAnimationFrame(tick);
-    };
-    requestAnimationFrame(tick);
-  }
-}
-
 // Le mot qui tourne dans le titre, le nom des onglets et les étiquettes autour des vidéos.
 function buildDeckText() {
   const items = I.raw('uni.items') || [], words = I.raw('hero.words') || [];
@@ -251,8 +260,19 @@ function setChips(i) {
   for (const el of $$('[data-dur]')) el.textContent = U[i].dur;
 }
 
-// Lien de paiement Stripe (site/config.json). Un lien de test contient « /test_ ».
-const payLink = () => String(I.config.paymentLink || '').trim();
+// Liens de paiement Stripe (site/config.json) : « paymentLink » pour l'échange, « creation.paymentLink » pour la création.
+// Un lien de test contient « /test_ ».
+const payLink = (o = offer) => String((o === 'creation' ? I.config.creation?.paymentLink : I.config.paymentLink) || '').trim();
+const validLink = o => { try { return new URL(payLink(o)).protocol === 'https:'; } catch { return false; } };
+// Sans son lien de paiement, la création est annoncée « bientôt disponible » sur le site public et ne peut pas être commandée.
+// L'aperçu local garde tout actif, pour montrer le parcours complet.
+const creationOpen = () => validLink('creation') || PREVIEW;
+function offerState() {
+  const open = creationOpen();
+  root.classList.toggle('no-creation', !open);
+  for (const b of $$('[data-book="creation"]')) b.disabled = !open;
+  for (const el of $$('[data-soon]')) el.textContent = I.t(open ? el.dataset.soon : 'offers.soon');
+}
 function modeTag() {
   const el = $('[data-mode-tag]');
   if (!el) return;
@@ -374,8 +394,6 @@ function start() {
   requestAnimationFrame(() => $$('.hero [data-h]').forEach(el => el.classList.add('in')));
   $$('[data-r], [data-split]').forEach(el => { if (!el.closest('.hero')) io.observe(el); });
   setTimeout(() => { initDeck(); initUni(); }, RM ? 0 : 450);
-  const brief = $('.brief');
-  if (brief) new IntersectionObserver((es, o) => { if (es.some(e => e.isIntersecting)) { o.disconnect(); setTimeout(() => countUp(brief), 250); } }, { threshold: .5 }).observe(brief);
   setTimeout(updSticky, RM ? 0 : 1700);
   kick();
 }
@@ -702,16 +720,40 @@ function lock(on, soft = false) {
 
 /* ---------- récapitulatif avant paiement ---------- */
 let lastFocus = null;
-function openSheet() {
+function kindSpec() {
+  const el = $('[data-kind-spec]'), k = els.form.elements.kind.value;
+  el.hidden = offer !== 'creation' || !KINDS.creation.includes(k);
+  el.textContent = el.hidden ? '' : I.t(`sheet.creation.specs.${k}`);
+}
+function sheetText() {
+  const f = els.form;
+  if (!f) return;
+  if (offer === 'creation' && !creationOpen()) offer = 'guide';
+  f.dataset.offer = offer;
+  f.elements.offer.value = offer;
+  $('[data-offer-switch]', f).style.setProperty('--i', OFFERS.indexOf(offer));
+  for (const el of $$('[data-sheet]', f)) el.textContent = I.t(`sheet.${offer}.${el.dataset.sheet}`);
+  $('[data-sheet-price]', f).textContent = offer === 'creation' ? I.vars.priceCreation : I.vars.price;
+  for (const el of $$('[data-only]', f)) el.hidden = el.dataset.only !== offer;
+  $('[data-kinds]', f).classList.toggle('three', offer === 'creation');
+  // une création porte toujours sur un site, une pub ou une animation : un choix est toujours fait
+  if (offer === 'creation' && !KINDS.creation.includes(f.elements.kind.value)) f.elements.kind.value = KINDS.creation.includes(lastKind) ? lastKind : 'site';
+  kindSpec();
+  $('[data-chan-help]', f).hidden = f.elements.chan.value !== 'tiktok';
+  modeTag();
+}
+function openSheet(o) {
   const sheet = els.sheet;
   if (!sheet.hidden) return;
-  if (P.open) { closePlayer(); setTimeout(openSheet, 420); return; }
+  if (P.open) { closePlayer(); setTimeout(() => openSheet(o), 420); return; }
+  if (OFFERS.includes(o)) offer = o;
   lastFocus = document.activeElement;
   $('[data-sheet-err]').textContent = '';
   $('.check').classList.remove('err');
   $('[data-pay]').classList.remove('loading');
   // le type de projet suit la dernière vidéo regardée, tant que le visiteur n'a pas choisi lui-même
   if (!kindTouched && lastKind) els.form.elements.kind.value = lastKind;
+  sheetText();
   sheet.hidden = false;
   lock(true);
   requestAnimationFrame(() => requestAnimationFrame(() => sheet.classList.add('open')));
@@ -741,10 +783,13 @@ function checkout(e) {
   err.textContent = '';
   btn.classList.add('loading');
   // Page Stripe dans la langue du visiteur. La référence garde la langue, la version des CGV acceptée avec la case cochée,
-  // le type de projet et le canal de réponse choisis : elle revient dans la commande, donc dans les e-mails.
-  const kind = form.elements.kind.value, chan = form.elements.chan.value === 'tiktok' ? 'tiktok' : 'mail';
+  // la formule, le type de projet et le canal de réponse choisis : elle revient dans la commande, donc dans les e-mails.
+  // Une création est toujours livrée par e-mail.
+  const kind = form.elements.kind.value, chan = offer === 'guide' && form.elements.chan.value === 'tiktok' ? 'tiktok' : 'mail';
   url.searchParams.set('locale', I.info.stripe);
-  url.searchParams.set('client_reference_id', `site_${I.lang}_cgv-${I.config.termsVersion}_retractation-ok${KINDS.includes(kind) ? `_type-${kind}` : ''}_rep-${chan}`);
+  url.searchParams.set('client_reference_id', `site_${I.lang}_cgv-${I.config.termsVersion}_retractation-ok${offer === 'creation' ? '_offre-creation' : ''}${KINDS[offer].includes(kind) ? `_type-${kind}` : ''}_rep-${chan}`);
+  // la page de remerciement s'en sert pour afficher la suite de la bonne formule
+  try { localStorage.setItem('offre', JSON.stringify({ o: offer, t: Date.now() })); } catch { /* navigation privée */ }
   location.assign(url.href);
 }
 
@@ -976,7 +1021,8 @@ function wire() {
     const kind = kindOf(e);
     // un vrai bouton de lecture ouvre une vidéo ; à la souris seulement, toute la carte d'un univers est cliquable
     const play = e.target.closest('[data-play]') || (kind === 'mouse' ? e.target.closest('.ucard')?.querySelector('[data-play]') : null);
-    if (e.target.closest('[data-book]')) { e.preventDefault(); openSheet(); }
+    const book = e.target.closest('[data-book]');
+    if (book) { e.preventDefault(); openSheet(book.dataset.book); }
     else if (play) {
       e.preventDefault();
       if (!mayOpen(e)) { diag(`ouverture refusée (${kind})`); return; }
@@ -993,7 +1039,22 @@ function wire() {
     help.hidden = els.form.elements.chan.value !== 'tiktok';
     if (!help.hidden) requestAnimationFrame(() => { const over = $('[data-pay]').getBoundingClientRect().bottom - (panel.getBoundingClientRect().bottom - 14); if (over > 0) panel.scrollBy({ top: over, behavior: RM ? 'auto' : 'smooth' }); });
   });
-  for (const r of $$('input[name="kind"]', els.form)) r.addEventListener('change', () => { kindTouched = true; });
+  for (const r of $$('input[name="kind"]', els.form)) r.addEventListener('change', () => { kindTouched = true; kindSpec(); });
+  // la formule se change sur place, dans le récapitulatif
+  for (const r of $$('input[name="offer"]', els.form)) r.addEventListener('change', () => {
+    offer = els.form.elements.offer.value === 'creation' ? 'creation' : 'guide';
+    $('[data-sheet-err]').textContent = '';
+    $('.check').classList.remove('err');
+    sheetText();
+  });
+  // comment ça se passe : un onglet par formule
+  $('[data-tabs]')?.addEventListener('click', e => {
+    const b = e.target.closest('[data-tab]');
+    if (!b || b.dataset.tab === howTab || !OFFERS.includes(b.dataset.tab)) return;
+    howTab = b.dataset.tab;
+    buildHow(true);
+    setTimeout(kick, 260);
+  });
   addEventListener('pageshow', e => { if (e.persisted) $('[data-pay]').classList.remove('loading'); });
   wirePlayer();
   wireFaq();

@@ -1,5 +1,6 @@
 // Modèles des deux e-mails envoyés après un paiement confirmé par Stripe :
 // la confirmation du client (FR ou EN) et la fiche de commande pour le vendeur.
+// Deux formules : « guide » (échange personnalisé, réponse écrite) et « creation » (création sur mesure, livrée par e-mail).
 // Aucune image ni police externe : l'e-mail s'affiche partout sans rien charger.
 
 export const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
@@ -31,6 +32,23 @@ const T = {
     k: { product: 'Prestation', amount: 'Montant', ref: 'Référence', date: 'Date', via: 'Réponse', kind: 'Type de projet', project: 'Votre projet' },
     kinds: { site: 'Site web', pub: 'Vidéo publicitaire', motion: 'Motion design', autre: 'Autre projet' },
     product: 'Accompagnement personnalisé — Création avec l’IA',
+    creation: {
+      pre: h => `Merci\u00A0! Votre création est lancée\u00A0: livraison sous ${h}\u00A0h maximum.`,
+      confirmed: (b, p) => [`Votre commande de création sur mesure ${b} à `, p, ' a bien été confirmée.'],
+      received: what => `J’ai bien reçu votre demande et je commence la réalisation de ${what}.`,
+      what: { site: 'votre site web', pub: 'votre vidéo publicitaire', motion: 'votre animation motion design', other: 'votre projet' },
+      deliver: h => ['Vous recevrez votre création ', `sous ${h}\u00A0h maximum`, ', directement par e-mail.'],
+      assets: `Vous avez un logo, des textes, des images ou des exemples que vous aimez\u00A0? Répondez simplement à cet e-mail pour me les transmettre.`,
+      after: (n, d) => `Après la livraison, ${n} retouche${n > 1 ? 's sont incluses' : ' est incluse'} pour ajuster un détail, sous ${d} jours.`,
+      via: h => `Par e-mail, sous ${h}\u00A0h maximum`,
+      // commande arrivée sans description du projet : c'est la première chose demandée au client
+      preNoBrief: () => `Merci\u00A0! Dernière étape\u00A0: décrivez-moi votre projet en répondant à cet e-mail.`,
+      receivedNoBrief: what => `J’ai bien reçu votre commande pour ${what}.`,
+      brief: `Pour que je puisse commencer, répondez simplement à cet e-mail en décrivant votre projet\u00A0: votre activité, ce que vous voulez montrer et le style que vous aimez. Joignez votre logo, vos textes et vos images si vous en avez.`,
+      deliverNoBrief: h => ['Vous recevrez votre création ', `sous ${h}\u00A0h maximum après votre réponse`, ', directement par e-mail.'],
+      product: 'Création sur mesure — réalisée pour vous',
+      k: { via: 'Livraison', kind: 'Création' }
+    },
     once: 'paiement unique',
     help: 'Une question\u00A0? Répondez simplement à cet e-mail.',
     waived: 'Comme vous l’avez demandé lors de votre commande, la prestation commence immédiatement. Vous avez reconnu perdre votre droit de rétractation une fois celle-ci entièrement exécutée.',
@@ -58,6 +76,22 @@ const T = {
     k: { product: 'Service', amount: 'Amount', ref: 'Reference', date: 'Date', via: 'Reply', kind: 'Project type', project: 'Your project' },
     kinds: { site: 'Website', pub: 'Video ad', motion: 'Motion design', autre: 'Other project' },
     product: 'Personal coaching — Creating with AI',
+    creation: {
+      pre: h => `Thank you! Your creation is under way: delivery within ${h} hours.`,
+      confirmed: (b, p) => [`Your ${b} made-to-order creation order for `, p, ' is confirmed.'],
+      received: what => `I’ve received your request and I’m starting work on ${what}.`,
+      what: { site: 'your website', pub: 'your video ad', motion: 'your motion design animation', other: 'your project' },
+      deliver: h => ['You’ll receive your creation ', `within ${h} hours`, ', by email.'],
+      assets: 'Do you have a logo, copy, images or examples you like? Just reply to this email to send them over.',
+      after: (n, d) => `After delivery, ${n} revision${n > 1 ? 's are' : ' is'} included to adjust a detail, within ${d} days.`,
+      via: h => `By email, within ${h} hours`,
+      preNoBrief: () => `Thank you! One last step: tell me about your project by replying to this email.`,
+      receivedNoBrief: what => `I’ve received your order for ${what}.`,
+      brief: 'So that I can get started, just reply to this email and describe your project: what you do, what you want to show and the style you like. Attach your logo, copy and images if you have any.',
+      deliverNoBrief: h => ['You’ll receive your creation ', `within ${h} hours of your reply`, ', by email.'],
+      product: 'Made-to-order creation — built for you',
+      k: { via: 'Delivery', kind: 'Creation' }
+    },
     once: 'one-time payment',
     help: 'Any questions? Just reply to this email.',
     waived: 'As you requested when ordering, the service starts immediately. You acknowledged that you lose your right of withdrawal once it has been fully performed.',
@@ -174,17 +208,24 @@ export function clientMail(order, ctx) {
   const lang = T[order.lang] ? order.lang : 'fr', t = dict(lang), brand = ctx.brand, h = ctx.replyHours;
   const price = money(order.amount, order.currency, lang), date = when(order.at, lang);
   const project = order.project ? cut(order.project, 600) : '';
+  // création sur mesure : livrée par e-mail, dans le délai de livraison de la formule
+  const creation = order.offer === 'creation', tc = t.creation, dh = ctx.deliveryHours || 24;
   // réponse sur TikTok seulement si le client l'a choisie ET a donné son pseudo ; sinon par e-mail
-  const handle = order.channel === 'tiktok' && order.tiktok ? order.tiktok : '';
-  const [c1, c2, c3] = t.confirmed(brand, price), [r1, r2, r3] = t.reply(h, handle);
+  const handle = !creation && order.channel === 'tiktok' && order.tiktok ? order.tiktok : '';
+  // création arrivée sans description : le client est invité à la donner, et le délai court à partir de sa réponse
+  const noBrief = creation && !project, what = creation ? tc.what[order.kind] || tc.what.other : '';
+  const [c1, c2, c3] = (creation ? tc.confirmed : t.confirmed)(brand, price), [r1, r2, r3] = noBrief ? tc.deliverNoBrief(dh) : creation ? tc.deliver(dh) : t.reply(h, handle);
+  const received = noBrief ? tc.receivedNoBrief(what) : creation ? tc.received(what) : t.received;
+  const more = creation ? [noBrief ? tc.brief : tc.assets, tc.after(ctx.revisions ?? 1, ctx.revisionDays || 7)] : handle ? [t.dm] : [];
+  const product = creation ? tc.product : t.product, viaLabel = creation ? tc.k.via : t.k.via, kindLabel = creation ? tc.k.kind : t.k.kind, via = creation ? tc.via(dh) : t.via(handle);
   const legal = order.consent ? t.waived : t.right;
   const cgv = `${ctx.origin}/legal#cgv`, wd = `${ctx.origin}/legal#retractation`;
   const subject = `${order.live ? '' : '[TEST] '}${t.subject(brand)}`;
 
-  const list = [[t.k.product, esc(t.product)], [t.k.amount, `${b(esc(price))} · ${esc(t.once)}`], [t.k.ref, `<span style="font-family:${MONO};font-size:14px;">${esc(order.ref)}</span>`], [t.k.date, esc(date)]];
+  const list = [[t.k.product, esc(product)], [t.k.amount, `${b(esc(price))} · ${esc(t.once)}`], [t.k.ref, `<span style="font-family:${MONO};font-size:14px;">${esc(order.ref)}</span>`], [t.k.date, esc(date)]];
   const kind = t.kinds[order.kind] || '';
-  list.push([t.k.via, esc(t.via(handle))]);
-  if (kind) list.push([t.k.kind, esc(kind)]);
+  list.push([viaLabel, esc(via)]);
+  if (kind) list.push([kindLabel, esc(kind)]);
   if (project) list.push([t.k.project, esc(t.quote(project)).replace(/\n/g, '<br>')]);
 
   const body = `${head(chip(`✓ ${t.chip}`) + (order.live ? '' : ` ${chip('Test', true)}`), esc(t.title))}
@@ -192,8 +233,8 @@ export function clientMail(order, ctx) {
 ${para(esc(t.hello), true)}
 ${para(esc(t.thanks))}
 ${para(`${esc(c1)}${b(esc(price))}${esc(c3)}`)}
-${para(esc(t.received))}
-${para(nb(`${esc(r1)}${b(esc(r2))}${esc(r3)}`))}${handle ? `\n${para(nb(esc(t.dm)))}` : ''}
+${para(esc(received))}${noBrief ? `\n${para(nb(esc(more[0])), true)}` : ''}
+${para(nb(`${esc(r1)}${b(esc(r2))}${esc(r3)}`))}${more.slice(noBrief ? 1 : 0).map(x => `\n${para(nb(esc(x)))}`).join('')}
 <p style="margin:22px 0 0;">${esc(t.bye)}<br>${b(esc(brand))}</p>
 </td></tr>
 ${card(t.recap, list)}
@@ -206,14 +247,14 @@ ${card(t.recap, list)}
 
   const text = [
     order.live ? null : `[${t.test}]\n`,
-    t.hello, '', t.thanks, '', `${c1}${price}${c3}`, '', t.received, '', `${r1}${r2}${r3}`, handle ? `\n${t.dm}` : null, '', t.bye, brand, '',
+    t.hello, '', t.thanks, '', `${c1}${price}${c3}`, '', received, ...(noBrief ? ['', more[0]] : []), '', `${r1}${r2}${r3}`, ...more.slice(noBrief ? 1 : 0).map(x => `\n${x}`), '', t.bye, brand, '',
     `— ${t.recap} —`,
-    `${t.k.product} : ${t.product}`,
+    `${t.k.product} : ${product}`,
     `${t.k.amount} : ${price} · ${t.once}`,
     `${t.k.ref} : ${order.ref}`,
     `${t.k.date} : ${date}`,
-    `${t.k.via} : ${t.via(handle)}`,
-    kind ? `${t.k.kind} : ${kind}` : null,
+    `${viaLabel} : ${via}`,
+    kind ? `${kindLabel} : ${kind}` : null,
     project ? `${t.k.project} : ${t.quote(project)}` : null,
     '', t.help, '',
     legal,
@@ -222,36 +263,45 @@ ${card(t.recap, list)}
     '', sellerLine(ctx.seller, lang)
   ].filter(x => x !== null).join('\n').replace(/\u00A0/g, ' ').replace(/ : /g, lang === 'fr' ? ' : ' : ': ');
 
-  return { subject, html: shell({ lang, title: subject, preheader: t.pre(h), brand, body, footer }), text };
+  return { subject, html: shell({ lang, title: subject, preheader: noBrief ? tc.preNoBrief() : creation ? tc.pre(dh) : t.pre(h), brand, body, footer }), text };
 }
 
 /* ---------- fiche de commande pour le vendeur ---------- */
 
 // `client` décrit l'e-mail de confirmation du client : { sent: true } ou { failed: 'raison' }.
 export function adminMail(order, ctx, client = { sent: true }) {
-  const brand = ctx.brand, price = money(order.amount, order.currency, 'fr');
-  const date = when(order.at, 'fr'), due = when(Number(order.at) + ctx.replyHours * 3600, 'fr').replace(/ \(.*\)$/, '');
+  const brand = ctx.brand, price = money(order.amount, order.currency, 'fr'), creation = order.offer === 'creation';
+  const date = when(order.at, 'fr'), due = when(Number(order.at) + (creation ? ctx.deliveryHours || 24 : ctx.replyHours) * 3600, 'fr').replace(/ \(.*\)$/, '');
+  const offerName = creation ? 'Je crée pour toi · création sur mesure, à livrer' : 'Je te guide · échange personnalisé';
+  // création sans description : rien à livrer tant que le client n'a pas décrit son projet
+  const noBrief = creation && !order.project, hours = ctx.deliveryHours || 24;
+  const headline = creation ? 'Création à livrer' : 'Nouvelle commande', todo = creation ? 'À livrer par e-mail au plus tard le' : 'À répondre dès que possible, au plus tard le';
+  const todoLine = noBrief ? `À livrer par e-mail sous ${hours} h après la description du client.` : `${todo} ${due}.`;
+  const briefAlert = 'Aucune description du projet dans la commande. Le client a été invité à te la donner en répondant à sa confirmation : attends sa réponse, ou écris-lui.';
+  const kindLabel = creation ? 'À créer' : 'Type de projet';
   const langName = order.lang === 'en' ? 'English · répondre en anglais' : 'Français';
   const empty = `<span style="color:${C.ink3};">Non renseigné</span>`;
   const tiktok = order.tiktok ? (order.tiktokUrl ? link(order.tiktokUrl, esc(order.tiktok), C.acc) : esc(order.tiktok)) : empty;
   const project = order.project ? esc(order.project).replace(/\n/g, '<br>') : empty;
   const mono = s => `<span style="font-family:${MONO};font-size:12.5px;color:${C.ink2};word-break:break-all;">${esc(s)}</span>`;
   const stripeUrl = order.paymentIntent ? `https://dashboard.stripe.com/${order.live ? '' : 'test/'}payments/${encodeURIComponent(order.paymentIntent)}` : '';
-  const replySubject = order.lang === 'en' ? `Your ${brand} coaching` : `Votre accompagnement ${brand}`;
+  const replySubject = creation ? (order.lang === 'en' ? `Your ${brand} creation` : `Votre création ${brand}`) : order.lang === 'en' ? `Your ${brand} coaching` : `Votre accompagnement ${brand}`;
   const mailto = order.email ? `mailto:${encodeURIComponent(order.email).replace(/%40/g, '@')}?subject=${encodeURIComponent(replySubject)}` : '';
-  const consent = order.consent ? `Renonciation acceptée sur le site${order.cgv ? ` (CGV du ${order.cgv.split('-').reverse().join('/')})` : ''}` : 'Non enregistrée : commande passée sans la case du site (lien Stripe ouvert directement)';
+  const [cy, cm, cd, cv] = String(order.cgv || '').split('-');
+  const consent = order.consent ? `Renonciation acceptée sur le site${order.cgv ? ` (CGV du ${cd}/${cm}/${cy}${cv ? `, version ${cv}` : ''})` : ''}` : 'Non enregistrée : commande passée sans la case du site (lien Stripe ouvert directement)';
   const clientLine = client?.sent ? 'Confirmation envoyée ✓' : `<span style="color:${C.warn};">Non envoyée</span> · ${esc(client?.failed || 'raison inconnue')}`;
-  const onTikTok = order.channel === 'tiktok';
+  const onTikTok = !creation && order.channel === 'tiktok';
   const via = !onTikTok ? 'Par e-mail' : order.tiktok ? `${b('Sur TikTok')} · ${tiktok}` : `<span style="color:${C.warn};">Sur TikTok demandé, mais pseudo non renseigné</span> · réponds par e-mail`;
   const viaText = !onTikTok ? 'par e-mail' : order.tiktok ? `sur TikTok (${order.tiktok})` : 'TikTok demandé, pseudo non renseigné : réponds par e-mail';
-  const subject = `${order.live ? '' : '[TEST] '}Nouvelle commande · ${price} · ${order.email || 'e-mail manquant'}`;
+  const subject = `${order.live ? '' : '[TEST] '}${headline} · ${price} · ${order.email || 'e-mail manquant'}`;
 
   const list = [
     ['Client', order.email ? link(`mailto:${order.email}`, esc(order.email), C.acc) : empty],
-    ['Répondre', via],
+    ['Formule', b(esc(offerName)) + (order.offerNote ? `<br><span style="color:${C.warn};">${esc(order.offerNote)}</span>` : '')],
+    [creation ? 'Livrer' : 'Répondre', creation ? 'Par e-mail' : via],
     ['Langue', esc(langName)],
     ['Pseudo TikTok', tiktok],
-    ['Type de projet', T.fr.kinds[order.kind] ? esc(T.fr.kinds[order.kind]) : `<span style="color:${C.ink3};">Non précisé</span>`],
+    [kindLabel, (T.fr.kinds[order.kind] ? esc(T.fr.kinds[order.kind]) : `<span style="color:${C.ink3};">Non précisé</span>`) + (order.kindBefore ? `<br><span style="color:${C.warn};">Sur le site, le client avait choisi « ${esc(T.fr.kinds[order.kindBefore])} ».</span>` : '')],
     ['Projet', project],
     ...order.others.map(o => [o.label, o.value ? esc(o.value) : empty]),
     ['Date', esc(date)],
@@ -264,28 +314,30 @@ export function adminMail(order, ctx, client = { sent: true }) {
   const button = (href, label, primary) => `<a class="btn" href="${esc(href)}" style="display:inline-block;margin:0 8px 8px 0;padding:14px 20px;border-radius:999px;font:600 15px/1 ${FONT};text-decoration:none;${primary ? `background:${C.acc};color:${C.accInk};` : `background:${C.card};color:${C.ink};border:1px solid #3A3A3D;`}">${esc(label)}</a>`;
   const alert = client?.sent ? '' : `<tr><td class="px" style="padding:20px 34px 0;"><div style="padding:14px 16px;border-radius:14px;background:${C.warnBg};font:400 14.5px/1.5 ${FONT};color:${C.ink};">${b('L’e-mail de confirmation n’est pas parti chez le client.')}<br>${esc(client?.failed || '')}<br>Écris-lui directement pour confirmer sa commande.</div></td></tr>`;
 
-  const body = `${head(chip('✓ Paiement confirmé par Stripe') + (order.live ? '' : ` ${chip('Test', true)}`), `Nouvelle commande · ${esc(price)}`)}
-<tr><td class="px" style="padding:16px 34px 0;font:400 16px/1.55 ${FONT};color:${C.ink2};">À répondre dès que possible, au plus tard le ${b(esc(due))}.</td></tr>
-${alert}
+  const body = `${head(chip('✓ Paiement confirmé par Stripe') + (order.live ? '' : ` ${chip('Test', true)}`), `${headline} · ${esc(price)}`)}
+<tr><td class="px" style="padding:16px 34px 0;font:400 16px/1.55 ${FONT};color:${C.ink2};">${noBrief ? esc(todoLine) : `${todo} ${b(esc(due))}.`}</td></tr>
+${alert}${noBrief ? `<tr><td class="px" style="padding:20px 34px 0;"><div style="padding:14px 16px;border-radius:14px;background:${C.warnBg};font:400 14.5px/1.5 ${FONT};color:${C.ink};">${esc(briefAlert)}</div></td></tr>` : ''}
 ${card('La commande', list)}
 <tr><td class="px" style="padding:22px 34px 26px;">
-${onTikTok && order.tiktokUrl ? button(order.tiktokUrl, 'Ouvrir son TikTok', true) : ''}${mailto ? button(mailto, onTikTok && order.tiktokUrl ? 'Répondre par e-mail' : 'Répondre au client', !(onTikTok && order.tiktokUrl)) : ''}${stripeUrl ? button(stripeUrl, 'Voir dans Stripe', false) : ''}
+${onTikTok && order.tiktokUrl ? button(order.tiktokUrl, 'Ouvrir son TikTok', true) : ''}${mailto ? button(mailto, onTikTok && order.tiktokUrl ? 'Répondre par e-mail' : creation ? 'Écrire au client' : 'Répondre au client', !(onTikTok && order.tiktokUrl)) : ''}${stripeUrl ? button(stripeUrl, 'Voir dans Stripe', false) : ''}
 <p style="margin:10px 0 0;font:400 13.5px/1.55 ${FONT};color:${C.ink3};">Le bouton « Répondre » de ta messagerie écrit aussi directement au client.</p>
 </td></tr>`;
 
   const footer = `<p style="margin:0;">Notification automatique de ${esc(brand)}, envoyée après confirmation du paiement par Stripe.${order.live ? '' : ` <span style="color:${C.warn};">Commande de test : aucun paiement réel.</span>`}</p>`;
 
   const text = [
-    `${order.live ? '' : '[TEST] '}Nouvelle commande · ${price}`,
+    `${order.live ? '' : '[TEST] '}${headline} · ${price}`,
     'Paiement confirmé par Stripe.',
-    `À répondre dès que possible, au plus tard le ${due}.`,
+    todoLine,
+    noBrief ? `\nATTENTION : ${briefAlert}` : null,
     client?.sent ? null : `\nATTENTION : l’e-mail de confirmation n’est pas parti chez le client (${client?.failed || 'raison inconnue'}). Écris-lui directement.`,
     '',
     `Client : ${order.email || 'non renseigné'}`,
-    `Répondre : ${viaText}`,
+    `Formule : ${offerName}${order.offerNote ? ` (${order.offerNote})` : ''}`,
+    `${creation ? 'Livrer' : 'Répondre'} : ${creation ? 'par e-mail' : viaText}`,
     `Langue : ${langName}`,
     `Pseudo TikTok : ${order.tiktok || 'non renseigné'}${order.tiktokUrl ? ` (${order.tiktokUrl})` : ''}`,
-    `Type de projet : ${T.fr.kinds[order.kind] || 'non précisé'}`,
+    `${kindLabel} : ${T.fr.kinds[order.kind] || 'non précisé'}${order.kindBefore ? ` (sur le site, le client avait choisi « ${T.fr.kinds[order.kindBefore]} »)` : ''}`,
     `Projet : ${order.project || 'non renseigné'}`,
     ...order.others.map(o => `${o.label} : ${o.value || 'non renseigné'}`),
     `Date : ${date}`,

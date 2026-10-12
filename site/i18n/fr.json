@@ -1,14 +1,16 @@
 {
   "meta": {
-    "title": "Sites, pubs et motion design avec l’IA · Échange personnalisé · {price}",
-    "description": "Sites web, vidéos publicitaires, motion design : je t’explique ma méthode pour obtenir un résultat professionnel avec l’IA. Un vrai échange avec moi, {price}, paiement unique.",
+    "title": "Sites, pubs et motion design avec l’IA · Je te guide, ou je crée pour toi",
+    "description": "Sites web, vidéos publicitaires, motion design : je t’explique ma méthode pour créer avec l’IA ({price}), ou je crée ton projet pour toi, livré en {deliveryHours} h maximum ({priceCreation}). Paiement unique.",
     "legalTitle": "Informations légales · {brand}",
     "merciTitle": "Merci · {brand}"
   },
   "units": {
     "delay": "moins de {n} h",
     "followUps": "{n} relance|{n} relances",
-    "followUpsIncluded": "{n} relance incluse|{n} relances incluses"
+    "followUpsIncluded": "{n} relance incluse|{n} relances incluses",
+    "revisionsIncluded": "{n} retouche incluse|{n} retouches incluses",
+    "revisions": "{n} retouche|{n} retouches"
   },
   "common": {
     "skip": "Aller au contenu",
@@ -18,12 +20,12 @@
     "optional": "facultatif"
   },
   "nav": {
-    "book": "Réserver",
+    "book": "Les formules",
     "label": "Sections de la page",
     "uni": "Univers",
-    "method": "Méthode",
     "how": "Déroulé",
-    "faq": "Questions"
+    "faq": "Questions",
+    "offers": "Formules"
   },
   "hero": {
     "aria": "Tu veux créer un site, une pub ou du motion design comme ça ?",
@@ -34,11 +36,10 @@
       "du motion"
     ],
     "post": "comme ça ?",
-    "sub": "Sites, pubs, motion design : je t’explique ma méthode, mes outils et comment parler à l’IA. Personnellement, pour ton projet.",
-    "cta": "Réserver mon échange",
-    "watch": "Voir la vidéo",
+    "sub": "Deux façons d’y arriver : je te montre comment faire, ou je le crée pour toi.",
     "prev": "Vidéo précédente",
-    "next": "Vidéo suivante"
+    "next": "Vidéo suivante",
+    "safe": "Paiement unique · sécurisé par Stripe"
   },
   "video": {
     "play": "Regarder avec le son",
@@ -49,255 +50,24 @@
     "unmute": "Activer le son",
     "seek": "Position dans la vidéo",
     "replay": "Revoir",
-    "endTitle": "Tu veux apprendre à faire ça ?",
-    "endSub": "Je t’explique comment, pour ton projet."
+    "endTitle": "À ton tour ?",
+    "endSub": "Je te montre comment faire, ou je le crée pour toi."
   },
   "marquee": [
     "Sites web",
     "Vidéos publicitaires",
     "Motion design",
-    "Animations",
-    "Transitions",
-    "Effets visuels",
-    "Prompts",
     "Méthode",
-    "Outils IA"
+    "Prompts",
+    "Outils IA",
+    "Clé en main",
+    "Sur mesure"
   ],
-  "diff": {
-    "kicker": "En commentaire, on me demande",
-    "big": "« Prompt ? »",
-    "title": "Un prompt seul ne suffit pas.",
-    "text": "Le même prompt, copié-collé, ne donnera pas le même résultat. Ce qui compte, c’est la méthode. Et ton projet.",
-    "pack": {
-      "title": "Un pack de prompts",
-      "items": [
-        "Le même pour tout le monde",
-        "Tu copies, tu colles… et tu bloques",
-        "Personne pour te répondre"
-      ]
-    },
-    "me": {
-      "title": "Cet échange avec moi",
-      "items": [
-        "Pensé pour ton projet",
-        "Ma méthode, expliquée simplement",
-        "Tes questions, mes réponses"
-      ]
-    }
-  },
-  "learn": {
-    "kicker": "Ce que tu vas apprendre",
-    "title": "Ce qu’il y a derrière ces créations.",
-    "items": [
-      {
-        "t": "Ma méthode",
-        "d": "Comment je passe d’une idée à un résultat professionnel, étape par étape."
-      },
-      {
-        "t": "Mes outils",
-        "d": "Ceux que j’utilise vraiment, et par lesquels commencer selon ton niveau."
-      },
-      {
-        "t": "Parler à l’IA",
-        "d": "Formuler, corriger, recommencer : la façon de demander qui change tout."
-      },
-      {
-        "t": "Tes prompts",
-        "d": "Des exemples concrets, écrits pour ton projet à toi."
-      }
-    ]
-  },
-  "get": {
-    "kicker": "Ce que tu reçois",
-    "title": "Une vraie réponse, rien que pour toi.",
-    "ticket": "Échange personnalisé",
-    "items": [
-      "Ma réponse écrite pour ton projet, sur TikTok ou par e-mail",
-      "La méthode et les outils adaptés à ton niveau",
-      "{prompts} exemples de prompts pour ton projet",
-      "{followUpsIncluded} pour tes questions, sous {followUpDays} jours"
-    ],
-    "delay": "Réponse presque immédiate après ta commande",
-    "once": "Paiement unique · sans abonnement",
-    "exLabel": "Exemple illustratif",
-    "exPrompt": "« Crée une page d’accueil plein écran sur fond noir profond. Le nom apparaît lettre par lettre, puis la première photo s’ouvre en fondu au défilement, comme le générique d’un film… »",
-    "exNote": "Exemple de structure, sur le projet « portfolio d’une photographe ». Ta réponse est écrite pour ton projet, avec l’explication de chaque choix.",
-    "mail": {
-      "from": "De",
-      "sender": "{creator} · {brand}",
-      "subject": "Objet",
-      "title": "Ton plan pour ton portfolio",
-      "s1": "La méthode, étape par étape",
-      "s2": "Les outils adaptés à ton niveau",
-      "s3": "{prompts} prompts écrits pour ton projet",
-      "s4": "Tes questions",
-      "s4d": "{followUpsIncluded}, sous {followUpDays} jours"
-    }
-  },
-  "how": {
-    "kicker": "Comment ça se passe",
-    "title": "Quatre étapes. Aucune surprise.",
-    "steps": [
-      {
-        "t": "Tu réserves",
-        "d": "Paiement unique, sécurisé par Stripe. Tu choisis où recevoir ma réponse : sur TikTok ou par e-mail."
-      },
-      {
-        "t": "Tu me décris ton projet",
-        "d": "Directement sur la page de paiement : ton projet en une phrase, ta langue, et ton pseudo TikTok si tu veux."
-      },
-      {
-        "t": "Je te réponds, personnellement",
-        "d": "Presque immédiatement après ta commande, sur TikTok ou par e-mail : la méthode, les outils et tes prompts."
-      },
-      {
-        "t": "Tu poses tes questions",
-        "d": "{followUpsIncluded} pour aller plus loin, sous {followUpDays} jours."
-      }
-    ]
-  },
-  "human": {
-    "kicker": "Pas de bot",
-    "quote": "C’est moi qui lis ton projet. Et c’est moi qui te réponds.",
-    "sign": "{creator} · créateur des vidéos",
-    "tiktok": "Me suivre sur TikTok",
-    "notTitle": "Ce que ce n’est pas",
-    "not": [
-      "Je ne réalise pas ton site ou ta vidéo à ta place",
-      "Ce n’est pas une formation de 10 heures",
-      "Pas d’abonnement"
-    ]
-  },
-  "price": {
-    "kicker": "Le prix de l’échange",
-    "note": "Paiement unique. Sans abonnement.",
-    "cta": "Réserver mon échange"
-  },
-  "faq": {
-    "title": "Questions fréquentes",
-    "items": [
-      {
-        "q": "Tu réalises mon site ou ma vidéo à ma place ?",
-        "a": "Non. Les {price} sont le prix de notre échange, pas celui d’un site ou d’une vidéo. Je t’explique comment créer toi-même avec l’IA : la méthode, les outils et des prompts adaptés. Tu restes aux commandes."
-      },
-      {
-        "q": "Ça marche aussi pour une vidéo ou du motion design ?",
-        "a": "Oui. Site web, vidéo publicitaire, motion design ou autre projet : indique-le au moment de réserver, j’adapte ma réponse."
-      },
-      {
-        "q": "Je débute complètement. C’est pour moi ?",
-        "a": "Oui. Dis-le dans la description de ton projet : j’adapte mes explications à ton niveau."
-      },
-      {
-        "q": "Comment se passe l’échange ?",
-        "a": "Avant de payer, tu choisis où recevoir ma réponse : sur TikTok ou par e-mail. Sur la page de paiement, tu décris ton projet en une phrase. Je te réponds personnellement, presque immédiatement après ta commande, puis tu as {followUpsIncluded} pour tes questions."
-      },
-      {
-        "q": "Faut-il payer des outils ?",
-        "a": "Certains outils sont gratuits, d’autres payants. Je t’indique ceux que j’utilise et par où commencer selon ton budget."
-      },
-      {
-        "q": "Pourquoi un prix aussi bas ?",
-        "a": "Parce que c’est un échange ciblé, pas une formation. Juste ce qu’il faut pour lancer ton projet."
-      },
-      {
-        "q": "Et si je change d’avis ?",
-        "a": "Tu disposes d’un droit de rétractation de 14 jours, dans les conditions prévues par les <a href=\"/legal#retractation\">CGV</a>. En commandant, tu demandes que l’échange commence tout de suite, et tu perds ce droit une fois ma réponse entièrement envoyée."
-      },
-      {
-        "q": "Mon paiement est-il sécurisé ?",
-        "a": "Oui. Il est géré par Stripe. Je n’ai jamais accès à tes données bancaires."
-      }
-    ]
-  },
-  "footer": {
-    "tagline": "Un échange personnel avec le créateur de ces vidéos.",
-    "mentions": "Mentions légales",
-    "cgv": "CGV",
-    "privacy": "Confidentialité",
-    "contact": "Contact",
-    "rights": "© {year} {brand}",
-    "stripe": "Paiement sécurisé par Stripe",
-    "legal": "{brand} est édité par {seller.name}, {seller.status} · {seller.registration}"
-  },
-  "sticky": {
-    "cta": "Réserver mon échange",
-    "note": "Réponse presque immédiate après ta commande"
-  },
-  "sheet": {
-    "kicker": "Récapitulatif",
-    "title": "Ton échange personnalisé",
-    "total": "Total",
-    "once": "Paiement unique · sans abonnement",
-    "consent": "Je demande que l’échange commence dès mon paiement et je reconnais perdre mon droit de rétractation une fois la prestation entièrement exécutée.",
-    "legal": "En continuant, tu acceptes les <a href=\"/legal#cgv\">CGV</a> et la <a href=\"/legal#confidentialite\">politique de confidentialité</a>.",
-    "pay": "Continuer vers le paiement",
-    "redirect": "Tu vas être redirigé vers Stripe pour payer en toute sécurité. Tu y indiqueras ta langue, ton projet et ton pseudo TikTok.",
-    "consentRequired": "Coche la case pour continuer.",
-    "error": "Le paiement n’a pas pu démarrer. Réessaie dans un instant.",
-    "unavailable": "Le paiement n’est pas encore ouvert. Reviens très vite.",
-    "test": "Mode test Stripe : aucun paiement réel",
-    "kindLabel": "Ton projet",
-    "kinds": {
-      "site": "Site web",
-      "pub": "Vidéo pub",
-      "motion": "Motion",
-      "autre": "Autre"
-    },
-    "safe": "Paiement chiffré, géré par Stripe",
-    "summary": "Ma réponse écrite pour ton projet : la méthode, les outils adaptés à ton niveau, {prompts} prompts et {followUpsIncluded}.",
-    "chanLabel": "Où veux-tu ma réponse ?",
-    "chan": {
-      "mail": "Par e-mail",
-      "tiktok": "Sur TikTok"
-    },
-    "chanHelp": "Indique ton pseudo TikTok sur la page de paiement. Sans pseudo, je te réponds par e-mail."
-  },
-  "merci": {
-    "kicker": "Commande envoyée",
-    "title": "Merci !",
-    "lead": "Voici exactement comment se passe notre échange.",
-    "steps": [
-      {
-        "t": "Ton reçu Stripe",
-        "d": "Stripe t’envoie un reçu par e-mail : c’est lui qui confirme ton paiement. Je commence dès que ton paiement est validé chez Stripe."
-      },
-      {
-        "t": "Je lis ton projet",
-        "d": "À partir de ce que tu as écrit sur la page de paiement : ta langue, ton projet et ton pseudo TikTok."
-      },
-      {
-        "t": "Ma réponse, presque immédiate",
-        "d": "Je t’écris personnellement dès que je reçois ta commande : en message privé sur TikTok si tu l’as choisi, sinon depuis {contact}, à l’adresse e-mail du paiement. Tu y trouves la méthode, les outils adaptés à ton niveau et {prompts} exemples de prompts pour ton projet."
-      },
-      {
-        "t": "Tes questions",
-        "d": "Réponds simplement à mon message : {followUpsIncluded} pour tes questions, sous {followUpDays} jours."
-      }
-    ],
-    "tip": "Par e-mail : ajoute {contact} à tes contacts. Sur TikTok : regarde aussi tes demandes de messages.",
-    "help": "Rien reçu ? Regarde tes spams, l’onglet Promotions et tes demandes de messages TikTok, puis écris-moi à {contact}.",
-    "notPaid": "Tu as quitté la page de paiement sans payer ? Aucun montant n’a été débité.",
-    "back": "Retour au site"
-  },
-  "legal": {
-    "back": "Retour",
-    "tabs": {
-      "mentions": "Mentions légales",
-      "cgv": "CGV",
-      "confidentialite": "Confidentialité"
-    }
-  },
-  "notfound": {
-    "title": "Page introuvable.",
-    "text": "Cette page n’existe pas, ou plus.",
-    "cta": "Retour à l’accueil"
-  },
   "uni": {
     "kicker": "Trois univers",
-    "title": "Ce que tu peux créer.",
-    "text": "Tu choisis ton terrain. Je t’explique comment obtenir un résultat professionnel.",
-    "note": "Trois exemples créés avec l’IA. L’échange t’explique comment y arriver : je ne les réalise pas à ta place.",
+    "title": "Ce qu’on peut créer.",
+    "text": "Choisis ton terrain. Tu le crées avec ma méthode, ou je le crée pour toi.",
+    "note": "Trois exemples de mes créations avec l’IA. Le format d’une création sur commande est précisé dans les formules.",
     "play": "Voir la vidéo",
     "items": [
       {
@@ -344,32 +114,42 @@
       }
     ]
   },
-  "tt": {
-    "kicker": "Tu arrives de TikTok",
-    "title": "Ouvre le site dans ton navigateur.",
-    "text": "Pour une meilleure immersion dans le site.",
-    "step1": "Touche <b class=\"tt-kbd\">•••</b> en haut à droite",
-    "step2": "Choisis <b>« Ouvrir dans le navigateur »</b>",
-    "stay": "Rester ici"
-  },
-  "brief": [
-    {
-      "v": "Très vite",
-      "l": "ma réponse arrive presque immédiatement après ta commande"
+  "offers": {
+    "kicker": "Deux formules",
+    "title": "Tu le fais. Ou je le fais.",
+    "text": "Un prompt seul ne suffit pas : ce qui compte, c’est la méthode. Soit je te la donne, soit je m’en occupe.",
+    "once": "Paiement unique",
+    "soon": "Bientôt disponible",
+    "guide": {
+      "name": "Je te guide",
+      "tag": "Tu crées",
+      "short": "Tu crées, je t’explique tout",
+      "pitch": "Tu as une IA sous la main et tu veux créer toi‑même. Je t’écris la marche à suivre, pour ton projet.",
+      "items": [
+        "Ma méthode, étape par étape",
+        "Les outils adaptés à ton niveau",
+        "{prompts} prompts écrits pour ton projet",
+        "{followUpsIncluded} pour tes questions, sous {followUpDays} jours"
+      ],
+      "delay": "Réponse presque immédiate après ta commande",
+      "cta": "Réserver mon échange"
     },
-    {
-      "v": "{prompts} prompts",
-      "l": "écrits pour ton projet"
-    },
-    {
-      "v": "{followUps}",
-      "l": "pour tes questions, sous {followUpDays} jours"
-    },
-    {
-      "v": "1 : 1",
-      "l": "avec moi, sur TikTok ou par e-mail"
+    "creation": {
+      "name": "Je crée pour toi",
+      "tag": "Je crée",
+      "badge": "Clé en main",
+      "short": "Livré en {deliveryHours} h maximum",
+      "pitch": "Pas d’IA, ou pas le temps ? Décris-moi ton projet. Je le réalise et je te le livre.",
+      "items": [
+        "Ton site, ta pub ou ton animation motion, réalisé par moi",
+        "Un site d’une page, ou une vidéo jusqu’à {videoSeconds} secondes",
+        "Prêt à publier : les fichiers sont à toi",
+        "{revisionsIncluded}, sous {revisionDays} jours"
+      ],
+      "delay": "Livré en {deliveryHours} h maximum, par e-mail",
+      "cta": "Commander ma création"
     }
-  ],
+  },
   "trust": {
     "methodsLabel": "Moyens de paiement",
     "methods": [
@@ -381,20 +161,259 @@
     "items": [
       {
         "t": "Paiement sécurisé",
-        "d": "Géré par Stripe. Je n’ai jamais accès à tes données bancaires."
-      },
-      {
-        "t": "Réponse presque immédiate",
-        "d": "Je réponds dès que je reçois ta commande. Sur TikTok ou par e-mail, au choix."
+        "d": "Géré par Stripe. Je n’ai jamais accès à ta carte."
       },
       {
         "t": "Un vrai interlocuteur",
-        "d": "{creator} lit ton projet et te répond lui-même. Entreprise déclarée en France."
+        "d": "{creator} s’occupe de toi lui-même. Entreprise déclarée en France."
       },
       {
         "t": "Droit de rétractation",
-        "d": "14 jours, tant que ma réponse n’a pas été entièrement envoyée. Détails dans les <a href=\"/legal#retractation\">CGV</a>."
+        "d": "14 jours, dans les conditions des <a href=\"/legal#retractation\">CGV</a>."
       }
     ]
+  },
+  "how": {
+    "kicker": "Comment ça se passe",
+    "title": "Trois étapes. Aucune surprise.",
+    "tabsLabel": "Formule",
+    "guide": {
+      "steps": [
+        {
+          "t": "Tu réserves",
+          "d": "Paiement unique, sécurisé par Stripe. Tu choisis où recevoir ma réponse : sur TikTok ou par e-mail."
+        },
+        {
+          "t": "Tu décris ton projet",
+          "d": "Directement sur la page de paiement, en une phrase."
+        },
+        {
+          "t": "Je te réponds, personnellement",
+          "d": "Presque immédiatement après ta commande : la méthode, les outils et tes prompts. Puis {followUpsIncluded} pour tes questions."
+        }
+      ]
+    },
+    "creation": {
+      "steps": [
+        {
+          "t": "Tu commandes",
+          "d": "Paiement unique, sécurisé par Stripe. Tu choisis ce que je crée : un site, une pub ou une animation motion."
+        },
+        {
+          "t": "Tu décris ton projet",
+          "d": "En quelques mots, au moment de la commande ou par e-mail juste après. Un logo, des textes, des photos ? Tu me les envoies aussi."
+        },
+        {
+          "t": "Je crée, je te livre",
+          "d": "En {deliveryHours} h maximum, par e-mail. Puis {revisionsIncluded} pour ajuster un détail."
+        }
+      ]
+    },
+    "deliv": {
+      "title": "Ta création est prête",
+      "name": "ta-pub.mp4",
+      "file": "Vidéo verticale · prête à publier",
+      "done": "Livré",
+      "s1": "Ta création, prête à publier",
+      "s1d": "Les fichiers sont à toi.",
+      "s2": "Comment la mettre en ligne",
+      "s3": "Un détail à ajuster ?",
+      "s3d": "{revisionsIncluded}, sous {revisionDays} jours",
+      "note": "Exemple de livraison. Ta création est réalisée pour ton projet, à partir de ta description."
+    }
+  },
+  "get": {
+    "exLabel": "Exemple illustratif",
+    "exPrompt": "« Crée une page d’accueil plein écran sur fond noir profond. Le nom apparaît lettre par lettre, puis la première photo s’ouvre en fondu au défilement, comme le générique d’un film… »",
+    "exNote": "Exemple de structure, sur le projet « portfolio d’une photographe ». Ta réponse est écrite pour ton projet, avec l’explication de chaque choix.",
+    "mail": {
+      "from": "De",
+      "sender": "{creator} · {brand}",
+      "subject": "Objet",
+      "title": "Ton plan pour ton portfolio",
+      "s1": "La méthode, étape par étape",
+      "s2": "Les outils adaptés à ton niveau",
+      "s3": "{prompts} prompts écrits pour ton projet",
+      "s4": "Tes questions",
+      "s4d": "{followUpsIncluded}, sous {followUpDays} jours"
+    }
+  },
+  "human": {
+    "kicker": "Pas de bot",
+    "quote": "C’est moi qui lis ton projet. Et c’est moi qui m’en occupe.",
+    "sign": "{creator} · créateur des vidéos",
+    "tiktok": "Me suivre sur TikTok"
+  },
+  "faq": {
+    "title": "Questions fréquentes",
+    "items": [
+      {
+        "q": "Quelle formule choisir ?",
+        "a": "Tu as accès à une IA et tu veux créer toi-même : « Je te guide » ({price}). Tu préfères recevoir le résultat sans rien faire : « Je crée pour toi » ({priceCreation})."
+      },
+      {
+        "q": "Que comprend « Je crée pour toi » ?",
+        "a": "Une création réalisée par moi, au choix : un site d’une page, une vidéo publicitaire ou une animation motion design jusqu’à {videoSeconds} secondes. Livrée par e-mail en {deliveryHours} h maximum, prête à publier, avec {revisionsIncluded}. L’hébergement et le nom de domaine d’un site ne sont pas compris : je t’explique comment le mettre en ligne."
+      },
+      {
+        "q": "Pourquoi un prix aussi bas ?",
+        "a": "Parce que je crée avec l’IA : ce qui prenait des jours me prend quelques heures. Et les formats sont volontairement courts. Si ta demande les dépasse, je te le dis avant de commencer et je te rembourse intégralement."
+      },
+      {
+        "q": "Je débute complètement. C’est pour moi ?",
+        "a": "Oui. Avec « Je te guide », j’adapte mes explications à ton niveau. Avec « Je crée pour toi », tu n’as rien à savoir : tu décris, je réalise."
+      },
+      {
+        "q": "Faut-il payer des outils ?",
+        "a": "Avec « Je te guide », certains outils sont gratuits, d’autres payants : je t’indique par où commencer selon ton budget. Avec « Je crée pour toi », tu n’as rien à installer, ni rien à payer en plus."
+      },
+      {
+        "q": "Et si je change d’avis ?",
+        "a": "Tu disposes d’un droit de rétractation de 14 jours, dans les conditions prévues par les <a href=\"/legal#retractation\">CGV</a>. En commandant, tu demandes que je commence tout de suite, et tu perds ce droit une fois ma réponse ou ta création entièrement livrée."
+      },
+      {
+        "q": "Mon paiement est-il sécurisé ?",
+        "a": "Oui. Il est géré par Stripe. Je n’ai jamais accès à tes données bancaires."
+      }
+    ]
+  },
+  "final": {
+    "title": "Alors, tu le fais ou je le fais ?",
+    "note": "Paiement unique · sécurisé par Stripe"
+  },
+  "footer": {
+    "tagline": "Derrière chaque réponse et chaque création : le créateur de ces vidéos.",
+    "mentions": "Mentions légales",
+    "cgv": "CGV",
+    "privacy": "Confidentialité",
+    "contact": "Contact",
+    "rights": "© {year} {brand}",
+    "stripe": "Paiement sécurisé par Stripe",
+    "legal": "{brand} est édité par {seller.name}, {seller.status} · {seller.registration}"
+  },
+  "sticky": {
+    "cta": "Choisir ma formule",
+    "note": "Je te guide, ou je crée pour toi"
+  },
+  "sheet": {
+    "kicker": "Récapitulatif",
+    "total": "Total",
+    "once": "Paiement unique · sans abonnement",
+    "legal": "En continuant, tu acceptes les <a href=\"/legal#cgv\">CGV</a> et la <a href=\"/legal#confidentialite\">politique de confidentialité</a>.",
+    "pay": "Continuer vers le paiement",
+    "consentRequired": "Coche la case pour continuer.",
+    "error": "Le paiement n’a pas pu démarrer. Réessaie dans un instant.",
+    "unavailable": "Le paiement n’est pas encore ouvert. Reviens très vite.",
+    "test": "Mode test Stripe : aucun paiement réel",
+    "kinds": {
+      "site": "Site web",
+      "pub": "Vidéo pub",
+      "motion": "Motion",
+      "autre": "Autre"
+    },
+    "safe": "Paiement chiffré, géré par Stripe",
+    "chanLabel": "Où veux-tu ma réponse ?",
+    "chan": {
+      "mail": "Par e-mail",
+      "tiktok": "Sur TikTok"
+    },
+    "chanHelp": "Indique ton pseudo TikTok sur la page de paiement. Sans pseudo, je te réponds par e-mail.",
+    "switchLabel": "Formule",
+    "creation": {
+      "title": "Ta création sur mesure",
+      "summary": "Je réalise ton projet moi-même et je te le livre prêt à publier, avec {revisionsIncluded}.",
+      "kindLabel": "Qu’est-ce que je crée pour toi ?",
+      "specs": {
+        "site": "Un site d’une page, adapté au téléphone, prêt à mettre en ligne.",
+        "pub": "Une vidéo publicitaire verticale, jusqu’à {videoSeconds} secondes.",
+        "motion": "Une animation motion design verticale, jusqu’à {videoSeconds} secondes."
+      },
+      "ship": "Livraison par e-mail, en {deliveryHours} h maximum",
+      "consent": "Je demande que la réalisation commence dès mon paiement et je reconnais perdre mon droit de rétractation une fois ma création entièrement livrée.",
+      "redirect": "Tu vas être redirigé vers Stripe pour payer en toute sécurité. Juste après, tu reçois un e-mail : réponds-y pour me donner les détails de ton projet."
+    },
+    "guide": {
+      "title": "Ton échange personnalisé",
+      "summary": "Ma réponse écrite pour ton projet : la méthode, les outils adaptés à ton niveau, {prompts} prompts et {followUpsIncluded}.",
+      "kindLabel": "Ton projet",
+      "consent": "Je demande que l’échange commence dès mon paiement et je reconnais perdre mon droit de rétractation une fois la prestation entièrement exécutée.",
+      "redirect": "Tu vas être redirigé vers Stripe pour payer en toute sécurité. Tu y indiqueras ta langue, ton projet et ton pseudo TikTok."
+    }
+  },
+  "merci": {
+    "kicker": "Commande envoyée",
+    "title": "Merci !",
+    "notPaid": "Tu as quitté la page de paiement sans payer ? Aucun montant n’a été débité.",
+    "back": "Retour au site",
+    "creation": {
+      "lead": "Voici exactement comment se passe la suite.",
+      "steps": [
+        {
+          "t": "Ton reçu Stripe",
+          "d": "Stripe t’envoie un reçu par e-mail : c’est lui qui confirme ton paiement. Je commence dès que ton paiement est validé chez Stripe."
+        },
+        {
+          "t": "Ton projet, en détail",
+          "d": "Réponds à mon e-mail de confirmation, ou écris à {contact} : ton activité, ce que tu veux montrer, le style que tu aimes. Joins ton logo, tes textes et tes photos si tu en as."
+        },
+        {
+          "t": "Je crée",
+          "d": "Je réalise ton projet moi-même, à partir de ta description."
+        },
+        {
+          "t": "Ta création, en {deliveryHours} h maximum",
+          "d": "Je te la livre par e-mail, depuis {contact}, à l’adresse du paiement. Ensuite, {revisionsIncluded} sous {revisionDays} jours : réponds simplement à mon message."
+        }
+      ],
+      "send": "Décrire mon projet par e-mail",
+      "mailSubject": "Mon projet pour ma création",
+      "mailBody": "Bonjour,\n\nVoici mon projet.\n\nNom du projet ou de la marque :\nMon activité :\nCe que je veux montrer :\nStyle, couleurs ou exemples que j’aime :\nTextes à faire apparaître :\n\n(Logo, photos et images en pièces jointes.)\n",
+      "tip": "Ajoute {contact} à tes contacts pour ne pas manquer la livraison.",
+      "help": "Rien reçu ? Regarde tes spams et l’onglet Promotions, puis écris-moi à {contact}."
+    },
+    "guide": {
+      "lead": "Voici exactement comment se passe notre échange.",
+      "steps": [
+        {
+          "t": "Ton reçu Stripe",
+          "d": "Stripe t’envoie un reçu par e-mail : c’est lui qui confirme ton paiement. Je commence dès que ton paiement est validé chez Stripe."
+        },
+        {
+          "t": "Je lis ton projet",
+          "d": "À partir de ce que tu as écrit sur la page de paiement : ta langue, ton projet et ton pseudo TikTok."
+        },
+        {
+          "t": "Ma réponse, presque immédiate",
+          "d": "Je t’écris personnellement dès que je reçois ta commande : en message privé sur TikTok si tu l’as choisi, sinon depuis {contact}, à l’adresse e-mail du paiement. Tu y trouves la méthode, les outils adaptés à ton niveau et {prompts} exemples de prompts pour ton projet."
+        },
+        {
+          "t": "Tes questions",
+          "d": "Réponds simplement à mon message : {followUpsIncluded} pour tes questions, sous {followUpDays} jours."
+        }
+      ],
+      "tip": "Par e-mail : ajoute {contact} à tes contacts. Sur TikTok : regarde aussi tes demandes de messages.",
+      "help": "Rien reçu ? Regarde tes spams, l’onglet Promotions et tes demandes de messages TikTok, puis écris-moi à {contact}."
+    }
+  },
+  "legal": {
+    "back": "Retour",
+    "tabs": {
+      "mentions": "Mentions légales",
+      "cgv": "CGV",
+      "confidentialite": "Confidentialité"
+    }
+  },
+  "notfound": {
+    "title": "Page introuvable.",
+    "text": "Cette page n’existe pas, ou plus.",
+    "cta": "Retour à l’accueil"
+  },
+  "tt": {
+    "kicker": "Tu arrives de TikTok",
+    "title": "Ouvre le site dans ton navigateur.",
+    "text": "Pour une meilleure immersion dans le site.",
+    "step1": "Touche <b class=\"tt-kbd\">•••</b> en haut à droite",
+    "step2": "Choisis <b>« Ouvrir dans le navigateur »</b>",
+    "stay": "Rester ici"
   }
 }

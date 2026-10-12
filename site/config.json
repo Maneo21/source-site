@@ -19,7 +19,15 @@
     "followUps": 1,
     "followUpDays": 7
   },
-  "termsVersion": "2026-10-12",
+  "creation": {
+    "amount": 1990,
+    "paymentLink": "https://buy.stripe.com/4gM7sM2b07g78Ld08q9AA01",
+    "deliveryHours": 24,
+    "revisions": 1,
+    "revisionDays": 7,
+    "videoSeconds": 15
+  },
+  "termsVersion": "2026-10-12-2",
   "mediator": {
     "name": "",
     "url": ""

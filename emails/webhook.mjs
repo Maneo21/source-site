@@ -7,9 +7,11 @@ const TYPES = new Set(['checkout.session.completed', 'checkout.session.async_pay
 const TOLERANCE = 300;            // secondes : une signature plus ancienne est refusée
 const KEEP = 60 * 60 * 24 * 180;  // l'état « déjà envoyé » est gardé 180 jours
 const TIMEOUT = 6000;             // millisecondes laissées à Postmark pour répondre
-const RECIPIENT = new Set([300, 406]);
-const KINDS = ['site', 'pub', 'motion', 'autre']; // types de projet proposés dans le récapitulatif du site // refus liés à l'adresse du destinataire
-const DEFAULTS = { brand: 'AI Web Studio', contactEmail: 'contact@maneo-ai.fr', offer: { replyHours: 24 }, seller: {} };
+const RECIPIENT = new Set([300, 406]); // refus liés à l'adresse du destinataire
+// Types de projet proposés dans le récapitulatif du site, selon la formule :
+// « guide » (échange personnalisé) ou « creation » (création sur mesure, livrée).
+const KINDS = { guide: ['site', 'pub', 'motion', 'autre'], creation: ['site', 'pub', 'motion'] };
+const DEFAULTS = { brand: 'AI Web Studio', contactEmail: 'contact@maneo-ai.fr', offer: { amount: 790, replyHours: 24 }, creation: { amount: 1990, deliveryHours: 24, revisions: 1, revisionDays: 7 }, seller: {} };
 const POSTMARK = {
   10: 'Jeton Postmark refusé : la variable POSTMARK_TOKEN est incorrecte.',
   300: 'Adresse e-mail refusée par Postmark (adresse invalide).',
@@ -54,6 +56,9 @@ async function verify(raw, header, secrets, now) {
 
 const langOf = v => { const s = norm(v); return /^(en\b|eng|anglais)/.test(s) ? 'en' : /^(fr\b|fra|french)/.test(s) ? 'fr' : null; };
 
+// Liste « Quel type de création… » de la page de paiement : son libellé est ramené à un type connu du site.
+const kindFrom = v => { const s = norm(v); return /motion|anim/.test(s) ? 'motion' : /pub|video|advert|\bads?\b/.test(s) ? 'pub' : /site|web|page/.test(s) ? 'site' : null; };
+
 function tiktokOf(value) {
   const raw = clean(value);
   const handle = (raw.match(/tiktok\.com\/@([\w.]+)/i)?.[1] || raw).replace(/^@+/, '');
@@ -62,8 +67,9 @@ function tiktokOf(value) {
 }
 
 // Les champs sont reconnus par leur type et leur libellé : ils restent lus même si un libellé change dans Stripe.
-export function readOrder(session, event) {
+export function readOrder(session, event, ctx = {}) {
   const o = { lang: null, tiktok: '', tiktokUrl: '', project: '', others: [] };
+  let picked = null; // type de création choisi dans une liste de la page de paiement
   for (const f of session.custom_fields || []) {
     const label = clean(f.label?.custom) || clean(f.key), id = norm(`${f.key} ${label}`);
     let value = '';
@@ -71,12 +77,26 @@ export function readOrder(session, event) {
     else value = f[f.type]?.value ?? '';
     value = clean(value);
     if (f.type === 'dropdown' && !o.lang && (langOf(value) || /lang|idiom/.test(id))) o.lang = langOf(value) || langOf(f.dropdown?.value);
+    else if (f.type === 'dropdown' && !picked && kindFrom(value) && /type|creation|quoi|what|kind|projet|project/.test(id)) picked = kindFrom(value);
     else if (/tiktok|pseudo|handle|username/.test(id)) Object.assign(o, tiktokOf(value));
     else if (!o.project && /projet|project|site|description|idee|idea/.test(id)) o.project = value;
     else o.others.push({ label, value });
   }
-  // Référence posée par le site : langue, version des CGV acceptée, type de projet s'il a été choisi, canal de réponse.
-  const ref = clean(session.client_reference_id).match(/^site_([a-z]{2})_cgv-([\d-]+)_retractation-ok(?:_type-([a-z]+))?(?:_rep-([a-z]+))?$/);
+  // Référence posée par le site : langue, version des CGV acceptée, formule, type de projet s'il a été choisi, canal de réponse.
+  const ref = clean(session.client_reference_id).match(/^site_([a-z]{2})_cgv-([\d-]+)_retractation-ok(?:_offre-([a-z]+))?(?:_type-([a-z]+))?(?:_rep-([a-z]+))?$/);
+  // La formule vient de ce que Stripe a encaissé, jamais de la seule référence, que le navigateur du client peut modifier.
+  // Ordre : étiquette « offre » posée sur le lien de paiement dans Stripe (facultative), sinon le montant hors réduction.
+  const tagged = ref?.[3] === 'creation' ? 'creation' : 'guide', meta = norm(session.metadata?.offre || session.metadata?.offer);
+  // Le montant se compare dans la devise du vendeur. Si Stripe a fait payer le client dans sa propre devise, il indique
+  // le montant d'origine (currency_conversion) ; à défaut, la formule est lue dans la référence et le vendeur en est averti.
+  const base = clean(ctx.currency || 'eur').toLowerCase(), cur = clean(session.currency).toLowerCase(), conv = session.currency_conversion;
+  const paid = conv && clean(conv.source_currency).toLowerCase() === base ? Number(conv.amount_subtotal ?? conv.amount_total)
+    : !cur || cur === base ? Number(session.amount_subtotal ?? session.amount_total) : NaN;
+  const known = meta === 'creation' || meta === 'guide', byAmount = Number.isFinite(paid);
+  const guideAmount = Number(ctx.guideAmount) || DEFAULTS.offer.amount, creationAmount = Number(ctx.creationAmount) || DEFAULTS.creation.amount;
+  const offer = known ? meta : !byAmount ? tagged : paid >= creationAmount || (tagged === 'creation' && paid > guideAmount) ? 'creation' : 'guide';
+  // Type de projet : la réponse donnée sur la page de paiement l'emporte sur le choix fait avant, dans le récapitulatif du site.
+  const chosen = KINDS[offer].includes(ref?.[4]) ? ref[4] : null, kind = picked && KINDS[offer].includes(picked) ? picked : chosen;
   const email = clean(session.customer_details?.email || session.customer_email).replace(/[\r\n]/g, '');
   return {
     ...o,
@@ -91,17 +111,27 @@ export function readOrder(session, event) {
     at: event.created || session.created || Math.floor(Date.now() / 1000),
     consent: !!ref,
     cgv: ref?.[2] || null,
-    kind: KINDS.includes(ref?.[3]) ? ref[3] : null,
-    channel: ref?.[4] === 'tiktok' ? 'tiktok' : 'mail'
+    offer,
+    offerNote: tagged === 'creation' && offer === 'guide' ? 'La référence du site indiquait une création, mais le montant payé est celui de l’échange.'
+      : !known && !byAmount ? 'Paiement dans une autre devise : formule lue dans la référence du site. Vérifie le montant dans Stripe.' : '',
+    kind,
+    kindBefore: chosen && kind !== chosen ? chosen : null, // choix différent fait sur le site : signalé au vendeur
+    channel: offer === 'guide' && ref?.[5] === 'tiktok' ? 'tiktok' : 'mail' // une création est toujours livrée par e-mail
   };
 }
 
 export function contextFrom(cfg, origin) {
   const c = { ...DEFAULTS, ...(cfg || {}) };
-  return { brand: clean(c.brand) || DEFAULTS.brand, contact: clean(c.contactEmail) || DEFAULTS.contactEmail, replyHours: Number(c.offer?.replyHours) || 24, seller: c.seller || {}, origin };
+  return {
+    brand: clean(c.brand) || DEFAULTS.brand, contact: clean(c.contactEmail) || DEFAULTS.contactEmail,
+    replyHours: Number(c.offer?.replyHours) || 24, guideAmount: Number(c.offer?.amount) || DEFAULTS.offer.amount, currency: clean(c.offer?.currency) || 'EUR',
+    creationAmount: Number(c.creation?.amount) || DEFAULTS.creation.amount, deliveryHours: Number(c.creation?.deliveryHours) || 24,
+    revisions: Number(c.creation?.revisions ?? 1), revisionDays: Number(c.creation?.revisionDays) || 7,
+    seller: c.seller || {}, origin
+  };
 }
 
-// Les réglages du site (nom, délai, vendeur) sont lus dans site/config.json, déjà publié avec le site.
+// Les réglages du site (nom, prix et délais des deux formules, vendeur) sont lus dans site/config.json, déjà publié avec le site.
 async function context(request, env) {
   const origin = new URL(request.url).origin;
   try {
@@ -141,7 +171,7 @@ const save = async (env, key, state) => { try { await env.COMMANDES.put(key, JSO
 
 function status(env) {
   const r = { STRIPE_WEBHOOK_SECRET: !!clean(env.STRIPE_WEBHOOK_SECRET), POSTMARK_TOKEN: !!clean(env.POSTMARK_TOKEN), COMMANDES: typeof env.COMMANDES?.get === 'function' };
-  const say = v => (v ? 'ok' : 'manquant');
+  const say = v => (v ? 'ok' : 'manquant'), links = clean(env.STRIPE_PAYMENT_LINK).split(/[\s,;]+/).filter(Boolean).length;
   return json(200, {
     service: 'E-mails de commande',
     pret: r.STRIPE_WEBHOOK_SECRET && r.POSTMARK_TOKEN && r.COMMANDES,
@@ -149,8 +179,11 @@ function status(env) {
       'STRIPE_WEBHOOK_SECRET (signature Stripe)': say(r.STRIPE_WEBHOOK_SECRET),
       'POSTMARK_TOKEN (envoi des e-mails)': say(r.POSTMARK_TOKEN),
       'COMMANDES (anti-doublons)': say(r.COMMANDES),
-      'STRIPE_WEBHOOK_SECRET_TEST (facultatif, pour les essais)': clean(env.STRIPE_WEBHOOK_SECRET_TEST) ? 'ok' : 'absent'
-    }
+      'STRIPE_WEBHOOK_SECRET_TEST (facultatif, pour les essais)': clean(env.STRIPE_WEBHOOK_SECRET_TEST) ? 'ok' : 'absent',
+      // deux formules = deux liens de paiement : un filtre qui n'en nomme qu'un ferait ignorer les commandes de l'autre
+      'STRIPE_PAYMENT_LINK (facultatif, filtre des liens de paiement)': links ? `${links} lien${links > 1 ? 's' : ''} accepté${links > 1 ? 's' : ''}${links < 2 ? ' · ATTENTION : il en faut deux, un par formule' : ''}` : 'absent : tous les liens de paiement du compte sont acceptés'
+    },
+    formules: 'Je te guide · Je crée pour toi'
   });
 }
 
@@ -176,16 +209,17 @@ export async function handle(request, env = {}, deps = {}) {
   if (event?.object === 'v2.core.event' || (event?.related_object && !event?.data)) return json(422, { ok: false, erreur: 'Format « léger » reçu. Dans Stripe, recrée la destination avec le format « Instantané ».' });
   const session = event?.data?.object;
   if (!TYPES.has(event?.type) || session?.object !== 'checkout.session') return ignored('événement non concerné');
-  // Seul le lien de paiement de ce site compte : les abonnements et autres ventes du compte Stripe sont laissés de côté.
-  const wanted = clean(env.STRIPE_PAYMENT_LINK);
-  if (session.mode !== 'payment' || !session.payment_link || (wanted && session.payment_link !== wanted)) return ignored('autre produit');
+  // Seuls les liens de paiement de ce site comptent : les abonnements et autres ventes du compte Stripe sont laissés de côté.
+  // STRIPE_PAYMENT_LINK (facultatif) peut contenir plusieurs identifiants, séparés par une virgule : un par formule.
+  const wanted = clean(env.STRIPE_PAYMENT_LINK).split(/[\s,;]+/).filter(Boolean);
+  if (session.mode !== 'payment' || !session.payment_link || (wanted.length && !wanted.includes(session.payment_link))) return ignored('autre produit');
   if (session.payment_status !== 'paid') return ignored('paiement pas encore encaissé');
   if (!clean(env.POSTMARK_TOKEN)) return json(500, { ok: false, erreur: 'Variable POSTMARK_TOKEN manquante dans Cloudflare.' });
 
-  const ctx = await context(request, env), order = readOrder(session, event);
+  const ctx = await context(request, env), order = readOrder(session, event, ctx);
   const from = clean(env.MAIL_FROM) || `${ctx.brand} <${ctx.contact}>`, owner = clean(env.ADMIN_EMAIL) || ctx.contact;
   const key = `commande:${order.sessionId}`, state = await load(env, key);
-  const meta = { commande: order.ref, session: order.sessionId.slice(0, 80) };
+  const meta = { commande: order.ref, formule: order.offer, session: order.sessionId.slice(0, 80) };
   const stamp = new Date(now * 1000).toISOString();
   const fail = (step, r) => {
     console.error(`Commande ${order.ref} : e-mail ${step} non envoyé. ${r.reason}`);
@@ -205,7 +239,7 @@ export async function handle(request, env = {}, deps = {}) {
     }
   }
 
-  // 2. La fiche de commande pour le vendeur. « Répondre » écrit directement au client.
+  // 2. La fiche de commande pour le vendeur (réponse à écrire, ou création à livrer). « Répondre » écrit directement au client.
   if (!state.admin) {
     const m = adminMail(order, ctx, refused ? { failed: refused } : { sent: true });
     const r = await postmark(send, env, { From: from, To: owner, ...(order.email ? { ReplyTo: order.email } : {}), Subject: m.subject, HtmlBody: m.html, TextBody: m.text, Tag: 'commande-vendeur', Metadata: meta });

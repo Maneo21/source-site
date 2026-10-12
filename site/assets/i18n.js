@@ -59,7 +59,7 @@ export const I = {
         el.setAttribute(attr, this.t(key));
       }
     }
-    for (const el of root.querySelectorAll('[data-price]')) el.textContent = this.vars.price;
+    for (const el of root.querySelectorAll('[data-price]')) el.textContent = el.dataset.price === 'creation' ? this.vars.priceCreation : this.vars.price;
     for (const el of root.querySelectorAll('[data-brand]')) el.textContent = this.config.brand;
     for (const el of root.querySelectorAll('[data-contact]')) {
       const c = this.config.contactEmail;

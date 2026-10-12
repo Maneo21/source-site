@@ -16,17 +16,19 @@ const MONTHS = {
 const T = {
   fr: {
     subject: b => `Votre commande est confirmée — ${b}`,
-    pre: h => `Merci\u00A0! Votre réponse personnalisée arrive par e-mail sous ${h}\u00A0h maximum.`,
+    pre: h => `Merci\u00A0! Votre réponse personnalisée arrive très vite, sous ${h}\u00A0h maximum.`,
     chip: 'Paiement confirmé',
     title: 'Votre commande est confirmée',
     hello: 'Bonjour 👋',
     thanks: 'Merci pour votre confiance\u00A0!',
     confirmed: (b, p) => [`Votre commande d’accompagnement personnalisé ${b} à `, p, ' a bien été confirmée.'],
     received: 'J’ai bien reçu votre demande et vais prendre connaissance de votre projet.',
-    reply: h => ['Vous recevrez une réponse personnalisée dans les prochaines heures, ', `sous ${h}\u00A0h maximum`, ', directement par e-mail.'],
+    reply: (h, handle) => ['Vous recevrez une réponse personnalisée très rapidement, ', `sous ${h}\u00A0h maximum`, handle ? `, en message privé sur TikTok (${handle}).` : ', directement par e-mail.'],
+    dm: 'Pensez à regarder vos demandes de messages sur TikTok. Si le message privé ne peut pas vous être remis, je vous répondrai par e-mail.',
+    via: handle => (handle ? `En message privé sur TikTok (${handle})` : 'Par e-mail'),
     bye: 'À très bientôt,',
     recap: 'Votre commande',
-    k: { product: 'Prestation', amount: 'Montant', ref: 'Référence', date: 'Date', kind: 'Type de projet', project: 'Votre projet' },
+    k: { product: 'Prestation', amount: 'Montant', ref: 'Référence', date: 'Date', via: 'Réponse', kind: 'Type de projet', project: 'Votre projet' },
     kinds: { site: 'Site web', pub: 'Vidéo publicitaire', motion: 'Motion design', autre: 'Autre projet' },
     product: 'Accompagnement personnalisé — Création avec l’IA',
     once: 'paiement unique',
@@ -41,17 +43,19 @@ const T = {
   },
   en: {
     subject: b => `Your order is confirmed — ${b}`,
-    pre: h => `Thank you! Your personalised reply will reach you by email within ${h} hours.`,
+    pre: h => `Thank you! Your personalised reply will reach you very soon, within ${h} hours at most.`,
     chip: 'Payment confirmed',
     title: 'Your order is confirmed',
     hello: 'Hi 👋',
     thanks: 'Thank you for your order!',
     confirmed: (b, p) => [`Your ${b} personal coaching order for `, p, ' is confirmed.'],
     received: 'I’ve received your request and will now read through your project.',
-    reply: h => ['You’ll receive a personalised reply by email in the next few hours, ', `within ${h} hours at most`, '.'],
+    reply: (h, handle) => ['You’ll receive a personalised reply very soon, ', `within ${h} hours at most`, handle ? `, as a direct message on TikTok (${handle}).` : ', by email.'],
+    dm: 'Remember to check your message requests on TikTok. If I can’t reach you there, I’ll reply by email.',
+    via: handle => (handle ? `Direct message on TikTok (${handle})` : 'By email'),
     bye: 'Speak soon,',
     recap: 'Your order',
-    k: { product: 'Service', amount: 'Amount', ref: 'Reference', date: 'Date', kind: 'Project type', project: 'Your project' },
+    k: { product: 'Service', amount: 'Amount', ref: 'Reference', date: 'Date', via: 'Reply', kind: 'Project type', project: 'Your project' },
     kinds: { site: 'Website', pub: 'Video ad', motion: 'Motion design', autre: 'Other project' },
     product: 'Personal coaching — Creating with AI',
     once: 'one-time payment',
@@ -170,13 +174,16 @@ export function clientMail(order, ctx) {
   const lang = T[order.lang] ? order.lang : 'fr', t = dict(lang), brand = ctx.brand, h = ctx.replyHours;
   const price = money(order.amount, order.currency, lang), date = when(order.at, lang);
   const project = order.project ? cut(order.project, 600) : '';
-  const [c1, c2, c3] = t.confirmed(brand, price), [r1, r2, r3] = t.reply(h);
+  // réponse sur TikTok seulement si le client l'a choisie ET a donné son pseudo ; sinon par e-mail
+  const handle = order.channel === 'tiktok' && order.tiktok ? order.tiktok : '';
+  const [c1, c2, c3] = t.confirmed(brand, price), [r1, r2, r3] = t.reply(h, handle);
   const legal = order.consent ? t.waived : t.right;
   const cgv = `${ctx.origin}/legal#cgv`, wd = `${ctx.origin}/legal#retractation`;
   const subject = `${order.live ? '' : '[TEST] '}${t.subject(brand)}`;
 
   const list = [[t.k.product, esc(t.product)], [t.k.amount, `${b(esc(price))} · ${esc(t.once)}`], [t.k.ref, `<span style="font-family:${MONO};font-size:14px;">${esc(order.ref)}</span>`], [t.k.date, esc(date)]];
   const kind = t.kinds[order.kind] || '';
+  list.push([t.k.via, esc(t.via(handle))]);
   if (kind) list.push([t.k.kind, esc(kind)]);
   if (project) list.push([t.k.project, esc(t.quote(project)).replace(/\n/g, '<br>')]);
 
@@ -186,7 +193,7 @@ ${para(esc(t.hello), true)}
 ${para(esc(t.thanks))}
 ${para(`${esc(c1)}${b(esc(price))}${esc(c3)}`)}
 ${para(esc(t.received))}
-${para(nb(`${esc(r1)}${b(esc(r2))}${esc(r3)}`))}
+${para(nb(`${esc(r1)}${b(esc(r2))}${esc(r3)}`))}${handle ? `\n${para(nb(esc(t.dm)))}` : ''}
 <p style="margin:22px 0 0;">${esc(t.bye)}<br>${b(esc(brand))}</p>
 </td></tr>
 ${card(t.recap, list)}
@@ -199,12 +206,13 @@ ${card(t.recap, list)}
 
   const text = [
     order.live ? null : `[${t.test}]\n`,
-    t.hello, '', t.thanks, '', `${c1}${price}${c3}`, '', t.received, '', `${r1}${r2}${r3}`, '', t.bye, brand, '',
+    t.hello, '', t.thanks, '', `${c1}${price}${c3}`, '', t.received, '', `${r1}${r2}${r3}`, handle ? `\n${t.dm}` : null, '', t.bye, brand, '',
     `— ${t.recap} —`,
     `${t.k.product} : ${t.product}`,
     `${t.k.amount} : ${price} · ${t.once}`,
     `${t.k.ref} : ${order.ref}`,
     `${t.k.date} : ${date}`,
+    `${t.k.via} : ${t.via(handle)}`,
     kind ? `${t.k.kind} : ${kind}` : null,
     project ? `${t.k.project} : ${t.quote(project)}` : null,
     '', t.help, '',
@@ -233,10 +241,14 @@ export function adminMail(order, ctx, client = { sent: true }) {
   const mailto = order.email ? `mailto:${encodeURIComponent(order.email).replace(/%40/g, '@')}?subject=${encodeURIComponent(replySubject)}` : '';
   const consent = order.consent ? `Renonciation acceptée sur le site${order.cgv ? ` (CGV du ${order.cgv.split('-').reverse().join('/')})` : ''}` : 'Non enregistrée : commande passée sans la case du site (lien Stripe ouvert directement)';
   const clientLine = client?.sent ? 'Confirmation envoyée ✓' : `<span style="color:${C.warn};">Non envoyée</span> · ${esc(client?.failed || 'raison inconnue')}`;
+  const onTikTok = order.channel === 'tiktok';
+  const via = !onTikTok ? 'Par e-mail' : order.tiktok ? `${b('Sur TikTok')} · ${tiktok}` : `<span style="color:${C.warn};">Sur TikTok demandé, mais pseudo non renseigné</span> · réponds par e-mail`;
+  const viaText = !onTikTok ? 'par e-mail' : order.tiktok ? `sur TikTok (${order.tiktok})` : 'TikTok demandé, pseudo non renseigné : réponds par e-mail';
   const subject = `${order.live ? '' : '[TEST] '}Nouvelle commande · ${price} · ${order.email || 'e-mail manquant'}`;
 
   const list = [
     ['Client', order.email ? link(`mailto:${order.email}`, esc(order.email), C.acc) : empty],
+    ['Répondre', via],
     ['Langue', esc(langName)],
     ['Pseudo TikTok', tiktok],
     ['Type de projet', T.fr.kinds[order.kind] ? esc(T.fr.kinds[order.kind]) : `<span style="color:${C.ink3};">Non précisé</span>`],
@@ -253,11 +265,11 @@ export function adminMail(order, ctx, client = { sent: true }) {
   const alert = client?.sent ? '' : `<tr><td class="px" style="padding:20px 34px 0;"><div style="padding:14px 16px;border-radius:14px;background:${C.warnBg};font:400 14.5px/1.5 ${FONT};color:${C.ink};">${b('L’e-mail de confirmation n’est pas parti chez le client.')}<br>${esc(client?.failed || '')}<br>Écris-lui directement pour confirmer sa commande.</div></td></tr>`;
 
   const body = `${head(chip('✓ Paiement confirmé par Stripe') + (order.live ? '' : ` ${chip('Test', true)}`), `Nouvelle commande · ${esc(price)}`)}
-<tr><td class="px" style="padding:16px 34px 0;font:400 16px/1.55 ${FONT};color:${C.ink2};">Réponse à envoyer avant le ${b(esc(due))}.</td></tr>
+<tr><td class="px" style="padding:16px 34px 0;font:400 16px/1.55 ${FONT};color:${C.ink2};">À répondre dès que possible, au plus tard le ${b(esc(due))}.</td></tr>
 ${alert}
 ${card('La commande', list)}
 <tr><td class="px" style="padding:22px 34px 26px;">
-${mailto ? button(mailto, 'Répondre au client', true) : ''}${stripeUrl ? button(stripeUrl, 'Voir dans Stripe', false) : ''}
+${onTikTok && order.tiktokUrl ? button(order.tiktokUrl, 'Ouvrir son TikTok', true) : ''}${mailto ? button(mailto, onTikTok && order.tiktokUrl ? 'Répondre par e-mail' : 'Répondre au client', !(onTikTok && order.tiktokUrl)) : ''}${stripeUrl ? button(stripeUrl, 'Voir dans Stripe', false) : ''}
 <p style="margin:10px 0 0;font:400 13.5px/1.55 ${FONT};color:${C.ink3};">Le bouton « Répondre » de ta messagerie écrit aussi directement au client.</p>
 </td></tr>`;
 
@@ -266,10 +278,11 @@ ${mailto ? button(mailto, 'Répondre au client', true) : ''}${stripeUrl ? button
   const text = [
     `${order.live ? '' : '[TEST] '}Nouvelle commande · ${price}`,
     'Paiement confirmé par Stripe.',
-    `Réponse à envoyer avant le ${due}.`,
+    `À répondre dès que possible, au plus tard le ${due}.`,
     client?.sent ? null : `\nATTENTION : l’e-mail de confirmation n’est pas parti chez le client (${client?.failed || 'raison inconnue'}). Écris-lui directement.`,
     '',
     `Client : ${order.email || 'non renseigné'}`,
+    `Répondre : ${viaText}`,
     `Langue : ${langName}`,
     `Pseudo TikTok : ${order.tiktok || 'non renseigné'}${order.tiktokUrl ? ` (${order.tiktokUrl})` : ''}`,
     `Type de projet : ${T.fr.kinds[order.kind] || 'non précisé'}`,

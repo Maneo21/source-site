@@ -112,12 +112,12 @@
     "title": "A real answer, just for you.",
     "ticket": "Personal exchange",
     "items": [
-      "My written answer for your project, by email",
+      "My written answer for your project, on TikTok or by email",
       "The method and tools that fit your level",
       "{prompts} example prompts for your project",
       "{followUpsIncluded} for your questions, within {followUpDays} days"
     ],
-    "delay": "Reply within {delay} of your payment",
+    "delay": "A near-instant reply, {replyHours} hours at most",
     "once": "One-time payment · no subscription",
     "exLabel": "Illustrative example",
     "exPrompt": "“Build a full-screen homepage on a deep black background. The name appears letter by letter, then the first photo fades in as you scroll, like the opening credits of a film…”",
@@ -140,7 +140,7 @@
     "steps": [
       {
         "t": "You book",
-        "d": "One-time payment, secured by Stripe. No subscription."
+        "d": "One-time payment, secured by Stripe. You choose where to get my reply: on TikTok or by email."
       },
       {
         "t": "You tell me about your project",
@@ -148,7 +148,7 @@
       },
       {
         "t": "I answer you, personally",
-        "d": "Within the next few hours, always within {delay}, by email: the method, the tools and your prompts."
+        "d": "Almost immediately, and always within {delay}, on TikTok or by email: the method, the tools and your prompts."
       },
       {
         "t": "You ask your questions",
@@ -190,7 +190,7 @@
       },
       {
         "q": "How does the exchange work?",
-        "a": "On the payment page, you describe your project in one sentence. I reply personally by email within {delay}, then you get {followUpsIncluded} for your questions."
+        "a": "Before paying, you choose where to get my reply: on TikTok or by email. On the payment page, you describe your project in one sentence. I reply personally, almost immediately and always within {delay}, then you get {followUpsIncluded} for your questions."
       },
       {
         "q": "Do I need to pay for tools?",
@@ -222,7 +222,7 @@
   },
   "sticky": {
     "cta": "Book my session",
-    "note": "A personal reply by email, within {delay}"
+    "note": "A near-instant reply, on TikTok or by email"
   },
   "sheet": {
     "kicker": "Summary",
@@ -232,7 +232,7 @@
     "consent": "I ask for the exchange to start as soon as I pay, and I acknowledge that I lose my right of withdrawal once the service has been fully performed.",
     "legal": "By continuing, you accept the <a href=\"/legal#cgv\">terms of sale</a> and the <a href=\"/legal#confidentialite\">privacy policy</a>.",
     "pay": "Continue to payment",
-    "redirect": "You’ll be redirected to Stripe to pay securely. There, you’ll give your language, your project and, if you like, your TikTok handle.",
+    "redirect": "You’ll be redirected to Stripe to pay securely. There, you’ll give your language, your project and your TikTok handle.",
     "consentRequired": "Tick the box to continue.",
     "error": "Payment couldn’t start. Please try again in a moment.",
     "unavailable": "Payments aren’t open yet. Come back very soon.",
@@ -244,7 +244,14 @@
       "motion": "Motion",
       "autre": "Other"
     },
-    "safe": "Encrypted payment, handled by Stripe"
+    "safe": "Encrypted payment, handled by Stripe",
+    "summary": "My written answer for your project: the method, the tools that fit your level, {prompts} prompts and {followUpsIncluded}.",
+    "chanLabel": "Where do you want my reply?",
+    "chan": {
+      "mail": "By email",
+      "tiktok": "On TikTok"
+    },
+    "chanHelp": "Add your TikTok handle on the payment page. Without it, I’ll reply by email."
   },
   "merci": {
     "kicker": "Order sent",
@@ -260,16 +267,16 @@
         "d": "Based on what you wrote on the payment page: your language, your project and your TikTok handle."
       },
       {
-        "t": "My answer, within {delay}",
-        "d": "Within the next few hours, I’ll write to you personally from {contact}, at the email address you used to pay: the method, the tools that fit your level and {prompts} example prompts for your project."
+        "t": "My reply, almost immediately",
+        "d": "I write to you personally as soon as I get your order, and always within {delay}: as a direct message on TikTok if you chose it, otherwise from {contact}, at the email address you used to pay. You’ll find the method, the tools that fit your level and {prompts} example prompts for your project."
       },
       {
         "t": "Your questions",
-        "d": "Just reply to my email: {followUpsIncluded} for your questions, within {followUpDays} days."
+        "d": "Just reply to my message: {followUpsIncluded} for your questions, within {followUpDays} days."
       }
     ],
-    "tip": "Add {contact} to your contacts so my answer doesn’t get lost.",
-    "help": "Nothing after 24 hours? Check your spam and Promotions tab, then email me at {contact}.",
+    "tip": "By email: add {contact} to your contacts. On TikTok: check your message requests too.",
+    "help": "Nothing after 24 hours? Check your spam, your Promotions tab and your TikTok message requests, then email me at {contact}.",
     "notPaid": "Left the payment page without paying? You haven’t been charged.",
     "back": "Back to the site"
   },
@@ -348,7 +355,7 @@
   "brief": [
     {
       "v": "{replyHours} h",
-      "l": "at most to get my reply"
+      "l": "at most. I reply as soon as I get your order."
     },
     {
       "v": "{prompts} prompts",
@@ -360,7 +367,7 @@
     },
     {
       "v": "1:1",
-      "l": "with me, by email"
+      "l": "with me, on TikTok or by email"
     }
   ],
   "trust": {
@@ -377,8 +384,8 @@
         "d": "Handled by Stripe. I never see your card details."
       },
       {
-        "t": "Reply within {delay}",
-        "d": "By email, written for your project."
+        "t": "A near-instant reply",
+        "d": "I reply as soon as I get your order, always within {delay}. On TikTok or by email, your choice."
       },
       {
         "t": "A real person",

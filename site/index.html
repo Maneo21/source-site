@@ -142,6 +142,7 @@ var c=l||((navigator.language||'fr').slice(0,2).toLowerCase()),k=document.create
     </div>
 
     <div class="hero-body">
+      <p class="proof-pill" data-h style="--d:470ms" data-proofline hidden><i class="live"></i><span></span></p>
       <p class="hero-sub" data-h style="--d:520ms" data-i18n="hero.sub">Sites, pubs, motion design : je t’explique ma méthode, mes outils et comment parler à l’IA. Personnellement, pour ton projet.</p>
       <div class="hero-cta" data-h style="--d:640ms" data-hide-sticky>
         <button class="btn btn-p" type="button" data-book><span data-i18n="hero.cta">Réserver mon échange</span><span class="btn-price" data-price>7,90 €</span></button>
@@ -408,13 +409,7 @@ var c=l||((navigator.language||'fr').slice(0,2).toLowerCase()),k=document.create
     <button class="x" type="button" data-close data-i18n-attr="aria-label:common.close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
     <p class="kick" data-i18n="sheet.kicker">Récapitulatif</p>
     <h2 class="sheet-title" id="sheet-title" data-i18n="sheet.title">Ton échange personnalisé</h2>
-    <ul class="sheet-list">
-      <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span data-i18n="get.items.0"></span></li>
-      <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span data-i18n="get.items.1"></span></li>
-      <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span data-i18n="get.items.2"></span></li>
-      <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span data-i18n="get.items.3"></span></li>
-      <li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg><span data-i18n="get.delay"></span></li>
-    </ul>
+    <p class="sheet-sum" data-i18n="sheet.summary"></p>
     <fieldset class="kinds">
       <legend data-i18n="sheet.kindLabel">Ton projet</legend>
       <div class="kinds-row">
@@ -423,6 +418,14 @@ var c=l||((navigator.language||'fr').slice(0,2).toLowerCase()),k=document.create
         <label class="kind"><input type="radio" name="kind" value="motion"><span data-i18n="sheet.kinds.motion">Motion</span></label>
         <label class="kind"><input type="radio" name="kind" value="autre"><span data-i18n="sheet.kinds.autre">Autre</span></label>
       </div>
+    </fieldset>
+    <fieldset class="kinds">
+      <legend data-i18n="sheet.chanLabel">Où veux-tu ma réponse ?</legend>
+      <div class="kinds-row two">
+        <label class="kind"><input type="radio" name="chan" value="mail" checked><span data-i18n="sheet.chan.mail">Par e-mail</span></label>
+        <label class="kind"><input type="radio" name="chan" value="tiktok"><span data-i18n="sheet.chan.tiktok">Sur TikTok</span></label>
+      </div>
+      <p class="chan-help" data-chan-help hidden data-i18n="sheet.chanHelp"></p>
     </fieldset>
     <div class="sheet-total"><span><span data-i18n="sheet.total">Total</span><small data-i18n="sheet.once">Paiement unique · sans abonnement</small></span><strong data-price>7,90 €</strong></div>
     <label class="check">

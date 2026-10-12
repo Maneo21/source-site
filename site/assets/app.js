@@ -201,10 +201,17 @@ function buildSig() {
   const tt = String(c.tiktok || '').replace(/^@/, '');
   const a = $('[data-tiktok]');
   if (a && tt) { a.href = `https://www.tiktok.com/@${encodeURIComponent(tt)}`; a.hidden = false; }
-  const proof = $('[data-proof]'), items = (Array.isArray(I.config.proof) ? I.config.proof : []).filter(p => p && String(p.value ?? '').trim());
+  const items = (Array.isArray(I.config.proof) ? I.config.proof : [])
+    .map(p => ({ value: String(pick(p?.value, I.lang) ?? '').trim(), label: String(pick(p?.label, I.lang) ?? '').trim() }))
+    .filter(p => p.value);
+  const proof = $('[data-proof]'), line = $('[data-proofline]');
   if (proof) {
     proof.hidden = !items.length;
-    proof.innerHTML = items.map(p => `<li><strong>${esc(p.value)}</strong><span>${esc(pick(p.label, I.lang) || '')}</span></li>`).join('');
+    proof.innerHTML = items.map(p => `<li><strong>${esc(p.value)}</strong><span>${esc(p.label)}</span></li>`).join('');
+  }
+  if (line) {
+    line.hidden = !items.length;
+    $('span', line).textContent = items.slice(0, 2).map(p => `${p.value} ${p.label}`).join(' · ');
   }
 }
 
@@ -734,10 +741,10 @@ function checkout(e) {
   err.textContent = '';
   btn.classList.add('loading');
   // Page Stripe dans la langue du visiteur. La référence garde la langue, la version des CGV acceptée avec la case cochée,
-  // et le type de projet choisi : elle revient dans la commande, donc dans les e-mails.
-  const kind = form.elements.kind.value;
+  // le type de projet et le canal de réponse choisis : elle revient dans la commande, donc dans les e-mails.
+  const kind = form.elements.kind.value, chan = form.elements.chan.value === 'tiktok' ? 'tiktok' : 'mail';
   url.searchParams.set('locale', I.info.stripe);
-  url.searchParams.set('client_reference_id', `site_${I.lang}_cgv-${I.config.termsVersion}_retractation-ok${KINDS.includes(kind) ? `_type-${kind}` : ''}`);
+  url.searchParams.set('client_reference_id', `site_${I.lang}_cgv-${I.config.termsVersion}_retractation-ok${KINDS.includes(kind) ? `_type-${kind}` : ''}_rep-${chan}`);
   location.assign(url.href);
 }
 
@@ -980,6 +987,12 @@ function wire() {
   document.addEventListener('keydown', e => { if (e.key === 'Escape' && !els.sheet.hidden) closeSheet(); });
   els.form.addEventListener('submit', checkout);
   els.form.consent.addEventListener('change', () => { $('.check').classList.remove('err'); $('[data-sheet-err]').textContent = ''; });
+  // réponse sur TikTok : un rappel indique où donner son pseudo
+  for (const r of $$('input[name="chan"]', els.form)) r.addEventListener('change', () => {
+    const help = $('[data-chan-help]'), panel = $('.sheet-panel', els.sheet);
+    help.hidden = els.form.elements.chan.value !== 'tiktok';
+    if (!help.hidden) requestAnimationFrame(() => { const over = $('[data-pay]').getBoundingClientRect().bottom - (panel.getBoundingClientRect().bottom - 14); if (over > 0) panel.scrollBy({ top: over, behavior: RM ? 'auto' : 'smooth' }); });
+  });
   for (const r of $$('input[name="kind"]', els.form)) r.addEventListener('change', () => { kindTouched = true; });
   addEventListener('pageshow', e => { if (e.persisted) $('[data-pay]').classList.remove('loading'); });
   wirePlayer();

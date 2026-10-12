@@ -75,8 +75,8 @@ export function readOrder(session, event) {
     else if (!o.project && /projet|project|site|description|idee|idea/.test(id)) o.project = value;
     else o.others.push({ label, value });
   }
-  // Référence posée par le site : langue, version des CGV acceptée, puis type de projet s'il a été choisi.
-  const ref = clean(session.client_reference_id).match(/^site_([a-z]{2})_cgv-([\d-]+)_retractation-ok(?:_type-([a-z]+))?$/);
+  // Référence posée par le site : langue, version des CGV acceptée, type de projet s'il a été choisi, canal de réponse.
+  const ref = clean(session.client_reference_id).match(/^site_([a-z]{2})_cgv-([\d-]+)_retractation-ok(?:_type-([a-z]+))?(?:_rep-([a-z]+))?$/);
   const email = clean(session.customer_details?.email || session.customer_email).replace(/[\r\n]/g, '');
   return {
     ...o,
@@ -91,7 +91,8 @@ export function readOrder(session, event) {
     at: event.created || session.created || Math.floor(Date.now() / 1000),
     consent: !!ref,
     cgv: ref?.[2] || null,
-    kind: KINDS.includes(ref?.[3]) ? ref[3] : null
+    kind: KINDS.includes(ref?.[3]) ? ref[3] : null,
+    channel: ref?.[4] === 'tiktok' ? 'tiktok' : 'mail'
   };
 }
 

@@ -1,6 +1,6 @@
 {
   "meta": {
-    "title": "Websites, ads and motion design with AI · I guide you, or I build it for you",
+    "title": "IA Motion Studio · Video ads, motion design and websites with AI",
     "description": "Websites, video ads, motion design: I show you my method for creating with AI ({price}), or I build your project for you, delivered within {deliveryHours} hours ({priceCreation}). One-time payment.",
     "legalTitle": "Legal information · {brand}",
     "merciTitle": "Thank you · {brand}"
@@ -22,24 +22,26 @@
   "nav": {
     "book": "The two options",
     "label": "Page sections",
-    "uni": "Creations",
     "how": "How it works",
     "faq": "FAQ",
-    "offers": "Options"
+    "offers": "Options",
+    "work": "Work"
   },
   "hero": {
     "aria": "Want to create a website, an ad or motion design like this?",
     "pre": "Want to create",
     "words": [
-      "a website",
       "an ad",
-      "motion design"
+      "a motion video",
+      "a website"
     ],
     "post": "like this?",
-    "sub": "Two ways to get there: I show you how, or I build it for you.",
+    "sub": "Video ads, motion design and websites, made with AI. I show you how, or I make it for you.",
     "prev": "Previous video",
     "next": "Next video",
-    "safe": "One-time payment · secured by Stripe"
+    "safe": "One-time payment · secured by Stripe",
+    "kicker": "AI creative studio",
+    "scroll": "See the work"
   },
   "video": {
     "play": "Watch with sound",
@@ -52,67 +54,6 @@
     "replay": "Replay",
     "endTitle": "Your turn?",
     "endSub": "I show you how, or I build it for you."
-  },
-  "marquee": [
-    "Websites",
-    "Video ads",
-    "Motion design",
-    "Method",
-    "Prompts",
-    "AI tools",
-    "Done for you",
-    "Made to order"
-  ],
-  "uni": {
-    "kicker": "Three ways to create",
-    "title": "What we can create.",
-    "text": "Pick your ground. You make it with my method, or I build it for you.",
-    "note": "Three examples of my own work with AI. The format of a made-to-order creation is set out in the options below.",
-    "play": "Watch the video",
-    "items": [
-      {
-        "short": "Websites",
-        "t": "Websites",
-        "tags": [
-          "Professional sites",
-          "Online shops",
-          "Apps"
-        ],
-        "chips": [
-          "Seen on TikTok",
-          "Cinematic scroll",
-          "Real-time 3D"
-        ]
-      },
-      {
-        "short": "AI ads",
-        "t": "AI video ads",
-        "tags": [
-          "TikTok ads",
-          "Product videos",
-          "Commercials"
-        ],
-        "chips": [
-          "TikTok format",
-          "Product video",
-          "15 seconds"
-        ]
-      },
-      {
-        "short": "Motion design",
-        "t": "Premium motion design",
-        "tags": [
-          "Advanced animation",
-          "Transitions",
-          "Visual effects"
-        ],
-        "chips": [
-          "100% code",
-          "No camera",
-          "Sound included"
-        ]
-      }
-    ]
   },
   "offers": {
     "kicker": "Two options",
@@ -132,7 +73,8 @@
         "{followUpsIncluded} for your questions, within {followUpDays} days"
       ],
       "delay": "Reply almost right after your order",
-      "cta": "Book my session"
+      "cta": "Book my session",
+      "for": "You want to learn"
     },
     "creation": {
       "name": "I build it for you",
@@ -141,14 +83,17 @@
       "short": "Delivered within {deliveryHours} hours",
       "pitch": "No AI, or no time? Describe your project. I build it and deliver it to you.",
       "items": [
-        "Your website, ad or motion animation, made by me",
+        "Your website, ad or motion video, made by me",
         "A one-page website, or a video up to {videoSeconds} seconds",
         "Ready to publish: the files are yours",
         "{revisionsIncluded}, within {revisionDays} days"
       ],
       "delay": "Delivered by email within {deliveryHours} hours",
-      "cta": "Order my creation"
-    }
+      "cta": "Order my creation",
+      "for": "You want the result",
+      "see": "Sample creation"
+    },
+    "or": "or"
   },
   "trust": {
     "methodsLabel": "Payment methods",
@@ -174,7 +119,7 @@
     ]
   },
   "how": {
-    "kicker": "How it works",
+    "kicker": "After you pay",
     "title": "Three steps. No surprises.",
     "tabsLabel": "Option",
     "guide": {
@@ -197,7 +142,7 @@
       "steps": [
         {
           "t": "You order",
-          "d": "One-time payment, secured by Stripe. You choose what I build: a website, an ad or a motion animation."
+          "d": "One-time payment, secured by Stripe. You choose what I build: a website, an ad or a motion video."
         },
         {
           "t": "You describe your project",
@@ -308,7 +253,7 @@
     "kinds": {
       "site": "Website",
       "pub": "Video ad",
-      "motion": "Motion",
+      "motion": "Motion video",
       "autre": "Other"
     },
     "safe": "Encrypted payment, handled by Stripe",
@@ -415,5 +360,39 @@
     "step1": "Tap <b class=\"tt-kbd\">•••</b> at the top right",
     "step2": "Choose <b>“Open in browser”</b>",
     "stay": "Stay here"
+  },
+  "work": {
+    "kicker": "Work",
+    "title": "What it looks like, for real.",
+    "text": "A selection of my AI creations. Tap a video to watch it with sound.",
+    "play": "Watch with sound",
+    "note": "Created by IA Motion Studio. The format of a custom creation is detailed in the options.",
+    "items": [
+      {
+        "t": "The power of motion design",
+        "type": "3D motion design",
+        "desc": "One cube, four worlds, a rewind. Every move is timed to the sound."
+      },
+      {
+        "t": "An ad like this?",
+        "type": "Video ads",
+        "desc": "Headphones, sport, food, logo: four ad worlds in sixteen seconds."
+      },
+      {
+        "t": "App ad",
+        "type": "Product ad",
+        "desc": "A vertical ad for an app, ready for TikTok."
+      },
+      {
+        "t": "Websites",
+        "type": "Immersive websites",
+        "desc": "Cinematic scroll, real-time 3D, animation: websites people remember."
+      }
+    ]
+  },
+  "reviews": {
+    "kicker": "Client reviews",
+    "title": "They ordered.",
+    "note": "Reviews published with their authors’ consent."
   }
 }

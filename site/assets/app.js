@@ -14,12 +14,13 @@ const lerp = (a, b, t) => a + (b - a) * t;
 const wait = ms => new Promise(r => setTimeout(r, ms));
 const MEDIA = '/assets/media/';
 
-// Les trois univers, dans l'ordre d'affichage. Fichiers : <key>-teaser.mp4 (extrait muet), <key>.mp4 (vidéo complète), <key>-poster.webp.
+// Les réalisations, dans l'ordre d'affichage. Fichiers : <key>-mini.mp4 (mur de l'accroche), <key>-teaser.mp4 (extrait muet), <key>.mp4 (vidéo complète, avec le son), <key>-poster.webp.
 // « kind » est le type de projet présélectionné dans le récapitulatif et transmis à Stripe.
 const U = [
-  { key: 'sites', kind: 'site', dur: '0:22' },
+  { key: 'puissance', kind: 'motion', dur: '0:15' },
+  { key: 'commeca', kind: 'pub', dur: '0:16' },
   { key: 'pub', kind: 'pub', dur: '0:15' },
-  { key: 'motion', kind: 'motion', dur: '0:18' },
+  { key: 'sites', kind: 'site', dur: '0:22' },
 ];
 // Les deux formules. « guide » : l'échange personnalisé (je t'explique). « creation » : la création sur mesure (je réalise et je livre).
 // Chaque formule a son lien de paiement Stripe et ses types de projet.
@@ -145,22 +146,16 @@ function pageText() {
   document.title = I.t('meta.title');
   $('meta[name="description"]')?.setAttribute('content', I.t('meta.description'));
   $$('[data-split]').forEach(split);
-  buildMarquee();
   buildRolls();
   buildExample();
   buildHow();
   offerState();
   sheetText();
   buildSig();
-  buildDeckText();
+  buildRot();
+  buildReviews();
   syncSwitch($('[data-langswitch]'));
   if ($('[data-tt-lang]')?.childElementCount) syncSwitch($('[data-tt-lang]'));
-}
-
-function buildMarquee() {
-  const items = I.raw('marquee') || [];
-  const one = items.map(s => `<span class="mq-i">${esc(s)}</span><span class="mq-s"></span>`).join('');
-  $('[data-marquee]').innerHTML = `<div class="mq-g">${one}</div><div class="mq-g">${one}</div>`;
 }
 
 // Les prix des deux formules : chaque chiffre est une colonne qui défile jusqu'à sa valeur.
@@ -241,23 +236,6 @@ function buildSig() {
     line.hidden = !items.length;
     $('span', line).textContent = items.slice(0, 2).map(p => `${p.value} ${p.label}`).join(' · ');
   }
-}
-
-// Le mot qui tourne dans le titre, le nom des onglets et les étiquettes autour des vidéos.
-function buildDeckText() {
-  const items = I.raw('uni.items') || [], words = I.raw('hero.words') || [];
-  const rot = $('[data-rot]');
-  if (rot) rot.innerHTML = words.map((w, k) => `<span class="rot-w${k === D.i ? ' on' : ''}">${esc(w)}</span>`).join('');
-  $$('.sg').forEach((b, k) => b.setAttribute('aria-label', items[k]?.t || ''));
-  setChips(D.i);
-}
-function setChips(i) {
-  const it = (I.raw('uni.items') || [])[i];
-  if (!it) return;
-  const n = $('[data-chip-n]');
-  if (n) n.textContent = `0${i + 1}`;
-  for (const el of $$('[data-chip]')) { const k = Number(el.dataset.chip); el.textContent = k === 0 ? it.short : it.chips?.[k - 1] || ''; }
-  for (const el of $$('[data-dur]')) el.textContent = U[i].dur;
 }
 
 // Liens de paiement Stripe (site/config.json) : « paymentLink » pour l'échange, « creation.paymentLink » pour la création.
@@ -395,262 +373,176 @@ function start() {
   for (const el of [$('main'), $('[data-top]'), $('.foot')]) el.inert = false;
   requestAnimationFrame(() => $$('.hero [data-h]').forEach(el => el.classList.add('in')));
   $$('[data-r], [data-split]').forEach(el => { if (!el.closest('.hero')) io.observe(el); });
-  setTimeout(() => { initDeck(); initUni(); }, RM ? 0 : 450);
+  setTimeout(() => { initWall(); initShow(); initMinis(); }, RM ? 0 : 450);
+  if (!RM) Rt.timer = setInterval(rotNext, 2600);
   setTimeout(updSticky, RM ? 0 : 1700);
   kick();
 }
 
-/* ---------- accroche : les trois vidéos en éventail ---------- */
-// La carte de devant joue son extrait ; à la fin, la suivante passe devant (comme des stories).
+/* ---------- accroche : le mur des créations ---------- */
+// Trois colonnes d'affiches qui défilent lentement (CSS). Dans chaque colonne, quelques tuiles jouent un extrait muet très léger
+// (<clé>-mini.mp4, 360 × 640, 5 s en boucle), seulement quand elles sont à l'écran : six au plus sur ordinateur, trois sur téléphone.
+// Avec « économie de données » ou le mouvement réduit : les affiches seules.
 const autoplay = !RM && !SAVE;
-const STILL = 6000;   // sans lecture automatique, durée d'affichage d'une carte (ms)
-const STALL = 10000;  // si une vidéo ne démarre pas, on passe quand même à la suivante (ms)
-const D = { i: 0, cards: [], sg: [], vis: false, busy: false, drag: false, used: false, raf: 0, t0: 0, n: 0, swiped: 0 };
-const MID = {
-  in: ['translate3d(58%,-3%,0) rotate(13deg) scale(.9)', 'translate3d(-58%,-3%,0) rotate(-13deg) scale(.9)'],
-  out: ['translate3d(-34%,1%,0) rotate(-7deg) scale(.93)', 'translate3d(34%,1%,0) rotate(7deg) scale(.93)'],
-};
-const teaserSrc = k => `${MEDIA}${U[k].key}-teaser.mp4`;
+const Wl = { tiles: [], vis: false };
+function initWall() {
+  const wall = $('[data-wall]');
+  if (!wall) return;
+  // une seule tuile animée par création (et sa copie, quatre plus bas, qui sert à la boucle) : quatre sur ordinateur, trois sur téléphone
+  const wide = WIDE.matches, max = wide ? 4 : 3, used = new Set(), live = new Set(), cols = $$('.wcol', wall);
+  for (const i of wide ? [0, 2, 1, 3] : [1, 2, 0, 3]) for (const col of cols) {
+    const ts = $$('.wt', col), t = ts[i];
+    if (t && used.size < max && !used.has(t.dataset.k)) { used.add(t.dataset.k); live.add(t); if (ts[i + 4]) live.add(ts[i + 4]); }
+  }
+  cols.forEach(col => $$('.wt', col).forEach(t => {
+    if (!autoplay || !live.has(t)) return;
+    const v = document.createElement('video');
+    Object.assign(v, { muted: true, loop: true, playsInline: true, preload: 'none' });
+    v.setAttribute('playsinline', ''); v.setAttribute('aria-hidden', 'true'); v.tabIndex = -1;
+    v.dataset.src = `${MEDIA}${t.dataset.k}-mini.mp4`;
+    v.addEventListener('playing', () => t.classList.add('playing'));
+    t.append(v);
+    Wl.tiles.push({ t, v, on: false });
+  }));
+  const tio = new IntersectionObserver(es => { for (const e of es) { const w = Wl.tiles.find(x => x.t === e.target); if (w) w.on = e.isIntersecting; } wallPlay(); });
+  Wl.tiles.forEach(w => tio.observe(w.t));
+  new IntersectionObserver(es => { Wl.vis = es[0].isIntersecting; wall.classList.toggle('still', !Wl.vis); wallPlay(); }).observe(wall);
+}
+function wallPlay() {
+  for (const w of Wl.tiles) {
+    if (Wl.vis && w.on && !P.open && !document.hidden) {
+      if (!w.v.getAttribute('src')) w.v.src = w.v.dataset.src;
+      w.v.play().catch(() => {});
+    } else if (!w.v.paused) w.v.pause();
+  }
+}
 
-function deckPlay() {
-  const on = D.vis && autoplay && !P.open;
-  D.cards.forEach((c, k) => {
-    const v = c.video;
-    if (k === D.i && on) {
-      if (!v.getAttribute('src')) { v.muted = true; v.src = teaserSrc(k); }
+// Le mot du titre (« une pub », « du motion », « un site ») change toutes les 2,6 s, sur sa pastille citron.
+const Rt = { i: 0, timer: 0 };
+function buildRot() {
+  const rot = $('[data-rot]'), words = I.raw('hero.words') || [];
+  if (!rot || !words.length) return;
+  rot.innerHTML = words.map((w, k) => `<span class="rot-w${k === Rt.i % words.length ? ' on' : ''}">${esc(w)}</span>`).join('');
+  requestAnimationFrame(sizeRot);
+}
+function sizeRot() {
+  const rot = $('[data-rot]'), on = rot && $('.rot-w.on', rot);
+  if (!on) return;
+  // sur un très petit écran, un mot long (« une vidéo motion ») se réduit pour que la pastille reste dans la largeur
+  rot.style.fontSize = '';
+  const max = rot.parentElement.getBoundingClientRect().width, pad = parseFloat(getComputedStyle(rot).fontSize) * .36;
+  let w = on.getBoundingClientRect().width;
+  if (w + pad > max) { const k = max / (w + pad); rot.style.fontSize = `${(k * 100).toFixed(1)}%`; w *= k; }
+  rot.style.setProperty('--w', `${w}px`);
+}
+function rotNext() {
+  const ws = $$('[data-rot] .rot-w');
+  if (ws.length < 2 || document.hidden) return;
+  const a = ws[Rt.i % ws.length];
+  Rt.i++;
+  const b = ws[Rt.i % ws.length];
+  a.classList.remove('on'); a.classList.add('out');
+  setTimeout(() => a.classList.remove('out'), 650);
+  b.classList.add('on');
+  sizeRot();
+}
+
+/* ---------- les réalisations : une sélection mise en scène ---------- */
+// Ordinateur : la liste à gauche, la création choisie en grand à droite ; à la fin de son extrait, la suivante prend la place.
+// Téléphone : une bande que l'on fait glisser ; la carte au centre joue son extrait. Le son : seulement dans le lecteur.
+const S = { i: 0, cards: [], btns: [], dots: [], rail: null, vis: false, wide: false, raf: 0, st: 0 };
+function initShow() {
+  const box = $('[data-show]');
+  if (!box) return;
+  S.cards = $$('.show-card', box); S.btns = $$('[data-pick]', box); S.dots = $$('.show-dots i', box); S.rail = $('[data-rail]', box);
+  const mq = matchMedia('(min-width: 900px)');
+  S.wide = mq.matches;
+  mq.addEventListener?.('change', e => { S.wide = e.matches; showGo(S.i); });
+  S.cards.forEach(c => {
+    const v = $('video', c);
+    v.addEventListener('playing', () => c.classList.add('playing'));
+    v.addEventListener('ended', () => { if (S.wide && S.vis) showGo(S.i + 1); else { v.currentTime = 0; showPlay(); } });
+  });
+  box.addEventListener('click', e => { const b = e.target.closest('[data-pick]'); if (b) showGo(+b.dataset.pick, true); });
+  // au doigt : la carte la plus proche du centre de la bande devient la carte active
+  S.rail.addEventListener('scroll', () => {
+    if (S.wide) return;
+    clearTimeout(S.st);
+    S.st = setTimeout(() => {
+      const r = S.rail.getBoundingClientRect(), mid = r.left + r.width / 2;
+      let best = S.i, bd = Infinity;
+      S.cards.forEach((c, k) => { const cr = c.getBoundingClientRect(), d = Math.abs(cr.left + cr.width / 2 - mid); if (d < bd) { bd = d; best = k; } });
+      if (best !== S.i) showGo(best, false, true);
+    }, 80);
+  }, { passive: true });
+  new IntersectionObserver(es => { S.vis = es[0].isIntersecting; showPlay(); }, { threshold: .2 }).observe(S.rail);
+}
+function showGo(k, user = false, fromScroll = false) {
+  const n = S.cards.length;
+  if (!n) return;
+  S.i = (k + n) % n;
+  S.cards.forEach((c, j) => c.classList.toggle('on', j === S.i));
+  S.btns.forEach((b, j) => { b.classList.toggle('on', j === S.i); b.setAttribute('aria-pressed', String(j === S.i)); b.style.setProperty('--p', 0); });
+  S.dots.forEach((d, j) => d.classList.toggle('on', j === S.i));
+  if (!S.wide && !fromScroll) {
+    const c = S.cards[S.i];
+    S.rail.scrollTo({ left: c.offsetLeft - (S.rail.clientWidth - c.offsetWidth) / 2, behavior: RM || !user ? 'auto' : 'smooth' });
+  }
+  const v = $('video', S.cards[S.i]);
+  try { if (v.getAttribute('src')) v.currentTime = 0; } catch { /* pas encore chargée */ }
+  showPlay();
+}
+function showPlay() {
+  const on = S.vis && autoplay && !P.open && !document.hidden;
+  S.cards.forEach((c, j) => {
+    const v = $('video', c);
+    if (j === S.i && on) {
+      if (!v.getAttribute('src')) v.src = `${MEDIA}${c.dataset.k}-teaser.mp4`;
       v.play().catch(() => {});
     } else if (!v.paused) v.pause();
   });
-  if (D.vis && !P.open && !D.raf) D.raf = requestAnimationFrame(deckTick);
+  cancelAnimationFrame(S.raf);
+  if (on && S.wide) S.raf = requestAnimationFrame(showTick);
 }
-function paintAmbi() {
-  const c = D.cards[D.i];
-  if (!c || !D.g) return;
-  const src = c.video.readyState >= 2 && c.el.classList.contains('playing') ? c.video : c.img.complete && c.img.naturalWidth ? c.img : null;
-  if (src) { try { D.g.drawImage(src, 0, 0, D.cv.width, D.cv.height); } catch { /* image pas encore prête */ } }
-}
-function deckTick() {
-  D.raf = 0;
-  if (!D.vis || P.open || !D.cards.length) return;
-  const v = D.cards[D.i].video, now = performance.now();
-  let p = 0;
-  if (autoplay) {
-    if (v.duration) p = v.currentTime / v.duration;
-    if (v.ended && !D.busy && !D.drag) deckGo(D.i + 1);
-    if (v.readyState < 2 && now - D.t0 > STALL && !D.busy) { deckGo(D.i + 1); }
-    // la vidéo suivante commence à charger pendant que celle-ci joue
-    const next = D.cards[(D.i + 1) % U.length].video;
-    if (p > .6 && !next.getAttribute('src')) { next.preload = 'auto'; next.muted = true; next.src = teaserSrc((D.i + 1) % U.length); }
-  } else if (!RM) {
-    p = (now - D.t0) / STILL;
-    if (p >= 1 && !D.busy) deckGo(D.i + 1);
-  }
-  D.sg[D.i]?.style.setProperty('--p', clamp(p).toFixed(3));
-  if (D.n++ % 3 === 0) paintAmbi();
-  D.raf = requestAnimationFrame(deckTick);
-}
-function rotTo(i) {
-  $$('.rot-w').forEach((w, k) => {
-    if (k === i) {
-      w.style.transition = 'none'; w.classList.remove('on', 'off'); void w.offsetWidth; w.style.transition = '';
-      w.classList.add('on');
-    } else if (w.classList.contains('on')) w.classList.replace('on', 'off');
-  });
-}
-function deckSync() {
-  D.sg.forEach((b, k) => {
-    b.classList.toggle('on', k === D.i);
-    b.classList.toggle('done', k < D.i);
-    b.setAttribute('aria-selected', String(k === D.i));
-    if (k !== D.i) b.style.removeProperty('--p');
-  });
-}
-// Passe la carte i devant. Emplacements : 0 = devant, 1 = la suivante (à droite), 2 = la précédente (à gauche).
-function deckGo(i, user = false) {
-  i = ((i % U.length) + U.length) % U.length;
-  if (i === D.i || D.busy || !D.cards.length || els.deck.classList.contains('fanning')) return;
-  const deck = els.deck, prev = D.i, fwd = (i - prev + U.length) % U.length === 1;
-  const from = D.cards.map(c => getComputedStyle(c.el).transform);
-  for (const c of D.cards) c.el.style.transform = '';
-  D.i = i;
-  D.t0 = performance.now();
-  D.cards.forEach((c, k) => { c.el.dataset.slot = (k - i + U.length) % U.length; });
-  if (!RM) {
-    const to = D.cards.map(c => getComputedStyle(c.el).transform), dur = 900;
-    D.busy = true;
-    D.cards.forEach((c, k) => {
-      const kf = [{ transform: from[k] }, { transform: to[k] }];
-      // la carte qui arrive sort d'abord sur le côté, puis se pose devant ; celle qui part s'écarte de l'autre côté
-      if (k === i) kf.splice(1, 0, { transform: MID.in[fwd ? 0 : 1], offset: .45 });
-      else if (k === prev) kf.splice(1, 0, { transform: MID.out[fwd ? 0 : 1], offset: .45 });
-      c.el.style.zIndex = k === prev ? 3 : k === i ? 2 : 1;
-      c.el.animate(kf, { duration: dur, easing: 'cubic-bezier(.45,0,.2,1)' });
-    });
-    setTimeout(() => { D.cards[i].el.style.zIndex = 4; }, dur * .42);
-    setTimeout(() => { for (const c of D.cards) c.el.style.zIndex = ''; D.busy = false; }, dur + 30);
-    deck.classList.add('shuf', 'swap');
-    setTimeout(() => { setChips(i); deck.classList.remove('swap'); }, 240);
-    setTimeout(() => deck.classList.remove('shuf'), 560);
-  } else setChips(i);
-  const v = D.cards[i].video;
-  if (v.getAttribute('src')) { try { v.currentTime = 0; } catch { /* pas encore chargée */ } }
-  rotTo(i);
-  deckSync();
-  paintAmbi();
-  if (user) { lastKind = U[i].kind; deckUsed(); }
-  deckPlay();
-}
-// Dès que le visiteur a navigué lui-même, les invitations à le faire s'arrêtent.
-function deckUsed() { if (!D.used) { D.used = true; els.deck.classList.add('used'); } }
-// Au premier affichage, la carte de devant s'écarte un instant : on devine la suivante.
-function deckHint() {
-  if (RM || D.used || D.busy || D.drag || !D.vis || P.open) return;
-  const a = D.cards[D.i].el, b = D.cards[(D.i + 1) % U.length].el, tb = getComputedStyle(b).transform;
-  const o = { duration: 1300, easing: 'cubic-bezier(.45,0,.2,1)' };
-  a.animate([{ transform: 'none' }, { transform: 'translate3d(-9%,0,0) rotate(-3.5deg)', offset: .42 }, { transform: 'none' }], o);
-  b.animate([{ transform: tb }, { transform: 'translate3d(36%,1%,0) rotate(10deg) scale(.9)', offset: .42 }, { transform: tb }], o);
-}
-// Un appui au doigt sur l'image n'ouvre rien : la pastille de lecture se signale.
-function nudgePlay() {
-  const b = $('.vplay', els.deck);
-  b.classList.remove('nudge'); void b.offsetWidth; b.classList.add('nudge');
-}
-function initDeck() {
-  const deck = els.deck;
-  if (!deck) return;
-  D.cv = $('.ambi', deck);
-  D.g = D.cv.getContext('2d');
-  D.sg = $$('.sg', deck);
-  D.cards = $$('.dcard', deck).map(el => ({ el, video: $('video', el), img: $('img', el) }));
-  D.cards.forEach((c, k) => {
-    c.video.addEventListener('ended', () => { if (k === D.i && !D.drag) deckGo(D.i + 1); });
-    c.video.addEventListener('playing', () => c.el.classList.add('playing'), { once: true });
-    c.img.addEventListener('load', () => { if (k === D.i) paintAmbi(); });
-    c.el.addEventListener('click', e => {
-      const kind = kindOf(e);
-      if (performance.now() - D.swiped < 450 || !ACT.has(kind)) return;
-      if (k !== D.i) { deckGo(k, true); return; }
-      // seule la souris ouvre la vidéo en cliquant sur l'image ; au doigt, la pastille de lecture se signale
-      if (kind === 'mouse' && mayOpen(e)) openPlayer(k, c.el, kind); else if (kind === 'tap') nudgePlay();
-    });
-  });
-  D.sg.forEach((b, k) => b.addEventListener('click', e => {
-    e.stopPropagation();
-    if (!ACT.has(kindOf(e))) return;
-    if (k !== D.i) { deckGo(k, true); return; }
-    const v = D.cards[k].video;
-    D.t0 = performance.now();
-    if (v.getAttribute('src')) { try { v.currentTime = 0; } catch { /* pas encore chargée */ } }
-  }));
-  // flèches de chaque côté, et touches fléchées quand le bloc a le focus
-  for (const b of $$('[data-step]', deck)) b.addEventListener('click', e => { e.stopPropagation(); if (ACT.has(kindOf(e))) deckGo(D.i + Number(b.dataset.step), true); });
-  deck.addEventListener('keydown', e => {
-    if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
-    e.preventDefault();
-    deckGo(D.i + (e.key === 'ArrowRight' ? 1 : -1), true);
-  });
-  // Au doigt : la carte de devant suit un glissement horizontal ; lâchée assez loin, elle laisse sa place.
-  // Un geste vertical n'est jamais retenu : le navigateur fait défiler la page (touch-action: pan-y).
-  let sw = null;
-  const settle = () => {
-    const el = D.cards[D.i].el, cur = el.style.transform;
-    el.style.transform = '';
-    if (cur && !RM) el.animate([{ transform: cur }, { transform: 'none' }], { duration: 420, easing: 'cubic-bezier(.16,1,.3,1)' });
-  };
-  deck.addEventListener('pointerdown', e => {
-    sw = e.pointerType === 'mouse' || D.busy || e.target.closest('button') ? null : { x: e.clientX, y: e.clientY, id: e.pointerId, dx: 0, lock: false, t: performance.now() };
-  });
-  deck.addEventListener('pointermove', e => {
-    if (!sw || sw.id !== e.pointerId) return;
-    const dx = e.clientX - sw.x, dy = e.clientY - sw.y;
-    if (!sw.lock) {
-      if (Math.abs(dy) > 10 && Math.abs(dy) >= Math.abs(dx)) { sw = null; return; }
-      if (Math.abs(dx) < 8 || Math.abs(dx) < Math.abs(dy) * 1.2) return;
-      sw.lock = true; D.drag = true;
-      try { deck.setPointerCapture(e.pointerId); } catch { /* pointeur déjà relâché */ }
-    }
-    sw.dx = dx;
-    D.swiped = performance.now();
-    if (!RM) D.cards[D.i].el.style.transform = `translate3d(${(dx * .8).toFixed(1)}px,0,0) rotate(${(dx * .035).toFixed(2)}deg)`;
-  });
-  const drop = e => {
-    if (!sw || sw.id !== e.pointerId) return;
-    const s = sw;
-    sw = null;
-    if (!s.lock) return;
-    D.drag = false;
-    D.swiped = performance.now();
-    const far = Math.abs(s.dx) > Math.max(44, deck.offsetWidth * .22);
-    const fast = Math.abs(s.dx) > 24 && Math.abs(s.dx) / Math.max(1, performance.now() - s.t) > .45;
-    const was = D.i;
-    if (e.type === 'pointerup' && (far || fast)) deckGo(D.i + (s.dx < 0 ? 1 : -1), true);
-    if (D.i === was) settle();
-  };
-  deck.addEventListener('pointerup', drop);
-  deck.addEventListener('pointercancel', drop);
-  new IntersectionObserver(([e]) => { D.vis = e.isIntersecting; D.t0 = performance.now(); deckPlay(); }, { threshold: .2 }).observe(deck);
-  paintAmbi();
-  deckSync();
-  // les deux cartes de derrière s'écartent, puis les étiquettes deviennent réactives
-  deck.classList.add('fanning', 'fan');
-  setTimeout(() => deck.classList.remove('fanning'), RM ? 0 : 1500);
-  setTimeout(() => deck.classList.add('ready'), RM ? 0 : 2300);
-  setTimeout(deckHint, 3100);
-  setTimeout(deckUsed, 24000);
+function showTick() {
+  const v = $('video', S.cards[S.i]);
+  if (v?.duration) S.btns[S.i]?.style.setProperty('--p', clamp(v.currentTime / v.duration).toFixed(4));
+  if (S.vis && !P.open) S.raf = requestAnimationFrame(showTick);
 }
 
-/* ---------- les trois univers ---------- */
-// Une seule carte joue à la fois : celle qui arrive à l'écran (téléphone) ou celle que l'on survole (ordinateur).
-const V = { cards: [], on: -1, hover: -1, wrap: null };
-function uniSet(k) {
-  V.on = k;
-  for (const c of V.cards) {
-    c.el.classList.toggle('is-on', c.k === k);
-    if (c.k === k && autoplay && !P.open) {
-      if (!c.video.getAttribute('src')) { c.video.muted = true; c.video.src = teaserSrc(c.k); }
-      c.video.play().catch(() => {});
-    } else if (!c.video.paused) c.video.pause();
-  }
-}
-function uniFrame(vh) {
-  if (!V.cards.length) return;
-  const r0 = V.wrap.getBoundingClientRect();
-  if (r0.bottom < -40 || r0.top > vh + 40) { if (V.on >= 0) uniSet(-1); return; }
-  if (WIDE.matches) {
-    for (const c of V.cards) { c.inner.style.transform = ''; c.shade.style.opacity = ''; }
-    if (V.on < 0 && r0.top < vh * .75) uniSet(Math.max(0, V.hover));
-    return;
-  }
-  // téléphone : les cartes se recouvrent ; celle du dessous recule et s'assombrit
-  let on = -1;
-  V.cards.forEach((c, k) => {
-    const r = c.el.getBoundingClientRect();
-    if (r.top < vh * .62) on = k;
-    const next = V.cards[k + 1];
-    const p = next && !RM ? clamp((r.bottom - next.el.getBoundingClientRect().top) / r.height) : 0;
-    c.inner.style.transform = p > .001 ? `scale(${(1 - p * .07).toFixed(4)})` : '';
-    c.shade.style.opacity = p > .001 ? (p * .72).toFixed(3) : '';
-  });
-  if (on !== V.on) uniSet(on);
-}
-function initUni() {
-  V.wrap = $('[data-ucards]');
-  if (!V.wrap) return;
-  V.cards = $$('.ucard', V.wrap).map((el, k) => ({ el, k, video: $('video', el), inner: $('.u-in', el), shade: $('.u-shade', el) }));
-  for (const c of V.cards) {
-    c.video.addEventListener('playing', () => c.el.classList.add('playing'), { once: true });
-    c.video.addEventListener('ended', () => {
-      if (c.k !== V.on) return;
-      if (WIDE.matches && V.hover < 0) { uniSet((c.k + 1) % V.cards.length); return; }
-      c.video.currentTime = 0; c.video.play().catch(() => {});
-    });
-    if (FINE) {
-      c.el.addEventListener('pointerenter', () => { V.hover = c.k; if (WIDE.matches && V.on !== c.k) uniSet(c.k); });
-      c.el.addEventListener('pointerleave', () => { V.hover = -1; });
+// L'exemple de création dans la formule « Je crée pour toi » : un extrait muet, joué seulement quand il est à l'écran.
+function initMinis() {
+  if (!autoplay) return;
+  const mio = new IntersectionObserver(es => {
+    for (const e of es) {
+      const v = e.target;
+      if (e.isIntersecting && !P.open) { if (!v.getAttribute('src')) v.src = `${MEDIA}${v.dataset.mini}-mini.mp4`; v.play().then(() => v.parentElement.classList.add('playing')).catch(() => {}); }
+      else if (!v.paused) v.pause();
     }
-  }
-  WIDE.addEventListener('change', kick);
-  kick();
+  }, { threshold: .3 });
+  $$('video[data-mini]').forEach(v => mio.observe(v));
+}
+
+// Pendant que le lecteur est ouvert, rien d'autre ne joue.
+function mediaHold() {
+  wallPlay();
+  showPlay();
+  if (P.open) $$('video[data-mini]').forEach(v => v.pause());
+}
+
+/* ---------- avis clients ---------- */
+// Uniquement de vrais avis, donnés avec l'accord de leur auteur : config.json, « reviews » :
+// [{ "name": "Prénom N.", "project": { "fr": "Pub TikTok", "en": "TikTok ad" }, "text": { "fr": "…", "en": "…" }, "consent": true }]
+// Sans avis (ou sans « consent »: true), la section reste masquée. Rien n'est inventé.
+function buildReviews() {
+  const sec = $('[data-reviews]');
+  if (!sec) return;
+  const items = (Array.isArray(I.config.reviews) ? I.config.reviews : [])
+    .filter(r => r && r.consent === true)
+    .map(r => ({ name: String(r.name || '').trim(), project: String(pick(r.project, I.lang) ?? '').trim(), text: String(pick(r.text, I.lang) ?? '').trim() }))
+    .filter(r => r.name && r.text);
+  sec.hidden = !items.length;
+  $('[data-rv-list]', sec).innerHTML = items.map(r => `<figure class="rv"><blockquote>${esc(r.text)}</blockquote><figcaption><b>${esc(r.name)}</b>${r.project ? `<span>${esc(r.project)}</span>` : ''}</figcaption></figure>`).join('');
 }
 
 /* ---------- effets liés au défilement et au pointeur ---------- */
@@ -662,25 +554,18 @@ function frame() {
   const vh = innerHeight, y = scrollY;
   els.top.classList.toggle('scrolled', y > 8);
   els.top.style.setProperty('--sp', clamp(y / Math.max(1, document.documentElement.scrollHeight - vh)).toFixed(4));
-  if (!RM && els.mq) {
-    fx.rate = lerp(fx.rate, 1 + clamp(Math.abs(y - fx.y0) / 24, 0, 3.4), .16);
-    const a = els.mqAnim || (els.mqAnim = els.mq.getAnimations?.()[0]);
-    if (a) a.playbackRate = Math.abs(fx.rate - 1) < .02 ? 1 : fx.rate;
-    if (Math.abs(fx.rate - 1) >= .02) kick();
-  }
   fx.y0 = y;
 
-  const tilt = els.tilt;
-  if (tilt && y < vh * 1.6) {
-    fx.cx = lerp(fx.cx, fx.tx, .1);
-    fx.cy = lerp(fx.cy, fx.ty, .1);
-    const sp = RM ? 0 : clamp(y / (vh * .9));
-    const flat = Math.min(1, sp * 1.4 + Math.hypot(fx.cx, fx.cy) * 1.5);
-    tilt.style.transform = `translate3d(0,${(-sp * 34).toFixed(1)}px,0) rotateX(${(-fx.cy * 7 + sp * 9).toFixed(2)}deg) rotateY(${(fx.cx * 9).toFixed(2)}deg) rotate(${lerp(-2.5, 0, flat).toFixed(2)}deg) scale(${(1 - sp * .05).toFixed(3)})`;
+  // le mur de l'accroche : incliné, il suit un peu la souris et s'éloigne au défilement
+  const wi = els.wallIn;
+  if (wi && y < vh * 1.5) {
+    fx.cx = lerp(fx.cx, fx.tx, .08);
+    fx.cy = lerp(fx.cy, fx.ty, .08);
+    const sp = RM ? 0 : clamp(y / vh);
+    wi.style.transform = `translate3d(${(-fx.cx * 22).toFixed(1)}px,${(-sp * 90 - fx.cy * 14).toFixed(1)}px,0) rotateX(${(24 - sp * 10 + fx.cy * 3).toFixed(2)}deg) rotateZ(${(-10 + fx.cx * 2.5).toFixed(2)}deg) scale(${(1.06 + sp * .1).toFixed(3)})`;
+    els.hero.style.setProperty('--sp', sp.toFixed(3));
     if (Math.abs(fx.cx - fx.tx) + Math.abs(fx.cy - fx.ty) > .002) kick();
   }
-
-  uniFrame(vh);
 
   const st = els.steps;
   if (st) {
@@ -810,13 +695,13 @@ function flipFrom(fr, from) {
   return `translate(${(from.left + from.width / 2 - to.left - to.width / 2).toFixed(1)}px, ${(from.top + from.height / 2 - to.top - to.height / 2).toFixed(1)}px) scale(${s.toFixed(4)})`;
 }
 const onScreen = el => { const r = el?.getBoundingClientRect(); return r && r.width > 0 && r.bottom > 0 && r.top < innerHeight ? r : null; };
-function openPlayer(k = D.i, origin = null, kind = 'key') {
+function openPlayer(k = 0, origin = null, kind = 'key') {
   if (P.open || P.closing) return;
   if (!els.sheet.hidden) closeSheet();
   const el = els.player, fr = $('.player-frame', el), v = els.pvideo, u = U[k] || U[0];
   P.open = true;
   P.k = k;
-  P.origin = origin || D.cards[D.i]?.el || null;
+  P.origin = origin || null;
   lastKind = u.kind;
   // le focus n'est déplacé (puis rendu) que pour le clavier et la souris : au doigt, il reste où il est
   P.focus = kind !== 'tap';
@@ -826,8 +711,7 @@ function openPlayer(k = D.i, origin = null, kind = 'key') {
   el.classList.remove('ended', 'closing');
   lock(true, P.soft);
   diag(`lecteur ouvert (${u.key}, ${kind})`);
-  deckPlay();
-  uniSet(V.on);
+  mediaHold();
   if (v.dataset.key !== u.key) { v.dataset.key = u.key; v.poster = `${MEDIA}${u.key}-poster.webp`; v.src = `${MEDIA}${u.key}.mp4`; }
   try { v.currentTime = 0; } catch { /* pas encore chargée */ }
   v.muted = false;
@@ -871,7 +755,7 @@ function closePlayer() {
     v.removeAttribute('src'); delete v.dataset.key;
     try { v.load(); } catch { /* rien à décharger */ }
     if (el.contains(document.activeElement)) document.activeElement.blur();
-    lock(false, P.soft); D.t0 = performance.now(); deckPlay(); uniSet(V.on); kick();
+    lock(false, P.soft); mediaHold(); kick();
     if (P.focus) lastFocus?.focus?.({ preventScroll: true });
     diag('lecteur fermé');
   };
@@ -999,7 +883,7 @@ function wireDesktop() {
   const hero = $('.hero');
   hero.addEventListener('pointermove', e => {
     if (e.pointerType !== 'mouse') return;
-    const r = els.deck.getBoundingClientRect();
+    const r = hero.getBoundingClientRect();
     fx.tx = clamp((e.clientX - (r.left + r.width / 2)) / (innerWidth / 2), -1, 1);
     fx.ty = clamp((e.clientY - (r.top + r.height / 2)) / (innerHeight / 2), -1, 1);
     kick();
@@ -1010,26 +894,28 @@ function wireDesktop() {
 /* ---------- démarrage ---------- */
 function wire() {
   Object.assign(els, {
-    top: $('[data-top]'), mq: $('[data-marquee]'), deck: $('[data-deck]'), tilt: $('.deck-tilt'), steps: $('[data-steps]'), quote: $('[data-quote]'),
+    top: $('[data-top]'), wallIn: $('.wall-in'), hero: $('.hero'), steps: $('[data-steps]'), quote: $('[data-quote]'),
     sticky: $('[data-sticky]'), sheet: $('#sheet'), form: $('[data-checkout]'), player: $('#player'), pvideo: $('.pvideo'),
   });
   els.stepItems = $$('.step');
   watchGestures();
   addEventListener('scroll', kick, { passive: true });
-  addEventListener('resize', kick);
+  addEventListener('resize', () => { kick(); sizeRot(); });
+  document.fonts?.ready.then(sizeRot);
+  document.addEventListener('visibilitychange', mediaHold);
   const sio = new IntersectionObserver(es => { for (const e of es) e.isIntersecting ? seen.add(e.target) : seen.delete(e.target); updSticky(); });
   $$('[data-hide-sticky]').forEach(el => sio.observe(el));
   document.addEventListener('click', e => {
     const kind = kindOf(e);
     // un vrai bouton de lecture ouvre une vidéo ; à la souris seulement, toute la carte d'un univers est cliquable
-    const play = e.target.closest('[data-play]') || (kind === 'mouse' ? e.target.closest('.ucard')?.querySelector('[data-play]') : null);
+    const play = e.target.closest('[data-play]') || (kind === 'mouse' ? e.target.closest('.show-card.on')?.querySelector('[data-play]') : null);
     const book = e.target.closest('[data-book]');
     if (book) { e.preventDefault(); openSheet(book.dataset.book); }
     else if (play) {
       e.preventDefault();
       if (!mayOpen(e)) { diag(`ouverture refusée (${kind})`); return; }
-      const k = U.findIndex(u => u.key === play.dataset.play), card = play.closest('.ucard');
-      openPlayer(k < 0 ? D.i : k, card ? $('.u-in', card) : null, kind);
+      const k = U.findIndex(u => u.key === play.dataset.play), card = play.closest('.show-card');
+      openPlayer(Math.max(0, k), card ? $('.sc-media', card) : null, kind);
     } else if (e.target.closest('#sheet [data-close]')) closeSheet();
   });
   document.addEventListener('keydown', e => { if (e.key === 'Escape' && !els.sheet.hidden) closeSheet(); });

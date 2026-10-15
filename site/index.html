@@ -3,25 +3,26 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Sites, pubs et motion design avec l’IA · Je te guide, ou je crée pour toi</title>
+<title>IA Motion Studio · Pubs vidéo, motion design et sites avec l’IA</title>
 <meta name="description" content="Sites web, vidéos publicitaires, motion design : je t’explique ma méthode pour créer avec l’IA, ou je crée ton projet pour toi, livré en 24 h maximum. Paiement unique.">
 <meta name="theme-color" content="#09090A">
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="AI Web Studio">
-<meta property="og:title" content="Sites, pubs et motion design avec l’IA">
+<meta property="og:site_name" content="IA Motion Studio">
+<meta property="og:title" content="IA Motion Studio · Pubs vidéo, motion design et sites avec l’IA">
 <meta property="og:description" content="Deux formules pour ton site, ta pub ou ton motion design : je te guide, ou je crée pour toi. Paiement unique.">
-<meta property="og:url" content="https://source-site.pages.dev/">
-<meta property="og:image" content="https://source-site.pages.dev/assets/media/og.jpg">
+<meta property="og:url" content="https://ia-motionstudio.fr/">
+<meta property="og:image" content="https://ia-motionstudio.fr/assets/media/og.jpg">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="alternate" hreflang="fr" href="https://source-site.pages.dev/fr">
-<link rel="alternate" hreflang="en" href="https://source-site.pages.dev/en">
-<link rel="alternate" hreflang="x-default" href="https://source-site.pages.dev/">
+<link rel="canonical" href="https://ia-motionstudio.fr/">
+<link rel="alternate" hreflang="fr" href="https://ia-motionstudio.fr/fr">
+<link rel="alternate" hreflang="en" href="https://ia-motionstudio.fr/en">
+<link rel="alternate" hreflang="x-default" href="https://ia-motionstudio.fr/">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,300..800&display=swap">
-<link rel="preload" as="image" href="/assets/media/sites-poster.webp" fetchpriority="high">
+<link rel="preload" as="image" href="/assets/media/puissance-poster.webp" fetchpriority="high">
 <link rel="modulepreload" href="/assets/i18n.js">
 <link rel="modulepreload" href="/assets/vars.js">
 <link rel="preload" href="/config.json" as="fetch" crossorigin>
@@ -31,7 +32,7 @@
 (function(){var d=document.documentElement,l=null;d.className=d.className.replace('no-js','js');
 try{l=localStorage.getItem('lang')}catch(e){}
 var q=/[?&]lang=([a-z]{2})(&|$)/.exec(location.search),p=/^\/([a-z]{2})(\/|$)/.exec(location.pathname);
-if(q)l=q[1];else if(p)l=p[1];
+if(q)l=q[1];else if(p)l=p[1];if(p){var cn=document.querySelector('link[rel=canonical]');if(cn)cn.href=cn.href.replace(/\/$/,'')+'/'+p[1]}
 var s=0,n=null;try{s=sessionStorage.getItem('tt')==='1'}catch(e){}try{n=performance.getEntriesByType('navigation')[0]}catch(e){}
 var a=document.referrer.indexOf(location.origin)!==0&&(!n||n.type==='navigate');
 var tt=(/BytedanceWebview|musical_ly|trill_|TikTok/i.test(navigator.userAgent)||/[?&]tiktok=1(&|$)/.test(location.search))&&(!s||a);
@@ -47,7 +48,7 @@ var c=l||((navigator.language||'fr').slice(0,2).toLowerCase()),k=document.create
 <!-- Accueil : choix de la langue (première visite) -->
 <div class="welcome" id="welcome" role="dialog" aria-modal="true" aria-labelledby="welcome-q">
   <div class="welcome-in">
-    <div class="logo logo-l" aria-hidden="true"><span data-brand>AI Web Studio</span><i class="caret"></i></div>
+    <div class="logo logo-l" aria-hidden="true"><span data-brand>IA Motion Studio</span><i class="caret"></i></div>
     <p class="welcome-hello" aria-hidden="true" data-hello><span lang="fr" class="on">Bonjour</span><span lang="en">Hello</span></p>
     <p class="welcome-q" id="welcome-q"><span lang="fr">Choisis ta langue</span><i aria-hidden="true">·</i><span lang="en">Choose your language</span></p>
     <div class="welcome-langs" data-langs>
@@ -84,9 +85,9 @@ var c=l||((navigator.language||'fr').slice(0,2).toLowerCase()),k=document.create
 
 <header class="top" data-top>
   <i class="prog" aria-hidden="true"></i>
-  <a class="logo" href="/" aria-label="AI Web Studio"><span data-brand>AI Web Studio</span><i class="caret"></i></a>
+  <a class="logo" href="/" aria-label="IA Motion Studio"><svg class="mark" viewBox="0 0 512 512" aria-hidden="true"><rect width="512" height="512" rx="118" class="mk-bg"/><path d="M179.4 157.07Q150 140 150 174v148q0 34 29.4 16.93l127.2-73.86Q336 248 306.6 230.93Z" class="mk-tri"/><rect x="258" y="334" width="112" height="40" rx="14" class="mk-cur"/></svg><span data-brand>IA Motion Studio</span></a>
   <nav class="top-nav" data-i18n-attr="aria-label:nav.label">
-    <a href="#univers" data-i18n="nav.uni">Univers</a>
+    <a href="#realisations" data-i18n="nav.work">Réalisations</a>
     <a href="#formules" data-i18n="nav.offers">Formules</a>
     <a href="#deroulement" data-i18n="nav.how">Déroulé</a>
     <a href="#faq" data-i18n="nav.faq">Questions</a>
@@ -100,158 +101,136 @@ var c=l||((navigator.language||'fr').slice(0,2).toLowerCase()),k=document.create
 
 <main id="main">
 
-  <!-- 1. Accroche + les trois vidéos -->
+  <!-- 1. Accroche : le mur des créations -->
   <section class="hero" id="top">
-    <div class="aura" aria-hidden="true"><i></i><i></i></div>
-    <div class="hero-head">
-      <h1 class="h-hero" data-h data-i18n-attr="aria-label:hero.aria" aria-label="Tu veux créer un site, une pub ou du motion design comme ça ?">
-        <span class="hh-l" aria-hidden="true" data-split data-i18n="hero.pre">Tu veux créer</span>
-        <span class="hh-rot" aria-hidden="true" data-rot><span class="rot-w on">un site</span></span>
-        <span class="hh-l" aria-hidden="true" data-split data-i18n="hero.post" style="--d:230ms">comme ça ?</span>
-      </h1>
-    </div>
-
-    <div class="hero-media" data-h style="--d:350ms">
-      <svg class="arrow" viewBox="0 0 120 120" aria-hidden="true"><path class="arrow-l" pathLength="1" d="M104 10C66 8 30 34 36 96"/><path class="arrow-h" pathLength="1" d="M21 82l15 16 14-17"/></svg>
-      <div class="deck" data-deck>
-        <canvas class="ambi" width="18" height="32" aria-hidden="true"></canvas>
-        <div class="deck-tilt">
-          <figure class="dcard" data-slot="0"><img draggable="false" src="/assets/media/sites-poster.webp" alt="" width="720" height="1280" fetchpriority="high"><video muted playsinline preload="none" disablepictureinpicture disableremoteplayback tabindex="-1" aria-hidden="true"></video><i class="ddim"></i></figure>
-          <figure class="dcard" data-slot="1"><img draggable="false" src="/assets/media/pub-poster.webp" alt="" width="720" height="1280" decoding="async" fetchpriority="low"><video muted playsinline preload="none" disablepictureinpicture disableremoteplayback tabindex="-1" aria-hidden="true"></video><i class="ddim"></i></figure>
-          <figure class="dcard" data-slot="2"><img draggable="false" src="/assets/media/motion-poster.webp" alt="" width="720" height="1280" decoding="async" fetchpriority="low"><video muted playsinline preload="none" disablepictureinpicture disableremoteplayback tabindex="-1" aria-hidden="true"></video><i class="ddim"></i></figure>
-          <div class="deck-ui">
-            <div class="sgs" role="tablist" data-i18n-attr="aria-label:uni.kicker">
-              <button class="sg on" type="button" role="tab" aria-selected="true" data-go="0"><i></i></button>
-              <button class="sg" type="button" role="tab" aria-selected="false" data-go="1"><i></i></button>
-              <button class="sg" type="button" role="tab" aria-selected="false" data-go="2"><i></i></button>
-            </div>
-            <span class="vshine" aria-hidden="true"></span>
-            <button class="vplay" type="button" data-play>
-              <span class="vplay-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg></span>
-              <span class="vplay-t" data-i18n="video.play">Regarder avec le son</span>
-              <span class="vdur" data-dur>0:22</span>
-            </button>
-          </div>
-        </div>
-        <span class="vchip c1 is-label" aria-hidden="true"><b data-chip-n>01</b><span data-chip="0">Sites web</span></span>
-        <span class="vchip c2" aria-hidden="true"><i></i><span data-chip="1">Vu sur TikTok</span></span>
-        <span class="vchip c3" aria-hidden="true"><i></i><span data-chip="2">Scroll cinématique</span></span>
-        <span class="vchip c4" aria-hidden="true"><i></i><span data-chip="3">3D en temps réel</span></span>
-        <button class="dnav dnav-p" type="button" data-step="-1" data-i18n-attr="aria-label:hero.prev" aria-label="Vidéo précédente"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 6l-6 6 6 6"/></svg></button>
-        <button class="dnav dnav-n" type="button" data-step="1" data-i18n-attr="aria-label:hero.next" aria-label="Vidéo suivante"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.5 6l6 6-6 6"/></svg></button>
+    <div class="wall" aria-hidden="true" data-wall>
+      <div class="wall-in">
+        <div class="wcol" style="--c:0"><figure class="wt" data-k="puissance"><img src="/assets/media/puissance-poster.webp" alt="" width="720" height="1280" decoding="async" fetchpriority="high"></figure><figure class="wt" data-k="commeca"><img src="/assets/media/commeca-poster.webp" alt="" width="720" height="1280" decoding="async" fetchpriority="high"></figure><figure class="wt" data-k="pub"><img src="/assets/media/pub-poster.webp" alt="" width="720" height="1280" decoding="async" loading="lazy"></figure><figure class="wt" data-k="sites"><img src="/assets/media/sites-poster.webp" alt="" width="720" height="1280" decoding="async" loading="lazy"></figure><figure class="wt" data-k="puissance"><img src="/assets/media/puissance-poster.webp" alt="" width="720" height="1280" decoding="async" loading="lazy"></figure><figure class="wt" data-k="commeca"><img src="/assets/media/commeca-poster.webp" alt="" width="720" height="1280" decoding="async" loading="lazy"></figure><figure class="wt" data-k="pub"><img src="/assets/media/pub-poster.webp" alt="" width="720" height="1280" decoding="async" loading="lazy"></figure><figure class="wt" data-k="sites"><img src="/assets/media/sites-poster.webp" alt="" width="720" height="1280" decoding="async" loading="lazy"></figure></div>
+        <div class="wcol" style="--c:1"><figure class="wt" data-k="commeca"><img src="/assets/media/commeca-poster.webp" alt="" width="720" height="1280" decoding="async" fetchpriority="high"></figure><figure class="wt" data-k="sites"><img src="/assets/media/sites-poster.webp" alt="" width="720" height="1280" decoding="async" fetchpriority="high"></figure><figure class="wt" data-k="puissance"><img src="/assets/media/puissance-poster.webp" alt="" width="720" height="1280" decoding="async" loading="lazy"></figure><figure class="wt" data-k="pub"><img src="/assets/media/pub-poster.webp" alt="" width="720" height="1280" decoding="async" loading="lazy"></figure><figure class="wt" data-k="commeca"><img src="/assets/media/commeca-poster.webp" alt="" width="720" height="1280" decoding="async" loading="lazy"></figure><figure class="wt" data-k="sites"><img src="/assets/media/sites-poster.webp" alt="" width="720" height="1280" decoding="async" loading="lazy"></figure><figure class="wt" data-k="puissance"><img src="/assets/media/puissance-poster.webp" alt="" width="720" height="1280" decoding="async" loading="lazy"></figure><figure class="wt" data-k="pub"><img src="/assets/media/pub-poster.webp" alt="" width="720" height="1280" decoding="async" loading="lazy"></figure></div>
+        <div class="wcol" style="--c:2"><figure class="wt" data-k="pub"><img src="/assets/media/pub-poster.webp" alt="" width="720" height="1280" decoding="async" fetchpriority="high"></figure><figure class="wt" data-k="puissance"><img src="/assets/media/puissance-poster.webp" alt="" width="720" height="1280" decoding="async" fetchpriority="high"></figure><figure class="wt" data-k="sites"><img src="/assets/media/sites-poster.webp" alt="" width="720" height="1280" decoding="async" loading="lazy"></figure><figure class="wt" data-k="commeca"><img src="/assets/media/commeca-poster.webp" alt="" width="720" height="1280" decoding="async" loading="lazy"></figure><figure class="wt" data-k="pub"><img src="/assets/media/pub-poster.webp" alt="" width="720" height="1280" decoding="async" loading="lazy"></figure><figure class="wt" data-k="puissance"><img src="/assets/media/puissance-poster.webp" alt="" width="720" height="1280" decoding="async" loading="lazy"></figure><figure class="wt" data-k="sites"><img src="/assets/media/sites-poster.webp" alt="" width="720" height="1280" decoding="async" loading="lazy"></figure><figure class="wt" data-k="commeca"><img src="/assets/media/commeca-poster.webp" alt="" width="720" height="1280" decoding="async" loading="lazy"></figure></div>
       </div>
     </div>
-
-    <div class="hero-body">
-      <p class="proof-pill" data-h style="--d:470ms" data-proofline hidden><i class="live"></i><span></span></p>
-      <p class="hero-sub" data-h style="--d:520ms" data-i18n="hero.sub">Deux façons d’y arriver : je te montre comment faire, ou je le crée pour toi.</p>
-      <div class="fork" data-h style="--d:640ms" data-hide-sticky>
+    <i class="hero-veil" aria-hidden="true"></i>
+    <div class="hero-in">
+      <p class="hero-kick" data-h><i class="rec" aria-hidden="true"></i><span data-i18n="hero.kicker">Studio de création IA</span></p>
+      <h1 class="h-hero" data-h data-i18n-attr="aria-label:hero.aria" aria-label="Tu veux créer un site, une pub ou du motion design comme ça ?">
+        <span class="hh-l" aria-hidden="true" data-split data-i18n="hero.pre">Tu veux créer</span>
+        <span class="hh-rot" aria-hidden="true" data-rot><span class="rot-w on">une pub</span></span>
+        <span class="hh-l" aria-hidden="true" data-split data-i18n="hero.post" style="--d:230ms">comme ça ?</span>
+      </h1>
+      <p class="hero-sub" data-h style="--d:420ms" data-i18n="hero.sub">Pubs vidéo, motion design et sites web, créés avec l’IA. Je te montre comment faire, ou je le crée pour toi.</p>
+      <div class="fork" data-h style="--d:540ms" data-hide-sticky>
         <button class="fk" type="button" data-book="guide">
-          <span class="fk-t"><b data-i18n="offers.guide.name">Je te guide</b><small data-i18n="offers.guide.short">Tu crées, je t’explique tout</small></span>
+          <span class="fk-t"><small data-i18n="offers.guide.for">Tu veux apprendre</small><b data-i18n="offers.guide.name">Je te guide</b></span>
           <span class="fk-p" data-price>7,90 €</span>
           <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
         </button>
         <button class="fk is-main" type="button" data-book="creation">
-          <span class="fk-t"><b data-i18n="offers.creation.name">Je crée pour toi</b><small data-soon="offers.creation.short">Livré en 24 h maximum</small></span>
+          <span class="fk-t"><small data-i18n="offers.creation.for">Tu veux le résultat</small><b data-i18n="offers.creation.name">Je crée pour toi</b></span>
           <span class="fk-p" data-price="creation">19,90 €</span>
           <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
         </button>
       </div>
-      <p class="hero-safe" data-h style="--d:760ms"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10.5" width="14" height="10" rx="2.5"/><path d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5"/></svg><span data-i18n="hero.safe">Paiement unique · sécurisé par Stripe</span></p>
-    </div>
-  </section>
-
-  <div class="marquee" aria-hidden="true"><div class="mq-track" data-marquee></div></div>
-
-  <!-- 2. Les trois univers -->
-  <section class="sec uni" id="univers">
-    <div class="wrap">
-      <p class="kick" data-r data-i18n="uni.kicker">Trois univers</p>
-      <h2 class="h2" data-split data-i18n="uni.title">Ce qu’on peut créer.</h2>
-      <p class="lead" data-r data-i18n="uni.text">Choisis ton terrain. Tu le crées avec ma méthode, ou je le crée pour toi.</p>
-      <div class="ucards" data-ucards>
-        <article class="ucard">
-          <div class="u-in">
-            <div class="u-media"><img src="/assets/media/sites-poster.webp" alt="" width="720" height="1280" loading="lazy" decoding="async"><video muted playsinline preload="none" disablepictureinpicture disableremoteplayback tabindex="-1" aria-hidden="true"></video></div>
-            <i class="u-grad" aria-hidden="true"></i>
-            <p class="u-n" aria-hidden="true"><b>01</b> / 03</p>
-            <div class="u-body">
-              <h3 class="u-t" data-i18n="uni.items.0.t">Sites web</h3>
-              <ul class="u-tags"><li data-i18n="uni.items.0.tags.0">Sites professionnels</li><li data-i18n="uni.items.0.tags.1">Boutiques</li><li data-i18n="uni.items.0.tags.2">Applications</li></ul>
-              <button class="u-play" type="button" data-play="sites"><span class="vplay-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg></span><span class="u-play-t" data-i18n="uni.play">Voir la vidéo</span><span class="vdur">0:22</span></button>
-            </div>
-            <i class="u-shade" aria-hidden="true"></i>
-          </div>
-        </article>
-        <article class="ucard">
-          <div class="u-in">
-            <div class="u-media"><img src="/assets/media/pub-poster.webp" alt="" width="720" height="1280" loading="lazy" decoding="async"><video muted playsinline preload="none" disablepictureinpicture disableremoteplayback tabindex="-1" aria-hidden="true"></video></div>
-            <i class="u-grad" aria-hidden="true"></i>
-            <p class="u-n" aria-hidden="true"><b>02</b> / 03</p>
-            <div class="u-body">
-              <h3 class="u-t" data-i18n="uni.items.1.t">Vidéos publicitaires IA</h3>
-              <ul class="u-tags"><li data-i18n="uni.items.1.tags.0">Publicités TikTok</li><li data-i18n="uni.items.1.tags.1">Vidéos de produits</li><li data-i18n="uni.items.1.tags.2">Créations commerciales</li></ul>
-              <button class="u-play" type="button" data-play="pub"><span class="vplay-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg></span><span class="u-play-t" data-i18n="uni.play">Voir la vidéo</span><span class="vdur">0:15</span></button>
-            </div>
-            <i class="u-shade" aria-hidden="true"></i>
-          </div>
-        </article>
-        <article class="ucard">
-          <div class="u-in">
-            <div class="u-media"><img src="/assets/media/motion-poster.webp" alt="" width="720" height="1280" loading="lazy" decoding="async"><video muted playsinline preload="none" disablepictureinpicture disableremoteplayback tabindex="-1" aria-hidden="true"></video></div>
-            <i class="u-grad" aria-hidden="true"></i>
-            <p class="u-n" aria-hidden="true"><b>03</b> / 03</p>
-            <div class="u-body">
-              <h3 class="u-t" data-i18n="uni.items.2.t">Motion design premium</h3>
-              <ul class="u-tags"><li data-i18n="uni.items.2.tags.0">Animations avancées</li><li data-i18n="uni.items.2.tags.1">Transitions</li><li data-i18n="uni.items.2.tags.2">Effets visuels</li></ul>
-              <button class="u-play" type="button" data-play="motion"><span class="vplay-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg></span><span class="u-play-t" data-i18n="uni.play">Voir la vidéo</span><span class="vdur">0:18</span></button>
-            </div>
-            <i class="u-shade" aria-hidden="true"></i>
-          </div>
-        </article>
+      <div class="hero-meta" data-h style="--d:660ms">
+        <p class="hero-safe"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10.5" width="14" height="10" rx="2.5"/><path d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5"/></svg><span data-i18n="hero.safe">Paiement unique · sécurisé par Stripe</span></p>
+        <p class="proof-pill" data-proofline hidden><i class="live"></i><span></span></p>
       </div>
-      <p class="uni-note" data-r data-i18n="uni.note">Trois exemples de mes créations avec l’IA. Le format d’une création sur commande est précisé dans les formules.</p>
+    </div>
+    <a class="hero-next" href="#realisations" data-h style="--d:820ms"><span data-i18n="hero.scroll">Voir les réalisations</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"/></svg></a>
+  </section>
+
+  <!-- 2. Les réalisations : une sélection, mise en scène -->
+  <section class="sec work" id="realisations">
+    <div class="wrap">
+      <p class="kick" data-r data-i18n="work.kicker">Réalisations</p>
+      <h2 class="h2" data-split data-i18n="work.title">Ce que ça donne, en vrai.</h2>
+      <p class="lead" data-r data-i18n="work.text"></p>
+      <div class="show" data-show>
+        <ol class="show-list" data-r>
+          <li><button type="button" class="show-btn on" data-pick="0" aria-pressed="true"><span class="show-n">01</span><span class="show-t"><b data-i18n="work.items.0.t"></b><small data-i18n="work.items.0.type"></small></span><span class="show-d">0:15</span><i class="show-bar" aria-hidden="true"><i></i></i></button></li>
+          <li><button type="button" class="show-btn" data-pick="1" aria-pressed="false"><span class="show-n">02</span><span class="show-t"><b data-i18n="work.items.1.t"></b><small data-i18n="work.items.1.type"></small></span><span class="show-d">0:16</span><i class="show-bar" aria-hidden="true"><i></i></i></button></li>
+          <li><button type="button" class="show-btn" data-pick="2" aria-pressed="false"><span class="show-n">03</span><span class="show-t"><b data-i18n="work.items.2.t"></b><small data-i18n="work.items.2.type"></small></span><span class="show-d">0:15</span><i class="show-bar" aria-hidden="true"><i></i></i></button></li>
+          <li><button type="button" class="show-btn" data-pick="3" aria-pressed="false"><span class="show-n">04</span><span class="show-t"><b data-i18n="work.items.3.t"></b><small data-i18n="work.items.3.type"></small></span><span class="show-d">0:22</span><i class="show-bar" aria-hidden="true"><i></i></i></button></li>
+        </ol>
+        <div class="show-stage" data-r style="--d:120ms">
+          <i class="show-glow" aria-hidden="true"></i>
+          <div class="show-rail" data-rail>
+          <figure class="show-card on" data-k="puissance" data-i="0">
+            <div class="sc-media"><img src="/assets/media/puissance-poster.webp" alt="" width="720" height="1280" loading="lazy" decoding="async"><video muted playsinline preload="none" disablepictureinpicture disableremoteplayback tabindex="-1" aria-hidden="true"></video></div>
+            <i class="sc-shade" aria-hidden="true"></i>
+            <figcaption class="sc-cap"><span class="sc-n">01 / 04</span><b data-i18n="work.items.0.t"></b><span class="sc-d" data-i18n="work.items.0.desc"></span></figcaption>
+            <button class="sc-play" type="button" data-play="puissance"><span class="vplay-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg></span><span data-i18n="work.play">Regarder avec le son</span><span class="vdur">0:15</span></button>
+          </figure>
+          <figure class="show-card" data-k="commeca" data-i="1">
+            <div class="sc-media"><img src="/assets/media/commeca-poster.webp" alt="" width="720" height="1280" loading="lazy" decoding="async"><video muted playsinline preload="none" disablepictureinpicture disableremoteplayback tabindex="-1" aria-hidden="true"></video></div>
+            <i class="sc-shade" aria-hidden="true"></i>
+            <figcaption class="sc-cap"><span class="sc-n">02 / 04</span><b data-i18n="work.items.1.t"></b><span class="sc-d" data-i18n="work.items.1.desc"></span></figcaption>
+            <button class="sc-play" type="button" data-play="commeca"><span class="vplay-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg></span><span data-i18n="work.play">Regarder avec le son</span><span class="vdur">0:16</span></button>
+          </figure>
+          <figure class="show-card" data-k="pub" data-i="2">
+            <div class="sc-media"><img src="/assets/media/pub-poster.webp" alt="" width="720" height="1280" loading="lazy" decoding="async"><video muted playsinline preload="none" disablepictureinpicture disableremoteplayback tabindex="-1" aria-hidden="true"></video></div>
+            <i class="sc-shade" aria-hidden="true"></i>
+            <figcaption class="sc-cap"><span class="sc-n">03 / 04</span><b data-i18n="work.items.2.t"></b><span class="sc-d" data-i18n="work.items.2.desc"></span></figcaption>
+            <button class="sc-play" type="button" data-play="pub"><span class="vplay-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg></span><span data-i18n="work.play">Regarder avec le son</span><span class="vdur">0:15</span></button>
+          </figure>
+          <figure class="show-card" data-k="sites" data-i="3">
+            <div class="sc-media"><img src="/assets/media/sites-poster.webp" alt="" width="720" height="1280" loading="lazy" decoding="async"><video muted playsinline preload="none" disablepictureinpicture disableremoteplayback tabindex="-1" aria-hidden="true"></video></div>
+            <i class="sc-shade" aria-hidden="true"></i>
+            <figcaption class="sc-cap"><span class="sc-n">04 / 04</span><b data-i18n="work.items.3.t"></b><span class="sc-d" data-i18n="work.items.3.desc"></span></figcaption>
+            <button class="sc-play" type="button" data-play="sites"><span class="vplay-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg></span><span data-i18n="work.play">Regarder avec le son</span><span class="vdur">0:22</span></button>
+          </figure>
+          </div>
+          <div class="show-dots" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i></div>
+        </div>
+      </div>
+      <p class="uni-note" data-r data-i18n="work.note"></p>
     </div>
   </section>
 
-  <!-- 3. Les deux formules -->
+  <!-- 3. Les deux formules : apprendre, ou recevoir le résultat -->
   <section class="sec offers" id="formules">
     <div class="wrap">
       <p class="kick" data-r data-i18n="offers.kicker">Deux formules</p>
       <h2 class="h2" data-split data-i18n="offers.title">Tu le fais. Ou je le fais.</h2>
-      <p class="lead" data-r data-i18n="offers.text">Un prompt seul ne suffit pas : ce qui compte, c’est la méthode. Soit je te la donne, soit je m’en occupe.</p>
-      <div class="ocards" data-hide-sticky>
-        <article class="ocard" data-r data-spot>
-          <div class="oc-top"><span class="oc-n"><b>01</b> / 02</span><span class="oc-tag" data-i18n="offers.guide.tag">Tu crées</span></div>
-          <div class="oc-art is-chat" aria-hidden="true"><span class="bub b1"></span><span class="bub b2"></span><span class="bub b3"><i></i><i></i><i></i></span></div>
-          <h3 class="oc-t" data-i18n="offers.guide.name">Je te guide</h3>
-          <p class="oc-p" data-i18n="offers.guide.pitch"></p>
-          <ul class="oc-list">
+      <p class="lead" data-r data-i18n="offers.text"></p>
+      <div class="duo" data-hide-sticky>
+        <article class="plan" data-r data-spot>
+          <p class="plan-for"><span class="plan-n">01</span><span data-i18n="offers.guide.for">Tu veux apprendre</span></p>
+          <h3 class="plan-t" data-i18n="offers.guide.name">Je te guide</h3>
+          <p class="plan-p" data-i18n="offers.guide.pitch"></p>
+          <div class="plan-art" aria-hidden="true">
+            <span class="pa-row"><i class="pa-av" data-initial>E</i><i class="pa-l w1"></i></span>
+            <span class="pa-row"><b>01</b><i class="pa-l w2"></i></span>
+            <span class="pa-row"><b>02</b><i class="pa-l w3"></i></span>
+            <span class="pa-row"><b>03</b><i class="pa-l w4"></i><i class="pa-cur"></i></span>
+          </div>
+          <ul class="plan-list">
             <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span data-i18n="offers.guide.items.0"></span></li>
             <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span data-i18n="offers.guide.items.1"></span></li>
             <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span data-i18n="offers.guide.items.2"></span></li>
             <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span data-i18n="offers.guide.items.3"></span></li>
           </ul>
-          <p class="oc-delay"><i class="live"></i><span data-i18n="offers.guide.delay"></span></p>
-          <div class="oc-bot">
-            <div class="oc-price"><strong class="roll" data-roll="guide">7,90 €</strong><span data-i18n="offers.once">Paiement unique</span></div>
+          <p class="plan-delay"><i class="live"></i><span data-i18n="offers.guide.delay"></span></p>
+          <div class="plan-bot">
+            <div class="plan-price"><strong class="roll" data-roll="guide">7,90 €</strong><span data-i18n="offers.once">Paiement unique</span></div>
             <button class="btn btn-i" type="button" data-book="guide"><span data-i18n="offers.guide.cta">Réserver mon échange</span><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
           </div>
         </article>
-        <article class="ocard is-main" data-r data-spot style="--d:120ms">
-          <div class="oc-top"><span class="oc-n"><b>02</b> / 02</span><span class="oc-tag" data-soon="offers.creation.badge">Clé en main</span></div>
-          <div class="oc-art is-fan" aria-hidden="true"><span class="mini m1"><img src="/assets/media/sites-poster.webp" alt="" width="720" height="1280" loading="lazy" decoding="async"></span><span class="mini m2"><img src="/assets/media/pub-poster.webp" alt="" width="720" height="1280" loading="lazy" decoding="async"></span><span class="mini m3"><img src="/assets/media/motion-poster.webp" alt="" width="720" height="1280" loading="lazy" decoding="async"></span><span class="mini-ok"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span></div>
-          <h3 class="oc-t" data-i18n="offers.creation.name">Je crée pour toi</h3>
-          <p class="oc-p" data-i18n="offers.creation.pitch"></p>
-          <ul class="oc-list">
+        <div class="duo-or" aria-hidden="true"><span data-i18n="offers.or">ou</span></div>
+        <article class="plan is-main" data-r data-spot style="--d:120ms">
+          <p class="plan-for"><span class="plan-n">02</span><span data-i18n="offers.creation.for">Tu veux le résultat</span><span class="plan-badge" data-soon="offers.creation.badge">Clé en main</span></p>
+          <div class="plan-reel" aria-hidden="true"><span class="pr-t"><img src="/assets/media/commeca-poster.webp" alt="" width="720" height="1280" loading="lazy" decoding="async"><video muted playsinline loop preload="none" disablepictureinpicture disableremoteplayback tabindex="-1" data-mini="commeca"></video><small data-i18n="sheet.kinds.pub"></small></span><span class="pr-t"><img src="/assets/media/puissance-poster.webp" alt="" width="720" height="1280" loading="lazy" decoding="async"><video muted playsinline loop preload="none" disablepictureinpicture disableremoteplayback tabindex="-1" data-mini="puissance"></video><small data-i18n="sheet.kinds.motion"></small></span><span class="pr-t"><img src="/assets/media/sites-poster.webp" alt="" width="720" height="1280" loading="lazy" decoding="async"><video muted playsinline loop preload="none" disablepictureinpicture disableremoteplayback tabindex="-1" data-mini="sites"></video><small data-i18n="sheet.kinds.site"></small></span><span class="pm-l"><i class="rec"></i><span data-i18n="offers.creation.see">Exemple de création</span></span></div>
+          <h3 class="plan-t" data-i18n="offers.creation.name">Je crée pour toi</h3>
+          <p class="plan-p" data-i18n="offers.creation.pitch"></p>
+          <ul class="plan-list">
             <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span data-i18n="offers.creation.items.0"></span></li>
             <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span data-i18n="offers.creation.items.1"></span></li>
             <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span data-i18n="offers.creation.items.2"></span></li>
             <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span data-i18n="offers.creation.items.3"></span></li>
           </ul>
-          <p class="oc-delay"><i class="live"></i><span data-i18n="offers.creation.delay"></span></p>
-          <div class="oc-bot">
-            <div class="oc-price"><strong class="roll" data-roll="creation">19,90 €</strong><span data-i18n="offers.once">Paiement unique</span></div>
+          <p class="plan-delay"><i class="live"></i><span data-i18n="offers.creation.delay"></span></p>
+          <div class="plan-bot">
+            <div class="plan-price"><strong class="roll" data-roll="creation">19,90 €</strong><span data-i18n="offers.once">Paiement unique</span></div>
             <button class="btn btn-p" type="button" data-book="creation"><span data-soon="offers.creation.cta">Commander ma création</span><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
           </div>
         </article>
@@ -294,7 +273,7 @@ var c=l||((navigator.language||'fr').slice(0,2).toLowerCase()),k=document.create
         <figure class="ex mail" data-view="guide">
           <div class="ex-top"><span class="ex-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="ex-lbl" data-i18n="get.exLabel">Exemple illustratif</span></div>
           <dl class="mail-head">
-            <div><dt data-i18n="get.mail.from">De</dt><dd><span class="mail-av" aria-hidden="true" data-initial>E</span><span data-i18n="get.mail.sender">Evan · AI Web Studio</span></dd></div>
+            <div><dt data-i18n="get.mail.from">De</dt><dd><span class="mail-av" aria-hidden="true" data-initial>E</span><span data-i18n="get.mail.sender">Evan · IA Motion Studio</span></dd></div>
             <div><dt data-i18n="get.mail.subject">Objet</dt><dd data-i18n="get.mail.title">Ton plan pour ton portfolio</dd></div>
           </dl>
           <ol class="mail-body">
@@ -308,7 +287,7 @@ var c=l||((navigator.language||'fr').slice(0,2).toLowerCase()),k=document.create
         <figure class="ex mail deliv" data-view="creation" hidden>
           <div class="ex-top"><span class="ex-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="ex-lbl" data-i18n="get.exLabel">Exemple illustratif</span></div>
           <dl class="mail-head">
-            <div><dt data-i18n="get.mail.from">De</dt><dd><span class="mail-av" aria-hidden="true" data-initial>E</span><span data-i18n="get.mail.sender">Evan · AI Web Studio</span></dd></div>
+            <div><dt data-i18n="get.mail.from">De</dt><dd><span class="mail-av" aria-hidden="true" data-initial>E</span><span data-i18n="get.mail.sender">Evan · IA Motion Studio</span></dd></div>
             <div><dt data-i18n="get.mail.subject">Objet</dt><dd data-i18n="how.deliv.title">Ta création est prête</dd></div>
           </dl>
           <div class="dl-file">
@@ -331,7 +310,17 @@ var c=l||((navigator.language||'fr').slice(0,2).toLowerCase()),k=document.create
     </div>
   </section>
 
-  <!-- 5. Un humain -->
+  <!-- 5. Avis clients : uniquement de vrais avis, publiés avec l’accord de leurs auteurs (config.json, « reviews ») -->
+  <section class="sec reviews" id="avis" data-reviews hidden>
+    <div class="wrap">
+      <p class="kick" data-r data-i18n="reviews.kicker">Avis clients</p>
+      <h2 class="h2" data-split data-i18n="reviews.title">Ils ont commandé.</h2>
+      <div class="rv-list" data-rv-list></div>
+      <p class="uni-note" data-i18n="reviews.note">Avis publiés avec l’accord de leurs auteurs.</p>
+    </div>
+  </section>
+
+  <!-- 6. Un humain -->
   <section class="sec human" id="moi">
     <div class="wrap">
       <p class="kick" data-r data-i18n="human.kicker">Pas de bot</p>
@@ -345,7 +334,7 @@ var c=l||((navigator.language||'fr').slice(0,2).toLowerCase()),k=document.create
     </div>
   </section>
 
-  <!-- 6. FAQ -->
+  <!-- 7. FAQ -->
   <section class="sec faq" id="faq">
     <div class="wrap">
       <h2 class="h2" data-split data-i18n="faq.title">Questions fréquentes</h2>
@@ -361,8 +350,9 @@ var c=l||((navigator.language||'fr').slice(0,2).toLowerCase()),k=document.create
     </div>
   </section>
 
-  <!-- 7. Le choix, une dernière fois -->
+  <!-- 8. Le choix, une dernière fois -->
   <section class="sec final" id="choisir" data-hide-sticky>
+    <div class="final-reel" aria-hidden="true"><span class="wt" style="--k:-2"><img src="/assets/media/sites-poster.webp" alt="" width="720" height="1280" loading="lazy" decoding="async"></span><span class="wt" style="--k:-1"><img src="/assets/media/commeca-poster.webp" alt="" width="720" height="1280" loading="lazy" decoding="async"></span><span class="wt" style="--k:0"><img src="/assets/media/puissance-poster.webp" alt="" width="720" height="1280" loading="lazy" decoding="async"></span><span class="wt" style="--k:1"><img src="/assets/media/pub-poster.webp" alt="" width="720" height="1280" loading="lazy" decoding="async"></span><span class="wt" style="--k:2"><img src="/assets/media/commeca-poster.webp" alt="" width="720" height="1280" loading="lazy" decoding="async"></span></div>
     <div class="wrap">
       <h2 class="h2" data-split data-i18n="final.title">Alors, tu le fais ou je le fais ?</h2>
       <div class="final-cta" data-r>
@@ -378,7 +368,7 @@ var c=l||((navigator.language||'fr').slice(0,2).toLowerCase()),k=document.create
 <footer class="foot" data-hide-sticky>
   <div class="wrap">
     <div class="foot-top">
-      <a class="logo" href="/" aria-label="AI Web Studio"><span data-brand>AI Web Studio</span><i class="caret"></i></a>
+      <a class="logo" href="/" aria-label="IA Motion Studio"><svg class="mark" viewBox="0 0 512 512" aria-hidden="true"><rect width="512" height="512" rx="118" class="mk-bg"/><path d="M179.4 157.07Q150 140 150 174v148q0 34 29.4 16.93l127.2-73.86Q336 248 306.6 230.93Z" class="mk-tri"/><rect x="258" y="334" width="112" height="40" rx="14" class="mk-cur"/></svg><span data-brand>IA Motion Studio</span></a>
       <p data-i18n="footer.tagline">Derrière chaque réponse et chaque création : le créateur de ces vidéos.</p>
     </div>
     <nav class="foot-links">
@@ -387,7 +377,7 @@ var c=l||((navigator.language||'fr').slice(0,2).toLowerCase()),k=document.create
       <a href="/legal#confidentialite" data-i18n="footer.privacy">Confidentialité</a>
       <a data-contact data-i18n="footer.contact">Contact</a>
     </nav>
-    <p class="foot-legal"><span data-i18n="footer.rights">© 2026 AI Web Studio</span> · <span data-i18n="footer.stripe">Paiement sécurisé par Stripe</span><br><span data-i18n="footer.legal"></span></p>
+    <p class="foot-legal"><span data-i18n="footer.rights">© 2026 IA Motion Studio</span> · <span data-i18n="footer.stripe">Paiement sécurisé par Stripe</span><br><span data-i18n="footer.legal"></span></p>
   </div>
 </footer>
 

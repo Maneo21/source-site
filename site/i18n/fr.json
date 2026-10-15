@@ -1,6 +1,6 @@
 {
   "meta": {
-    "title": "Sites, pubs et motion design avec l’IA · Je te guide, ou je crée pour toi",
+    "title": "IA Motion Studio · Pubs vidéo, motion design et sites avec l’IA",
     "description": "Sites web, vidéos publicitaires, motion design : je t’explique ma méthode pour créer avec l’IA ({price}), ou je crée ton projet pour toi, livré en {deliveryHours} h maximum ({priceCreation}). Paiement unique.",
     "legalTitle": "Informations légales · {brand}",
     "merciTitle": "Merci · {brand}"
@@ -22,24 +22,26 @@
   "nav": {
     "book": "Les formules",
     "label": "Sections de la page",
-    "uni": "Univers",
     "how": "Déroulé",
     "faq": "Questions",
-    "offers": "Formules"
+    "offers": "Formules",
+    "work": "Réalisations"
   },
   "hero": {
     "aria": "Tu veux créer un site, une pub ou du motion design comme ça ?",
     "pre": "Tu veux créer",
     "words": [
-      "un site",
       "une pub",
-      "du motion"
+      "une vidéo motion",
+      "un site"
     ],
     "post": "comme ça ?",
-    "sub": "Deux façons d’y arriver : je te montre comment faire, ou je le crée pour toi.",
+    "sub": "Pubs vidéo, motion design et sites web, créés avec l’IA. Je te montre comment faire, ou je le crée pour toi.",
     "prev": "Vidéo précédente",
     "next": "Vidéo suivante",
-    "safe": "Paiement unique · sécurisé par Stripe"
+    "safe": "Paiement unique · sécurisé par Stripe",
+    "kicker": "Studio de création IA",
+    "scroll": "Voir les réalisations"
   },
   "video": {
     "play": "Regarder avec le son",
@@ -52,67 +54,6 @@
     "replay": "Revoir",
     "endTitle": "À ton tour ?",
     "endSub": "Je te montre comment faire, ou je le crée pour toi."
-  },
-  "marquee": [
-    "Sites web",
-    "Vidéos publicitaires",
-    "Motion design",
-    "Méthode",
-    "Prompts",
-    "Outils IA",
-    "Clé en main",
-    "Sur mesure"
-  ],
-  "uni": {
-    "kicker": "Trois univers",
-    "title": "Ce qu’on peut créer.",
-    "text": "Choisis ton terrain. Tu le crées avec ma méthode, ou je le crée pour toi.",
-    "note": "Trois exemples de mes créations avec l’IA. Le format d’une création sur commande est précisé dans les formules.",
-    "play": "Voir la vidéo",
-    "items": [
-      {
-        "short": "Sites web",
-        "t": "Sites web",
-        "tags": [
-          "Sites professionnels",
-          "Boutiques",
-          "Applications"
-        ],
-        "chips": [
-          "Vu sur TikTok",
-          "Scroll cinématique",
-          "3D en temps réel"
-        ]
-      },
-      {
-        "short": "Pubs IA",
-        "t": "Vidéos publicitaires IA",
-        "tags": [
-          "Publicités TikTok",
-          "Vidéos de produits",
-          "Créations commerciales"
-        ],
-        "chips": [
-          "Format TikTok",
-          "Vidéo produit",
-          "15 secondes"
-        ]
-      },
-      {
-        "short": "Motion design",
-        "t": "Motion design premium",
-        "tags": [
-          "Animations avancées",
-          "Transitions",
-          "Effets visuels"
-        ],
-        "chips": [
-          "100 % code",
-          "Aucune caméra",
-          "Son compris"
-        ]
-      }
-    ]
   },
   "offers": {
     "kicker": "Deux formules",
@@ -132,7 +73,8 @@
         "{followUpsIncluded} pour tes questions, sous {followUpDays} jours"
       ],
       "delay": "Réponse presque immédiate après ta commande",
-      "cta": "Réserver mon échange"
+      "cta": "Réserver mon échange",
+      "for": "Tu veux apprendre"
     },
     "creation": {
       "name": "Je crée pour toi",
@@ -141,14 +83,17 @@
       "short": "Livré en {deliveryHours} h maximum",
       "pitch": "Pas d’IA, ou pas le temps ? Décris-moi ton projet. Je le réalise et je te le livre.",
       "items": [
-        "Ton site, ta pub ou ton animation motion, réalisé par moi",
+        "Ton site, ta pub ou ta vidéo motion, réalisé par moi",
         "Un site d’une page, ou une vidéo jusqu’à {videoSeconds} secondes",
         "Prêt à publier : les fichiers sont à toi",
         "{revisionsIncluded}, sous {revisionDays} jours"
       ],
       "delay": "Livré en {deliveryHours} h maximum, par e-mail",
-      "cta": "Commander ma création"
-    }
+      "cta": "Commander ma création",
+      "for": "Tu veux le résultat",
+      "see": "Exemple de création"
+    },
+    "or": "ou"
   },
   "trust": {
     "methodsLabel": "Moyens de paiement",
@@ -174,7 +119,7 @@
     ]
   },
   "how": {
-    "kicker": "Comment ça se passe",
+    "kicker": "Après le paiement",
     "title": "Trois étapes. Aucune surprise.",
     "tabsLabel": "Formule",
     "guide": {
@@ -197,7 +142,7 @@
       "steps": [
         {
           "t": "Tu commandes",
-          "d": "Paiement unique, sécurisé par Stripe. Tu choisis ce que je crée : un site, une pub ou une animation motion."
+          "d": "Paiement unique, sécurisé par Stripe. Tu choisis ce que je crée : un site, une pub ou une vidéo motion."
         },
         {
           "t": "Tu décris ton projet",
@@ -308,7 +253,7 @@
     "kinds": {
       "site": "Site web",
       "pub": "Vidéo pub",
-      "motion": "Motion",
+      "motion": "Vidéo motion",
       "autre": "Autre"
     },
     "safe": "Paiement chiffré, géré par Stripe",
@@ -415,5 +360,39 @@
     "step1": "Touche <b class=\"tt-kbd\">•••</b> en haut à droite",
     "step2": "Choisis <b>« Ouvrir dans le navigateur »</b>",
     "stay": "Rester ici"
+  },
+  "work": {
+    "kicker": "Réalisations",
+    "title": "Ce que ça donne, en vrai.",
+    "text": "Une sélection de mes créations avec l’IA. Touche une vidéo pour la regarder avec le son.",
+    "play": "Regarder avec le son",
+    "note": "Créations réalisées par IA Motion Studio. Le format d’une création sur commande est précisé dans les formules.",
+    "items": [
+      {
+        "t": "La puissance du motion design",
+        "type": "Motion design 3D",
+        "desc": "Un cube, quatre mondes, un retour en arrière. Chaque mouvement est calé sur le son."
+      },
+      {
+        "t": "Une pub comme ça ?",
+        "type": "Publicités vidéo",
+        "desc": "Casque, sport, food, logo : quatre univers de pub en seize secondes."
+      },
+      {
+        "t": "Pub d’application",
+        "type": "Publicité produit",
+        "desc": "Une publicité verticale pour une application, prête pour TikTok."
+      },
+      {
+        "t": "Sites web",
+        "type": "Sites immersifs",
+        "desc": "Scroll cinématique, 3D en temps réel, animations : des sites qui marquent."
+      }
+    ]
+  },
+  "reviews": {
+    "kicker": "Avis clients",
+    "title": "Ils ont commandé.",
+    "note": "Avis publiés avec l’accord de leurs auteurs."
   }
 }

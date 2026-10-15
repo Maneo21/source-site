@@ -11,7 +11,7 @@ const RECIPIENT = new Set([300, 406]); // refus liés à l'adresse du destinatai
 // Types de projet proposés dans le récapitulatif du site, selon la formule :
 // « guide » (échange personnalisé) ou « creation » (création sur mesure, livrée).
 const KINDS = { guide: ['site', 'pub', 'motion', 'autre'], creation: ['site', 'pub', 'motion'] };
-const DEFAULTS = { brand: 'AI Web Studio', contactEmail: 'contact@maneo-ai.fr', offer: { amount: 790, replyHours: 24 }, creation: { amount: 1990, deliveryHours: 24, revisions: 1, revisionDays: 7 }, seller: {} };
+const DEFAULTS = { brand: 'IA Motion Studio', contactEmail: 'contact@maneo-ai.fr', offer: { amount: 790, replyHours: 24 }, creation: { amount: 1990, deliveryHours: 24, revisions: 1, revisionDays: 7 }, seller: {} };
 const POSTMARK = {
   10: 'Jeton Postmark refusé : la variable POSTMARK_TOKEN est incorrecte.',
   300: 'Adresse e-mail refusée par Postmark (adresse invalide).',
@@ -102,7 +102,7 @@ export function readOrder(session, event, ctx = {}) {
     ...o,
     lang: o.lang || langOf(ref?.[1]) || langOf(session.locale) || 'fr',
     email: email.length <= 254 && /^[^\s@<>,;]+@[^\s@<>,;]+\.[^\s@<>,;]+$/.test(email) ? email : '',
-    ref: `AWS-${clean(session.id).replace(/[^a-z0-9]/gi, '').slice(-8).toUpperCase()}`,
+    ref: `IMS-${clean(session.id).replace(/[^a-z0-9]/gi, '').slice(-8).toUpperCase()}`,
     sessionId: clean(session.id),
     paymentIntent: typeof session.payment_intent === 'string' ? session.payment_intent : clean(session.payment_intent?.id),
     live: session.livemode === true,
@@ -120,6 +120,7 @@ export function readOrder(session, event, ctx = {}) {
   };
 }
 
+const siteOrigin = u => { try { const x = new URL(String(u || '')); return x.protocol === 'https:' ? x.origin : ''; } catch { return ''; } };
 export function contextFrom(cfg, origin) {
   const c = { ...DEFAULTS, ...(cfg || {}) };
   return {
@@ -127,7 +128,9 @@ export function contextFrom(cfg, origin) {
     replyHours: Number(c.offer?.replyHours) || 24, guideAmount: Number(c.offer?.amount) || DEFAULTS.offer.amount, currency: clean(c.offer?.currency) || 'EUR',
     creationAmount: Number(c.creation?.amount) || DEFAULTS.creation.amount, deliveryHours: Number(c.creation?.deliveryHours) || 24,
     revisions: Number(c.creation?.revisions ?? 1), revisionDays: Number(c.creation?.revisionDays) || 7,
-    seller: c.seller || {}, origin
+    // les liens des e-mails (CGV, rétractation) : l'adresse publique principale du site (config.json → « siteUrl »),
+    // quelle que soit l'adresse sur laquelle Stripe envoie l'événement (ia-motionstudio.fr ou source-site.pages.dev)
+    seller: c.seller || {}, origin: siteOrigin(c.siteUrl) || origin
   };
 }
 

@@ -1,14 +1,16 @@
 {
-  "brand": "AI Web Studio",
+  "brand": "IA Motion Studio",
+  "siteUrl": "https://ia-motionstudio.fr",
   "creator": {
     "name": "Evan",
     "tiktok": "",
     "photo": ""
   },
   "proof": [
-    { "value": { "fr": "20 k", "en": "20K" }, "label": { "fr": "vues en 2 jours sur TikTok", "en": "views in 2 days on TikTok" } },
-    { "value": { "fr": "+ 1 k", "en": "1K+" }, "label": { "fr": "likes", "en": "likes" } }
+    { "value": { "fr": "42 000", "en": "42,000" }, "label": { "fr": "vues en 6 jours sur TikTok", "en": "views in 6 days on TikTok" } },
+    { "value": { "fr": "3 000", "en": "3,000" }, "label": { "fr": "j’aime", "en": "likes" } }
   ],
+  "reviews": [],
   "contactEmail": "contact@maneo-ai.fr",
   "paymentLink": "https://buy.stripe.com/28E5kEaHwfMD5z14oG9AA00",
   "offer": {

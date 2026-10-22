@@ -23,11 +23,11 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,300..800&display=swap">
 <link rel="preload" as="image" href="/assets/media/puissance-poster.webp" fetchpriority="high">
-<link rel="modulepreload" href="/assets/i18n.js">
-<link rel="modulepreload" href="/assets/vars.js">
+<link rel="modulepreload" href="/assets/i18n.js?v=f72cd7a6ed">
+<link rel="modulepreload" href="/assets/vars.js?v=40fcdd2d97">
 <link rel="preload" href="/config.json" as="fetch" crossorigin>
 <link rel="preload" href="/i18n/languages.json" as="fetch" crossorigin>
-<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/site.css?v=700d49a1e9">
 <script>
 (function(){var d=document.documentElement,l=null;d.className=d.className.replace('no-js','js');
 try{l=localStorage.getItem('lang')}catch(e){}
@@ -40,7 +40,7 @@ if(tt)d.classList.add('is-tt');
 if(l)d.lang=l;else if(!tt)d.classList.add('is-welcome');
 var c=l||((navigator.language||'fr').slice(0,2).toLowerCase()),k=document.createElement('link');k.rel='preload';k.as='fetch';k.crossOrigin='anonymous';k.href='/i18n/'+(/^[a-z]{2}$/.test(c)?c:'fr')+'.json';document.head.appendChild(k)})();
 </script>
-<script type="module" src="/assets/app.js"></script>
+<script type="module" src="/assets/app.js?v=c71cef6ce0"></script>
 </head>
 <body>
 <a class="skip" href="#main" data-i18n="common.skip">Aller au contenu</a>

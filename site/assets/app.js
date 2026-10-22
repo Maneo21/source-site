@@ -330,13 +330,12 @@ function reveal(w, from) {
 
 /* ---------- arrivée depuis le navigateur intégré de TikTok ---------- */
 // La page le repère avant tout affichage (classe « is-tt », posée dans index.html) et propose
-// d'ouvrir le site dans le vrai navigateur. L'écran revient à chaque arrivée depuis TikTok (chaque clic sur le lien de la bio).
-// Après « Rester ici », il ne revient pas pendant la visite : ni en changeant de page, ni en rechargeant, ni au retour arrière.
-// C'est le seul écran avant le site : la langue est détectée, et se change sur place si besoin.
+// d'ouvrir le site dans le vrai navigateur. Il n'y a pas de « Rester ici » (demande d'Evan, 22 oct.) : dans TikTok, le site ne s'ouvre pas,
+// seule l'ouverture dans le vrai navigateur y mène. La langue est détectée, et se change sur place si besoin.
 const fromTikTok = () => root.classList.contains('is-tt');
 function ttHint() {
   return new Promise(resolve => {
-    const w = $('#welcome'), stay = $('[data-tt-stay]', w);
+    const w = $('#welcome');
     for (const el of [$('main'), $('[data-top]'), $('.foot')]) el.inert = true;
     // L'adresse porte la langue : ouverte dans le navigateur, la page arrive directement sur le site.
     const urlLang = () => {
@@ -353,17 +352,7 @@ function ttHint() {
     w.hidden = false;
     w.setAttribute('aria-labelledby', 'tt-title');
     w.classList.add('show-tt');
-    const go = () => {
-      if (!stay.isConnected || w.classList.contains('out')) return;
-      // retenu pour cette visite seulement (l'ancien souvenir de 24 h est effacé)
-      try { sessionStorage.setItem('tt', '1'); localStorage.removeItem('tt'); } catch { /* navigation privée */ }
-      I.remember(I.lang);
-      document.removeEventListener('keydown', onKey);
-      resolve(stay);
-    };
-    const onKey = e => { if (e.key === 'Escape') go(); };
-    stay.addEventListener('click', go, { once: true });
-    document.addEventListener('keydown', onKey);
+    try { sessionStorage.removeItem('tt'); localStorage.removeItem('tt'); } catch { /* navigation privée */ }
   });
 }
 

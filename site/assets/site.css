@@ -161,16 +161,47 @@ main, .foot, .top-r, .sticky .btn { transition: opacity .3s var(--ease-o); }
 .tt-kbd { display: inline; font-weight: 800; letter-spacing: .14em; color: var(--acc); }
 /* en haut à droite, là où TikTok place ses trois points : un rappel qui pulse et une flèche qui y mène */
 /* le vrai bouton « ••• » de TikTok est dans sa barre, juste au-dessus de la page, à droite : la flèche monte vers lui */
-.welcome-in > .tt-arrow { opacity: 1; position: absolute; top: 6px; right: 12px; width: 30px; height: 84px; fill: none; stroke: var(--acc); stroke-width: 3.4; stroke-linecap: round; stroke-linejoin: round; overflow: visible; animation: ttup 1.6s var(--ease-io) 1.4s infinite; }
-.welcome-in > .tt-glow { position: absolute; top: -34px; right: -8px; width: 86px; height: 68px; border-radius: 50%; background: radial-gradient(closest-side, rgba(210, 255, 77, .55), rgba(210, 255, 77, 0)); animation: ttglow 1.6s ease-in-out infinite; pointer-events: none; }
+.welcome-in > .tt-arrow { opacity: 1; filter: drop-shadow(0 0 1.5px rgba(0, 0, 0, .95)) drop-shadow(0 0 1px rgba(0, 0, 0, .9)); position: absolute; top: 4px; right: -3px; width: 24px; height: 84px; fill: none; stroke: var(--acc); stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; overflow: visible; animation: ttup 1.6s var(--ease-io) 1.4s infinite; }
+.welcome-in > .tt-glow { opacity: 1; position: absolute; top: -78px; right: -78px; width: 170px; height: 170px; border-radius: 50%; background: radial-gradient(circle, rgba(210, 255, 77, .95) 0%, rgba(210, 255, 77, .55) 26%, rgba(210, 255, 77, .18) 48%, rgba(210, 255, 77, 0) 70%); animation: ttglow 1.4s ease-in-out infinite; pointer-events: none; }
+.welcome-in > .tt-here { position: absolute; top: 30px; right: 30px; font: 700 12px/1 var(--f-m); letter-spacing: .1em; text-transform: uppercase; color: var(--acc); text-shadow: 0 0 12px rgba(210, 255, 77, .6); white-space: nowrap; animation-delay: .5s; pointer-events: none; }
 @keyframes ttup { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
-@keyframes ttglow { 0%, 100% { opacity: .45; transform: scale(.9); } 50% { opacity: 1; transform: scale(1.1); } }
+@keyframes ttglow { 0%, 100% { opacity: .6; transform: scale(.85); } 50% { opacity: 1; transform: scale(1.15); } }
 .tt-arrow path { stroke-dasharray: 1; stroke-dashoffset: 1; }
 .show-tt .tt-l { animation: ttdraw .8s var(--ease-o) .55s forwards; }
 .show-tt .tt-h { animation: ttdraw .4s var(--ease-o) 1.15s forwards; }
 @keyframes ttdraw { to { stroke-dashoffset: 0; } }
 @keyframes ttbob { 0%, 100% { translate: 0 0; } 50% { translate: 5px -5px; } }
 @media (max-height: 600px) { .tt-text { margin-bottom: 18px; } .tt-steps li { padding: 12px 0; } }
+
+/* ---------- écran TikTok : un peu de motion design (CSS seul, léger pour le navigateur de TikTok) ---------- */
+.welcome-in > .tt-bg { opacity: 1; animation: none; position: absolute; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; }
+.tt-grid { position: absolute; left: 0; right: 0; top: 0; height: calc(100% + 36px); background-image: linear-gradient(rgba(242, 239, 233, .055) 1px, transparent 1px), linear-gradient(90deg, rgba(242, 239, 233, .055) 1px, transparent 1px); background-size: 36px 36px; -webkit-mask-image: radial-gradient(75% 60% at 50% 42%, #000 20%, transparent 78%); mask-image: radial-gradient(75% 60% at 50% 42%, #000 20%, transparent 78%); animation: ttgrid 6s linear infinite; }
+@keyframes ttgrid { to { transform: translate3d(0, -36px, 0); } }
+.tt-blob { position: absolute; width: 90vmax; height: 90vmax; border-radius: 50%; will-change: transform; }
+.tt-blob.b1 { left: -45vmax; top: -30vmax; background: radial-gradient(closest-side, rgba(210, 255, 77, .13), transparent); animation: ttb1 14s ease-in-out infinite alternate; }
+.tt-blob.b2 { right: -50vmax; bottom: -40vmax; background: radial-gradient(closest-side, rgba(242, 239, 233, .07), transparent); animation: ttb2 18s ease-in-out infinite alternate; }
+@keyframes ttb1 { to { transform: translate3d(18vmax, 12vmax, 0) scale(1.15); } }
+@keyframes ttb2 { to { transform: translate3d(-16vmax, -10vmax, 0) scale(1.1); } }
+/* des particules qui remontent le long de la flèche, vers le vrai bouton de TikTok */
+.welcome-in > .tt-sparks { opacity: 1; animation: none; position: absolute; top: 0; right: 6px; width: 6px; height: 86px; pointer-events: none; }
+.tt-sparks i { position: absolute; left: 0; bottom: 0; width: 6px; height: 6px; border-radius: 50%; background: #F4FFD0; box-shadow: 0 0 10px 2px rgba(210, 255, 77, .9); opacity: 0; animation: ttspark 1.8s cubic-bezier(.4, 0, .6, 1) infinite; }
+.tt-sparks i:nth-child(2) { animation-delay: .6s; } .tt-sparks i:nth-child(3) { animation-delay: 1.2s; }
+@keyframes ttspark { 0% { transform: translate3d(0, 0, 0) scale(.6); opacity: 0; } 15% { opacity: 1; } 85% { opacity: 1; } 100% { transform: translate3d(0, -84px, 0) scale(1.2); opacity: 0; } }
+/* le titre : mot par mot, le dernier sur sa pastille citron */
+.tt-title .w:last-child { position: relative; isolation: isolate; padding: .1em .16em .12em; margin: -.06em .02em -.1em; }
+.tt-title .w:last-child::before { content: ""; position: absolute; inset: .06em 0 .04em; z-index: -1; border-radius: .14em; background: var(--acc); box-shadow: 0 16px 40px -16px rgba(210, 255, 77, .8); transform: scaleX(0) rotate(-1.5deg); transform-origin: 0 50%; transition: transform .7s var(--ease-o) .75s; }
+.tt-title.in .w:last-child::before { transform: scaleX(1) rotate(-1.5deg); }
+.tt-title .w:last-child .wi { color: var(--acc-ink); }
+.tt-title .wi { transition-delay: calc(.2s + var(--i, 0) * 70ms); }
+/* les trois points de l'étape 1 s'allument en vague ; les numéros des étapes battent l'un après l'autre */
+.tt-kbd i { display: inline-block; font-style: normal; animation: ttdot 1.4s ease-in-out infinite; }
+.tt-kbd i:nth-child(2) { animation-delay: .15s; } .tt-kbd i:nth-child(3) { animation-delay: .3s; }
+@keyframes ttdot { 0%, 60%, 100% { opacity: .35; transform: none; } 30% { opacity: 1; transform: translateY(-3px); } }
+.tt-steps .tt-n { position: relative; }
+.tt-steps .tt-n::after { content: ""; position: absolute; inset: -1px; border-radius: 50%; border: 2px solid var(--acc); opacity: 0; animation: ttring 3.2s ease-out infinite; }
+.tt-steps li + li .tt-n::after { animation-delay: 1.6s; }
+@keyframes ttring { 0% { transform: scale(1); opacity: .9; } 45%, 100% { transform: scale(1.9); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .tt-grid, .tt-blob, .tt-sparks i, .tt-kbd i, .tt-steps .tt-n::after { animation: none; } .tt-sparks { display: none; } }
 
 /* ---------- accroche : le mur des créations ---------- */
 .hero { position: relative; isolation: isolate; min-height: 100svh; display: flex; flex-direction: column; justify-content: flex-end; padding: calc(var(--top-h) + env(safe-area-inset-top) + 20px) var(--gut) 26px; overflow: clip; }

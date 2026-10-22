@@ -357,8 +357,9 @@
     "kicker": "Tu arrives de TikTok",
     "title": "Ouvre le site dans ton navigateur.",
     "text": "Pour une meilleure immersion dans le site.",
-    "step1": "Touche <b class=\"tt-kbd\">•••</b> tout en haut à droite, au-dessus du site",
-    "step2": "Choisis <b>« Ouvrir dans le navigateur »</b>"
+    "step1": "Touche <b class=\"tt-kbd\"><i>•</i><i>•</i><i>•</i></b> tout en haut à droite, au-dessus du site",
+    "step2": "Choisis <b>« Ouvrir dans le navigateur »</b>",
+    "here": "Juste au-dessus"
   },
   "work": {
     "kicker": "Réalisations",

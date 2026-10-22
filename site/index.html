@@ -69,11 +69,14 @@ var c=l||((navigator.language||'fr').slice(0,2).toLowerCase()),k=document.create
   </div>
   <!-- Arrivée depuis le navigateur intégré de TikTok : invitation à ouvrir le site dans le vrai navigateur -->
   <div class="welcome-in tt" data-tt>
+    <div class="tt-bg" aria-hidden="true"><i class="tt-grid"></i><i class="tt-blob b1"></i><i class="tt-blob b2"></i></div>
     <span class="tt-glow" aria-hidden="true"></span>
-    <svg class="tt-arrow" viewBox="0 0 40 110" aria-hidden="true"><path class="tt-l" pathLength="1" d="M20 106V8"/><path class="tt-h" pathLength="1" d="M6 22L20 6l14 16"/></svg>
+    <span class="tt-here" aria-hidden="true" data-i18n="tt.here">Juste au-dessus</span>
+    <span class="tt-sparks" aria-hidden="true"><i></i><i></i><i></i></span>
+    <svg class="tt-arrow" viewBox="0 0 40 110" aria-hidden="true"><path class="tt-l" pathLength="1" d="M20 106V8"/><path class="tt-h" pathLength="1" d="M9 20L20 6l11 14"/></svg>
     <div class="lang-switch tt-lang" role="group" data-tt-lang data-i18n-attr="aria-label:common.langLabel"></div>
     <p class="kick" data-i18n="tt.kicker">Tu arrives de TikTok</p>
-    <p class="tt-title" id="tt-title" data-i18n="tt.title">Ouvre le site dans ton navigateur.</p>
+    <p class="tt-title" id="tt-title" data-split data-i18n="tt.title">Ouvre le site dans ton navigateur.</p>
     <p class="tt-text" data-i18n="tt.text">Pour une meilleure immersion dans le site.</p>
     <ol class="tt-steps">
       <li><span class="tt-n">1</span><span data-i18n-html="tt.step1">Touche <b class="tt-kbd">•••</b> en haut à droite</span></li>

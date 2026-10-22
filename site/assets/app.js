@@ -352,6 +352,7 @@ function ttHint() {
     w.hidden = false;
     w.setAttribute('aria-labelledby', 'tt-title');
     w.classList.add('show-tt');
+    requestAnimationFrame(() => requestAnimationFrame(() => $('.tt-title', w)?.classList.add('in')));
     try { sessionStorage.removeItem('tt'); localStorage.removeItem('tt'); } catch { /* navigation privée */ }
   });
 }

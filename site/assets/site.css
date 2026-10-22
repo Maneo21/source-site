@@ -161,9 +161,9 @@ main, .foot, .top-r, .sticky .btn { transition: opacity .3s var(--ease-o); }
 .tt-kbd { display: inline; font-weight: 800; letter-spacing: .14em; color: var(--acc); }
 /* en haut à droite, là où TikTok place ses trois points : un rappel qui pulse et une flèche qui y mène */
 /* le vrai bouton « ••• » de TikTok est dans sa barre, juste au-dessus de la page, à droite : la flèche monte vers lui */
-.welcome-in > .tt-arrow { opacity: 1; filter: drop-shadow(0 0 1.5px rgba(0, 0, 0, .95)) drop-shadow(0 0 1px rgba(0, 0, 0, .9)); position: absolute; top: 4px; right: -3px; width: 24px; height: 84px; fill: none; stroke: var(--acc); stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; overflow: visible; animation: ttup 1.6s var(--ease-io) 1.4s infinite; }
-.welcome-in > .tt-glow { opacity: 1; position: absolute; top: -78px; right: -78px; width: 170px; height: 170px; border-radius: 50%; background: radial-gradient(circle, rgba(210, 255, 77, .95) 0%, rgba(210, 255, 77, .55) 26%, rgba(210, 255, 77, .18) 48%, rgba(210, 255, 77, 0) 70%); animation: ttglow 1.4s ease-in-out infinite; pointer-events: none; }
-.welcome-in > .tt-here { position: absolute; top: 30px; right: 30px; font: 700 12px/1 var(--f-m); letter-spacing: .1em; text-transform: uppercase; color: var(--acc); text-shadow: 0 0 12px rgba(210, 255, 77, .6); white-space: nowrap; animation-delay: .5s; pointer-events: none; }
+.welcome-in > .tt-arrow { opacity: 1; filter: drop-shadow(0 0 1.5px rgba(0, 0, 0, .95)) drop-shadow(0 0 1px rgba(0, 0, 0, .9)); position: absolute; top: 4px; right: 14px; width: 24px; height: 84px; fill: none; stroke: var(--acc); stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; overflow: visible; animation: ttup 1.6s var(--ease-io) 1.4s infinite; }
+.welcome-in > .tt-glow { opacity: 1; position: absolute; top: -78px; right: -59px; width: 170px; height: 170px; border-radius: 50%; background: radial-gradient(circle, rgba(210, 255, 77, .95) 0%, rgba(210, 255, 77, .55) 26%, rgba(210, 255, 77, .18) 48%, rgba(210, 255, 77, 0) 70%); animation: ttglow 1.4s ease-in-out infinite; pointer-events: none; }
+.welcome-in > .tt-here { position: absolute; top: 30px; right: 48px; font: 700 12px/1 var(--f-m); letter-spacing: .1em; text-transform: uppercase; color: var(--acc); text-shadow: 0 0 12px rgba(210, 255, 77, .6); white-space: nowrap; animation-delay: .5s; pointer-events: none; }
 @keyframes ttup { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
 @keyframes ttglow { 0%, 100% { opacity: .6; transform: scale(.85); } 50% { opacity: 1; transform: scale(1.15); } }
 .tt-arrow path { stroke-dasharray: 1; stroke-dashoffset: 1; }
@@ -183,7 +183,7 @@ main, .foot, .top-r, .sticky .btn { transition: opacity .3s var(--ease-o); }
 @keyframes ttb1 { to { transform: translate3d(18vmax, 12vmax, 0) scale(1.15); } }
 @keyframes ttb2 { to { transform: translate3d(-16vmax, -10vmax, 0) scale(1.1); } }
 /* des particules qui remontent le long de la flèche, vers le vrai bouton de TikTok */
-.welcome-in > .tt-sparks { opacity: 1; animation: none; position: absolute; top: 0; right: 6px; width: 6px; height: 86px; pointer-events: none; }
+.welcome-in > .tt-sparks { opacity: 1; animation: none; position: absolute; top: 0; right: 23px; width: 6px; height: 86px; pointer-events: none; }
 .tt-sparks i { position: absolute; left: 0; bottom: 0; width: 6px; height: 6px; border-radius: 50%; background: #F4FFD0; box-shadow: 0 0 10px 2px rgba(210, 255, 77, .9); opacity: 0; animation: ttspark 1.8s cubic-bezier(.4, 0, .6, 1) infinite; }
 .tt-sparks i:nth-child(2) { animation-delay: .6s; } .tt-sparks i:nth-child(3) { animation-delay: 1.2s; }
 @keyframes ttspark { 0% { transform: translate3d(0, 0, 0) scale(.6); opacity: 0; } 15% { opacity: 1; } 85% { opacity: 1; } 100% { transform: translate3d(0, -84px, 0) scale(1.2); opacity: 0; } }

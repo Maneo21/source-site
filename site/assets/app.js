@@ -27,7 +27,7 @@ const U = [
 // « guide » : Je te guide. Trois créations : studio, pro (mise en avant), essentielle. HOW_TABS : les deux onglets du déroulé.
 const TIERS = ['studio', 'pro', 'essentielle'], OFFERS = ['guide', ...TIERS], HOW_TABS = ['creation', 'guide'];
 const isTier = o => TIERS.includes(o);
-const KINDS = { guide: ['site', 'pub', 'motion', 'autre'], studio: ['pub', 'motion'], pro: ['pub', 'motion'], essentielle: ['pub', 'motion'] };
+const KINDS = { guide: ['site', 'pub', 'motion', 'autre'], studio: ['pub', 'motion', 'site'], pro: ['pub', 'motion', 'site'], essentielle: ['pub', 'motion'] };
 // Aperçu sur le Mac (et non site public). « ?public=1 » montre l'aperçu comme le verra un visiteur.
 const PREVIEW = /^(localhost|127\.|192\.168\.|10\.|172\.(1[6-9]|2\d|3[01])\.)/.test(location.hostname) && !/[?&]public=1(&|$)/.test(location.search);
 
@@ -248,6 +248,7 @@ function buildTiers() {
   $('[data-tier="essentielle"]')?.classList.toggle('is-launch', !!I.vars.launchOn);
   const lb = $('[data-launch]');
   if (lb) { lb.hidden = !I.vars.launchOn; $('[data-launch-text]', lb).textContent = I.vars.launchOn ? I.t('offers.launchHero') : ''; tickLaunch(); }
+  for (const td of $$('#cmpbox .cmp tbody td')) { const t = td.textContent.trim(); td.classList.toggle('yes', t === '✓'); td.classList.toggle('no', t === '—'); }
   const lf = $('[data-launch-full]');
   if (lf) { lf.hidden = !I.vars.launchOn; $('span', lf).textContent = I.vars.launchOn ? I.t('offers.launch') : ''; }
 }
@@ -710,7 +711,7 @@ let lastFocus = null;
 function kindSpec() {
   const el = $('[data-kind-spec]'), k = els.form.elements.kind.value;
   el.hidden = !isTier(offer) || !KINDS[offer].includes(k);
-  el.textContent = el.hidden ? '' : I.t(`sheet.creation.specs.${k}`, I.vars.tiers?.[offer]);
+  el.textContent = el.hidden ? '' : I.t(k === 'site' ? `sheet.creation.specs.site.${offer}` : `sheet.creation.specs.${k}`, I.vars.tiers?.[offer]);
 }
 function sheetText() {
   const f = els.form;
@@ -729,8 +730,11 @@ function sheetText() {
   $('[data-sheet-items]', f).innerHTML = items.map(x => `<li>${esc(x)}</li>`).join('');
   $('[data-sheet-price]', f).textContent = I.vars.prices?.[offer] || I.vars.price;
   for (const el of $$('[data-only]', f)) el.hidden = el.dataset.only !== fam;
-  $('[data-kinds]', f).classList.toggle('three', false);
-  $('[data-kinds]', f).classList.toggle('two', fam === 'creation');
+  // seuls les types proposés par la formule restent : le site web est dans Pro et Studio, pas dans l'Essentielle
+  const kinds = $('[data-kinds]', f);
+  for (const l of $$('.kind', kinds)) l.hidden = !KINDS[offer].includes($('input', l).value);
+  const nk = KINDS[offer].length;
+  kinds.classList.toggle('two', nk === 2); kinds.classList.toggle('three', nk === 3);
   // une création porte toujours sur une pub ou une vidéo motion : un choix est toujours fait
   if (fam === 'creation' && !KINDS[offer].includes(f.elements.kind.value)) f.elements.kind.value = KINDS[offer].includes(lastKind) ? lastKind : 'pub';
   kindSpec();

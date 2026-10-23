@@ -88,8 +88,8 @@
     "revisionDays": 7,
     "tiers": {
       "studio": {
-        "amount": 29900,
-        "paymentLink": "https://buy.stripe.com/bJeeVe16W6c31iLaN49AA05",
+        "amount": 19900,
+        "paymentLink": "https://buy.stripe.com/aFabJ216Wbwn8Ld08q9AA06",
         "deliveryHours": 48,
         "revisions": 3,
         "videoSeconds": 30

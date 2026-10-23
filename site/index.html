@@ -27,7 +27,7 @@
 <link rel="modulepreload" href="/assets/vars.js?v=8a517853cc">
 <link rel="preload" href="/config.json" as="fetch" crossorigin>
 <link rel="preload" href="/i18n/languages.json" as="fetch" crossorigin>
-<link rel="stylesheet" href="/assets/site.css?v=2130b41e40">
+<link rel="stylesheet" href="/assets/site.css?v=a01db17bf0">
 <script>
 (function(){var d=document.documentElement,l=null;d.className=d.className.replace('no-js','js');
 try{l=localStorage.getItem('lang')}catch(e){}
@@ -40,7 +40,7 @@ if(tt)d.classList.add('is-tt');
 d.lang=l||'fr';
 var c=l||'fr',k=document.createElement('link');k.rel='preload';k.as='fetch';k.crossOrigin='anonymous';k.href='/i18n/'+(/^[a-z]{2}$/.test(c)?c:'fr')+'.json';document.head.appendChild(k)})();
 </script>
-<script type="module" src="/assets/app.js?v=a730e2feef"></script>
+<script type="module" src="/assets/app.js?v=92b30b5ee0"></script>
 </head>
 <body>
 <a class="skip" href="#main" data-i18n="common.skip">Aller au contenu</a>
@@ -123,7 +123,7 @@ var c=l||'fr',k=document.createElement('link');k.rel='preload';k.as='fetch';k.cr
       <p class="hero-sub" data-h style="--d:420ms" data-i18n="hero.sub">Pubs vidéo, motion design et sites web, créés avec l’IA. Je te montre comment faire, ou je le crée pour toi.</p>
       <div class="hero-offers" data-h style="--d:540ms" data-hide-sticky>
         <p class="ho-launch" data-launch hidden><i class="live"></i><span data-launch-text></span><b data-countdown></b></p>
-        <div class="trio trio-hero" role="radiogroup" data-i18n-attr="aria-label:sheet.switchLabel"><button type="button" class="tri" data-pick-tier="studio" data-trio="studio" aria-pressed="false"><b class="tri-n" data-i18n="offers.studio.name"></b><span class="tri-p"><s data-price-was="studio" hidden></s><span data-price="studio"></span></span><small class="tri-m" data-ti18n="{deliveryHours} h · {revisions}"></small></button><button type="button" class="tri is-main sel" data-pick-tier="pro" data-trio="pro" aria-pressed="true"><em class="tri-badge" data-i18n="offers.pro.badge"></em><b class="tri-n" data-i18n="offers.pro.name"></b><span class="tri-p"><s data-price-was="pro" hidden></s><span data-price="pro"></span></span><small class="tri-m" data-ti18n="{deliveryHours} h · {revisions}"></small></button><button type="button" class="tri" data-pick-tier="essentielle" data-trio="essentielle" aria-pressed="false"><b class="tri-n" data-i18n="offers.essentielle.name"></b><span class="tri-p"><s data-price-was="essentielle" hidden></s><span data-price="essentielle"></span></span><small class="tri-m" data-ti18n="{deliveryHours} h · {revisions}"></small></button></div>
+        <div class="trio trio-hero" role="radiogroup" data-i18n-attr="aria-label:sheet.switchLabel"><button type="button" class="tri" data-pick-tier="studio" data-trio="studio" aria-pressed="false"><b class="tri-n" data-i18n="offers.studio.name"></b><span class="tri-p"><s data-price-was="studio" hidden></s><span data-price="studio"></span></span><small class="tri-m" data-ti18n="offers.studio.mini"></small></button><button type="button" class="tri is-main sel" data-pick-tier="pro" data-trio="pro" aria-pressed="true"><em class="tri-badge" data-i18n="offers.pro.badge"></em><b class="tri-n" data-i18n="offers.pro.name"></b><span class="tri-p"><s data-price-was="pro" hidden></s><span data-price="pro"></span></span><small class="tri-m" data-ti18n="offers.pro.mini"></small></button><button type="button" class="tri" data-pick-tier="essentielle" data-trio="essentielle" aria-pressed="false"><b class="tri-n" data-i18n="offers.essentielle.name"></b><span class="tri-p"><s data-price-was="essentielle" hidden></s><span data-price="essentielle"></span></span><small class="tri-m" data-ti18n="offers.essentielle.mini"></small></button></div>
         <p class="ho-sum" data-ho-sum aria-live="polite"></p>
         <button class="btn btn-p btn-w ho-cta" type="button" data-book="pro" data-ho-cta><span data-ho-label>Choisir Pro · 99 €</span><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
         <p class="ho-links"><button type="button" data-open-compare data-i18n="hero.compare">Comparer les formules</button><span class="ho-safe"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10.5" width="14" height="10" rx="2.5"/><path d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5"/></svg><span data-i18n="hero.safeShort">Paiement sécurisé par Stripe</span></span></p>
@@ -270,9 +270,9 @@ var c=l||'fr',k=document.createElement('link');k.rel='preload';k.as='fetch';k.cr
     <fieldset class="kinds">
       <legend data-sheet="kindLabel">Ton projet</legend>
       <div class="kinds-row" data-kinds>
-        <label class="kind" data-only="guide"><input type="radio" name="kind" value="site"><span data-i18n="sheet.kinds.site">Site web</span></label>
         <label class="kind"><input type="radio" name="kind" value="pub"><span data-i18n="sheet.kinds.pub">Vidéo pub</span></label>
         <label class="kind"><input type="radio" name="kind" value="motion"><span data-i18n="sheet.kinds.motion">Motion</span></label>
+        <label class="kind"><input type="radio" name="kind" value="site"><span data-i18n="sheet.kinds.site">Site web</span></label>
         <label class="kind" data-only="guide"><input type="radio" name="kind" value="autre"><span data-i18n="sheet.kinds.autre">Autre</span></label>
       </div>
       <p class="chan-help" data-kind-spec data-only="creation" hidden></p>
@@ -314,16 +314,20 @@ var c=l||'fr',k=document.createElement('link');k.rel='preload';k.as='fetch';k.cr
     <p class="cmp-launch" data-launch-full hidden><i class="live"></i><span></span></p>
     <div class="cmp-wrap">
           <table class="cmp">
-            <thead><tr><td></td><th scope="col" data-i18n="offers.studio.name"></th><th scope="col" class="is-main" data-i18n="offers.pro.name"></th><th scope="col" data-i18n="offers.essentielle.name"></th></tr></thead>
+            <thead><tr><td></td><th scope="col"><span data-i18n="offers.studio.name"></span><small data-price="studio"></small></th><th scope="col" class="is-main"><span data-i18n="offers.pro.name"></span><small data-price="pro"></small></th><th scope="col"><span data-i18n="offers.essentielle.name"></span><small><s data-price-was="essentielle" hidden></s> <span data-price="essentielle"></span></small></th></tr></thead>
             <tbody>
-            <tr><th scope="row" data-i18n="offers.compare.rows.0.l"></th><td data-i18n="offers.compare.rows.0.studio"></td><td class="is-main" data-i18n="offers.compare.rows.0.pro"></td><td data-i18n="offers.compare.rows.0.essentielle"></td></tr>
+            <tr class="key"><th scope="row" data-i18n="offers.compare.rows.0.l"></th><td data-i18n="offers.compare.rows.0.studio"></td><td class="is-main" data-i18n="offers.compare.rows.0.pro"></td><td data-i18n="offers.compare.rows.0.essentielle"></td></tr>
             <tr><th scope="row" data-i18n="offers.compare.rows.1.l"></th><td data-i18n="offers.compare.rows.1.studio"></td><td class="is-main" data-i18n="offers.compare.rows.1.pro"></td><td data-i18n="offers.compare.rows.1.essentielle"></td></tr>
             <tr><th scope="row" data-i18n="offers.compare.rows.2.l"></th><td data-i18n="offers.compare.rows.2.studio"></td><td class="is-main" data-i18n="offers.compare.rows.2.pro"></td><td data-i18n="offers.compare.rows.2.essentielle"></td></tr>
             <tr><th scope="row" data-i18n="offers.compare.rows.3.l"></th><td data-i18n="offers.compare.rows.3.studio"></td><td class="is-main" data-i18n="offers.compare.rows.3.pro"></td><td data-i18n="offers.compare.rows.3.essentielle"></td></tr>
             <tr><th scope="row" data-i18n="offers.compare.rows.4.l"></th><td data-i18n="offers.compare.rows.4.studio"></td><td class="is-main" data-i18n="offers.compare.rows.4.pro"></td><td data-i18n="offers.compare.rows.4.essentielle"></td></tr>
             <tr><th scope="row" data-i18n="offers.compare.rows.5.l"></th><td data-i18n="offers.compare.rows.5.studio"></td><td class="is-main" data-i18n="offers.compare.rows.5.pro"></td><td data-i18n="offers.compare.rows.5.essentielle"></td></tr>
-            <tr><th scope="row" data-i18n="offers.compare.rows.6.l"></th><td data-i18n="offers.compare.rows.6.studio"></td><td class="is-main" data-i18n="offers.compare.rows.6.pro"></td><td data-i18n="offers.compare.rows.6.essentielle"></td></tr>
+            <tr class="key"><th scope="row" data-i18n="offers.compare.rows.6.l"></th><td data-i18n="offers.compare.rows.6.studio"></td><td class="is-main" data-i18n="offers.compare.rows.6.pro"></td><td data-i18n="offers.compare.rows.6.essentielle"></td></tr>
             <tr><th scope="row" data-i18n="offers.compare.rows.7.l"></th><td data-i18n="offers.compare.rows.7.studio"></td><td class="is-main" data-i18n="offers.compare.rows.7.pro"></td><td data-i18n="offers.compare.rows.7.essentielle"></td></tr>
+            <tr><th scope="row" data-i18n="offers.compare.rows.8.l"></th><td data-i18n="offers.compare.rows.8.studio"></td><td class="is-main" data-i18n="offers.compare.rows.8.pro"></td><td data-i18n="offers.compare.rows.8.essentielle"></td></tr>
+            <tr><th scope="row" data-i18n="offers.compare.rows.9.l"></th><td data-i18n="offers.compare.rows.9.studio"></td><td class="is-main" data-i18n="offers.compare.rows.9.pro"></td><td data-i18n="offers.compare.rows.9.essentielle"></td></tr>
+            <tr><th scope="row" data-i18n="offers.compare.rows.10.l"></th><td data-i18n="offers.compare.rows.10.studio"></td><td class="is-main" data-i18n="offers.compare.rows.10.pro"></td><td data-i18n="offers.compare.rows.10.essentielle"></td></tr>
+            <tr><th scope="row" data-i18n="offers.compare.rows.11.l"></th><td data-i18n="offers.compare.rows.11.studio"></td><td class="is-main" data-i18n="offers.compare.rows.11.pro"></td><td data-i18n="offers.compare.rows.11.essentielle"></td></tr>
             </tbody>
             <tfoot><tr><td></td><td><button class="btn btn-g cmp-pick" type="button" data-book="studio" data-i18n="offers.compare.pick">Choisir</button></td><td class="is-main"><button class="btn btn-p cmp-pick" type="button" data-book="pro" data-i18n="offers.compare.pick">Choisir</button></td><td><button class="btn btn-g cmp-pick" type="button" data-book="essentielle" data-i18n="offers.compare.pick">Choisir</button></td></tr></tfoot>
           </table>

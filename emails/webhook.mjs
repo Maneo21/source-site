@@ -14,7 +14,7 @@ const KINDS = { guide: ['site', 'pub', 'motion', 'autre'], creation: ['site', 'p
 const TIERS = ['studio', 'pro', 'essentielle'];
 const DEFAULTS = {
   brand: 'IA Motion Studio', contactEmail: 'contact@maneo-ai.fr', offer: { amount: 1490, replyHours: 24 },
-  creation: { revisionDays: 7, tiers: { studio: { amount: 29900, deliveryHours: 48, revisions: 3 }, pro: { amount: 9900, deliveryHours: 48, revisions: 2 }, essentielle: { amount: 3900, deliveryHours: 24, revisions: 1 } } },
+  creation: { revisionDays: 7, tiers: { studio: { amount: 19900, deliveryHours: 48, revisions: 3 }, pro: { amount: 9900, deliveryHours: 48, revisions: 2 }, essentielle: { amount: 3900, deliveryHours: 24, revisions: 1 } } },
   launch: { guide: { amount: 790 }, essentielle: { amount: 1990 } }, seller: {},
 };
 const POSTMARK = {

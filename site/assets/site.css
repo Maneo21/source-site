@@ -859,3 +859,40 @@ a.fk.is-main { color: var(--acc-ink); }
   .welcome.out { --hole: 0px; opacity: 0; }
   html { scroll-behavior: auto; }
 }
+
+/* ---------- nouveau titre « Votre pub. / Votre vidéo. / Votre site. » ---------- */
+/* chaque mot clé sur la pastille citron, texte noir, légèrement penchée (comme l'ancien mot qui tournait) */
+.h-hero .hh-l .w:last-child { --rot: -1.6deg; margin: .05em 0 .07em .04em; padding: 0 .15em .04em; border-radius: .14em; background: var(--acc); box-shadow: 0 20px 54px -20px rgba(210, 255, 77, .75); transform-origin: 0 50%; transform: rotate(var(--rot)) scaleX(0); transition: transform .8s var(--ease-o) calc(var(--d, 0ms) + 120ms); }
+.h-hero .hh-l:nth-child(2) .w:last-child { --rot: 1.2deg; }
+.h-hero .hh-l:nth-child(3) .w:last-child { --rot: -1deg; }
+.h-hero.in .hh-l .w:last-child, .no-js .h-hero .hh-l .w:last-child { transform: rotate(var(--rot)); }
+.h-hero .hh-l .w:last-child .wi { color: var(--acc-ink); text-shadow: none; }
+@media (prefers-reduced-motion: reduce) { .h-hero .hh-l .w:last-child { transform: rotate(var(--rot)); transition: none; } }
+/* le sous-titre, un peu plus long, tient sur deux lignes à l'ordinateur */
+@media (min-width: 1000px) { .hero-sub { max-width: 46ch; } }
+@media (min-width: 1000px) { .h-hero { font-size: clamp(60px, 5.2vw, 104px); } .h-hero .hh-l .w:last-child { margin: 0 0 .02em .04em; } }
+
+/* ---------- finitions premium (ajouts uniquement : rien n'est retiré ni atténué) ---------- */
+/* titres de section : ombre portée et mot clé en citron */
+.h2 { text-shadow: 0 2px 28px rgba(0, 0, 0, .6); }
+em.acc { font-style: normal; }
+.h2 em.acc, .h2 em.acc .wi { color: var(--acc); }
+/* un fin filet lumineux ouvre chaque section, une lumière d'ambiance très douce derrière les titres */
+.sec:not(.hero)::after { content: ""; position: absolute; z-index: -1; top: 0; left: 50%; width: min(1180px, calc(100% - 2 * var(--gut))); height: 1px; translate: -50% 0; background: linear-gradient(90deg, transparent, rgba(242, 239, 233, .1) 25%, rgba(210, 255, 77, .32) 50%, rgba(242, 239, 233, .1) 75%, transparent); pointer-events: none; }
+.work, .reviews, .how, .faq { isolation: isolate; }
+.work::before, .reviews::before, .how::before, .faq::before { content: ""; position: absolute; z-index: -1; top: 0; left: 0; right: 0; height: min(760px, 120vw); background: radial-gradient(42% 38% at 14% 42%, rgba(210, 255, 77, .045), transparent 100%); pointer-events: none; }
+.reviews::before, .faq::before { background: radial-gradient(42% 38% at 86% 42%, rgba(210, 255, 77, .04), transparent 100%); }
+/* cartes : une arête de lumière en haut et de la profondeur (les lueurs existantes sont gardées) */
+.rv, .step, .ho-guide { box-shadow: inset 0 1px 0 rgba(255, 255, 255, .06), 0 24px 60px -34px rgba(0, 0, 0, .9); }
+.step.on { box-shadow: inset 0 1px 0 rgba(255, 255, 255, .07), 0 26px 50px -32px rgba(210, 255, 77, .45); }
+.rv-b mark { text-shadow: 0 0 18px rgba(210, 255, 77, .25); }
+/* vidéos : un voile en bas pour que les étiquettes restent lisibles */
+.rt { isolation: isolate; }
+.rt::after { content: ""; position: absolute; inset: auto 0 0 0; height: 46%; z-index: 0; background: linear-gradient(0deg, rgba(5, 5, 6, .7), transparent); pointer-events: none; border-radius: inherit; }
+/* questions : la question ouverte s'allume en citron */
+.qa summary { transition: color .25s; }
+.qa.is-open summary { color: var(--acc); }
+@media (hover: hover) { .qa summary:hover { color: var(--acc); } }
+/* textes courants et étiquettes un peu plus lisibles */
+:root { --ink2: rgba(242, 239, 233, .76); --ink3: rgba(242, 239, 233, .52); }
+.kick { color: rgba(242, 239, 233, .62); }

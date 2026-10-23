@@ -34,7 +34,7 @@
     "sections": [
       {
         "h": "1. Purpose",
-        "html": "<p>These terms of sale apply to the sale, on this website, of the services offered under the name {brand} by {seller.name} (the “Seller”) to any individual acting as a consumer (the “Client”):</p><ul><li>personal coaching for creating websites, video ads and motion design with artificial intelligence (the “I guide you” option, hereafter the “personal exchange”);</li><li>the making by the Seller, for the Client, of a video ad, a motion design video or, with the “Studio” and “Pro” options, a website, offered in three options: “Studio”, “Pro” and “Essential” (hereafter the “made-to-order creation”).</li></ul><p>Placing an order means accepting them.</p>"
+        "html": "<p>These terms of sale apply to the sale, on this website, of the services offered under the name {brand} by {seller.name} (the “Seller”) to any person, whether acting as a consumer or for the purposes of their business (the “Client”):</p><ul><li>personal coaching for creating websites, video ads and motion design with artificial intelligence (the “I guide you” option, hereafter the “personal exchange”);</li><li>the making by the Seller, for the Client, of a video ad, a motion design video or, with the “Studio” and “Pro” options, a website, offered in three options: “Studio”, “Pro” and “Essential” (hereafter the “made-to-order creation”).</li></ul><p>Placing an order means accepting them. Specific provisions for business clients are set out in clause 12.</p>"
       },
       {
         "h": "2. The services",
@@ -78,6 +78,10 @@
       {
         "h": "11. Governing law and language",
         "html": "<p>These terms are governed by French law. This choice does not deprive a Client living in another country of the protection granted by the mandatory provisions of that country’s law.</p><p>These terms are available in French and English. In case of discrepancy, the French version prevails.</p>"
+      },
+      {
+        "h": "12. Business clients",
+        "html": "<p>These terms also apply to a Client ordering for the purposes of their business (the “Business Client”), subject to the following provisions, which prevail for them:</p><ul><li>the right of withdrawal (clause 6) and recourse to a consumer mediator (clause 10) are reserved for consumer Clients, except where the law extends them to certain professionals (article L221-3 of the French Consumer Code);</li><li>the price is payable in full when ordering; no discount is granted for early payment. Any late payment would automatically incur penalties at the interest rate applied by the European Central Bank to its most recent refinancing operation plus 10 percentage points, and a fixed recovery fee of €40 (articles L441-10 and D441-5 of the French Commercial Code);</li><li>an invoice is sent to the Business Client on simple request to {seller.email}, stating the name and address of their business. {seller.vat};</li><li>the Seller’s liability towards a Business Client is limited to direct and foreseeable damage, up to the price paid for the order concerned;</li><li>the Business Client warrants that the person placing the order is authorised to bind their business.</li></ul>"
       }
     ]
   },

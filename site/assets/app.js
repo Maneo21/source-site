@@ -147,6 +147,8 @@ function split(el) {
 function pageText() {
   document.title = I.t('meta.title');
   $('meta[name="description"]')?.setAttribute('content', I.t('meta.description'));
+  // *mot* dans un titre : mis en avant en citron
+  for (const el of $$('[data-split][data-i18n]')) { const t = I.t(el.dataset.i18n); if (t.includes('*')) el.innerHTML = esc(t).replace(/\*([^*]+)\*/g, '<em class="acc">$1</em>'); }
   $$('[data-split]').forEach(split);
   buildRolls();
   buildExample();
@@ -285,7 +287,7 @@ function buildSig() {
     proof.innerHTML = items.map(p => `<li><strong>${esc(p.value)}</strong><span>${esc(p.label)}</span></li>`).join('');
   }
   if (line) {
-    const ICO = { eye: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="3"/></svg>', heart: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.2a4.3 4.3 0 0 1 7.5 2.6C19.5 15.4 12 20 12 20z"/></svg>' };
+    const ICO = { users: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8.5" r="3.2"/><path d="M3.5 19c.9-3 3-4.6 5.5-4.6s4.6 1.6 5.5 4.6"/><path d="M15.5 5.6a3 3 0 0 1 0 5.8M17.5 14.6c1.5.6 2.5 2.1 3 4.4"/></svg>', eye: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="3"/></svg>', heart: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.2a4.3 4.3 0 0 1 7.5 2.6C19.5 15.4 12 20 12 20z"/></svg>' };
     const raw = (Array.isArray(I.config.proof) ? I.config.proof : []).filter(p => String(pick(p?.value, I.lang) ?? '').trim());
     line.hidden = !items.length;
     line.innerHTML = items.slice(0, 2).map((p, k) => `<span class="hp-i">${ICO[raw[k]?.icon] || ''}<b>${esc(p.value)}</b> ${esc(p.label)}</span>`).join('');
@@ -429,7 +431,7 @@ function start() {
   $$('[data-r], [data-split]').forEach(el => { if (!el.closest('.hero')) io.observe(el); });
   initTiers();
   setTimeout(() => { initWall(); initReel(); initMinis(); }, RM ? 0 : 450);
-  if (!RM) Rt.timer = setInterval(rotNext, 2600);
+  if (!RM && $('[data-rot]')) Rt.timer = setInterval(rotNext, 2600);
   setTimeout(updSticky, RM ? 0 : 1700);
   kick();
 }

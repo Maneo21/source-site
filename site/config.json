@@ -9,25 +9,14 @@
   "proof": [
     {
       "value": {
-        "fr": "60 000",
-        "en": "60,000"
+        "fr": "Plus de 50",
+        "en": "50+"
       },
       "label": {
-        "fr": "vues sur TikTok",
-        "en": "views on TikTok"
+        "fr": "clients satisfaits en 2 semaines",
+        "en": "happy clients in 2 weeks"
       },
-      "icon": "eye"
-    },
-    {
-      "value": {
-        "fr": "5 000",
-        "en": "5,000"
-      },
-      "label": {
-        "fr": "j’aime",
-        "en": "likes"
-      },
-      "icon": "heart"
+      "icon": "users"
     }
   ],
   "reviews": [
@@ -62,14 +51,10 @@
       "consent": true,
       "text": {
         "fr": [
-          "Merci beaucoup pour la vidéo mec ! La *qualité est incroyable*, et tu as fais sa *rapidement* en plus !",
-          "je te garderai pour mes prochaines vidéo sa c est sur ;)",
-          "un pote à moi va sûrement te contacter ;)"
+          "Merci beaucoup pour la vidéo […] ! La *qualité est incroyable* […] *rapidement* en plus !"
         ],
         "en": [
-          "Thanks a lot for the video man! The *quality is incredible*, and you did it *fast* too!",
-          "I’ll keep you for my next videos for sure ;)",
-          "a friend of mine will probably contact you ;)"
+          "Thanks a lot for the video […]! The *quality is incredible* […] *fast* too!"
         ]
       }
     }
@@ -117,7 +102,7 @@
       "paymentLink": "https://buy.stripe.com/4gM7sM2b07g78Ld08q9AA01"
     }
   },
-  "termsVersion": "2026-10-23",
+  "termsVersion": "2026-10-23-2",
   "mediator": {
     "name": "",
     "url": ""

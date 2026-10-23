@@ -27,7 +27,7 @@
 <link rel="modulepreload" href="/assets/vars.js?v=8a517853cc">
 <link rel="preload" href="/config.json" as="fetch" crossorigin>
 <link rel="preload" href="/i18n/languages.json" as="fetch" crossorigin>
-<link rel="stylesheet" href="/assets/site.css?v=a01db17bf0">
+<link rel="stylesheet" href="/assets/site.css?v=3a864b1983">
 <script>
 (function(){var d=document.documentElement,l=null;d.className=d.className.replace('no-js','js');
 try{l=localStorage.getItem('lang')}catch(e){}
@@ -40,7 +40,7 @@ if(tt)d.classList.add('is-tt');
 d.lang=l||'fr';
 var c=l||'fr',k=document.createElement('link');k.rel='preload';k.as='fetch';k.crossOrigin='anonymous';k.href='/i18n/'+(/^[a-z]{2}$/.test(c)?c:'fr')+'.json';document.head.appendChild(k)})();
 </script>
-<script type="module" src="/assets/app.js?v=92b30b5ee0"></script>
+<script type="module" src="/assets/app.js?v=23f60030b1"></script>
 </head>
 <body>
 <a class="skip" href="#main" data-i18n="common.skip">Aller au contenu</a>
@@ -50,7 +50,7 @@ var c=l||'fr',k=document.createElement('link');k.rel='preload';k.as='fetch';k.cr
   <div class="welcome-in">
     <div class="logo logo-l" aria-hidden="true"><span data-brand>IA Motion Studio</span><i class="caret"></i></div>
     <p class="welcome-hello" aria-hidden="true" data-hello><span lang="fr" class="on">Bonjour</span><span lang="en">Hello</span></p>
-    <p class="welcome-q" id="welcome-q"><span lang="fr">Choisis ta langue</span><i aria-hidden="true">·</i><span lang="en">Choose your language</span></p>
+    <p class="welcome-q" id="welcome-q"><span lang="fr">Choisissez votre langue</span><i aria-hidden="true">·</i><span lang="en">Choose your language</span></p>
     <div class="welcome-langs" data-langs>
       <button type="button" class="wl-btn" data-code="fr" lang="fr"><img class="flag" src="/assets/flags/fr.svg" alt="" width="36" height="36"><span class="wl-name">Français</span><span class="wl-go" aria-hidden="true">→</span></button>
       <button type="button" class="wl-btn" data-code="en" lang="en"><img class="flag" src="/assets/flags/gb.svg" alt="" width="36" height="36"><span class="wl-name">English</span><span class="wl-go" aria-hidden="true">→</span></button>
@@ -75,12 +75,12 @@ var c=l||'fr',k=document.createElement('link');k.rel='preload';k.as='fetch';k.cr
     <span class="tt-sparks" aria-hidden="true"><i></i><i></i><i></i></span>
     <svg class="tt-arrow" viewBox="0 0 40 110" aria-hidden="true"><path class="tt-l" pathLength="1" d="M20 106V8"/><path class="tt-h" pathLength="1" d="M9 20L20 6l11 14"/></svg>
     <div class="lang-switch tt-lang" role="group" data-tt-lang data-i18n-attr="aria-label:common.langLabel"></div>
-    <p class="kick" data-i18n="tt.kicker">Tu arrives de TikTok</p>
-    <p class="tt-title" id="tt-title" data-split data-i18n="tt.title">Ouvre le site dans ton navigateur.</p>
+    <p class="kick" data-i18n="tt.kicker">Vous arrivez de TikTok</p>
+    <p class="tt-title" id="tt-title" data-split data-i18n="tt.title">Ouvrez le site dans votre navigateur.</p>
     <p class="tt-text" data-i18n="tt.text">Pour une meilleure immersion dans le site.</p>
     <ol class="tt-steps">
-      <li><span class="tt-n">1</span><span data-i18n-html="tt.step1">Touche <b class="tt-kbd">•••</b> en haut à droite</span></li>
-      <li><span class="tt-n">2</span><span data-i18n-html="tt.step2">Choisis <b>« Ouvrir dans le navigateur »</b></span></li>
+      <li><span class="tt-n">1</span><span data-i18n-html="tt.step1">Touchez <b class="tt-kbd">•••</b> en haut à droite</span></li>
+      <li><span class="tt-n">2</span><span data-i18n-html="tt.step2">Choisissez <b>« Ouvrir dans le navigateur »</b></span></li>
     </ol>
   </div>
 </div>
@@ -115,12 +115,12 @@ var c=l||'fr',k=document.createElement('link');k.rel='preload';k.as='fetch';k.cr
     <i class="hero-veil" aria-hidden="true"></i>
     <div class="hero-in">
       <p class="hero-kick hero-proof" data-h data-proofline hidden></p>
-      <h1 class="h-hero" data-h data-i18n-attr="aria-label:hero.aria" aria-label="Tu veux créer un site, une pub ou du motion design comme ça ?">
-        <span class="hh-l" aria-hidden="true" data-split data-i18n="hero.pre">Tu veux créer</span>
-        <span class="hh-rot" aria-hidden="true" data-rot><span class="rot-w on">une pub</span></span>
-        <span class="hh-l" aria-hidden="true" data-split data-i18n="hero.post" style="--d:230ms">comme ça ?</span>
+      <h1 class="h-hero" data-h data-i18n-attr="aria-label:hero.aria" aria-label="Votre pub. Votre vidéo. Votre site.">
+        <span class="hh-l" aria-hidden="true" data-split data-i18n="hero.l1">Votre pub.</span>
+        <span class="hh-l" aria-hidden="true" data-split data-i18n="hero.l2" style="--d:110ms">Votre vidéo.</span>
+        <span class="hh-l hh-acc" aria-hidden="true" data-split data-i18n="hero.l3" style="--d:220ms">Votre site.</span>
       </h1>
-      <p class="hero-sub" data-h style="--d:420ms" data-i18n="hero.sub">Pubs vidéo, motion design et sites web, créés avec l’IA. Je te montre comment faire, ou je le crée pour toi.</p>
+      <p class="hero-sub" data-h style="--d:420ms" data-i18n="hero.sub">Pubs vidéo, motion design et sites web, créés pour votre marque. Sur mesure, livrés en 48 h maximum.</p>
       <div class="hero-offers" data-h style="--d:540ms" data-hide-sticky>
         <p class="ho-launch" data-launch hidden><i class="live"></i><span data-launch-text></span><b data-countdown></b></p>
         <div class="trio trio-hero" role="radiogroup" data-i18n-attr="aria-label:sheet.switchLabel"><button type="button" class="tri" data-pick-tier="studio" data-trio="studio" aria-pressed="false"><b class="tri-n" data-i18n="offers.studio.name"></b><span class="tri-p"><s data-price-was="studio" hidden></s><span data-price="studio"></span></span><small class="tri-m" data-ti18n="offers.studio.mini"></small></button><button type="button" class="tri is-main sel" data-pick-tier="pro" data-trio="pro" aria-pressed="true"><em class="tri-badge" data-i18n="offers.pro.badge"></em><b class="tri-n" data-i18n="offers.pro.name"></b><span class="tri-p"><s data-price-was="pro" hidden></s><span data-price="pro"></span></span><small class="tri-m" data-ti18n="offers.pro.mini"></small></button><button type="button" class="tri" data-pick-tier="essentielle" data-trio="essentielle" aria-pressed="false"><b class="tri-n" data-i18n="offers.essentielle.name"></b><span class="tri-p"><s data-price-was="essentielle" hidden></s><span data-price="essentielle"></span></span><small class="tri-m" data-ti18n="offers.essentielle.mini"></small></button></div>
@@ -128,7 +128,7 @@ var c=l||'fr',k=document.createElement('link');k.rel='preload';k.as='fetch';k.cr
         <button class="btn btn-p btn-w ho-cta" type="button" data-book="pro" data-ho-cta><span data-ho-label>Choisir Pro · 99 €</span><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
         <p class="ho-links"><button type="button" data-open-compare data-i18n="hero.compare">Comparer les formules</button><span class="ho-safe"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10.5" width="14" height="10" rx="2.5"/><path d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5"/></svg><span data-i18n="hero.safeShort">Paiement sécurisé par Stripe</span></span></p>
       </div>
-      <button class="ho-guide" type="button" data-book="guide" data-h style="--d:660ms"><span class="hg-t"><small data-i18n="offers.guide.for">Tu préfères le faire toi-même ?</small><b data-i18n="offers.guide.name">Je te guide</b></span><span class="hg-p"><s data-price-was="guide" hidden></s><span data-price="guide">14,90 €</span></span><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+      <button class="ho-guide" type="button" data-book="guide" data-h style="--d:660ms"><span class="hg-t"><small data-i18n="offers.guide.for">Vous préférez le faire vous-même ?</small><b data-i18n="offers.guide.name">Je vous guide</b></span><span class="hg-p"><s data-price-was="guide" hidden></s><span data-price="guide">14,90 €</span></span><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
     </div>
     <a class="hero-next" href="#realisations" data-h style="--d:820ms"><span data-i18n="hero.scroll">Voir les réalisations</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"/></svg></a>
   </section>
@@ -184,8 +184,8 @@ var c=l||'fr',k=document.createElement('link');k.rel='preload';k.as='fetch';k.cr
       <h2 class="h2" data-split data-i18n="how.title">Trois étapes. Aucune surprise.</h2>
       <div class="seg" role="tablist" data-tabs data-r data-i18n-attr="aria-label:how.tabsLabel">
         <span class="seg-pill" aria-hidden="true"></span>
-        <button type="button" role="tab" aria-selected="true" data-tab="creation" data-i18n="offers.creation.name">Je crée pour toi</button>
-        <button type="button" role="tab" aria-selected="false" data-tab="guide" data-i18n="offers.guide.name">Je te guide</button>
+        <button type="button" role="tab" aria-selected="true" data-tab="creation" data-i18n="offers.creation.name">Je crée pour vous</button>
+        <button type="button" role="tab" aria-selected="false" data-tab="guide" data-i18n="offers.guide.name">Je vous guide</button>
       </div>
       <div class="steps" data-steps>
         <ol class="st-list">
@@ -219,8 +219,8 @@ var c=l||'fr',k=document.createElement('link');k.rel='preload';k.as='fetch';k.cr
     <div class="wrap">
       <h2 class="h2" data-split data-i18n="final.title">Alors, tu le fais ou je le fais ?</h2>
       <div class="final-cta" data-r>
-        <button class="btn btn-i btn-xl" type="button" data-book="guide"><span data-i18n="offers.guide.name">Je te guide</span><span class="btn-price" data-price>7,90 €</span></button>
-        <button class="btn btn-p btn-xl" type="button" data-book="pro"><span data-i18n="final.creation">Je crée pour toi</span><span class="btn-price"><small data-i18n="offers.pro.name">Pro</small> <span data-price="pro">99 €</span></span></button>
+        <button class="btn btn-i btn-xl" type="button" data-book="guide"><span data-i18n="offers.guide.name">Je vous guide</span><span class="btn-price" data-price>7,90 €</span></button>
+        <button class="btn btn-p btn-xl" type="button" data-book="pro"><span data-i18n="final.creation">Je crée pour vous</span><span class="btn-price"><small data-i18n="offers.pro.name">Pro</small> <span data-price="pro">99 €</span></span></button>
       </div>
       <p class="final-note" data-r style="--d:120ms"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10.5" width="14" height="10" rx="2.5"/><path d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5"/></svg><span data-i18n="final.note">Paiement unique · sécurisé par Stripe</span></p>
     </div>
@@ -247,7 +247,7 @@ var c=l||'fr',k=document.createElement('link');k.rel='preload';k.as='fetch';k.cr
 <!-- Barre du bas (téléphone) : mène aux deux formules -->
 <div class="sticky" data-sticky>
   <a class="btn btn-p" href="#top" data-go-offers><span data-i18n="sticky.cta">Choisir ma formule</span><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"/></svg></a>
-  <p class="sticky-t" data-i18n="sticky.note">Je te guide, ou je crée pour toi</p>
+  <p class="sticky-t" data-i18n="sticky.note">Je vous guide, ou je crée pour vous</p>
 </div>
 
 <!-- Récapitulatif avant paiement -->
@@ -332,7 +332,7 @@ var c=l||'fr',k=document.createElement('link');k.rel='preload';k.as='fetch';k.cr
             <tfoot><tr><td></td><td><button class="btn btn-g cmp-pick" type="button" data-book="studio" data-i18n="offers.compare.pick">Choisir</button></td><td class="is-main"><button class="btn btn-p cmp-pick" type="button" data-book="pro" data-i18n="offers.compare.pick">Choisir</button></td><td><button class="btn btn-g cmp-pick" type="button" data-book="essentielle" data-i18n="offers.compare.pick">Choisir</button></td></tr></tfoot>
           </table>
     </div>
-    <button class="cmpbox-guide" type="button" data-book="guide"><span data-i18n="offers.guide.for">Tu préfères le faire toi-même ?</span> <b><span data-i18n="offers.guide.name">Je te guide</span> · <span data-price="guide">14,90 €</span></b></button>
+    <button class="cmpbox-guide" type="button" data-book="guide"><span data-i18n="offers.guide.for">Vous préférez le faire vous-même ?</span> <b><span data-i18n="offers.guide.name">Je vous guide</span> · <span data-price="guide">14,90 €</span></b></button>
   </div>
 </div>
 
@@ -361,10 +361,10 @@ var c=l||'fr',k=document.createElement('link');k.rel='preload';k.as='fetch';k.cr
       </button>
     </div>
     <div class="p-end">
-      <p class="p-end-t" data-i18n="video.endTitle">À ton tour ?</p>
+      <p class="p-end-t" data-i18n="video.endTitle">Et votre projet ?</p>
       <p class="p-end-s" data-i18n="video.endSub"></p>
-      <button class="btn btn-p" type="button" data-book="creation"><span data-i18n="offers.creation.name">Je crée pour toi</span><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
-      <button class="btn btn-g" type="button" data-book="guide"><span data-i18n="offers.guide.name">Je te guide</span></button>
+      <button class="btn btn-p" type="button" data-book="creation"><span data-i18n="offers.creation.name">Je crée pour vous</span><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+      <button class="btn btn-g" type="button" data-book="guide"><span data-i18n="offers.guide.name">Je vous guide</span></button>
       <button class="p-replay" type="button" data-preplay><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 12a7.5 7.5 0 1 0 2.2-5.3M4.5 4.5v4h4"/></svg><span data-i18n="video.replay">Revoir</span></button>
     </div>
   </div>

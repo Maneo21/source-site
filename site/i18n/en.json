@@ -1,7 +1,7 @@
 {
   "meta": {
-    "title": "IA Motion Studio · Video ads, motion design and websites with AI",
-    "description": "Custom video ads, motion design and websites made with AI: options from {priceCreation}, delivered in 24 to 48 hours. Or I guide you to make them yourself ({price}).",
+    "title": "IA Motion Studio · Custom video ads, motion design and websites",
+    "description": "Custom video ads, motion design and websites, delivered in 24 to 48 hours. Options from {priceCreation}. Or I guide you to create them yourself with AI ({price}).",
     "legalTitle": "Legal information · {brand}",
     "merciTitle": "Thank you · {brand}"
   },
@@ -28,7 +28,7 @@
     "work": "Work"
   },
   "hero": {
-    "aria": "Want to create a website, an ad or motion design like this?",
+    "aria": "Your ad. Your video. Your website.",
     "pre": "Want to create",
     "words": [
       "an ad",
@@ -36,7 +36,7 @@
       "a website"
     ],
     "post": "like this?",
-    "sub": "Ads, motion videos and websites made with AI. Custom-made, delivered in 24 to 48 hours.",
+    "sub": "Video ads, motion design and websites, made for your brand. Custom-made, delivered within 48 hours.",
     "prev": "Previous video",
     "next": "Next video",
     "safe": "One-time payment · secured by Stripe",
@@ -49,7 +49,10 @@
     "compare": "Compare the options",
     "learnShort": "I guide you",
     "choose": "Choose {name} · {price}",
-    "safeShort": "Secured by Stripe"
+    "safeShort": "Secured by Stripe",
+    "l1": "Your ad.",
+    "l2": "Your video.",
+    "l3": "Your website."
   },
   "video": {
     "play": "Watch with sound",
@@ -250,7 +253,7 @@
   },
   "how": {
     "kicker": "After you pay",
-    "title": "Three steps. No surprises.",
+    "title": "Three steps. *No surprises.*",
     "tabsLabel": "Option",
     "guide": {
       "steps": [
@@ -272,7 +275,7 @@
       "steps": [
         {
           "t": "You pick your option",
-          "d": "One-time payment, secured by Stripe. You choose what I make: an ad or a motion video."
+          "d": "One-time payment, secured by Stripe. You choose what I make: an ad, a motion video or, with Pro and Studio, a website."
         },
         {
           "t": "You describe your project",
@@ -320,7 +323,7 @@
     "tiktok": "Follow me on TikTok"
   },
   "faq": {
-    "title": "Questions",
+    "title": "Frequently asked *questions*",
     "items": [
       {
         "q": "Which option should I pick?",
@@ -344,7 +347,7 @@
       },
       {
         "q": "What if I change my mind?",
-        "a": "You have a 14-day right of withdrawal, under the conditions set out in the <a href=\"/legal#retractation\">terms of sale</a>. By ordering, you ask me to start right away, and you lose this right once my reply or your creation has been fully delivered."
+        "a": "If you order as a private individual, you have a 14-day right of withdrawal, under the conditions set out in the <a href=\"/legal#retractation\">terms of sale</a>. By ordering, you ask me to start right away, and you lose this right once my answer or your creation has been fully delivered. Orders placed for business purposes follow the terms for professional clients."
       },
       {
         "q": "Is my payment secure?",
@@ -353,13 +356,13 @@
     ]
   },
   "final": {
-    "title": "So, will you make it, or shall I?",
+    "title": "Do it yourself, or *let me handle it?*",
     "note": "One-time payment · secured by Stripe",
     "creation": "I build it for you",
     "from": "from"
   },
   "footer": {
-    "tagline": "Behind every reply and every creation: the creator of these videos.",
+    "tagline": "Independent creative studio · one point of contact, from brief to delivery.",
     "mentions": "Legal notice",
     "cgv": "Terms of sale",
     "privacy": "Privacy",
@@ -500,14 +503,14 @@
   },
   "work": {
     "kicker": "Work",
-    "title": "What it looks like, for real.",
+    "title": "What it looks like, *for real.*",
     "play": "Watch with sound",
     "note": "Created by IA Motion Studio."
   },
   "reviews": {
     "kicker": "Client reviews",
-    "title": "They ordered.",
-    "note": "Messages received from clients, translated from French. Names hidden for privacy.",
+    "title": "They *ordered.*",
+    "note": "Excerpts from messages received from clients, translated from French ([…]: passage cut). Names hidden for privacy.",
     "email": "Email received",
     "dm": "Direct message",
     "capture": "See the screenshot",

@@ -7,14 +7,77 @@
     "photo": ""
   },
   "proof": [
-    { "value": { "fr": "42 000", "en": "42,000" }, "label": { "fr": "vues en 6 jours sur TikTok", "en": "views in 6 days on TikTok" } },
-    { "value": { "fr": "3 000", "en": "3,000" }, "label": { "fr": "j’aime", "en": "likes" } }
+    {
+      "value": {
+        "fr": "60 000",
+        "en": "60,000"
+      },
+      "label": {
+        "fr": "vues sur TikTok",
+        "en": "views on TikTok"
+      },
+      "icon": "eye"
+    },
+    {
+      "value": {
+        "fr": "5 000",
+        "en": "5,000"
+      },
+      "label": {
+        "fr": "j’aime",
+        "en": "likes"
+      },
+      "icon": "heart"
+    }
   ],
-  "reviews": [],
+  "reviews": [
+    {
+      "source": "email",
+      "name": {
+        "fr": "Client · pub vidéo",
+        "en": "Client · video ad"
+      },
+      "capture": "/assets/media/avis-1.jpg",
+      "consent": true,
+      "text": {
+        "fr": [
+          "Merci beaucoup, les vidéos sont *incroyables* ! Je ne m’attendais vraiment pas à un rendu aussi beau et aussi bien fait.",
+          "C’est tellement beau qu’on a l’impression que ça s’arrête trop vite, on reste un peu sur sa faim.",
+          "Franchement, vous êtes *un monstre dans votre domaine* !"
+        ],
+        "en": [
+          "Thank you so much, the videos are *incredible*! I really didn’t expect such a beautiful, well-made result.",
+          "It’s so beautiful it feels like it ends too soon, you’re left wanting more.",
+          "Honestly, you’re *a monster in your field*!"
+        ]
+      }
+    },
+    {
+      "source": "dm",
+      "name": {
+        "fr": "Client · vidéo TikTok",
+        "en": "Client · TikTok video"
+      },
+      "capture": "/assets/media/avis-2.jpg",
+      "consent": true,
+      "text": {
+        "fr": [
+          "Merci beaucoup pour la vidéo mec ! La *qualité est incroyable*, et tu as fais sa *rapidement* en plus !",
+          "je te garderai pour mes prochaines vidéo sa c est sur ;)",
+          "un pote à moi va sûrement te contacter ;)"
+        ],
+        "en": [
+          "Thanks a lot for the video man! The *quality is incredible*, and you did it *fast* too!",
+          "I’ll keep you for my next videos for sure ;)",
+          "a friend of mine will probably contact you ;)"
+        ]
+      }
+    }
+  ],
   "contactEmail": "contact@maneo-ai.fr",
-  "paymentLink": "https://buy.stripe.com/28E5kEaHwfMD5z14oG9AA00",
+  "paymentLink": "https://buy.stripe.com/eVq4gA3f4eIzbXp3kC9AA02",
   "offer": {
-    "amount": 790,
+    "amount": 1490,
     "currency": "EUR",
     "replyHours": 24,
     "prompts": 3,
@@ -22,14 +85,39 @@
     "followUpDays": 7
   },
   "creation": {
-    "amount": 1990,
-    "paymentLink": "https://buy.stripe.com/4gM7sM2b07g78Ld08q9AA01",
-    "deliveryHours": 24,
-    "revisions": 1,
     "revisionDays": 7,
-    "videoSeconds": 15
+    "tiers": {
+      "studio": {
+        "amount": 29900,
+        "paymentLink": "https://buy.stripe.com/bJeeVe16W6c31iLaN49AA05",
+        "deliveryHours": 48,
+        "revisions": 3,
+        "videoSeconds": 30
+      },
+      "pro": {
+        "amount": 9900,
+        "paymentLink": "https://buy.stripe.com/28E8wQ9Ds7g7d1tbR89AA04",
+        "deliveryHours": 48,
+        "revisions": 2,
+        "videoSeconds": 25
+      },
+      "essentielle": {
+        "amount": 3900,
+        "paymentLink": "https://buy.stripe.com/dRm4gAbLA2ZR9Phf3k9AA03",
+        "deliveryHours": 24,
+        "revisions": 1,
+        "videoSeconds": 15
+      }
+    }
   },
-  "termsVersion": "2026-10-12-2",
+  "launch": {
+    "until": "2026-10-25T23:59:59+01:00",
+    "essentielle": {
+      "amount": 1990,
+      "paymentLink": "https://buy.stripe.com/4gM7sM2b07g78Ld08q9AA01"
+    }
+  },
+  "termsVersion": "2026-10-23",
   "mediator": {
     "name": "",
     "url": ""

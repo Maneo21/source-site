@@ -22,25 +22,35 @@ export function interpolate(str, vars, esc) {
   });
 }
 
-export const formatAmount = (amount, currency, locale) => new Intl.NumberFormat(locale, { style: 'currency', currency }).format(amount / 100);
+export const formatAmount = (amount, currency, locale) => new Intl.NumberFormat(locale, { style: 'currency', currency, minimumFractionDigits: amount % 100 ? 2 : 0, maximumFractionDigits: 2 }).format(amount / 100);
 export const formatPrice = (config, locale) => formatAmount(config.offer.amount, config.offer.currency, locale);
 
+export const TIER_IDS = ['studio', 'pro', 'essentielle'], OFFER_IDS = ['guide', ...TIER_IDS];
 export function buildVars(config, dict, lang) {
   // « offer » est l'échange personnalisé (Je te guide) ; « creation » la création sur mesure (Je crée pour toi).
   const o = config.offer, c = config.creation || {}, loc = lang.locale, u = dict.units || {};
+  // Les quatre formules : « guide » (Je te guide) et trois créations. Pendant l'offre de lancement (config.launch, jusqu'à « until »),
+  // une formule qui y figure garde son ancien prix et son ancien lien de paiement.
+  const T = c.tiers || {}, L = config.launch || {}, until = Date.parse(L.until || ''), launchOn = Number.isFinite(until) && Date.now() <= until;
+  const reg = { guide: o.amount, ...Object.fromEntries(TIER_IDS.map(id => [id, T[id]?.amount || 0])) };
+  const eff = id => (launchOn && L[id]?.amount) || reg[id] || 0, money = a => formatAmount(a || 0, o.currency, loc);
+  const tierVars = id => { const t = T[id] || {}, n = t.revisions ?? 1; return { deliveryHours: t.deliveryHours || 24, revisions: plural(u.revisions || '{n}', n, loc), revisionsIncluded: plural(u.revisionsIncluded || '{n}', n, loc), revisionCount: n, videoSeconds: t.videoSeconds || 15, priceTier: money(eff(id)), priceTierRegular: money(reg[id]) }; };
   const seller = {};
   for (const [k, v] of Object.entries(config.seller || {})) seller[k] = pick(v, lang.code);
   return {
     brand: config.brand,
     creator: config.creator?.name || '',
     contact: config.contactEmail,
-    price: formatPrice(config, loc),
-    priceCreation: formatAmount(c.amount || 0, o.currency, loc),
-    deliveryHours: c.deliveryHours || 24,
-    revisions: plural(u.revisions || '{n}', c.revisions ?? 1, loc),
-    revisionsIncluded: plural(u.revisionsIncluded || '{n}', c.revisions ?? 1, loc),
+    price: money(eff('guide')),
+    priceCreation: money(eff('essentielle')),
+    prices: Object.fromEntries(OFFER_IDS.map(id => [id, money(eff(id))])),
+    pricesRegular: Object.fromEntries(OFFER_IDS.map(id => [id, money(reg[id])])),
+    launchOn, launchUntil: launchOn ? new Intl.DateTimeFormat(loc, { day: 'numeric', month: 'long', hour: 'numeric', minute: '2-digit', timeZone: 'Europe/Paris' }).format(new Date(until)) : '',
+    launchUntilShort: launchOn ? new Intl.DateTimeFormat(loc, { day: 'numeric', month: 'short', timeZone: 'Europe/Paris' }).format(new Date(until)) : '',
+    tiers: Object.fromEntries(TIER_IDS.map(id => [id, tierVars(id)])),
+    launch: { price: money(L.essentielle?.amount), until: Number.isFinite(until) ? new Intl.DateTimeFormat(loc, { day: 'numeric', month: 'long', year: 'numeric', hour: 'numeric', minute: '2-digit', timeZone: 'Europe/Paris' }).format(new Date(until)) : '' },
+    ...tierVars('essentielle'),
     revisionDays: c.revisionDays || 7,
-    videoSeconds: c.videoSeconds || 15,
     delay: plural(u.delay, o.replyHours, loc),
     replyHours: o.replyHours,
     prompts: o.prompts,

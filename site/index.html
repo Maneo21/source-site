@@ -22,12 +22,12 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,300..800&display=swap">
-<link rel="preload" as="image" href="/assets/media/puissance-poster.webp" fetchpriority="high">
-<link rel="modulepreload" href="/assets/i18n.js?v=f72cd7a6ed">
-<link rel="modulepreload" href="/assets/vars.js?v=40fcdd2d97">
+<link rel="preload" as="image" href="/assets/media/code-tile.webp" fetchpriority="high">
+<link rel="modulepreload" href="/assets/i18n.js?v=ead063818e">
+<link rel="modulepreload" href="/assets/vars.js?v=8a517853cc">
 <link rel="preload" href="/config.json" as="fetch" crossorigin>
 <link rel="preload" href="/i18n/languages.json" as="fetch" crossorigin>
-<link rel="stylesheet" href="/assets/site.css?v=b4213558f4">
+<link rel="stylesheet" href="/assets/site.css?v=2130b41e40">
 <script>
 (function(){var d=document.documentElement,l=null;d.className=d.className.replace('no-js','js');
 try{l=localStorage.getItem('lang')}catch(e){}
@@ -37,10 +37,10 @@ var s=0,n=null;try{s=sessionStorage.getItem('tt')==='1'}catch(e){}try{n=performa
 var a=document.referrer.indexOf(location.origin)!==0&&(!n||n.type==='navigate');
 var tt=/BytedanceWebview|musical_ly|trill_|TikTok/i.test(navigator.userAgent)||/[?&]tiktok=1(&|$)/.test(location.search);
 if(tt)d.classList.add('is-tt');
-if(l)d.lang=l;else if(!tt)d.classList.add('is-welcome');
-var c=l||((navigator.language||'fr').slice(0,2).toLowerCase()),k=document.createElement('link');k.rel='preload';k.as='fetch';k.crossOrigin='anonymous';k.href='/i18n/'+(/^[a-z]{2}$/.test(c)?c:'fr')+'.json';document.head.appendChild(k)})();
+d.lang=l||'fr';
+var c=l||'fr',k=document.createElement('link');k.rel='preload';k.as='fetch';k.crossOrigin='anonymous';k.href='/i18n/'+(/^[a-z]{2}$/.test(c)?c:'fr')+'.json';document.head.appendChild(k)})();
 </script>
-<script type="module" src="/assets/app.js?v=c71cef6ce0"></script>
+<script type="module" src="/assets/app.js?v=a730e2feef"></script>
 </head>
 <body>
 <a class="skip" href="#main" data-i18n="common.skip">Aller au contenu</a>
@@ -89,14 +89,14 @@ var c=l||((navigator.language||'fr').slice(0,2).toLowerCase()),k=document.create
   <i class="prog" aria-hidden="true"></i>
   <a class="logo" href="/" aria-label="IA Motion Studio"><svg class="mark" viewBox="0 0 512 512" aria-hidden="true"><rect width="512" height="512" rx="118" class="mk-bg"/><path d="M179.4 157.07Q150 140 150 174v148q0 34 29.4 16.93l127.2-73.86Q336 248 306.6 230.93Z" class="mk-tri"/><rect x="258" y="334" width="112" height="40" rx="14" class="mk-cur"/></svg><span data-brand>IA Motion Studio</span></a>
   <nav class="top-nav" data-i18n-attr="aria-label:nav.label">
+    <a href="#top" data-go-offers data-i18n="nav.offers">Formules</a>
     <a href="#realisations" data-i18n="nav.work">Réalisations</a>
-    <a href="#formules" data-i18n="nav.offers">Formules</a>
     <a href="#deroulement" data-i18n="nav.how">Déroulé</a>
     <a href="#faq" data-i18n="nav.faq">Questions</a>
   </nav>
   <div class="top-r">
     <div class="lang-switch" role="group" data-langswitch data-i18n-attr="aria-label:common.langLabel"></div>
-    <a class="btn btn-s" href="#formules"><span data-i18n="nav.book">Les formules</span></a>
+    <a class="btn btn-s" href="#top" data-go-offers><span data-i18n="nav.book">Les formules</span></a>
   </div>
 </header>
 
@@ -107,208 +107,62 @@ var c=l||((navigator.language||'fr').slice(0,2).toLowerCase()),k=document.create
   <section class="hero" id="top">
     <div class="wall" aria-hidden="true" data-wall>
       <div class="wall-in">
-        <div class="wcol" style="--c:0"><figure class="wt" data-k="puissance"><img src="/assets/media/puissance-poster.webp" alt="" width="720" height="1280" decoding="async" fetchpriority="high"></figure><figure class="wt" data-k="commeca"><img src="/assets/media/commeca-poster.webp" alt="" width="720" height="1280" decoding="async" fetchpriority="high"></figure><figure class="wt" data-k="pub"><img src="/assets/media/pub-poster.webp" alt="" width="720" height="1280" decoding="async" loading="lazy"></figure><figure class="wt" data-k="sites"><img src="/assets/media/sites-poster.webp" alt="" width="720" height="1280" decoding="async" loading="lazy"></figure><figure class="wt" data-k="puissance"><img src="/assets/media/puissance-poster.webp" alt="" width="720" height="1280" decoding="async" loading="lazy"></figure><figure class="wt" data-k="commeca"><img src="/assets/media/commeca-poster.webp" alt="" width="720" height="1280" decoding="async" loading="lazy"></figure><figure class="wt" data-k="pub"><img src="/assets/media/pub-poster.webp" alt="" width="720" height="1280" decoding="async" loading="lazy"></figure><figure class="wt" data-k="sites"><img src="/assets/media/sites-poster.webp" alt="" width="720" height="1280" decoding="async" loading="lazy"></figure></div>
-        <div class="wcol" style="--c:1"><figure class="wt" data-k="commeca"><img src="/assets/media/commeca-poster.webp" alt="" width="720" height="1280" decoding="async" fetchpriority="high"></figure><figure class="wt" data-k="sites"><img src="/assets/media/sites-poster.webp" alt="" width="720" height="1280" decoding="async" fetchpriority="high"></figure><figure class="wt" data-k="puissance"><img src="/assets/media/puissance-poster.webp" alt="" width="720" height="1280" decoding="async" loading="lazy"></figure><figure class="wt" data-k="pub"><img src="/assets/media/pub-poster.webp" alt="" width="720" height="1280" decoding="async" loading="lazy"></figure><figure class="wt" data-k="commeca"><img src="/assets/media/commeca-poster.webp" alt="" width="720" height="1280" decoding="async" loading="lazy"></figure><figure class="wt" data-k="sites"><img src="/assets/media/sites-poster.webp" alt="" width="720" height="1280" decoding="async" loading="lazy"></figure><figure class="wt" data-k="puissance"><img src="/assets/media/puissance-poster.webp" alt="" width="720" height="1280" decoding="async" loading="lazy"></figure><figure class="wt" data-k="pub"><img src="/assets/media/pub-poster.webp" alt="" width="720" height="1280" decoding="async" loading="lazy"></figure></div>
-        <div class="wcol" style="--c:2"><figure class="wt" data-k="pub"><img src="/assets/media/pub-poster.webp" alt="" width="720" height="1280" decoding="async" fetchpriority="high"></figure><figure class="wt" data-k="puissance"><img src="/assets/media/puissance-poster.webp" alt="" width="720" height="1280" decoding="async" fetchpriority="high"></figure><figure class="wt" data-k="sites"><img src="/assets/media/sites-poster.webp" alt="" width="720" height="1280" decoding="async" loading="lazy"></figure><figure class="wt" data-k="commeca"><img src="/assets/media/commeca-poster.webp" alt="" width="720" height="1280" decoding="async" loading="lazy"></figure><figure class="wt" data-k="pub"><img src="/assets/media/pub-poster.webp" alt="" width="720" height="1280" decoding="async" loading="lazy"></figure><figure class="wt" data-k="puissance"><img src="/assets/media/puissance-poster.webp" alt="" width="720" height="1280" decoding="async" loading="lazy"></figure><figure class="wt" data-k="sites"><img src="/assets/media/sites-poster.webp" alt="" width="720" height="1280" decoding="async" loading="lazy"></figure><figure class="wt" data-k="commeca"><img src="/assets/media/commeca-poster.webp" alt="" width="720" height="1280" decoding="async" loading="lazy"></figure></div>
+        <div class="wcol" style="--c:0"><figure class="wt" data-k="code"><img src="/assets/media/code-tile.webp" alt="" width="720" height="1280" decoding="async" fetchpriority="high"></figure><figure class="wt" data-k="commeca"><img src="/assets/media/commeca-poster.webp" alt="" width="720" height="1280" decoding="async" fetchpriority="high"></figure><figure class="wt" data-k="roadster"><img src="/assets/media/roadster-tile.webp" alt="" width="720" height="1280" decoding="async" loading="lazy"></figure><figure class="wt" data-k="sites"><img src="/assets/media/sites-poster.webp" alt="" width="720" height="1280" decoding="async" loading="lazy"></figure><figure class="wt" data-k="code"><img src="/assets/media/code-tile.webp" alt="" width="720" height="1280" decoding="async" loading="lazy"></figure><figure class="wt" data-k="commeca"><img src="/assets/media/commeca-poster.webp" alt="" width="720" height="1280" decoding="async" loading="lazy"></figure><figure class="wt" data-k="roadster"><img src="/assets/media/roadster-tile.webp" alt="" width="720" height="1280" decoding="async" loading="lazy"></figure><figure class="wt" data-k="sites"><img src="/assets/media/sites-poster.webp" alt="" width="720" height="1280" decoding="async" loading="lazy"></figure></div>
+        <div class="wcol" style="--c:1"><figure class="wt" data-k="commeca"><img src="/assets/media/commeca-poster.webp" alt="" width="720" height="1280" decoding="async" fetchpriority="high"></figure><figure class="wt" data-k="sites"><img src="/assets/media/sites-poster.webp" alt="" width="720" height="1280" decoding="async" fetchpriority="high"></figure><figure class="wt" data-k="code"><img src="/assets/media/code-tile.webp" alt="" width="720" height="1280" decoding="async" loading="lazy"></figure><figure class="wt" data-k="roadster"><img src="/assets/media/roadster-tile.webp" alt="" width="720" height="1280" decoding="async" loading="lazy"></figure><figure class="wt" data-k="commeca"><img src="/assets/media/commeca-poster.webp" alt="" width="720" height="1280" decoding="async" loading="lazy"></figure><figure class="wt" data-k="sites"><img src="/assets/media/sites-poster.webp" alt="" width="720" height="1280" decoding="async" loading="lazy"></figure><figure class="wt" data-k="code"><img src="/assets/media/code-tile.webp" alt="" width="720" height="1280" decoding="async" loading="lazy"></figure><figure class="wt" data-k="roadster"><img src="/assets/media/roadster-tile.webp" alt="" width="720" height="1280" decoding="async" loading="lazy"></figure></div>
+        <div class="wcol" style="--c:2"><figure class="wt" data-k="roadster"><img src="/assets/media/roadster-tile.webp" alt="" width="720" height="1280" decoding="async" fetchpriority="high"></figure><figure class="wt" data-k="code"><img src="/assets/media/code-tile.webp" alt="" width="720" height="1280" decoding="async" fetchpriority="high"></figure><figure class="wt" data-k="sites"><img src="/assets/media/sites-poster.webp" alt="" width="720" height="1280" decoding="async" loading="lazy"></figure><figure class="wt" data-k="commeca"><img src="/assets/media/commeca-poster.webp" alt="" width="720" height="1280" decoding="async" loading="lazy"></figure><figure class="wt" data-k="roadster"><img src="/assets/media/roadster-tile.webp" alt="" width="720" height="1280" decoding="async" loading="lazy"></figure><figure class="wt" data-k="code"><img src="/assets/media/code-tile.webp" alt="" width="720" height="1280" decoding="async" loading="lazy"></figure><figure class="wt" data-k="sites"><img src="/assets/media/sites-poster.webp" alt="" width="720" height="1280" decoding="async" loading="lazy"></figure><figure class="wt" data-k="commeca"><img src="/assets/media/commeca-poster.webp" alt="" width="720" height="1280" decoding="async" loading="lazy"></figure></div>
       </div>
     </div>
     <i class="hero-veil" aria-hidden="true"></i>
     <div class="hero-in">
-      <p class="hero-kick" data-h><i class="rec" aria-hidden="true"></i><span data-i18n="hero.kicker">Studio de création IA</span></p>
+      <p class="hero-kick hero-proof" data-h data-proofline hidden></p>
       <h1 class="h-hero" data-h data-i18n-attr="aria-label:hero.aria" aria-label="Tu veux créer un site, une pub ou du motion design comme ça ?">
         <span class="hh-l" aria-hidden="true" data-split data-i18n="hero.pre">Tu veux créer</span>
         <span class="hh-rot" aria-hidden="true" data-rot><span class="rot-w on">une pub</span></span>
         <span class="hh-l" aria-hidden="true" data-split data-i18n="hero.post" style="--d:230ms">comme ça ?</span>
       </h1>
       <p class="hero-sub" data-h style="--d:420ms" data-i18n="hero.sub">Pubs vidéo, motion design et sites web, créés avec l’IA. Je te montre comment faire, ou je le crée pour toi.</p>
-      <div class="fork" data-h style="--d:540ms" data-hide-sticky>
-        <button class="fk" type="button" data-book="guide">
-          <span class="fk-t"><small data-i18n="offers.guide.for">Tu veux apprendre</small><b data-i18n="offers.guide.name">Je te guide</b></span>
-          <span class="fk-p" data-price>7,90 €</span>
-          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-        </button>
-        <button class="fk is-main" type="button" data-book="creation">
-          <span class="fk-t"><small data-i18n="offers.creation.for">Tu veux le résultat</small><b data-i18n="offers.creation.name">Je crée pour toi</b></span>
-          <span class="fk-p" data-price="creation">19,90 €</span>
-          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-        </button>
+      <div class="hero-offers" data-h style="--d:540ms" data-hide-sticky>
+        <p class="ho-launch" data-launch hidden><i class="live"></i><span data-launch-text></span><b data-countdown></b></p>
+        <div class="trio trio-hero" role="radiogroup" data-i18n-attr="aria-label:sheet.switchLabel"><button type="button" class="tri" data-pick-tier="studio" data-trio="studio" aria-pressed="false"><b class="tri-n" data-i18n="offers.studio.name"></b><span class="tri-p"><s data-price-was="studio" hidden></s><span data-price="studio"></span></span><small class="tri-m" data-ti18n="{deliveryHours} h · {revisions}"></small></button><button type="button" class="tri is-main sel" data-pick-tier="pro" data-trio="pro" aria-pressed="true"><em class="tri-badge" data-i18n="offers.pro.badge"></em><b class="tri-n" data-i18n="offers.pro.name"></b><span class="tri-p"><s data-price-was="pro" hidden></s><span data-price="pro"></span></span><small class="tri-m" data-ti18n="{deliveryHours} h · {revisions}"></small></button><button type="button" class="tri" data-pick-tier="essentielle" data-trio="essentielle" aria-pressed="false"><b class="tri-n" data-i18n="offers.essentielle.name"></b><span class="tri-p"><s data-price-was="essentielle" hidden></s><span data-price="essentielle"></span></span><small class="tri-m" data-ti18n="{deliveryHours} h · {revisions}"></small></button></div>
+        <p class="ho-sum" data-ho-sum aria-live="polite"></p>
+        <button class="btn btn-p btn-w ho-cta" type="button" data-book="pro" data-ho-cta><span data-ho-label>Choisir Pro · 99 €</span><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+        <p class="ho-links"><button type="button" data-open-compare data-i18n="hero.compare">Comparer les formules</button><span class="ho-safe"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10.5" width="14" height="10" rx="2.5"/><path d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5"/></svg><span data-i18n="hero.safeShort">Paiement sécurisé par Stripe</span></span></p>
       </div>
-      <div class="hero-meta" data-h style="--d:660ms">
-        <p class="hero-safe"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10.5" width="14" height="10" rx="2.5"/><path d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5"/></svg><span data-i18n="hero.safe">Paiement unique · sécurisé par Stripe</span></p>
-        <p class="proof-pill" data-proofline hidden><i class="live"></i><span></span></p>
-      </div>
+      <button class="ho-guide" type="button" data-book="guide" data-h style="--d:660ms"><span class="hg-t"><small data-i18n="offers.guide.for">Tu préfères le faire toi-même ?</small><b data-i18n="offers.guide.name">Je te guide</b></span><span class="hg-p"><s data-price-was="guide" hidden></s><span data-price="guide">14,90 €</span></span><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
     </div>
     <a class="hero-next" href="#realisations" data-h style="--d:820ms"><span data-i18n="hero.scroll">Voir les réalisations</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"/></svg></a>
   </section>
 
-  <!-- 2. Les réalisations : une sélection, mise en scène -->
+  <!-- Réalisations : mes créations, sans titres ; chaque vidéo garde son format (horizontal ou vertical) -->
   <section class="sec work" id="realisations">
     <div class="wrap">
       <p class="kick" data-r data-i18n="work.kicker">Réalisations</p>
       <h2 class="h2" data-split data-i18n="work.title">Ce que ça donne, en vrai.</h2>
-      <p class="lead" data-r data-i18n="work.text"></p>
-      <div class="show" data-show>
-        <ol class="show-list" data-r>
-          <li><button type="button" class="show-btn on" data-pick="0" aria-pressed="true"><span class="show-n">01</span><span class="show-t"><b data-i18n="work.items.0.t"></b><small data-i18n="work.items.0.type"></small></span><span class="show-d">0:15</span><i class="show-bar" aria-hidden="true"><i></i></i></button></li>
-          <li><button type="button" class="show-btn" data-pick="1" aria-pressed="false"><span class="show-n">02</span><span class="show-t"><b data-i18n="work.items.1.t"></b><small data-i18n="work.items.1.type"></small></span><span class="show-d">0:16</span><i class="show-bar" aria-hidden="true"><i></i></i></button></li>
-          <li><button type="button" class="show-btn" data-pick="2" aria-pressed="false"><span class="show-n">03</span><span class="show-t"><b data-i18n="work.items.2.t"></b><small data-i18n="work.items.2.type"></small></span><span class="show-d">0:15</span><i class="show-bar" aria-hidden="true"><i></i></i></button></li>
-          <li><button type="button" class="show-btn" data-pick="3" aria-pressed="false"><span class="show-n">04</span><span class="show-t"><b data-i18n="work.items.3.t"></b><small data-i18n="work.items.3.type"></small></span><span class="show-d">0:22</span><i class="show-bar" aria-hidden="true"><i></i></i></button></li>
-        </ol>
-        <div class="show-stage" data-r style="--d:120ms">
-          <i class="show-glow" aria-hidden="true"></i>
-          <div class="show-rail" data-rail>
-          <figure class="show-card on" data-k="puissance" data-i="0">
-            <div class="sc-media"><img src="/assets/media/puissance-poster.webp" alt="" width="720" height="1280" loading="lazy" decoding="async"><video muted playsinline preload="none" disablepictureinpicture disableremoteplayback tabindex="-1" aria-hidden="true"></video></div>
-            <i class="sc-shade" aria-hidden="true"></i>
-            <figcaption class="sc-cap"><span class="sc-n">01 / 04</span><b data-i18n="work.items.0.t"></b><span class="sc-d" data-i18n="work.items.0.desc"></span></figcaption>
-            <button class="sc-play" type="button" data-play="puissance"><span class="vplay-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg></span><span data-i18n="work.play">Regarder avec le son</span><span class="vdur">0:15</span></button>
+      <div class="reel" data-reel>
+          <figure class="rt rt-h" data-k="code">
+            <img src="/assets/media/code-poster.webp" alt="" width="960" height="600" loading="lazy" decoding="async">
+            <video muted playsinline loop preload="none" disablepictureinpicture disableremoteplayback tabindex="-1" aria-hidden="true"></video>
+            <button class="rt-play" type="button" data-play="code"><span class="vplay-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg></span><span data-i18n="work.play">Regarder avec le son</span><span class="vdur">0:18</span></button>
           </figure>
-          <figure class="show-card" data-k="commeca" data-i="1">
-            <div class="sc-media"><img src="/assets/media/commeca-poster.webp" alt="" width="720" height="1280" loading="lazy" decoding="async"><video muted playsinline preload="none" disablepictureinpicture disableremoteplayback tabindex="-1" aria-hidden="true"></video></div>
-            <i class="sc-shade" aria-hidden="true"></i>
-            <figcaption class="sc-cap"><span class="sc-n">02 / 04</span><b data-i18n="work.items.1.t"></b><span class="sc-d" data-i18n="work.items.1.desc"></span></figcaption>
-            <button class="sc-play" type="button" data-play="commeca"><span class="vplay-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg></span><span data-i18n="work.play">Regarder avec le son</span><span class="vdur">0:16</span></button>
+        <div class="reel-pair">
+          <figure class="rt rt-v" data-k="commeca">
+            <img src="/assets/media/commeca-poster.webp" alt="" width="720" height="1280" loading="lazy" decoding="async">
+            <video muted playsinline loop preload="none" disablepictureinpicture disableremoteplayback tabindex="-1" aria-hidden="true"></video>
+            <button class="rt-play" type="button" data-play="commeca"><span class="vplay-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg></span><span data-i18n="work.play">Regarder avec le son</span><span class="vdur">0:09</span></button>
           </figure>
-          <figure class="show-card" data-k="pub" data-i="2">
-            <div class="sc-media"><img src="/assets/media/pub-poster.webp" alt="" width="720" height="1280" loading="lazy" decoding="async"><video muted playsinline preload="none" disablepictureinpicture disableremoteplayback tabindex="-1" aria-hidden="true"></video></div>
-            <i class="sc-shade" aria-hidden="true"></i>
-            <figcaption class="sc-cap"><span class="sc-n">03 / 04</span><b data-i18n="work.items.2.t"></b><span class="sc-d" data-i18n="work.items.2.desc"></span></figcaption>
-            <button class="sc-play" type="button" data-play="pub"><span class="vplay-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg></span><span data-i18n="work.play">Regarder avec le son</span><span class="vdur">0:15</span></button>
+          <figure class="rt rt-v" data-k="sites">
+            <img src="/assets/media/sites-poster.webp" alt="" width="720" height="1280" loading="lazy" decoding="async">
+            <video muted playsinline loop preload="none" disablepictureinpicture disableremoteplayback tabindex="-1" aria-hidden="true"></video>
+            <button class="rt-play" type="button" data-play="sites"><span class="vplay-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg></span><span data-i18n="work.play">Regarder avec le son</span><span class="vdur">0:22</span></button>
           </figure>
-          <figure class="show-card" data-k="sites" data-i="3">
-            <div class="sc-media"><img src="/assets/media/sites-poster.webp" alt="" width="720" height="1280" loading="lazy" decoding="async"><video muted playsinline preload="none" disablepictureinpicture disableremoteplayback tabindex="-1" aria-hidden="true"></video></div>
-            <i class="sc-shade" aria-hidden="true"></i>
-            <figcaption class="sc-cap"><span class="sc-n">04 / 04</span><b data-i18n="work.items.3.t"></b><span class="sc-d" data-i18n="work.items.3.desc"></span></figcaption>
-            <button class="sc-play" type="button" data-play="sites"><span class="vplay-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg></span><span data-i18n="work.play">Regarder avec le son</span><span class="vdur">0:22</span></button>
-          </figure>
-          </div>
-          <div class="show-dots" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i></div>
         </div>
+          <figure class="rt rt-h" data-k="roadster">
+            <img src="/assets/media/roadster-poster.webp" alt="" width="960" height="600" loading="lazy" decoding="async">
+            <video muted playsinline loop preload="none" disablepictureinpicture disableremoteplayback tabindex="-1" aria-hidden="true"></video>
+            <button class="rt-play" type="button" data-play="roadster"><span class="vplay-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg></span><span data-i18n="work.play">Regarder avec le son</span><span class="vdur">0:15</span></button>
+          </figure>
       </div>
       <p class="uni-note" data-r data-i18n="work.note"></p>
-    </div>
-  </section>
-
-  <!-- 3. Les deux formules : apprendre, ou recevoir le résultat -->
-  <section class="sec offers" id="formules">
-    <div class="wrap">
-      <p class="kick" data-r data-i18n="offers.kicker">Deux formules</p>
-      <h2 class="h2" data-split data-i18n="offers.title">Tu le fais. Ou je le fais.</h2>
-      <p class="lead" data-r data-i18n="offers.text"></p>
-      <div class="duo" data-hide-sticky>
-        <article class="plan" data-r data-spot>
-          <p class="plan-for"><span class="plan-n">01</span><span data-i18n="offers.guide.for">Tu veux apprendre</span></p>
-          <h3 class="plan-t" data-i18n="offers.guide.name">Je te guide</h3>
-          <p class="plan-p" data-i18n="offers.guide.pitch"></p>
-          <div class="plan-art" aria-hidden="true">
-            <span class="pa-row"><i class="pa-av" data-initial>E</i><i class="pa-l w1"></i></span>
-            <span class="pa-row"><b>01</b><i class="pa-l w2"></i></span>
-            <span class="pa-row"><b>02</b><i class="pa-l w3"></i></span>
-            <span class="pa-row"><b>03</b><i class="pa-l w4"></i><i class="pa-cur"></i></span>
-          </div>
-          <ul class="plan-list">
-            <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span data-i18n="offers.guide.items.0"></span></li>
-            <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span data-i18n="offers.guide.items.1"></span></li>
-            <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span data-i18n="offers.guide.items.2"></span></li>
-            <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span data-i18n="offers.guide.items.3"></span></li>
-          </ul>
-          <p class="plan-delay"><i class="live"></i><span data-i18n="offers.guide.delay"></span></p>
-          <div class="plan-bot">
-            <div class="plan-price"><strong class="roll" data-roll="guide">7,90 €</strong><span data-i18n="offers.once">Paiement unique</span></div>
-            <button class="btn btn-i" type="button" data-book="guide"><span data-i18n="offers.guide.cta">Réserver mon échange</span><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
-          </div>
-        </article>
-        <div class="duo-or" aria-hidden="true"><span data-i18n="offers.or">ou</span></div>
-        <article class="plan is-main" data-r data-spot style="--d:120ms">
-          <p class="plan-for"><span class="plan-n">02</span><span data-i18n="offers.creation.for">Tu veux le résultat</span><span class="plan-badge" data-soon="offers.creation.badge">Clé en main</span></p>
-          <div class="plan-reel" aria-hidden="true"><span class="pr-t"><img src="/assets/media/commeca-poster.webp" alt="" width="720" height="1280" loading="lazy" decoding="async"><video muted playsinline loop preload="none" disablepictureinpicture disableremoteplayback tabindex="-1" data-mini="commeca"></video><small data-i18n="sheet.kinds.pub"></small></span><span class="pr-t"><img src="/assets/media/puissance-poster.webp" alt="" width="720" height="1280" loading="lazy" decoding="async"><video muted playsinline loop preload="none" disablepictureinpicture disableremoteplayback tabindex="-1" data-mini="puissance"></video><small data-i18n="sheet.kinds.motion"></small></span><span class="pr-t"><img src="/assets/media/sites-poster.webp" alt="" width="720" height="1280" loading="lazy" decoding="async"><video muted playsinline loop preload="none" disablepictureinpicture disableremoteplayback tabindex="-1" data-mini="sites"></video><small data-i18n="sheet.kinds.site"></small></span><span class="pm-l"><i class="rec"></i><span data-i18n="offers.creation.see">Exemple de création</span></span></div>
-          <h3 class="plan-t" data-i18n="offers.creation.name">Je crée pour toi</h3>
-          <p class="plan-p" data-i18n="offers.creation.pitch"></p>
-          <ul class="plan-list">
-            <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span data-i18n="offers.creation.items.0"></span></li>
-            <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span data-i18n="offers.creation.items.1"></span></li>
-            <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span data-i18n="offers.creation.items.2"></span></li>
-            <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span data-i18n="offers.creation.items.3"></span></li>
-          </ul>
-          <p class="plan-delay"><i class="live"></i><span data-i18n="offers.creation.delay"></span></p>
-          <div class="plan-bot">
-            <div class="plan-price"><strong class="roll" data-roll="creation">19,90 €</strong><span data-i18n="offers.once">Paiement unique</span></div>
-            <button class="btn btn-p" type="button" data-book="creation"><span data-soon="offers.creation.cta">Commander ma création</span><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
-          </div>
-        </article>
-      </div>
-      <ul class="trust">
-        <li data-r><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10.5" width="14" height="10" rx="2.5"/><path d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5"/></svg><div><strong data-i18n="trust.items.0.t">Paiement sécurisé</strong><span data-i18n="trust.items.0.d"></span></div></li>
-        <li data-r style="--d:70ms"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8.5" r="3.6"/><path d="M5 19.5c1.2-3.4 3.8-5 7-5s5.8 1.6 7 5"/></svg><div><strong data-i18n="trust.items.1.t">Un vrai interlocuteur</strong><span data-i18n="trust.items.1.d"></span></div></li>
-        <li data-r style="--d:140ms"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 12a7.5 7.5 0 1 0 2.2-5.3M4.5 4.5v4h4"/></svg><div><strong data-i18n="trust.items.2.t">Droit de rétractation</strong><span data-i18n-html="trust.items.2.d"></span></div></li>
-      </ul>
-      <div class="payline" data-r>
-        <ul class="pay" data-i18n-attr="aria-label:trust.methodsLabel">
-          <li data-i18n="trust.methods.0">Carte bancaire</li><li data-i18n="trust.methods.1">Apple Pay</li><li data-i18n="trust.methods.2">Klarna</li>
-        </ul>
-        <p class="pay-note" data-i18n="trust.methodsNote">Moyens de paiement proposés par Stripe, selon ton appareil et ton pays.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- 4. Comment ça se passe, et ce que tu reçois -->
-  <section class="sec how" id="deroulement">
-    <div class="wrap how-cols">
-      <div class="how-l">
-        <p class="kick" data-r data-i18n="how.kicker">Comment ça se passe</p>
-        <h2 class="h2" data-split data-i18n="how.title">Trois étapes. Aucune surprise.</h2>
-        <div class="seg" role="tablist" data-tabs data-r data-i18n-attr="aria-label:how.tabsLabel">
-          <span class="seg-pill" aria-hidden="true"></span>
-          <button type="button" role="tab" aria-selected="true" data-tab="guide" data-i18n="offers.guide.name">Je te guide</button>
-          <button type="button" role="tab" aria-selected="false" data-tab="creation" data-i18n="offers.creation.name">Je crée pour toi</button>
-        </div>
-        <div class="steps" data-steps>
-          <span class="st-line" aria-hidden="true"><i></i></span>
-          <ol class="st-list">
-            <li class="step" data-r><span class="st-n">1</span><div><h3 data-step-t></h3><p data-step-d></p></div></li>
-            <li class="step" data-r><span class="st-n">2</span><div><h3 data-step-t></h3><p data-step-d></p></div></li>
-            <li class="step" data-r><span class="st-n">3</span><div><h3 data-step-t></h3><p data-step-d></p></div></li>
-          </ol>
-        </div>
-      </div>
-      <div class="how-r" data-r style="--d:140ms">
-        <figure class="ex mail" data-view="guide">
-          <div class="ex-top"><span class="ex-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="ex-lbl" data-i18n="get.exLabel">Exemple illustratif</span></div>
-          <dl class="mail-head">
-            <div><dt data-i18n="get.mail.from">De</dt><dd><span class="mail-av" aria-hidden="true" data-initial>E</span><span data-i18n="get.mail.sender">Evan · IA Motion Studio</span></dd></div>
-            <div><dt data-i18n="get.mail.subject">Objet</dt><dd data-i18n="get.mail.title">Ton plan pour ton portfolio</dd></div>
-          </dl>
-          <ol class="mail-body">
-            <li><span class="mail-n" aria-hidden="true">01</span><div><h4 data-i18n="get.mail.s1">La méthode, étape par étape</h4><p class="sk" aria-hidden="true"><i></i><i></i><i></i></p></div></li>
-            <li><span class="mail-n" aria-hidden="true">02</span><div><h4 data-i18n="get.mail.s2">Les outils adaptés à ton niveau</h4><p class="sk sk-chips" aria-hidden="true"><i></i><i></i><i></i></p></div></li>
-            <li><span class="mail-n" aria-hidden="true">03</span><div><h4 data-i18n="get.mail.s3">3 prompts écrits pour ton projet</h4><p class="ex-prompt" data-type></p></div></li>
-            <li><span class="mail-n" aria-hidden="true">04</span><div><h4 data-i18n="get.mail.s4">Tes questions</h4><p class="mail-t" data-i18n="get.mail.s4d">1 relance incluse, sous 7 jours</p></div></li>
-          </ol>
-          <figcaption class="ex-note" data-i18n="get.exNote"></figcaption>
-        </figure>
-        <figure class="ex mail deliv" data-view="creation" hidden>
-          <div class="ex-top"><span class="ex-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="ex-lbl" data-i18n="get.exLabel">Exemple illustratif</span></div>
-          <dl class="mail-head">
-            <div><dt data-i18n="get.mail.from">De</dt><dd><span class="mail-av" aria-hidden="true" data-initial>E</span><span data-i18n="get.mail.sender">Evan · IA Motion Studio</span></dd></div>
-            <div><dt data-i18n="get.mail.subject">Objet</dt><dd data-i18n="how.deliv.title">Ta création est prête</dd></div>
-          </dl>
-          <div class="dl-file">
-            <span class="dl-th"><img src="/assets/media/pub-poster.webp" alt="" width="720" height="1280" loading="lazy" decoding="async"></span>
-            <div class="dl-meta">
-              <b data-i18n="how.deliv.name">ta-pub.mp4</b>
-              <span data-i18n="how.deliv.file">Vidéo verticale · prête à publier</span>
-              <span class="dl-bar" aria-hidden="true"><i></i></span>
-              <em class="dl-ok"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span data-i18n="how.deliv.done">Livré</span></em>
-            </div>
-          </div>
-          <ol class="mail-body">
-            <li><span class="mail-n" aria-hidden="true">01</span><div><h4 data-i18n="how.deliv.s1">Ta création, prête à publier</h4><p class="mail-t" data-i18n="how.deliv.s1d">Les fichiers sont à toi.</p></div></li>
-            <li><span class="mail-n" aria-hidden="true">02</span><div><h4 data-i18n="how.deliv.s2">Comment la mettre en ligne</h4><p class="sk" aria-hidden="true"><i></i><i></i><i></i></p></div></li>
-            <li><span class="mail-n" aria-hidden="true">03</span><div><h4 data-i18n="how.deliv.s3">Un détail à ajuster ?</h4><p class="mail-t" data-i18n="how.deliv.s3d">1 retouche incluse, sous 7 jours</p></div></li>
-          </ol>
-          <figcaption class="ex-note" data-i18n="how.deliv.note"></figcaption>
-        </figure>
-      </div>
     </div>
   </section>
 
@@ -318,21 +172,28 @@ var c=l||((navigator.language||'fr').slice(0,2).toLowerCase()),k=document.create
       <p class="kick" data-r data-i18n="reviews.kicker">Avis clients</p>
       <h2 class="h2" data-split data-i18n="reviews.title">Ils ont commandé.</h2>
       <div class="rv-list" data-rv-list></div>
+      <div class="rv-dots" data-rv-dots aria-hidden="true"></div>
       <p class="uni-note" data-i18n="reviews.note">Avis publiés avec l’accord de leurs auteurs.</p>
     </div>
   </section>
 
-  <!-- 6. Un humain -->
-  <section class="sec human" id="moi">
+  <!-- 4. Comment ça se passe, et ce que tu reçois -->
+  <section class="sec how" id="deroulement">
     <div class="wrap">
-      <p class="kick" data-r data-i18n="human.kicker">Pas de bot</p>
-      <blockquote class="h-quote" data-split data-quote data-i18n="human.quote">C’est moi qui lis ton projet. Et c’est moi qui m’en occupe.</blockquote>
-      <div class="sig" data-r>
-        <span class="avatar" aria-hidden="true" data-initial>?</span>
-        <span class="sig-t" data-i18n-html="human.sign"></span>
-        <a class="sig-tt" data-tiktok hidden target="_blank" rel="noopener"><span data-i18n="human.tiktok">Me suivre sur TikTok</span> ↗</a>
+      <p class="kick" data-r data-i18n="how.kicker">Après le paiement</p>
+      <h2 class="h2" data-split data-i18n="how.title">Trois étapes. Aucune surprise.</h2>
+      <div class="seg" role="tablist" data-tabs data-r data-i18n-attr="aria-label:how.tabsLabel">
+        <span class="seg-pill" aria-hidden="true"></span>
+        <button type="button" role="tab" aria-selected="true" data-tab="creation" data-i18n="offers.creation.name">Je crée pour toi</button>
+        <button type="button" role="tab" aria-selected="false" data-tab="guide" data-i18n="offers.guide.name">Je te guide</button>
       </div>
-      <ul class="proof" data-proof data-r hidden></ul>
+      <div class="steps" data-steps>
+        <ol class="st-list">
+          <li class="step" data-r><span class="st-ic" data-step-ic aria-hidden="true"></span><span class="st-n" aria-hidden="true">01</span><h3 data-step-t></h3><p data-step-d></p></li>
+          <li class="step" data-r style="--d:90ms"><span class="st-ic" data-step-ic aria-hidden="true"></span><span class="st-n" aria-hidden="true">02</span><h3 data-step-t></h3><p data-step-d></p></li>
+          <li class="step" data-r style="--d:180ms"><span class="st-ic" data-step-ic aria-hidden="true"></span><span class="st-n" aria-hidden="true">03</span><h3 data-step-t></h3><p data-step-d></p></li>
+        </ol>
+      </div>
     </div>
   </section>
 
@@ -354,12 +215,12 @@ var c=l||((navigator.language||'fr').slice(0,2).toLowerCase()),k=document.create
 
   <!-- 8. Le choix, une dernière fois -->
   <section class="sec final" id="choisir" data-hide-sticky>
-    <div class="final-reel" aria-hidden="true"><span class="wt" style="--k:-2"><img src="/assets/media/sites-poster.webp" alt="" width="720" height="1280" loading="lazy" decoding="async"></span><span class="wt" style="--k:-1"><img src="/assets/media/commeca-poster.webp" alt="" width="720" height="1280" loading="lazy" decoding="async"></span><span class="wt" style="--k:0"><img src="/assets/media/puissance-poster.webp" alt="" width="720" height="1280" loading="lazy" decoding="async"></span><span class="wt" style="--k:1"><img src="/assets/media/pub-poster.webp" alt="" width="720" height="1280" loading="lazy" decoding="async"></span><span class="wt" style="--k:2"><img src="/assets/media/commeca-poster.webp" alt="" width="720" height="1280" loading="lazy" decoding="async"></span></div>
+    <div class="final-reel" aria-hidden="true"><span class="wt" style="--k:-2"><img src="/assets/media/sites-poster.webp" alt="" width="720" height="1280" loading="lazy" decoding="async"></span><span class="wt" style="--k:-1"><img src="/assets/media/roadster-tile.webp" alt="" width="720" height="1280" loading="lazy" decoding="async"></span><span class="wt" style="--k:0"><img src="/assets/media/code-tile.webp" alt="" width="720" height="1280" loading="lazy" decoding="async"></span><span class="wt" style="--k:1"><img src="/assets/media/commeca-poster.webp" alt="" width="720" height="1280" loading="lazy" decoding="async"></span><span class="wt" style="--k:2"><img src="/assets/media/roadster-tile.webp" alt="" width="720" height="1280" loading="lazy" decoding="async"></span></div>
     <div class="wrap">
       <h2 class="h2" data-split data-i18n="final.title">Alors, tu le fais ou je le fais ?</h2>
       <div class="final-cta" data-r>
         <button class="btn btn-i btn-xl" type="button" data-book="guide"><span data-i18n="offers.guide.name">Je te guide</span><span class="btn-price" data-price>7,90 €</span></button>
-        <button class="btn btn-p btn-xl" type="button" data-book="creation"><span data-i18n="offers.creation.name">Je crée pour toi</span><span class="btn-price" data-price="creation">19,90 €</span></button>
+        <button class="btn btn-p btn-xl" type="button" data-book="pro"><span data-i18n="final.creation">Je crée pour toi</span><span class="btn-price"><small data-i18n="offers.pro.name">Pro</small> <span data-price="pro">99 €</span></span></button>
       </div>
       <p class="final-note" data-r style="--d:120ms"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10.5" width="14" height="10" rx="2.5"/><path d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5"/></svg><span data-i18n="final.note">Paiement unique · sécurisé par Stripe</span></p>
     </div>
@@ -385,7 +246,7 @@ var c=l||((navigator.language||'fr').slice(0,2).toLowerCase()),k=document.create
 
 <!-- Barre du bas (téléphone) : mène aux deux formules -->
 <div class="sticky" data-sticky>
-  <a class="btn btn-p" href="#formules"><span data-i18n="sticky.cta">Choisir ma formule</span><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"/></svg></a>
+  <a class="btn btn-p" href="#top" data-go-offers><span data-i18n="sticky.cta">Choisir ma formule</span><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"/></svg></a>
   <p class="sticky-t" data-i18n="sticky.note">Je te guide, ou je crée pour toi</p>
 </div>
 
@@ -396,17 +257,20 @@ var c=l||((navigator.language||'fr').slice(0,2).toLowerCase()),k=document.create
     <span class="sheet-grab" aria-hidden="true"></span>
     <button class="x" type="button" data-close data-i18n-attr="aria-label:common.close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
     <p class="kick" data-i18n="sheet.kicker">Récapitulatif</p>
-    <div class="seg sw" role="radiogroup" data-offer-switch data-i18n-attr="aria-label:sheet.switchLabel">
+    <div class="seg sw sw3" role="radiogroup" data-offer-switch data-i18n-attr="aria-label:sheet.switchLabel">
       <span class="seg-pill" aria-hidden="true"></span>
-      <label><input type="radio" name="offer" value="guide" checked><span><b data-i18n="offers.guide.name">Je te guide</b><small data-price>7,90 €</small></span></label>
-      <label><input type="radio" name="offer" value="creation"><span><b data-i18n="offers.creation.name">Je crée pour toi</b><small data-price="creation">19,90 €</small></span></label>
+      <label><input type="radio" name="offer" value="studio"><span><b data-i18n="offers.studio.name">Studio</b><small data-price="studio"></small></span></label>
+      <label><input type="radio" name="offer" value="pro"><span><b data-i18n="offers.pro.name">Pro</b><small data-price="pro"></small></span></label>
+      <label><input type="radio" name="offer" value="essentielle"><span><b data-i18n="offers.essentielle.name">Essentielle</b><small data-price="essentielle"></small></span></label>
+      <input type="radio" name="offer" value="guide" hidden checked>
     </div>
     <h2 class="sheet-title" id="sheet-title" data-sheet="title">Ton échange personnalisé</h2>
     <p class="sheet-sum" data-sheet="summary"></p>
+    <ul class="sheet-items" data-sheet-items data-only="creation" hidden></ul>
     <fieldset class="kinds">
       <legend data-sheet="kindLabel">Ton projet</legend>
       <div class="kinds-row" data-kinds>
-        <label class="kind"><input type="radio" name="kind" value="site"><span data-i18n="sheet.kinds.site">Site web</span></label>
+        <label class="kind" data-only="guide"><input type="radio" name="kind" value="site"><span data-i18n="sheet.kinds.site">Site web</span></label>
         <label class="kind"><input type="radio" name="kind" value="pub"><span data-i18n="sheet.kinds.pub">Vidéo pub</span></label>
         <label class="kind"><input type="radio" name="kind" value="motion"><span data-i18n="sheet.kinds.motion">Motion</span></label>
         <label class="kind" data-only="guide"><input type="radio" name="kind" value="autre"><span data-i18n="sheet.kinds.autre">Autre</span></label>
@@ -421,7 +285,7 @@ var c=l||((navigator.language||'fr').slice(0,2).toLowerCase()),k=document.create
       </div>
       <p class="chan-help" data-chan-help hidden data-i18n="sheet.chanHelp"></p>
     </fieldset>
-    <p class="sheet-ship" data-only="creation" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg><span data-i18n="sheet.creation.ship">Livraison par e-mail, en 24 h maximum</span></p>
+    <p class="sheet-ship" data-only="creation" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg><span data-sheet-ship>Livraison par e-mail, en 48 h maximum</span></p>
     <div class="sheet-total"><span><span data-i18n="sheet.total">Total</span><small data-i18n="sheet.once">Paiement unique · sans abonnement</small></span><strong data-sheet-price>7,90 €</strong></div>
     <label class="check">
       <input type="checkbox" name="consent" required>
@@ -436,9 +300,41 @@ var c=l||((navigator.language||'fr').slice(0,2).toLowerCase()),k=document.create
     </button>
     <p class="sheet-safe"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10.5" width="14" height="10" rx="2.5"/><path d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5"/></svg><span data-i18n="sheet.safe">Paiement chiffré, géré par Stripe</span></p>
     <p class="sheet-small" data-sheet="redirect"></p>
+    <button class="sheet-other" type="button" data-sheet-other></button>
     <p class="sheet-small" data-i18n-html="sheet.legal"></p>
     <p class="mode-tag" data-mode-tag hidden></p>
   </form>
+</div>
+
+<!-- Comparatif des trois formules (ouvert depuis l'accueil) -->
+<div class="cmpbox" id="cmpbox" role="dialog" aria-modal="true" aria-labelledby="cmp-title" hidden>
+  <div class="cmpbox-bg" data-cmp-close></div>
+  <div class="cmpbox-panel">
+    <div class="cmpbox-head"><h2 id="cmp-title" data-i18n="offers.compare.title">Comparer les trois formules</h2><button class="x" type="button" data-cmp-close data-i18n-attr="aria-label:common.close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+    <p class="cmp-launch" data-launch-full hidden><i class="live"></i><span></span></p>
+    <div class="cmp-wrap">
+          <table class="cmp">
+            <thead><tr><td></td><th scope="col" data-i18n="offers.studio.name"></th><th scope="col" class="is-main" data-i18n="offers.pro.name"></th><th scope="col" data-i18n="offers.essentielle.name"></th></tr></thead>
+            <tbody>
+            <tr><th scope="row" data-i18n="offers.compare.rows.0.l"></th><td data-i18n="offers.compare.rows.0.studio"></td><td class="is-main" data-i18n="offers.compare.rows.0.pro"></td><td data-i18n="offers.compare.rows.0.essentielle"></td></tr>
+            <tr><th scope="row" data-i18n="offers.compare.rows.1.l"></th><td data-i18n="offers.compare.rows.1.studio"></td><td class="is-main" data-i18n="offers.compare.rows.1.pro"></td><td data-i18n="offers.compare.rows.1.essentielle"></td></tr>
+            <tr><th scope="row" data-i18n="offers.compare.rows.2.l"></th><td data-i18n="offers.compare.rows.2.studio"></td><td class="is-main" data-i18n="offers.compare.rows.2.pro"></td><td data-i18n="offers.compare.rows.2.essentielle"></td></tr>
+            <tr><th scope="row" data-i18n="offers.compare.rows.3.l"></th><td data-i18n="offers.compare.rows.3.studio"></td><td class="is-main" data-i18n="offers.compare.rows.3.pro"></td><td data-i18n="offers.compare.rows.3.essentielle"></td></tr>
+            <tr><th scope="row" data-i18n="offers.compare.rows.4.l"></th><td data-i18n="offers.compare.rows.4.studio"></td><td class="is-main" data-i18n="offers.compare.rows.4.pro"></td><td data-i18n="offers.compare.rows.4.essentielle"></td></tr>
+            <tr><th scope="row" data-i18n="offers.compare.rows.5.l"></th><td data-i18n="offers.compare.rows.5.studio"></td><td class="is-main" data-i18n="offers.compare.rows.5.pro"></td><td data-i18n="offers.compare.rows.5.essentielle"></td></tr>
+            <tr><th scope="row" data-i18n="offers.compare.rows.6.l"></th><td data-i18n="offers.compare.rows.6.studio"></td><td class="is-main" data-i18n="offers.compare.rows.6.pro"></td><td data-i18n="offers.compare.rows.6.essentielle"></td></tr>
+            <tr><th scope="row" data-i18n="offers.compare.rows.7.l"></th><td data-i18n="offers.compare.rows.7.studio"></td><td class="is-main" data-i18n="offers.compare.rows.7.pro"></td><td data-i18n="offers.compare.rows.7.essentielle"></td></tr>
+            </tbody>
+            <tfoot><tr><td></td><td><button class="btn btn-g cmp-pick" type="button" data-book="studio" data-i18n="offers.compare.pick">Choisir</button></td><td class="is-main"><button class="btn btn-p cmp-pick" type="button" data-book="pro" data-i18n="offers.compare.pick">Choisir</button></td><td><button class="btn btn-g cmp-pick" type="button" data-book="essentielle" data-i18n="offers.compare.pick">Choisir</button></td></tr></tfoot>
+          </table>
+    </div>
+    <button class="cmpbox-guide" type="button" data-book="guide"><span data-i18n="offers.guide.for">Tu préfères le faire toi-même ?</span> <b><span data-i18n="offers.guide.name">Je te guide</span> · <span data-price="guide">14,90 €</span></b></button>
+  </div>
+</div>
+
+<!-- Capture d'un avis client -->
+<div class="capbox" id="capbox" role="dialog" aria-modal="true" data-i18n-attr="aria-label:reviews.capture" hidden>
+  <figure style="margin:0"><img alt="" data-capimg><p data-i18n="reviews.captureNote">Capture d’origine, nom masqué.</p></figure>
 </div>
 
 <!-- Lecteur vidéo -->

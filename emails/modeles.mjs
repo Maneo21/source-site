@@ -34,7 +34,7 @@ const T = {
     product: 'Accompagnement personnalisé — Création avec l’IA',
     creation: {
       pre: h => `Merci\u00A0! Votre création est lancée\u00A0: livraison sous ${h}\u00A0h maximum.`,
-      confirmed: (b, p) => [`Votre commande de création sur mesure ${b} à `, p, ' a bien été confirmée.'],
+      confirmed: (b, p, n) => [`Votre création ${n ? n + ' ' : 'sur mesure '}${b} à `, p, ' a bien été confirmée.'],
       received: what => `J’ai bien reçu votre demande et je commence la réalisation de ${what}.`,
       what: { site: 'votre site web', pub: 'votre vidéo publicitaire', motion: 'votre animation motion design', other: 'votre projet' },
       deliver: h => ['Vous recevrez votre création ', `sous ${h}\u00A0h maximum`, ', directement par e-mail.'],
@@ -46,7 +46,7 @@ const T = {
       receivedNoBrief: what => `J’ai bien reçu votre commande pour ${what}.`,
       brief: `Pour que je puisse commencer, répondez simplement à cet e-mail en décrivant votre projet\u00A0: votre activité, ce que vous voulez montrer et le style que vous aimez. Joignez votre logo, vos textes et vos images si vous en avez.`,
       deliverNoBrief: h => ['Vous recevrez votre création ', `sous ${h}\u00A0h maximum après votre réponse`, ', directement par e-mail.'],
-      product: 'Création sur mesure — réalisée pour vous',
+      product: n => n ? `Création ${n} — réalisée pour vous` : 'Création sur mesure — réalisée pour vous',
       k: { via: 'Livraison', kind: 'Création' }
     },
     once: 'paiement unique',
@@ -78,7 +78,7 @@ const T = {
     product: 'Personal coaching — Creating with AI',
     creation: {
       pre: h => `Thank you! Your creation is under way: delivery within ${h} hours.`,
-      confirmed: (b, p) => [`Your ${b} made-to-order creation order for `, p, ' is confirmed.'],
+      confirmed: (b, p, n) => [`Your ${b} ${n ? n + ' ' : 'made-to-order '}creation order for `, p, ' is confirmed.'],
       received: what => `I’ve received your request and I’m starting work on ${what}.`,
       what: { site: 'your website', pub: 'your video ad', motion: 'your motion design animation', other: 'your project' },
       deliver: h => ['You’ll receive your creation ', `within ${h} hours`, ', by email.'],
@@ -89,7 +89,7 @@ const T = {
       receivedNoBrief: what => `I’ve received your order for ${what}.`,
       brief: 'So that I can get started, just reply to this email and describe your project: what you do, what you want to show and the style you like. Attach your logo, copy and images if you have any.',
       deliverNoBrief: h => ['You’ll receive your creation ', `within ${h} hours of your reply`, ', by email.'],
-      product: 'Made-to-order creation — built for you',
+      product: n => n ? `${n} creation — made for you` : 'Made-to-order creation — built for you',
       k: { via: 'Delivery', kind: 'Creation' }
     },
     once: 'one-time payment',
@@ -109,7 +109,7 @@ const pick = (v, lang) => (v && typeof v === 'object' ? v[lang] ?? v.fr ?? '' : 
 const cut = (s, n) => (s.length > n ? `${s.slice(0, n - 1).trimEnd()}…` : s);
 
 export function money(amount, currency, lang) {
-  const cur = String(currency || 'eur').toUpperCase(), n = ((Number(amount) || 0) / 100).toFixed(2);
+  const cur = String(currency || 'eur').toUpperCase(), v = Number(amount) || 0, n = (v / 100).toFixed(v % 100 ? 2 : 0);   // 99 €, 19,90 €
   if (lang === 'fr') return `${n.replace('.', ',')}\u00A0${cur === 'EUR' ? '€' : cur}`;
   return cur === 'EUR' ? `€${n}` : `${n} ${cur}`;
 }
@@ -202,6 +202,9 @@ ${rows(list)}
 </table>
 </td></tr>`;
 
+// Le nom de chaque formule de création, dans la langue du client.
+const TIER_NAMES = { fr: { studio: 'Studio', pro: 'Pro', essentielle: 'Essentielle' }, en: { studio: 'Studio', pro: 'Pro', essentielle: 'Essential' } };
+
 /* ---------- e-mail du client ---------- */
 
 export function clientMail(order, ctx) {
@@ -209,15 +212,16 @@ export function clientMail(order, ctx) {
   const price = money(order.amount, order.currency, lang), date = when(order.at, lang);
   const project = order.project ? cut(order.project, 600) : '';
   // création sur mesure : livrée par e-mail, dans le délai de livraison de la formule
-  const creation = order.offer === 'creation', tc = t.creation, dh = ctx.deliveryHours || 24;
+  const creation = order.offer === 'creation', tc = t.creation, tv = creation ? ctx.tiers?.[order.tier] || {} : {}, dh = tv.deliveryHours || ctx.deliveryHours || 24;
+  const tierName = creation ? TIER_NAMES[lang]?.[order.tier] || '' : '';
   // réponse sur TikTok seulement si le client l'a choisie ET a donné son pseudo ; sinon par e-mail
   const handle = !creation && order.channel === 'tiktok' && order.tiktok ? order.tiktok : '';
   // création arrivée sans description : le client est invité à la donner, et le délai court à partir de sa réponse
   const noBrief = creation && !project, what = creation ? tc.what[order.kind] || tc.what.other : '';
-  const [c1, c2, c3] = (creation ? tc.confirmed : t.confirmed)(brand, price), [r1, r2, r3] = noBrief ? tc.deliverNoBrief(dh) : creation ? tc.deliver(dh) : t.reply(h, handle);
+  const [c1, c2, c3] = (creation ? tc.confirmed : t.confirmed)(brand, price, tierName), [r1, r2, r3] = noBrief ? tc.deliverNoBrief(dh) : creation ? tc.deliver(dh) : t.reply(h, handle);
   const received = noBrief ? tc.receivedNoBrief(what) : creation ? tc.received(what) : t.received;
-  const more = creation ? [noBrief ? tc.brief : tc.assets, tc.after(ctx.revisions ?? 1, ctx.revisionDays || 7)] : handle ? [t.dm] : [];
-  const product = creation ? tc.product : t.product, viaLabel = creation ? tc.k.via : t.k.via, kindLabel = creation ? tc.k.kind : t.k.kind, via = creation ? tc.via(dh) : t.via(handle);
+  const more = creation ? [noBrief ? tc.brief : tc.assets, tc.after(tv.revisions ?? ctx.revisions ?? 1, ctx.revisionDays || 7)] : handle ? [t.dm] : [];
+  const product = creation ? tc.product(tierName) : t.product, viaLabel = creation ? tc.k.via : t.k.via, kindLabel = creation ? tc.k.kind : t.k.kind, via = creation ? tc.via(dh) : t.via(handle);
   const legal = order.consent ? t.waived : t.right;
   const cgv = `${ctx.origin}/legal#cgv`, wd = `${ctx.origin}/legal#retractation`;
   const subject = `${order.live ? '' : '[TEST] '}${t.subject(brand)}`;
@@ -271,11 +275,12 @@ ${card(t.recap, list)}
 // `client` décrit l'e-mail de confirmation du client : { sent: true } ou { failed: 'raison' }.
 export function adminMail(order, ctx, client = { sent: true }) {
   const brand = ctx.brand, price = money(order.amount, order.currency, 'fr'), creation = order.offer === 'creation';
-  const date = when(order.at, 'fr'), due = when(Number(order.at) + (creation ? ctx.deliveryHours || 24 : ctx.replyHours) * 3600, 'fr').replace(/ \(.*\)$/, '');
-  const offerName = creation ? 'Je crée pour toi · création sur mesure, à livrer' : 'Je te guide · échange personnalisé';
+  const tv = creation ? ctx.tiers?.[order.tier] || {} : {}, hours = tv.deliveryHours || ctx.deliveryHours || 24, tierName = creation ? TIER_NAMES.fr[order.tier] || '' : '';
+  const date = when(order.at, 'fr'), due = when(Number(order.at) + (creation ? hours : ctx.replyHours) * 3600, 'fr').replace(/ \(.*\)$/, '');
+  const offerName = creation ? `Création ${tierName || 'sur mesure'} · ${tv.revisions ?? 1} retouche${(tv.revisions ?? 1) > 1 ? 's' : ''} · à livrer en ${hours} h` : 'Je te guide · échange personnalisé';
   // création sans description : rien à livrer tant que le client n'a pas décrit son projet
-  const noBrief = creation && !order.project, hours = ctx.deliveryHours || 24;
-  const headline = creation ? 'Création à livrer' : 'Nouvelle commande', todo = creation ? 'À livrer par e-mail au plus tard le' : 'À répondre dès que possible, au plus tard le';
+  const noBrief = creation && !order.project;
+  const headline = creation ? `Création ${tierName ? tierName + ' ' : ''}à livrer` : 'Nouvelle commande', todo = creation ? 'À livrer par e-mail au plus tard le' : 'À répondre dès que possible, au plus tard le';
   const todoLine = noBrief ? `À livrer par e-mail sous ${hours} h après la description du client.` : `${todo} ${due}.`;
   const briefAlert = 'Aucune description du projet dans la commande. Le client a été invité à te la donner en répondant à sa confirmation : attends sa réponse, ou écris-lui.';
   const kindLabel = creation ? 'À créer' : 'Type de projet';

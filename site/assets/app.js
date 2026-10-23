@@ -1,6 +1,6 @@
 // Page de vente : accueil de langue, animations, vidéos des trois univers, les deux formules, récapitulatif avant paiement.
-import { I, esc, langSwitch, syncSwitch, swapLang } from './i18n.js?v=f72cd7a6ed';
-import { pick } from './vars.js?v=40fcdd2d97';
+import { I, esc, langSwitch, syncSwitch, swapLang } from './i18n.js?v=ead063818e';
+import { pick } from './vars.js?v=8a517853cc';
 
 const $ = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
@@ -17,22 +17,24 @@ const MEDIA = '/assets/media/';
 // Les réalisations, dans l'ordre d'affichage. Fichiers : <key>-mini.mp4 (mur de l'accroche), <key>-teaser.mp4 (extrait muet), <key>.mp4 (vidéo complète, avec le son), <key>-poster.webp.
 // « kind » est le type de projet présélectionné dans le récapitulatif et transmis à Stripe.
 const U = [
-  { key: 'puissance', kind: 'motion', dur: '0:15' },
-  { key: 'commeca', kind: 'pub', dur: '0:16' },
-  { key: 'pub', kind: 'pub', dur: '0:15' },
+  { key: 'code', kind: 'motion', dur: '0:18', wide: true },
+  { key: 'commeca', kind: 'pub', dur: '0:09' },
   { key: 'sites', kind: 'site', dur: '0:22' },
+  { key: 'roadster', kind: 'pub', dur: '0:15', wide: true },
 ];
 // Les deux formules. « guide » : l'échange personnalisé (je t'explique). « creation » : la création sur mesure (je réalise et je livre).
 // Chaque formule a son lien de paiement Stripe et ses types de projet.
-const OFFERS = ['guide', 'creation'];
-const KINDS = { guide: ['site', 'pub', 'motion', 'autre'], creation: ['site', 'pub', 'motion'] };
+// « guide » : Je te guide. Trois créations : studio, pro (mise en avant), essentielle. HOW_TABS : les deux onglets du déroulé.
+const TIERS = ['studio', 'pro', 'essentielle'], OFFERS = ['guide', ...TIERS], HOW_TABS = ['creation', 'guide'];
+const isTier = o => TIERS.includes(o);
+const KINDS = { guide: ['site', 'pub', 'motion', 'autre'], studio: ['pub', 'motion'], pro: ['pub', 'motion'], essentielle: ['pub', 'motion'] };
 // Aperçu sur le Mac (et non site public). « ?public=1 » montre l'aperçu comme le verra un visiteur.
 const PREVIEW = /^(localhost|127\.|192\.168\.|10\.|172\.(1[6-9]|2\d|3[01])\.)/.test(location.hostname) && !/[?&]public=1(&|$)/.test(location.search);
 
 const els = {};
 let started = false, overlays = 0;
 let lastKind = null, kindTouched = false;
-let offer = 'guide', howTab = 'guide';
+let offer = 'guide', howTab = 'creation';
 
 /* ---------- appui volontaire, glissement ou clic fantôme ? ---------- */
 // Dans certains navigateurs intégrés (TikTok, Instagram…), un « clic » peut arriver à la fin d'un défilement,
@@ -154,6 +156,8 @@ function pageText() {
   buildSig();
   buildRot();
   buildReviews();
+  buildTiers();
+  heroPick();
   syncSwitch($('[data-langswitch]'));
   if ($('[data-tt-lang]')?.childElementCount) syncSwitch($('[data-tt-lang]'));
 }
@@ -173,6 +177,14 @@ function buildRolls() {
 }
 
 // Comment ça se passe : trois étapes et un aperçu, pour la formule de l'onglet choisi.
+// Une icône par étape : réserver, décrire, puis recevoir (la création, ou la réponse).
+const ST_IC = {
+  lock: '<svg viewBox="0 0 24 24"><rect x="5" y="10.5" width="14" height="10" rx="2.5"/><path d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5"/></svg>',
+  pen: '<svg viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16v4z"/><path d="M13.5 6.5l4 4"/></svg>',
+  play: '<svg viewBox="0 0 24 24"><rect x="3.5" y="5.5" width="17" height="13" rx="3"/><path d="M10.5 9.5l4 2.5-4 2.5z"/></svg>',
+  chat: '<svg viewBox="0 0 24 24"><path d="M20 11.5a7.5 7.5 0 0 1-11.2 6.5L4 19l1.1-4.4A7.5 7.5 0 1 1 20 11.5z"/></svg>',
+};
+const STEP_ICONS = { creation: ['lock', 'pen', 'play'], guide: ['lock', 'pen', 'chat'] };
 function buildHow(animate = false) {
   const box = $('[data-steps]'), tabs = $('[data-tabs]');
   if (!box || !tabs) return;
@@ -181,10 +193,11 @@ function buildHow(animate = false) {
     $$('.step', box).forEach((li, k) => {
       $('[data-step-t]', li).textContent = I.fmt(steps[k]?.t || '');
       $('[data-step-d]', li).textContent = I.fmt(steps[k]?.d || '');
+      const ic = $('[data-step-ic]', li); if (ic) ic.innerHTML = ST_IC[STEP_ICONS[howTab][k]] || '';
     });
     box.classList.remove('swap');
   };
-  tabs.style.setProperty('--i', OFFERS.indexOf(howTab));
+  tabs.style.setProperty('--i', HOW_TABS.indexOf(howTab));
   for (const b of $$('[data-tab]', tabs)) b.setAttribute('aria-selected', String(b.dataset.tab === howTab));
   for (const v of $$('[data-view]')) v.hidden = v.dataset.view !== howTab;
   if (animate && !RM) { box.classList.add('swap'); setTimeout(fill, 220); } else fill();
@@ -214,6 +227,44 @@ function buildExample() {
   };
 }
 
+// L'accueil : la formule choisie (Pro d'avance), ce qu'elle comprend, et le bouton qui ouvre son récapitulatif.
+let heroTier = 'pro';
+function heroPick(id = heroTier) {
+  heroTier = id;
+  for (const b of $$('[data-pick-tier]')) { const on = b.dataset.pickTier === id; b.classList.toggle('sel', on); b.setAttribute('aria-pressed', String(on)); }
+  const v = { ...I.vars.tiers?.[id] }, sum = $('[data-ho-sum]'), cta = $('[data-ho-cta]');
+  if (sum) sum.innerHTML = I.t(`offers.${id}.sum`, v).split(' · ').map((x, k) => `<span${k ? '' : ' class="on"'}>${esc(x)}</span>`).join('');
+  if (cta) { cta.dataset.book = id; $('[data-ho-label]', cta).textContent = I.t('hero.choose', { name: I.t(`offers.${id}.name`), price: I.vars.prices?.[id] }); }
+  offerState();
+}
+function buildTiers() {
+  for (const el of $$('[data-ti18n]')) {
+    const host = el.closest('[data-tier]') || el.closest('[data-trio]'), id = host?.dataset.tier || host?.dataset.trio, k = el.dataset.ti18n, v = I.vars.tiers?.[id] || {};
+    el.textContent = k.startsWith('{') ? I.fmt(k, v) : I.t(k, v);
+  }
+  // le badge de l'Essentielle annonce l'offre de lancement tant qu'elle dure
+  const eb = $('[data-tier="essentielle"] .tier-badge span');
+  if (eb) eb.textContent = I.t(I.vars.launchOn && I.config.launch?.essentielle ? 'offers.essentielle.badgeLaunch' : 'offers.essentielle.badge');
+  $('[data-tier="essentielle"]')?.classList.toggle('is-launch', !!I.vars.launchOn);
+  const lb = $('[data-launch]');
+  if (lb) { lb.hidden = !I.vars.launchOn; $('[data-launch-text]', lb).textContent = I.vars.launchOn ? I.t('offers.launchHero') : ''; tickLaunch(); }
+  const lf = $('[data-launch-full]');
+  if (lf) { lf.hidden = !I.vars.launchOn; $('span', lf).textContent = I.vars.launchOn ? I.t('offers.launch') : ''; }
+}
+// Compte à rebours de l'offre de lancement ; à l'heure dite, les prix normaux et les nouveaux liens prennent le relais.
+let launchTimer = 0;
+function tickLaunch() {
+  clearTimeout(launchTimer);
+  const el = $('[data-countdown]'), until = Date.parse(I.config.launch?.until || '');
+  if (!el || !I.vars.launchOn || !Number.isFinite(until)) return;
+  const left = until - Date.now();
+  if (left <= 0) { I.set(I.lang, { persist: false }).then(() => { pageText(); kick(); }); return; }
+  const d = Math.floor(left / 864e5), hh = Math.floor(left / 36e5) % 24, mm = Math.floor(left / 6e4) % 60;
+  const t = d ? `${d} j ${hh} h` : hh ? `${hh} h ${String(mm).padStart(2, '0')} min` : `${mm} min`;
+  el.textContent = I.t('offers.launchLeft', { t: I.lang === 'en' ? t.replace(' j ', ' d ') : t });
+  launchTimer = setTimeout(tickLaunch, 30000);
+}
+
 function buildSig() {
   const c = I.config.creator || {}, name = c.name || '';
   const letter = /^\[/.test(name) || !name ? '✦' : name.trim()[0].toUpperCase();
@@ -233,23 +284,35 @@ function buildSig() {
     proof.innerHTML = items.map(p => `<li><strong>${esc(p.value)}</strong><span>${esc(p.label)}</span></li>`).join('');
   }
   if (line) {
+    const ICO = { eye: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="3"/></svg>', heart: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.2a4.3 4.3 0 0 1 7.5 2.6C19.5 15.4 12 20 12 20z"/></svg>' };
+    const raw = (Array.isArray(I.config.proof) ? I.config.proof : []).filter(p => String(pick(p?.value, I.lang) ?? '').trim());
     line.hidden = !items.length;
-    $('span', line).textContent = items.slice(0, 2).map(p => `${p.value} ${p.label}`).join(' · ');
+    line.innerHTML = items.slice(0, 2).map((p, k) => `<span class="hp-i">${ICO[raw[k]?.icon] || ''}<b>${esc(p.value)}</b> ${esc(p.label)}</span>`).join('');
   }
 }
 
 // Liens de paiement Stripe (site/config.json) : « paymentLink » pour l'échange, « creation.paymentLink » pour la création.
 // Un lien de test contient « /test_ ».
-const payLink = (o = offer) => String((o === 'creation' ? I.config.creation?.paymentLink : I.config.paymentLink) || '').trim();
+const payLink = (o = offer) => {
+  const c = I.config, L = c.launch || {};
+  if (I.vars.launchOn && L[o]?.paymentLink) return String(L[o].paymentLink).trim();
+  return String((o === 'guide' ? c.paymentLink : c.creation?.tiers?.[o]?.paymentLink) || '').trim();
+};
 const validLink = o => { try { return new URL(payLink(o)).protocol === 'https:'; } catch { return false; } };
-// Sans son lien de paiement, la création est annoncée « bientôt disponible » sur le site public et ne peut pas être commandée.
+// Une formule sans lien de paiement est annoncée « bientôt disponible » sur le site public et ne peut pas être commandée.
 // L'aperçu local garde tout actif, pour montrer le parcours complet.
-const creationOpen = () => validLink('creation') || PREVIEW;
+const isOpen = o => validLink(o) || PREVIEW;
+const firstOpenTier = () => ['pro', 'essentielle', 'studio'].find(isOpen) || null;
 function offerState() {
-  const open = creationOpen();
-  root.classList.toggle('no-creation', !open);
-  for (const b of $$('[data-book="creation"]')) b.disabled = !open;
-  for (const el of $$('[data-soon]')) el.textContent = I.t(open ? el.dataset.soon : 'offers.soon');
+  for (const o of OFFERS) {
+    const open = isOpen(o);
+    root.classList.toggle('no-' + o, !open);
+    for (const b of $$(`[data-book="${o}"]`)) b.disabled = !open;
+  }
+  for (const el of $$('[data-soon]')) {
+    const o = el.closest('[data-book]')?.dataset.book || el.closest('[data-tier]')?.dataset.tier;
+    el.textContent = I.t(!o || isOpen(o) ? el.dataset.soon : 'offers.soon');
+  }
 }
 function modeTag() {
   const el = $('[data-mode-tag]');
@@ -363,7 +426,8 @@ function start() {
   for (const el of [$('main'), $('[data-top]'), $('.foot')]) el.inert = false;
   requestAnimationFrame(() => $$('.hero [data-h]').forEach(el => el.classList.add('in')));
   $$('[data-r], [data-split]').forEach(el => { if (!el.closest('.hero')) io.observe(el); });
-  setTimeout(() => { initWall(); initShow(); initMinis(); }, RM ? 0 : 450);
+  initTiers();
+  setTimeout(() => { initWall(); initReel(); initMinis(); }, RM ? 0 : 450);
   if (!RM) Rt.timer = setInterval(rotNext, 2600);
   setTimeout(updSticky, RM ? 0 : 1700);
   kick();
@@ -437,67 +501,28 @@ function rotNext() {
   sizeRot();
 }
 
-/* ---------- les réalisations : une sélection mise en scène ---------- */
-// Ordinateur : la liste à gauche, la création choisie en grand à droite ; à la fin de son extrait, la suivante prend la place.
-// Téléphone : une bande que l'on fait glisser ; la carte au centre joue son extrait. Le son : seulement dans le lecteur.
-const S = { i: 0, cards: [], btns: [], dots: [], rail: null, vis: false, wide: false, raf: 0, st: 0 };
-function initShow() {
-  const box = $('[data-show]');
+/* ---------- les réalisations ---------- */
+// Chaque vidéo joue son extrait muet (<clé>-teaser.mp4) quand elle est bien à l'écran ; deux au plus à la fois.
+// Le son : seulement dans le lecteur, au toucher du bouton (ou au clic de souris sur la vidéo).
+const Rl = { tiles: [] };
+function initReel() {
+  const box = $('[data-reel]');
   if (!box) return;
-  S.cards = $$('.show-card', box); S.btns = $$('[data-pick]', box); S.dots = $$('.show-dots i', box); S.rail = $('[data-rail]', box);
-  const mq = matchMedia('(min-width: 900px)');
-  S.wide = mq.matches;
-  mq.addEventListener?.('change', e => { S.wide = e.matches; showGo(S.i); });
-  S.cards.forEach(c => {
-    const v = $('video', c);
-    v.addEventListener('playing', () => c.classList.add('playing'));
-    v.addEventListener('ended', () => { if (S.wide && S.vis) showGo(S.i + 1); else { v.currentTime = 0; showPlay(); } });
-  });
-  box.addEventListener('click', e => { const b = e.target.closest('[data-pick]'); if (b) showGo(+b.dataset.pick, true); });
-  // au doigt : la carte la plus proche du centre de la bande devient la carte active
-  S.rail.addEventListener('scroll', () => {
-    if (S.wide) return;
-    clearTimeout(S.st);
-    S.st = setTimeout(() => {
-      const r = S.rail.getBoundingClientRect(), mid = r.left + r.width / 2;
-      let best = S.i, bd = Infinity;
-      S.cards.forEach((c, k) => { const cr = c.getBoundingClientRect(), d = Math.abs(cr.left + cr.width / 2 - mid); if (d < bd) { bd = d; best = k; } });
-      if (best !== S.i) showGo(best, false, true);
-    }, 80);
-  }, { passive: true });
-  new IntersectionObserver(es => { S.vis = es[0].isIntersecting; showPlay(); }, { threshold: .2 }).observe(S.rail);
+  Rl.tiles = $$('.rt', box).map(t => ({ t, v: $('video', t), r: 0 }));
+  for (const x of Rl.tiles) x.v.addEventListener('playing', () => x.t.classList.add('playing'));
+  const io2 = new IntersectionObserver(es => {
+    for (const e of es) { const x = Rl.tiles.find(y => y.t === e.target); if (!x) continue; x.r = e.intersectionRatio; if (e.isIntersecting) x.t.classList.add('in'); }
+    reelPlay();
+  }, { threshold: [0, .25, .5, .75, 1] });
+  Rl.tiles.forEach(x => io2.observe(x.t));
 }
-function showGo(k, user = false, fromScroll = false) {
-  const n = S.cards.length;
-  if (!n) return;
-  S.i = (k + n) % n;
-  S.cards.forEach((c, j) => c.classList.toggle('on', j === S.i));
-  S.btns.forEach((b, j) => { b.classList.toggle('on', j === S.i); b.setAttribute('aria-pressed', String(j === S.i)); b.style.setProperty('--p', 0); });
-  S.dots.forEach((d, j) => d.classList.toggle('on', j === S.i));
-  if (!S.wide && !fromScroll) {
-    const c = S.cards[S.i];
-    S.rail.scrollTo({ left: c.offsetLeft - (S.rail.clientWidth - c.offsetWidth) / 2, behavior: RM || !user ? 'auto' : 'smooth' });
+function reelPlay() {
+  const on = autoplay && !P.open && !document.hidden;
+  const best = Rl.tiles.filter(x => x.r >= .5).sort((a, b) => b.r - a.r).slice(0, 2);
+  for (const x of Rl.tiles) {
+    if (on && best.includes(x)) { if (!x.v.getAttribute('src')) x.v.src = `${MEDIA}${x.t.dataset.k}-teaser.mp4`; x.v.play().catch(() => {}); }
+    else if (!x.v.paused) x.v.pause();
   }
-  const v = $('video', S.cards[S.i]);
-  try { if (v.getAttribute('src')) v.currentTime = 0; } catch { /* pas encore chargée */ }
-  showPlay();
-}
-function showPlay() {
-  const on = S.vis && autoplay && !P.open && !document.hidden;
-  S.cards.forEach((c, j) => {
-    const v = $('video', c);
-    if (j === S.i && on) {
-      if (!v.getAttribute('src')) v.src = `${MEDIA}${c.dataset.k}-teaser.mp4`;
-      v.play().catch(() => {});
-    } else if (!v.paused) v.pause();
-  });
-  cancelAnimationFrame(S.raf);
-  if (on && S.wide) S.raf = requestAnimationFrame(showTick);
-}
-function showTick() {
-  const v = $('video', S.cards[S.i]);
-  if (v?.duration) S.btns[S.i]?.style.setProperty('--p', clamp(v.currentTime / v.duration).toFixed(4));
-  if (S.vis && !P.open) S.raf = requestAnimationFrame(showTick);
 }
 
 // L'exemple de création dans la formule « Je crée pour toi » : un extrait muet, joué seulement quand il est à l'écran.
@@ -516,8 +541,67 @@ function initMinis() {
 // Pendant que le lecteur est ouvert, rien d'autre ne joue.
 function mediaHold() {
   wallPlay();
-  showPlay();
+  reelPlay();
   if (P.open) $$('video[data-mini]').forEach(v => v.pause());
+}
+
+/* ---------- les formules ---------- */
+function goOffers() {
+  const box = $('.hero-offers');
+  if (!box) return;
+  scrollTo({ top: 0, behavior: RM ? 'auto' : 'smooth' });
+  box.classList.remove('flash'); void box.offsetWidth; box.classList.add('flash');
+}
+function centerTier(id, smooth = true) {
+  const rail = $('[data-tiers]'), card = rail && $(`[data-tier="${id}"]`, rail);
+  if (!card || rail.scrollWidth <= rail.clientWidth + 2) return;
+  rail.scrollTo({ left: card.offsetLeft - (rail.clientWidth - card.offsetWidth) / 2, behavior: smooth && !RM ? 'smooth' : 'auto' });
+}
+function initTiers() {
+  for (const b of $$('[data-pick-tier]')) b.addEventListener('click', () => heroPick(b.dataset.pickTier));
+  const rail = $('[data-tiers]');
+  if (!rail) return;
+  const cards = $$('.tier', rail), dots = $$('.tier-dots i');
+  requestAnimationFrame(() => centerTier('pro', false));
+  let t = 0;
+  rail.addEventListener('scroll', () => {
+    clearTimeout(t);
+    t = setTimeout(() => {
+      const r = rail.getBoundingClientRect(), mid = r.left + r.width / 2;
+      let best = 0, bd = Infinity;
+      cards.forEach((c, k) => { const cr = c.getBoundingClientRect(), d = Math.abs(cr.left + cr.width / 2 - mid); if (d < bd) { bd = d; best = k; } });
+      cards.forEach((c, k) => c.classList.toggle('centered', k === best));
+      dots.forEach((d, k) => d.classList.toggle('on', k === best));
+      $$('[data-tier-go]').forEach(b => { const on = b.dataset.tierGo === cards[best]?.dataset.tier; b.classList.toggle('on', on); b.setAttribute('aria-selected', String(on)); });
+    }, 60);
+  }, { passive: true });
+  // les cartes apparaissent l'une après l'autre quand la section arrive à l'écran
+  new IntersectionObserver((es, o) => { if (es[0].isIntersecting) { rail.classList.add('in'); o.disconnect(); } }, { threshold: .15 }).observe(rail);
+  addEventListener('resize', () => centerTier('pro', false));
+  for (const b of $$('[data-tier-go]')) b.addEventListener('click', () => {
+    centerTier(b.dataset.tierGo);
+    // la carte choisie s'allume un instant, et la bande des cartes vient à l'écran
+    const card = $(`.tier[data-tier="${b.dataset.tierGo}"]`);
+    if (card) { card.classList.remove('flash'); void card.offsetWidth; card.classList.add('flash'); }
+    const wrap = $('.tiers-wrap'), r = wrap?.getBoundingClientRect();
+    if (r && (r.top > innerHeight * .55 || r.bottom < 120)) scrollTo({ top: scrollY + r.top - 90, behavior: RM ? 'auto' : 'smooth' });
+  });
+}
+
+// Le comparatif des trois formules : une fenêtre ouverte depuis l'accueil ; « Choisir » passe au récapitulatif.
+function openCompare() {
+  const box = $('#cmpbox');
+  if (!box || !box.hidden) return;
+  lastFocus = document.activeElement;
+  box.hidden = false;
+  lock(true);
+  requestAnimationFrame(() => requestAnimationFrame(() => { box.classList.add('open'); $('[data-cmp-close].x', box)?.focus({ preventScroll: true }); }));
+}
+function closeCompare(then) {
+  const box = $('#cmpbox');
+  if (!box || box.hidden) { then?.(); return; }
+  box.classList.remove('open');
+  setTimeout(() => { box.hidden = true; lock(false); if (then) then(); else lastFocus?.focus?.({ preventScroll: true }); }, 280);
 }
 
 /* ---------- avis clients ---------- */
@@ -529,10 +613,36 @@ function buildReviews() {
   if (!sec) return;
   const items = (Array.isArray(I.config.reviews) ? I.config.reviews : [])
     .filter(r => r && r.consent === true)
-    .map(r => ({ name: String(r.name || '').trim(), project: String(pick(r.project, I.lang) ?? '').trim(), text: String(pick(r.text, I.lang) ?? '').trim() }))
-    .filter(r => r.name && r.text);
+    .map(r => {
+      const t = pick(r.text, I.lang);
+      return { name: String(pick(r.name, I.lang) ?? '').trim(), source: r.source === 'dm' ? 'dm' : 'email', capture: /^\/assets\/media\/[\w.-]+\.(jpe?g|webp|png)$/.test(r.capture || '') ? r.capture : '', parts: (Array.isArray(t) ? t : [t]).map(x => String(x ?? '').trim()).filter(Boolean) };
+    })
+    .filter(r => r.name && r.parts.length);
   sec.hidden = !items.length;
-  $('[data-rv-list]', sec).innerHTML = items.map(r => `<figure class="rv"><blockquote>${esc(r.text)}</blockquote><figcaption><b>${esc(r.name)}</b>${r.project ? `<span>${esc(r.project)}</span>` : ''}</figcaption></figure>`).join('');
+  const ICON = { email: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5.5" width="17" height="13" rx="2.5"/><path d="M4 7l8 6 8-6"/></svg>', dm: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11.5a7.5 7.5 0 0 1-11.2 6.5L4 19l1.1-4.4A7.5 7.5 0 1 1 20 11.5z"/></svg>' };
+  // *mot* : passage mis en valeur (le texte reste celui du client, mot pour mot)
+  const em = s => esc(s).replace(/\*([^*]+)\*/g, '<mark>$1</mark>');
+  $('[data-rv-list]', sec).innerHTML = items.map((r, i) => `<figure class="rv rv-${r.source}" style="--r:${i}">
+    <figcaption class="rv-head"><span class="rv-av">${ICON[r.source]}</span><span><b>${esc(r.name)}</b><small>${esc(I.t('reviews.' + r.source))}</small></span>${r.capture ? `<button class="rv-cap" type="button" data-cap="${esc(r.capture)}" aria-label="${esc(I.t('reviews.capture'))}"><img src="${esc(r.capture)}" alt="" loading="lazy" decoding="async"><i><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="5.5"/><path d="M15 15l4.5 4.5"/></svg></i></button>` : ''}</figcaption>
+    <div class="rv-msgs"><span class="rv-typing" aria-hidden="true"><i></i><i></i><i></i></span>${r.parts.map((p, k) => `<p class="rv-b" style="--k:${k}">${em(p)}</p>`).join('')}</div>
+  </figure>`).join('');
+  const list = $('[data-rv-list]', sec), dots = $('[data-rv-dots]', sec);
+  if (dots) {
+    dots.innerHTML = items.length > 1 ? items.map((_, i) => `<i${i ? '' : ' class="on"'}></i>`).join('') : '';
+    if (!list._dots) { list._dots = true; list.addEventListener('scroll', () => { const k = Math.round(list.scrollLeft / Math.max(1, list.scrollWidth - list.clientWidth) * (list.children.length - 1)); $$('i', dots).forEach((d, i) => d.classList.toggle('on', i === k)); }, { passive: true }); }
+  }
+  if (!list._io) { list._io = new IntersectionObserver((es, o) => { if (es[0].isIntersecting) { list.classList.add('in'); o.disconnect(); } }, { threshold: .25 }); list._io.observe(list); }
+}
+// La capture d'origine d'un avis : plein écran, fermée d'un toucher.
+function openCap(src) {
+  const box = $('#capbox'), img = $('[data-capimg]', box);
+  img.src = src;
+  box.hidden = false;
+  lock(true, true);
+  requestAnimationFrame(() => requestAnimationFrame(() => box.classList.add('open')));
+  const close = () => { box.classList.remove('open'); setTimeout(() => { box.hidden = true; lock(false, true); }, 300); box.removeEventListener('click', close); document.removeEventListener('keydown', key); };
+  const key = e => { if (e.key === 'Escape') close(); };
+  setTimeout(() => { box.addEventListener('click', close); document.addEventListener('keydown', key); }, 50);
 }
 
 /* ---------- effets liés au défilement et au pointeur ---------- */
@@ -599,24 +709,36 @@ function lock(on, soft = false) {
 let lastFocus = null;
 function kindSpec() {
   const el = $('[data-kind-spec]'), k = els.form.elements.kind.value;
-  el.hidden = offer !== 'creation' || !KINDS.creation.includes(k);
-  el.textContent = el.hidden ? '' : I.t(`sheet.creation.specs.${k}`);
+  el.hidden = !isTier(offer) || !KINDS[offer].includes(k);
+  el.textContent = el.hidden ? '' : I.t(`sheet.creation.specs.${k}`, I.vars.tiers?.[offer]);
 }
 function sheetText() {
   const f = els.form;
   if (!f) return;
-  if (offer === 'creation' && !creationOpen()) offer = 'guide';
-  f.dataset.offer = offer;
-  f.elements.offer.value = offer;
-  $('[data-offer-switch]', f).style.setProperty('--i', OFFERS.indexOf(offer));
-  for (const el of $$('[data-sheet]', f)) el.textContent = I.t(`sheet.${offer}.${el.dataset.sheet}`);
-  $('[data-sheet-price]', f).textContent = offer === 'creation' ? I.vars.priceCreation : I.vars.price;
-  for (const el of $$('[data-only]', f)) el.hidden = el.dataset.only !== offer;
-  $('[data-kinds]', f).classList.toggle('three', offer === 'creation');
-  // une création porte toujours sur un site, une pub ou une animation : un choix est toujours fait
-  if (offer === 'creation' && !KINDS.creation.includes(f.elements.kind.value)) f.elements.kind.value = KINDS.creation.includes(lastKind) ? lastKind : 'site';
+  if (!isOpen(offer)) offer = isOpen('guide') ? 'guide' : firstOpenTier() || 'guide';
+  const fam = isTier(offer) ? 'creation' : 'guide', tv = isTier(offer) ? { ...I.vars.tiers?.[offer], tierName: I.t(`offers.${offer}.name`) } : {};
+  f.dataset.offer = fam;
+  f.dataset.tier = offer;
+  for (const r of f.elements.offer) r.checked = r.value === offer;
+  $('[data-offer-switch]', f).style.setProperty('--i', Math.max(0, TIERS.indexOf(offer)));
+  for (const el of $$('[data-sheet]', f)) el.textContent = I.t(`sheet.${fam}.${el.dataset.sheet}`, tv);
+  // le délai suit la formule choisie (24 h ou 48 h)
+  if (fam === 'creation') $('[data-sheet-ship]', f).textContent = I.t('sheet.creation.ship', tv);
+  const items = [];
+  for (let k = 0; fam === 'creation' && k < 8; k++) { const x = I.t(`offers.${offer}.items.${k}`, tv); if (!x) break; items.push(x); }
+  $('[data-sheet-items]', f).innerHTML = items.map(x => `<li>${esc(x)}</li>`).join('');
+  $('[data-sheet-price]', f).textContent = I.vars.prices?.[offer] || I.vars.price;
+  for (const el of $$('[data-only]', f)) el.hidden = el.dataset.only !== fam;
+  $('[data-kinds]', f).classList.toggle('three', false);
+  $('[data-kinds]', f).classList.toggle('two', fam === 'creation');
+  // une création porte toujours sur une pub ou une vidéo motion : un choix est toujours fait
+  if (fam === 'creation' && !KINDS[offer].includes(f.elements.kind.value)) f.elements.kind.value = KINDS[offer].includes(lastKind) ? lastKind : 'pub';
   kindSpec();
   $('[data-chan-help]', f).hidden = f.elements.chan.value !== 'tiktok';
+  const other = $('[data-sheet-other]', f), alt = fam === 'creation' ? (isOpen('guide') ? 'guide' : null) : firstOpenTier();
+  other.hidden = !alt;
+  other.textContent = I.t(`sheet.${fam}.other`);
+  other.dataset.to = alt || '';
   modeTag();
 }
 function openSheet(o) {
@@ -624,6 +746,7 @@ function openSheet(o) {
   if (!sheet.hidden) return;
   if (P.open) { closePlayer(); setTimeout(() => openSheet(o), 420); return; }
   if (OFFERS.includes(o)) offer = o;
+  if (!isOpen(offer)) return;
   lastFocus = document.activeElement;
   $('[data-sheet-err]').textContent = '';
   $('.check').classList.remove('err');
@@ -664,7 +787,7 @@ function checkout(e) {
   // Une création est toujours livrée par e-mail.
   const kind = form.elements.kind.value, chan = offer === 'guide' && form.elements.chan.value === 'tiktok' ? 'tiktok' : 'mail';
   url.searchParams.set('locale', I.info.stripe);
-  url.searchParams.set('client_reference_id', `site_${I.lang}_cgv-${I.config.termsVersion}_retractation-ok${offer === 'creation' ? '_offre-creation' : ''}${KINDS[offer].includes(kind) ? `_type-${kind}` : ''}_rep-${chan}`);
+  url.searchParams.set('client_reference_id', `site_${I.lang}_cgv-${I.config.termsVersion}_retractation-ok${isTier(offer) ? `_offre-${offer}` : ''}${KINDS[offer].includes(kind) ? `_type-${kind}` : ''}_rep-${chan}`);
   // la page de remerciement s'en sert pour afficher la suite de la bonne formule
   try { localStorage.setItem('offre', JSON.stringify({ o: offer, t: Date.now() })); } catch { /* navigation privée */ }
   location.assign(url.href);
@@ -699,6 +822,7 @@ function openPlayer(k = 0, origin = null, kind = 'key') {
   lastFocus = document.activeElement;
   el.hidden = false;
   el.classList.remove('ended', 'closing');
+  el.classList.toggle('wide', !!u.wide);
   lock(true, P.soft);
   diag(`lecteur ouvert (${u.key}, ${kind})`);
   mediaHold();
@@ -898,18 +1022,31 @@ function wire() {
   document.addEventListener('click', e => {
     const kind = kindOf(e);
     // un vrai bouton de lecture ouvre une vidéo ; à la souris seulement, toute la carte d'un univers est cliquable
-    const play = e.target.closest('[data-play]') || (kind === 'mouse' ? e.target.closest('.show-card.on')?.querySelector('[data-play]') : null);
+    const play = e.target.closest('[data-play]') || (kind === 'mouse' ? e.target.closest('.rt')?.querySelector('[data-play]') : null);
     const book = e.target.closest('[data-book]');
-    if (book) { e.preventDefault(); openSheet(book.dataset.book); }
+    const cap = e.target.closest('[data-cap]');
+    if (cap) { e.preventDefault(); if (kind !== 'ghost') openCap(cap.dataset.cap); return; }
+    const go = e.target.closest('[data-go-offers]');
+    if (e.target.closest('[data-open-compare]')) { e.preventDefault(); openCompare(); return; }
+    if (e.target.closest('[data-cmp-close]')) { e.preventDefault(); closeCompare(); return; }
+    if (go || book?.dataset.book === 'creation') { e.preventDefault(); if (P.open) { closePlayer(); setTimeout(goOffers, 450); } else goOffers(); }
+    else if (book && book.closest('#cmpbox')) { e.preventDefault(); closeCompare(() => openSheet(book.dataset.book)); }
+    else if (book) { e.preventDefault(); openSheet(book.dataset.book); }
     else if (play) {
       e.preventDefault();
       if (!mayOpen(e)) { diag(`ouverture refusée (${kind})`); return; }
-      const k = U.findIndex(u => u.key === play.dataset.play), card = play.closest('.show-card');
-      openPlayer(Math.max(0, k), card ? $('.sc-media', card) : null, kind);
+      const k = U.findIndex(u => u.key === play.dataset.play), card = play.closest('.rt');
+      openPlayer(Math.max(0, k), card || null, kind);
     } else if (e.target.closest('#sheet [data-close]')) closeSheet();
   });
-  document.addEventListener('keydown', e => { if (e.key === 'Escape' && !els.sheet.hidden) closeSheet(); });
+  document.addEventListener('keydown', e => { if (e.key !== 'Escape') return; if (!els.sheet.hidden) closeSheet(); else if (!$('#cmpbox').hidden) closeCompare(); });
   els.form.addEventListener('submit', checkout);
+  // « Plutôt apprendre… » / « Plutôt une création… » : on passe d'un récapitulatif à l'autre
+  $('[data-sheet-other]').addEventListener('click', e => {
+    const to = e.currentTarget.dataset.to;
+    if (to === 'guide') { offer = 'guide'; sheetText(); }
+    else if (to) { offer = to; sheetText(); }
+  });
   els.form.consent.addEventListener('change', () => { $('.check').classList.remove('err'); $('[data-sheet-err]').textContent = ''; });
   // réponse sur TikTok : un rappel indique où donner son pseudo
   for (const r of $$('input[name="chan"]', els.form)) r.addEventListener('change', () => {
@@ -920,7 +1057,7 @@ function wire() {
   for (const r of $$('input[name="kind"]', els.form)) r.addEventListener('change', () => { kindTouched = true; kindSpec(); });
   // la formule se change sur place, dans le récapitulatif
   for (const r of $$('input[name="offer"]', els.form)) r.addEventListener('change', () => {
-    offer = els.form.elements.offer.value === 'creation' ? 'creation' : 'guide';
+    offer = OFFERS.includes(els.form.elements.offer.value) ? els.form.elements.offer.value : 'guide';
     $('[data-sheet-err]').textContent = '';
     $('.check').classList.remove('err');
     sheetText();
@@ -928,7 +1065,7 @@ function wire() {
   // comment ça se passe : un onglet par formule
   $('[data-tabs]')?.addEventListener('click', e => {
     const b = e.target.closest('[data-tab]');
-    if (!b || b.dataset.tab === howTab || !OFFERS.includes(b.dataset.tab)) return;
+    if (!b || b.dataset.tab === howTab || !HOW_TABS.includes(b.dataset.tab)) return;
     howTab = b.dataset.tab;
     buildHow(true);
     setTimeout(kick, 260);
@@ -948,12 +1085,12 @@ async function boot() {
     return;
   }
   const known = I.urlLang() || I.stored();
-  await I.set(known || I.browser(), { persist: !!known });
+  // sans langue choisie (adresse ou choix précédent), le site s'ouvre en français ; « EN » en haut pour l'anglais
+  await I.set(known || 'fr', { persist: !!known });
   wire();
   langSwitch($('[data-langswitch]'), code => swapLang(code, () => { pageText(); replayVisible(); kick(); }));
   pageText();
   if (fromTikTok()) reveal($('#welcome'), await ttHint());
-  else if (!known) welcome();
   else { root.classList.remove('is-welcome'); start(); }
 }
 boot();

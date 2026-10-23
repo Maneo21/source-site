@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "IA Motion Studio · Video ads, motion design and websites with AI",
-    "description": "Websites, video ads, motion design: I show you my method for creating with AI ({price}), or I build your project for you, delivered within {deliveryHours} hours ({priceCreation}). One-time payment.",
+    "description": "Custom video ads and motion design made with AI: options from {priceCreation}, delivered in 24 to 48 hours. Or I guide you to make them yourself ({price}).",
     "legalTitle": "Legal information · {brand}",
     "merciTitle": "Thank you · {brand}"
   },
@@ -36,12 +36,20 @@
       "a website"
     ],
     "post": "like this?",
-    "sub": "Video ads, motion design and websites, made with AI. I show you how, or I make it for you.",
+    "sub": "Ads and motion videos made with AI. Custom-made, delivered in 24 to 48 hours.",
     "prev": "Previous video",
     "next": "Next video",
     "safe": "One-time payment · secured by Stripe",
     "kicker": "AI creative studio",
-    "scroll": "See the work"
+    "scroll": "See the work",
+    "cta": "See the options",
+    "ctaSmall": "Ads and motion videos",
+    "from": "from",
+    "learn": "You want to learn",
+    "compare": "Compare the options",
+    "learnShort": "I guide you",
+    "choose": "Choose {name} · {price}",
+    "safeShort": "Secured by Stripe"
   },
   "video": {
     "play": "Watch with sound",
@@ -56,9 +64,9 @@
     "endSub": "I show you how, or I build it for you."
   },
   "offers": {
-    "kicker": "Two options",
-    "title": "You make it. Or I do.",
-    "text": "A prompt alone isn’t enough: what matters is the method. Either I hand it to you, or I take care of it.",
+    "kicker": "The options",
+    "title": "Pick your creation.",
+    "text": "An ad or a motion video built to stop the scroll. Made by me, delivered in 24 to 48 hours.",
     "once": "One-time payment",
     "soon": "Coming soon",
     "guide": {
@@ -74,26 +82,118 @@
       ],
       "delay": "Reply almost right after your order",
       "cta": "Book my session",
-      "for": "You want to learn"
+      "for": "Rather do it yourself?",
+      "for2": "You want to learn",
+      "ctaShort": "Book"
     },
     "creation": {
       "name": "I build it for you",
-      "tag": "I create",
-      "badge": "Done for you",
-      "short": "Delivered within {deliveryHours} hours",
-      "pitch": "No AI, or no time? Describe your project. I build it and deliver it to you.",
-      "items": [
-        "Your website, ad or motion video, made by me",
-        "A one-page website, or a video up to {videoSeconds} seconds",
-        "Ready to publish: the files are yours",
-        "{revisionsIncluded}, within {revisionDays} days"
-      ],
-      "delay": "Delivered by email within {deliveryHours} hours",
-      "cta": "Order my creation",
       "for": "You want the result",
       "see": "Sample creation"
     },
-    "or": "or"
+    "or": "or",
+    "launch": "Launch offer until {launchUntil}",
+    "launchLeft": "{t} left",
+    "choose": "Choose",
+    "perHours": "Delivered in {deliveryHours} h",
+    "studio": {
+      "name": "Studio",
+      "badge": "Most advanced",
+      "tag": "Crafted to the max, above everything else. Made to stand out.",
+      "cta": "Choose Studio",
+      "items": [
+        "Ad or motion video up to {videoSeconds} seconds, in several scenes",
+        "Advanced 3D world, built for your brand",
+        "Voice-over and subtitles",
+        "3 different ad openings, to test which one works",
+        "Every format: vertical, square, landscape"
+      ],
+      "sum": "Up to {videoSeconds} s · advanced 3D · 3 ad openings · every format · {revisions} · {deliveryHours} h"
+    },
+    "pro": {
+      "name": "Pro",
+      "badge": "Recommended",
+      "tag": "Far more detail, far more impact.",
+      "cta": "Choose Pro",
+      "items": [
+        "Ad or motion video of 20 to {videoSeconds} seconds, custom-made",
+        "A world built for your brand, rich in detail",
+        "Voice-over and subtitles",
+        "Vertical and square formats",
+        "We talk about your project by email"
+      ],
+      "sum": "20 to {videoSeconds} s, custom · voice-over · vertical + square · {revisions} · {deliveryHours} h"
+    },
+    "essentielle": {
+      "name": "Essential",
+      "badge": "The essentials, done right",
+      "badgeLaunch": "Launch offer",
+      "tag": "A real, polished ad, even on a small budget.",
+      "cta": "Choose Essential",
+      "items": [
+        "Ad or motion video of about {videoSeconds} seconds",
+        "Punchy and polished, from your description",
+        "Vertical format, ready for TikTok and Instagram",
+        "Delivered ready to publish, the files are yours"
+      ],
+      "sum": "About {videoSeconds} s · polished · vertical · {revisions} · {deliveryHours} h"
+    },
+    "compare": {
+      "title": "Compare the three options",
+      "rows": [
+        {
+          "l": "Length",
+          "studio": "up to {tiers.studio.videoSeconds} s",
+          "pro": "20 to {tiers.pro.videoSeconds} s",
+          "essentielle": "≈ {tiers.essentielle.videoSeconds} s"
+        },
+        {
+          "l": "Creation",
+          "studio": "advanced 3D, several scenes",
+          "pro": "custom, detailed",
+          "essentielle": "polished, in my styles"
+        },
+        {
+          "l": "Voice-over and subtitles",
+          "studio": "✓",
+          "pro": "✓",
+          "essentielle": "—"
+        },
+        {
+          "l": "Ad openings to test",
+          "studio": "3",
+          "pro": "1",
+          "essentielle": "1"
+        },
+        {
+          "l": "Formats",
+          "studio": "vertical, square, landscape",
+          "pro": "vertical, square",
+          "essentielle": "vertical"
+        },
+        {
+          "l": "Talk about your project",
+          "studio": "by email",
+          "pro": "by email",
+          "essentielle": "your description is enough"
+        },
+        {
+          "l": "Revisions",
+          "studio": "{tiers.studio.revisionCount}",
+          "pro": "{tiers.pro.revisionCount}",
+          "essentielle": "{tiers.essentielle.revisionCount}"
+        },
+        {
+          "l": "Delivery",
+          "studio": "{tiers.studio.deliveryHours} h",
+          "pro": "{tiers.pro.deliveryHours} h",
+          "essentielle": "{tiers.essentielle.deliveryHours} h"
+        }
+      ],
+      "pick": "Choose"
+    },
+    "trioHint": "Tap an option to see everything it includes",
+    "launchHero": "Essentielle: launch price"
   },
   "trust": {
     "methodsLabel": "Payment methods",
@@ -141,16 +241,16 @@
     "creation": {
       "steps": [
         {
-          "t": "You order",
-          "d": "One-time payment, secured by Stripe. You choose what I build: a website, an ad or a motion video."
+          "t": "You pick your option",
+          "d": "One-time payment, secured by Stripe. You choose what I make: an ad or a motion video."
         },
         {
           "t": "You describe your project",
           "d": "In a few words, when you order or by email right after. A logo, copy, photos? Send them over too."
         },
         {
-          "t": "I build it, I deliver",
-          "d": "Within {deliveryHours} hours, by email. Then {revisionsIncluded} to adjust a detail."
+          "t": "I make it, I deliver",
+          "d": "Within 24 to 48 hours depending on the option, by email. Then your revisions to adjust a detail."
         }
       ]
     },
@@ -163,7 +263,7 @@
       "s1d": "The files are yours.",
       "s2": "How to put it online",
       "s3": "A detail to adjust?",
-      "s3d": "{revisionsIncluded}, within {revisionDays} days",
+      "s3d": "Revisions included with your package, within {revisionDays} days",
       "note": "Sample delivery. Your creation is made for your project, from your description."
     }
   },
@@ -194,23 +294,23 @@
     "items": [
       {
         "q": "Which option should I pick?",
-        "a": "You have access to an AI and want to create it yourself: “I guide you” ({price}). You’d rather receive the finished result without doing anything: “I build it for you” ({priceCreation})."
+        "a": "You want an ad that stands out without spending time on it: <b>Pro</b> ({tiers.pro.priceTier}), the most complete for the price. For a big launch or a demanding brand: <b>Studio</b> ({tiers.studio.priceTier}). Small budget: <b>Essential</b> ({priceCreation}). And if you want to learn to do it yourself: <b>I guide you</b> ({price})."
       },
       {
-        "q": "What does “I build it for you” include?",
-        "a": "One creation made by me, your choice: a one-page website, a video ad or a motion design animation up to {videoSeconds} seconds. Delivered by email within {deliveryHours} hours, ready to publish, with {revisionsIncluded}. Hosting and a domain name for a website are not included: I explain how to put it online."
+        "q": "What’s the difference between the three options?",
+        "a": "The level of detail and what’s included. Essential is a real, polished ad of about {tiers.essentielle.videoSeconds} s, delivered within {tiers.essentielle.deliveryHours} hours. Pro adds a custom world, voice-over, the square format and {tiers.pro.revisionsIncluded}. Studio goes all the way: several 3D scenes, 3 ad openings to test, every format and {tiers.studio.revisionsIncluded}. The “Compare the three options” table has every detail."
       },
       {
-        "q": "Why is the price so low?",
-        "a": "Because I create with AI: what used to take days now takes me a few hours. And the formats are deliberately short. If your request goes beyond them, I tell you before starting and refund you in full."
+        "q": "Who owns the video?",
+        "a": "You do. Once paid and delivered, you can use, publish and edit it freely, including in ads. I don’t reuse it without your consent."
       },
       {
         "q": "I’m a complete beginner. Is this for me?",
-        "a": "Yes. With “I guide you”, I adapt my explanations to your level. With “I build it for you”, there’s nothing to know: you describe, I build."
+        "a": "Yes. With a creation, there’s nothing to know: you describe, I build. With “I guide you”, I adapt my explanations to your level."
       },
       {
-        "q": "Do I need to pay for tools?",
-        "a": "With “I guide you”, some tools are free, others paid: I tell you where to start depending on your budget. With “I build it for you”, there’s nothing to install and nothing extra to pay."
+        "q": "What about a website?",
+        "a": "The options cover ads and motion videos. For a website, email me at {contact}: I’ll reply with a quote."
       },
       {
         "q": "What if I change my mind?",
@@ -224,7 +324,9 @@
   },
   "final": {
     "title": "So, will you make it, or shall I?",
-    "note": "One-time payment · secured by Stripe"
+    "note": "One-time payment · secured by Stripe",
+    "creation": "I build it for you",
+    "from": "from"
   },
   "footer": {
     "tagline": "Behind every reply and every creation: the creator of these videos.",
@@ -238,7 +340,7 @@
   },
   "sticky": {
     "cta": "Choose my option",
-    "note": "I guide you, or I build it for you"
+    "note": "Recommended: Pro at {tiers.pro.priceTier} · delivered in 48 h"
   },
   "sheet": {
     "kicker": "Summary",
@@ -265,24 +367,25 @@
     "chanHelp": "Add your TikTok handle on the payment page. Without it, I’ll reply by email.",
     "switchLabel": "Option",
     "creation": {
-      "title": "Your made-to-order creation",
-      "summary": "I build your project myself and deliver it ready to publish, with {revisionsIncluded}.",
-      "kindLabel": "What shall I build for you?",
+      "title": "Your {tierName} creation",
+      "summary": "I make your ad or motion video myself and deliver it ready to publish, with {revisionsIncluded}.",
+      "kindLabel": "What shall I make for you?",
       "specs": {
-        "site": "A one-page website, mobile-friendly, ready to go online.",
         "pub": "A vertical video ad, up to {videoSeconds} seconds.",
-        "motion": "A vertical motion design animation, up to {videoSeconds} seconds."
+        "motion": "A vertical motion design video, up to {videoSeconds} seconds."
       },
       "ship": "Delivered by email, within {deliveryHours} hours",
       "consent": "I ask for the work to start as soon as I pay, and I acknowledge that I lose my right of withdrawal once my creation has been fully delivered.",
-      "redirect": "You’ll be redirected to Stripe to pay securely. Right after, you’ll get an email: reply to it to give me the details of your project."
+      "redirect": "You’ll be redirected to Stripe to pay securely. Right after, you’ll get an email: reply to it to give me the details of your project.",
+      "other": "Rather learn to do it yourself? I guide you"
     },
     "guide": {
       "title": "Your personal exchange",
       "summary": "My written answer for your project: the method, the tools that fit your level, {prompts} prompts and {followUpsIncluded}.",
       "kindLabel": "Your project",
       "consent": "I ask for the exchange to start as soon as I pay, and I acknowledge that I lose my right of withdrawal once the service has been fully performed.",
-      "redirect": "You’ll be redirected to Stripe to pay securely. There, you’ll give your language, your project and your TikTok handle."
+      "redirect": "You’ll be redirected to Stripe to pay securely. There, you’ll give your language, your project and your TikTok handle.",
+      "other": "Rather have me make it? See the options"
     }
   },
   "merci": {
@@ -364,35 +467,17 @@
   "work": {
     "kicker": "Work",
     "title": "What it looks like, for real.",
-    "text": "A selection of my AI creations. Tap a video to watch it with sound.",
     "play": "Watch with sound",
-    "note": "Created by IA Motion Studio. The format of a custom creation is detailed in the options.",
-    "items": [
-      {
-        "t": "The power of motion design",
-        "type": "3D motion design",
-        "desc": "One cube, four worlds, a rewind. Every move is timed to the sound."
-      },
-      {
-        "t": "An ad like this?",
-        "type": "Video ads",
-        "desc": "Headphones, sport, food, logo: four ad worlds in sixteen seconds."
-      },
-      {
-        "t": "App ad",
-        "type": "Product ad",
-        "desc": "A vertical ad for an app, ready for TikTok."
-      },
-      {
-        "t": "Websites",
-        "type": "Immersive websites",
-        "desc": "Cinematic scroll, real-time 3D, animation: websites people remember."
-      }
-    ]
+    "note": "Created by IA Motion Studio."
   },
   "reviews": {
     "kicker": "Client reviews",
     "title": "They ordered.",
-    "note": "Reviews published with their authors’ consent."
+    "note": "Messages received from clients, translated from French. Names hidden for privacy.",
+    "email": "Email received",
+    "dm": "Direct message",
+    "capture": "See the screenshot",
+    "captureNote": "Original screenshot (in French), name hidden.",
+    "translated": ""
   }
 }

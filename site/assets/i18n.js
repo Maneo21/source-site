@@ -1,7 +1,7 @@
 // Moteur de langue des pages du site.
 // Les textes vivent dans /i18n/<code>.json ; la liste des langues dans /i18n/languages.json.
 // Ajouter une langue = un fichier de textes + une ligne dans languages.json (voir LISEZ-MOI).
-import { get, interpolate, buildVars, isPlaceholder } from './vars.js?v=40fcdd2d97';
+import { get, interpolate, buildVars, isPlaceholder } from './vars.js?v=8a517853cc';
 
 const KEY = 'lang';
 export const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -59,7 +59,8 @@ export const I = {
         el.setAttribute(attr, this.t(key));
       }
     }
-    for (const el of root.querySelectorAll('[data-price]')) el.textContent = el.dataset.price === 'creation' ? this.vars.priceCreation : this.vars.price;
+    for (const el of root.querySelectorAll('[data-price]')) { const id = el.dataset.price === 'creation' ? 'essentielle' : el.dataset.price || 'guide'; el.textContent = this.vars.prices?.[id] ?? this.vars.price; }
+    for (const el of root.querySelectorAll('[data-price-was]')) { const id = el.dataset.priceWas, was = this.vars.pricesRegular?.[id], now = this.vars.prices?.[id]; el.textContent = was && was !== now ? was : ''; el.hidden = !was || was === now; }
     for (const el of root.querySelectorAll('[data-brand]')) el.textContent = this.config.brand;
     for (const el of root.querySelectorAll('[data-contact]')) {
       const c = this.config.contactEmail;

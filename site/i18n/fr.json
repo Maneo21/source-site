@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "IA Motion Studio · Pubs vidéo, motion design et sites avec l’IA",
-    "description": "Sites web, vidéos publicitaires, motion design : je t’explique ma méthode pour créer avec l’IA ({price}), ou je crée ton projet pour toi, livré en {deliveryHours} h maximum ({priceCreation}). Paiement unique.",
+    "description": "Pubs vidéo et motion design créés avec l’IA, sur mesure : formules dès {priceCreation}, livrées en 24 à 48 h. Ou je te guide pour les faire toi-même ({price}).",
     "legalTitle": "Informations légales · {brand}",
     "merciTitle": "Merci · {brand}"
   },
@@ -36,12 +36,20 @@
       "un site"
     ],
     "post": "comme ça ?",
-    "sub": "Pubs vidéo, motion design et sites web, créés avec l’IA. Je te montre comment faire, ou je le crée pour toi.",
+    "sub": "Pubs et vidéos motion créées avec l’IA. Sur mesure, livrées en 24 à 48 h.",
     "prev": "Vidéo précédente",
     "next": "Vidéo suivante",
     "safe": "Paiement unique · sécurisé par Stripe",
     "kicker": "Studio de création IA",
-    "scroll": "Voir les réalisations"
+    "scroll": "Voir les réalisations",
+    "cta": "Voir les formules",
+    "ctaSmall": "Pubs et vidéos motion",
+    "from": "dès",
+    "learn": "Tu veux apprendre",
+    "compare": "Comparer les formules",
+    "learnShort": "Je te guide",
+    "choose": "Choisir {name} · {price}",
+    "safeShort": "Sécurisé par Stripe"
   },
   "video": {
     "play": "Regarder avec le son",
@@ -56,9 +64,9 @@
     "endSub": "Je te montre comment faire, ou je le crée pour toi."
   },
   "offers": {
-    "kicker": "Deux formules",
-    "title": "Tu le fais. Ou je le fais.",
-    "text": "Un prompt seul ne suffit pas : ce qui compte, c’est la méthode. Soit je te la donne, soit je m’en occupe.",
+    "kicker": "Les formules",
+    "title": "Choisis ta création.",
+    "text": "Une pub ou une vidéo motion pensée pour arrêter le scroll. Réalisée par moi, livrée en 24 à 48 h.",
     "once": "Paiement unique",
     "soon": "Bientôt disponible",
     "guide": {
@@ -74,26 +82,118 @@
       ],
       "delay": "Réponse presque immédiate après ta commande",
       "cta": "Réserver mon échange",
-      "for": "Tu veux apprendre"
+      "for": "Tu préfères le faire toi-même ?",
+      "for2": "Tu veux apprendre",
+      "ctaShort": "Réserver"
     },
     "creation": {
       "name": "Je crée pour toi",
-      "tag": "Je crée",
-      "badge": "Clé en main",
-      "short": "Livré en {deliveryHours} h maximum",
-      "pitch": "Pas d’IA, ou pas le temps ? Décris-moi ton projet. Je le réalise et je te le livre.",
-      "items": [
-        "Ton site, ta pub ou ta vidéo motion, réalisé par moi",
-        "Un site d’une page, ou une vidéo jusqu’à {videoSeconds} secondes",
-        "Prêt à publier : les fichiers sont à toi",
-        "{revisionsIncluded}, sous {revisionDays} jours"
-      ],
-      "delay": "Livré en {deliveryHours} h maximum, par e-mail",
-      "cta": "Commander ma création",
       "for": "Tu veux le résultat",
       "see": "Exemple de création"
     },
-    "or": "ou"
+    "or": "ou",
+    "launch": "Offre de lancement jusqu’au {launchUntil}",
+    "launchLeft": "encore {t}",
+    "choose": "Choisir",
+    "perHours": "Livrée en {deliveryHours} h",
+    "studio": {
+      "name": "Studio",
+      "badge": "Le plus poussé",
+      "tag": "Hyper travaillée, au-dessus de tout. Pour marquer les esprits.",
+      "cta": "Choisir Studio",
+      "items": [
+        "Pub ou vidéo motion jusqu’à {videoSeconds} secondes, en plusieurs scènes",
+        "Univers 3D poussé, créé pour ta marque",
+        "Voix off et sous-titres",
+        "3 débuts de pub différents, pour tester lequel marche",
+        "Tous les formats : vertical, carré, horizontal"
+      ],
+      "sum": "Jusqu’à {videoSeconds} s · 3D poussée · 3 débuts de pub · tous formats · {revisions} · {deliveryHours} h"
+    },
+    "pro": {
+      "name": "Pro",
+      "badge": "Recommandé",
+      "tag": "Beaucoup plus de détails, beaucoup plus d’impact.",
+      "cta": "Choisir Pro",
+      "items": [
+        "Pub ou vidéo motion de 20 à {videoSeconds} secondes, sur mesure",
+        "Un univers créé pour ta marque, riche en détails",
+        "Voix off et sous-titres",
+        "Formats vertical et carré",
+        "On échange par e-mail sur ton projet"
+      ],
+      "sum": "20 à {videoSeconds} s sur mesure · voix off · vertical + carré · {revisions} · {deliveryHours} h"
+    },
+    "essentielle": {
+      "name": "Essentielle",
+      "badge": "L’essentiel, bien fait",
+      "badgeLaunch": "Offre de lancement",
+      "tag": "Une vraie pub soignée, même sans gros budget.",
+      "cta": "Choisir Essentielle",
+      "items": [
+        "Pub ou vidéo motion d’environ {videoSeconds} secondes",
+        "Rythmée et soignée, à partir de ta description",
+        "Format vertical, prête pour TikTok et Instagram",
+        "Livrée prête à publier, les fichiers sont à toi"
+      ],
+      "sum": "Environ {videoSeconds} s · soignée · format vertical · {revisions} · {deliveryHours} h"
+    },
+    "compare": {
+      "title": "Comparer les trois formules",
+      "rows": [
+        {
+          "l": "Durée",
+          "studio": "jusqu’à {tiers.studio.videoSeconds} s",
+          "pro": "20 à {tiers.pro.videoSeconds} s",
+          "essentielle": "≈ {tiers.essentielle.videoSeconds} s"
+        },
+        {
+          "l": "Création",
+          "studio": "3D poussée, plusieurs scènes",
+          "pro": "sur mesure, détaillée",
+          "essentielle": "soignée, dans mes styles"
+        },
+        {
+          "l": "Voix off et sous-titres",
+          "studio": "✓",
+          "pro": "✓",
+          "essentielle": "—"
+        },
+        {
+          "l": "Débuts de pub à tester",
+          "studio": "3",
+          "pro": "1",
+          "essentielle": "1"
+        },
+        {
+          "l": "Formats",
+          "studio": "vertical, carré, horizontal",
+          "pro": "vertical, carré",
+          "essentielle": "vertical"
+        },
+        {
+          "l": "Échange sur ton projet",
+          "studio": "par e-mail",
+          "pro": "par e-mail",
+          "essentielle": "ta description suffit"
+        },
+        {
+          "l": "Retouches",
+          "studio": "{tiers.studio.revisionCount}",
+          "pro": "{tiers.pro.revisionCount}",
+          "essentielle": "{tiers.essentielle.revisionCount}"
+        },
+        {
+          "l": "Livraison",
+          "studio": "{tiers.studio.deliveryHours} h",
+          "pro": "{tiers.pro.deliveryHours} h",
+          "essentielle": "{tiers.essentielle.deliveryHours} h"
+        }
+      ],
+      "pick": "Choisir"
+    },
+    "trioHint": "Touche une formule pour voir tout ce qu’elle comprend",
+    "launchHero": "Essentielle : prix de lancement"
   },
   "trust": {
     "methodsLabel": "Moyens de paiement",
@@ -141,16 +241,16 @@
     "creation": {
       "steps": [
         {
-          "t": "Tu commandes",
-          "d": "Paiement unique, sécurisé par Stripe. Tu choisis ce que je crée : un site, une pub ou une vidéo motion."
+          "t": "Tu choisis ta formule",
+          "d": "Paiement unique, sécurisé par Stripe. Tu choisis ce que je crée : une pub ou une vidéo motion."
         },
         {
           "t": "Tu décris ton projet",
-          "d": "En quelques mots, au moment de la commande ou par e-mail juste après. Un logo, des textes, des photos ? Tu me les envoies aussi."
+          "d": "En quelques mots, au moment de la commande ou par e-mail juste après. Un logo, des textes, des photos ? Tu me les envoies aussi."
         },
         {
           "t": "Je crée, je te livre",
-          "d": "En {deliveryHours} h maximum, par e-mail. Puis {revisionsIncluded} pour ajuster un détail."
+          "d": "En 24 à 48 h selon la formule, par e-mail. Puis tes retouches pour ajuster un détail."
         }
       ]
     },
@@ -163,7 +263,7 @@
       "s1d": "Les fichiers sont à toi.",
       "s2": "Comment la mettre en ligne",
       "s3": "Un détail à ajuster ?",
-      "s3d": "{revisionsIncluded}, sous {revisionDays} jours",
+      "s3d": "Retouches incluses selon ta formule, sous {revisionDays} jours",
       "note": "Exemple de livraison. Ta création est réalisée pour ton projet, à partir de ta description."
     }
   },
@@ -194,23 +294,23 @@
     "items": [
       {
         "q": "Quelle formule choisir ?",
-        "a": "Tu as accès à une IA et tu veux créer toi-même : « Je te guide » ({price}). Tu préfères recevoir le résultat sans rien faire : « Je crée pour toi » ({priceCreation})."
+        "a": "Tu veux une pub qui marque, sans y passer de temps : <b>Pro</b> ({tiers.pro.priceTier}), la plus complète pour le prix. Pour un lancement important ou une marque exigeante : <b>Studio</b> ({tiers.studio.priceTier}). Petit budget : <b>Essentielle</b> ({priceCreation}). Et si tu veux apprendre à le faire toi-même : <b>Je te guide</b> ({price})."
       },
       {
-        "q": "Que comprend « Je crée pour toi » ?",
-        "a": "Une création réalisée par moi, au choix : un site d’une page, une vidéo publicitaire ou une animation motion design jusqu’à {videoSeconds} secondes. Livrée par e-mail en {deliveryHours} h maximum, prête à publier, avec {revisionsIncluded}. L’hébergement et le nom de domaine d’un site ne sont pas compris : je t’explique comment le mettre en ligne."
+        "q": "Quelle différence entre les trois formules ?",
+        "a": "Le niveau de détail et ce qui est inclus. L’Essentielle est une vraie pub soignée d’environ {tiers.essentielle.videoSeconds} s, livrée en {tiers.essentielle.deliveryHours} h. La Pro ajoute un univers sur mesure, la voix off, le format carré et {tiers.pro.revisionsIncluded}. La Studio va au bout : plusieurs scènes en 3D, 3 débuts de pub à tester, tous les formats et {tiers.studio.revisionsIncluded}. Le tableau « Comparer les trois formules » détaille tout."
       },
       {
-        "q": "Pourquoi un prix aussi bas ?",
-        "a": "Parce que je crée avec l’IA : ce qui prenait des jours me prend quelques heures. Et les formats sont volontairement courts. Si ta demande les dépasse, je te le dis avant de commencer et je te rembourse intégralement."
+        "q": "À qui appartient la vidéo ?",
+        "a": "À toi. Une fois payée et livrée, tu peux l’utiliser, la publier et la modifier librement, y compris en publicité. Je ne la réutilise pas sans ton accord."
       },
       {
         "q": "Je débute complètement. C’est pour moi ?",
-        "a": "Oui. Avec « Je te guide », j’adapte mes explications à ton niveau. Avec « Je crée pour toi », tu n’as rien à savoir : tu décris, je réalise."
+        "a": "Oui. Avec une création, tu n’as rien à savoir : tu décris, je réalise. Avec « Je te guide », j’adapte mes explications à ton niveau."
       },
       {
-        "q": "Faut-il payer des outils ?",
-        "a": "Avec « Je te guide », certains outils sont gratuits, d’autres payants : je t’indique par où commencer selon ton budget. Avec « Je crée pour toi », tu n’as rien à installer, ni rien à payer en plus."
+        "q": "Et pour un site web ?",
+        "a": "Les formules portent sur les pubs et les vidéos motion. Pour un site, écris-moi à {contact} : je te réponds avec un devis."
       },
       {
         "q": "Et si je change d’avis ?",
@@ -224,7 +324,9 @@
   },
   "final": {
     "title": "Alors, tu le fais ou je le fais ?",
-    "note": "Paiement unique · sécurisé par Stripe"
+    "note": "Paiement unique · sécurisé par Stripe",
+    "creation": "Je crée pour toi",
+    "from": "dès"
   },
   "footer": {
     "tagline": "Derrière chaque réponse et chaque création : le créateur de ces vidéos.",
@@ -238,7 +340,7 @@
   },
   "sticky": {
     "cta": "Choisir ma formule",
-    "note": "Je te guide, ou je crée pour toi"
+    "note": "Recommandé : Pro à {tiers.pro.priceTier} · livrée en 48 h"
   },
   "sheet": {
     "kicker": "Récapitulatif",
@@ -265,24 +367,25 @@
     "chanHelp": "Indique ton pseudo TikTok sur la page de paiement. Sans pseudo, je te réponds par e-mail.",
     "switchLabel": "Formule",
     "creation": {
-      "title": "Ta création sur mesure",
-      "summary": "Je réalise ton projet moi-même et je te le livre prêt à publier, avec {revisionsIncluded}.",
-      "kindLabel": "Qu’est-ce que je crée pour toi ?",
+      "title": "Ta création {tierName}",
+      "summary": "Je réalise ta pub ou ta vidéo motion moi-même et je te la livre prête à publier, avec {revisionsIncluded}.",
+      "kindLabel": "Qu’est-ce que je crée pour toi ?",
       "specs": {
-        "site": "Un site d’une page, adapté au téléphone, prêt à mettre en ligne.",
-        "pub": "Une vidéo publicitaire verticale, jusqu’à {videoSeconds} secondes.",
-        "motion": "Une animation motion design verticale, jusqu’à {videoSeconds} secondes."
+        "pub": "Une vidéo publicitaire verticale, jusqu’à {videoSeconds} secondes.",
+        "motion": "Une vidéo motion design verticale, jusqu’à {videoSeconds} secondes."
       },
       "ship": "Livraison par e-mail, en {deliveryHours} h maximum",
       "consent": "Je demande que la réalisation commence dès mon paiement et je reconnais perdre mon droit de rétractation une fois ma création entièrement livrée.",
-      "redirect": "Tu vas être redirigé vers Stripe pour payer en toute sécurité. Juste après, tu reçois un e-mail : réponds-y pour me donner les détails de ton projet."
+      "redirect": "Tu vas être redirigé vers Stripe pour payer en toute sécurité. Juste après, tu reçois un e-mail : réponds-y pour me donner les détails de ton projet.",
+      "other": "Plutôt apprendre à le faire toi-même ? Je te guide"
     },
     "guide": {
       "title": "Ton échange personnalisé",
       "summary": "Ma réponse écrite pour ton projet : la méthode, les outils adaptés à ton niveau, {prompts} prompts et {followUpsIncluded}.",
       "kindLabel": "Ton projet",
       "consent": "Je demande que l’échange commence dès mon paiement et je reconnais perdre mon droit de rétractation une fois la prestation entièrement exécutée.",
-      "redirect": "Tu vas être redirigé vers Stripe pour payer en toute sécurité. Tu y indiqueras ta langue, ton projet et ton pseudo TikTok."
+      "redirect": "Tu vas être redirigé vers Stripe pour payer en toute sécurité. Tu y indiqueras ta langue, ton projet et ton pseudo TikTok.",
+      "other": "Plutôt une création réalisée par moi ? Voir les formules"
     }
   },
   "merci": {
@@ -364,35 +467,17 @@
   "work": {
     "kicker": "Réalisations",
     "title": "Ce que ça donne, en vrai.",
-    "text": "Une sélection de mes créations avec l’IA. Touche une vidéo pour la regarder avec le son.",
     "play": "Regarder avec le son",
-    "note": "Créations réalisées par IA Motion Studio. Le format d’une création sur commande est précisé dans les formules.",
-    "items": [
-      {
-        "t": "La puissance du motion design",
-        "type": "Motion design 3D",
-        "desc": "Un cube, quatre mondes, un retour en arrière. Chaque mouvement est calé sur le son."
-      },
-      {
-        "t": "Une pub comme ça ?",
-        "type": "Publicités vidéo",
-        "desc": "Casque, sport, food, logo : quatre univers de pub en seize secondes."
-      },
-      {
-        "t": "Pub d’application",
-        "type": "Publicité produit",
-        "desc": "Une publicité verticale pour une application, prête pour TikTok."
-      },
-      {
-        "t": "Sites web",
-        "type": "Sites immersifs",
-        "desc": "Scroll cinématique, 3D en temps réel, animations : des sites qui marquent."
-      }
-    ]
+    "note": "Créations réalisées par IA Motion Studio."
   },
   "reviews": {
     "kicker": "Avis clients",
     "title": "Ils ont commandé.",
-    "note": "Avis publiés avec l’accord de leurs auteurs."
+    "note": "Messages reçus de clients, recopiés mot pour mot. Noms masqués par discrétion.",
+    "email": "E-mail reçu",
+    "dm": "Message privé",
+    "capture": "Voir la capture",
+    "captureNote": "Capture d’origine, nom masqué.",
+    "translated": ""
   }
 }

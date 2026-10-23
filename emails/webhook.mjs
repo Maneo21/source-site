@@ -9,9 +9,14 @@ const KEEP = 60 * 60 * 24 * 180;  // l'état « déjà envoyé » est gardé 180
 const TIMEOUT = 6000;             // millisecondes laissées à Postmark pour répondre
 const RECIPIENT = new Set([300, 406]); // refus liés à l'adresse du destinataire
 // Types de projet proposés dans le récapitulatif du site, selon la formule :
-// « guide » (échange personnalisé) ou « creation » (création sur mesure, livrée).
+// « guide » (échange personnalisé) ou « creation » (création sur mesure, livrée), en trois formules : studio, pro, essentielle.
 const KINDS = { guide: ['site', 'pub', 'motion', 'autre'], creation: ['site', 'pub', 'motion'] };
-const DEFAULTS = { brand: 'IA Motion Studio', contactEmail: 'contact@maneo-ai.fr', offer: { amount: 790, replyHours: 24 }, creation: { amount: 1990, deliveryHours: 24, revisions: 1, revisionDays: 7 }, seller: {} };
+const TIERS = ['studio', 'pro', 'essentielle'];
+const DEFAULTS = {
+  brand: 'IA Motion Studio', contactEmail: 'contact@maneo-ai.fr', offer: { amount: 1490, replyHours: 24 },
+  creation: { revisionDays: 7, tiers: { studio: { amount: 29900, deliveryHours: 48, revisions: 3 }, pro: { amount: 9900, deliveryHours: 48, revisions: 2 }, essentielle: { amount: 3900, deliveryHours: 24, revisions: 1 } } },
+  launch: { guide: { amount: 790 }, essentielle: { amount: 1990 } }, seller: {},
+};
 const POSTMARK = {
   10: 'Jeton Postmark refusé : la variable POSTMARK_TOKEN est incorrecte.',
   300: 'Adresse e-mail refusée par Postmark (adresse invalide).',
@@ -86,15 +91,20 @@ export function readOrder(session, event, ctx = {}) {
   const ref = clean(session.client_reference_id).match(/^site_([a-z]{2})_cgv-([\d-]+)_retractation-ok(?:_offre-([a-z]+))?(?:_type-([a-z]+))?(?:_rep-([a-z]+))?$/);
   // La formule vient de ce que Stripe a encaissé, jamais de la seule référence, que le navigateur du client peut modifier.
   // Ordre : étiquette « offre » posée sur le lien de paiement dans Stripe (facultative), sinon le montant hors réduction.
-  const tagged = ref?.[3] === 'creation' ? 'creation' : 'guide', meta = norm(session.metadata?.offre || session.metadata?.offer);
+  // l'ancienne référence « _offre-creation » (offre de lancement) correspond à l'Essentielle
+  const tag = ref?.[3] === 'creation' ? 'essentielle' : TIERS.includes(ref?.[3]) ? ref[3] : null, meta = norm(session.metadata?.offre || session.metadata?.offer);
+  const metaId = meta === 'creation' ? 'essentielle' : meta === 'guide' || TIERS.includes(meta) ? meta : null;
   // Le montant se compare dans la devise du vendeur. Si Stripe a fait payer le client dans sa propre devise, il indique
   // le montant d'origine (currency_conversion) ; à défaut, la formule est lue dans la référence et le vendeur en est averti.
   const base = clean(ctx.currency || 'eur').toLowerCase(), cur = clean(session.currency).toLowerCase(), conv = session.currency_conversion;
   const paid = conv && clean(conv.source_currency).toLowerCase() === base ? Number(conv.amount_subtotal ?? conv.amount_total)
     : !cur || cur === base ? Number(session.amount_subtotal ?? session.amount_total) : NaN;
-  const known = meta === 'creation' || meta === 'guide', byAmount = Number.isFinite(paid);
-  const guideAmount = Number(ctx.guideAmount) || DEFAULTS.offer.amount, creationAmount = Number(ctx.creationAmount) || DEFAULTS.creation.amount;
-  const offer = known ? meta : !byAmount ? tagged : paid >= creationAmount || (tagged === 'creation' && paid > guideAmount) ? 'creation' : 'guide';
+  const byAmount = Number.isFinite(paid), amounts = ctx.amounts || amountsFrom(DEFAULTS);
+  // un montant connu désigne sa formule ; sinon (code promo…) la formule la plus chère dont le prix ne dépasse pas le montant payé
+  const exact = byAmount ? Object.keys(amounts).find(k => amounts[k].includes(paid)) : null;
+  const below = byAmount ? Object.entries(amounts).flatMap(([k, a]) => a.map(x => [k, x])).filter(([, x]) => x <= paid).sort((p, q) => q[1] - p[1]) : [];
+  const id = metaId || exact || (!byAmount ? tag || 'guide' : tag && below.some(([k]) => k === tag) ? tag : below[0]?.[0] || tag || 'guide');
+  const offer = id === 'guide' ? 'guide' : 'creation', tier = offer === 'creation' ? id : null;
   // Type de projet : la réponse donnée sur la page de paiement l'emporte sur le choix fait avant, dans le récapitulatif du site.
   const chosen = KINDS[offer].includes(ref?.[4]) ? ref[4] : null, kind = picked && KINDS[offer].includes(picked) ? picked : chosen;
   const email = clean(session.customer_details?.email || session.customer_email).replace(/[\r\n]/g, '');
@@ -112,8 +122,11 @@ export function readOrder(session, event, ctx = {}) {
     consent: !!ref,
     cgv: ref?.[2] || null,
     offer,
-    offerNote: tagged === 'creation' && offer === 'guide' ? 'La référence du site indiquait une création, mais le montant payé est celui de l’échange.'
-      : !known && !byAmount ? 'Paiement dans une autre devise : formule lue dans la référence du site. Vérifie le montant dans Stripe.' : '',
+    tier,
+    offerNote: tag && offer === 'guide' ? 'La référence du site indiquait une création, mais le montant payé est celui de l’échange.'
+      : tag && tier && tag !== tier ? `La référence du site indiquait la formule « ${tag} », mais le montant payé correspond à « ${tier} ».`
+      : !metaId && !byAmount ? 'Paiement dans une autre devise : formule lue dans la référence du site. Vérifie le montant dans Stripe.'
+      : !metaId && !exact ? 'Montant inhabituel (code promo ?) : formule déduite du montant. Vérifie dans Stripe.' : '',
     kind,
     kindBefore: chosen && kind !== chosen ? chosen : null, // choix différent fait sur le site : signalé au vendeur
     channel: offer === 'guide' && ref?.[5] === 'tiktok' ? 'tiktok' : 'mail' // une création est toujours livrée par e-mail
@@ -121,13 +134,25 @@ export function readOrder(session, event, ctx = {}) {
 }
 
 const siteOrigin = u => { try { const x = new URL(String(u || '')); return x.protocol === 'https:' ? x.origin : ''; } catch { return ''; } };
+// Les montants de chaque formule (prix normal et prix de lancement), pour reconnaître une commande à ce que Stripe a encaissé.
+function amountsFrom(c) {
+  const T = tiersFrom(c), L = { ...DEFAULTS.launch, ...(c.launch || {}) }, A = { guide: [Number(c.offer?.amount), Number(L.guide?.amount)] };
+  for (const id of TIERS) A[id] = [T[id].amount, Number(L[id]?.amount)];
+  for (const k of Object.keys(A)) A[k] = A[k].filter(x => Number.isFinite(x) && x > 0);
+  return A;
+}
+function tiersFrom(c) {
+  const T = c.creation?.tiers || (c.creation?.amount ? { essentielle: c.creation } : {}), D = DEFAULTS.creation.tiers;
+  return Object.fromEntries(TIERS.map(id => { const t = { ...D[id], ...(T[id] || {}) }; return [id, { amount: Number(t.amount) || D[id].amount, deliveryHours: Number(t.deliveryHours) || D[id].deliveryHours, revisions: Number(t.revisions ?? D[id].revisions) }]; }));
+}
 export function contextFrom(cfg, origin) {
-  const c = { ...DEFAULTS, ...(cfg || {}) };
+  const c = { ...DEFAULTS, ...(cfg || {}) }, tiers = tiersFrom(c);
   return {
+    tiers, amounts: amountsFrom(c),
     brand: clean(c.brand) || DEFAULTS.brand, contact: clean(c.contactEmail) || DEFAULTS.contactEmail,
     replyHours: Number(c.offer?.replyHours) || 24, guideAmount: Number(c.offer?.amount) || DEFAULTS.offer.amount, currency: clean(c.offer?.currency) || 'EUR',
-    creationAmount: Number(c.creation?.amount) || DEFAULTS.creation.amount, deliveryHours: Number(c.creation?.deliveryHours) || 24,
-    revisions: Number(c.creation?.revisions ?? 1), revisionDays: Number(c.creation?.revisionDays) || 7,
+    creationAmount: tiers.essentielle.amount, deliveryHours: tiers.essentielle.deliveryHours,
+    revisions: tiers.essentielle.revisions, revisionDays: Number(c.creation?.revisionDays) || 7,
     // les liens des e-mails (CGV, rétractation) : l'adresse publique principale du site (config.json → « siteUrl »),
     // quelle que soit l'adresse sur laquelle Stripe envoie l'événement (ia-motionstudio.fr ou source-site.pages.dev)
     seller: c.seller || {}, origin: siteOrigin(c.siteUrl) || origin

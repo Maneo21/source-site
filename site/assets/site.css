@@ -896,3 +896,53 @@ em.acc { font-style: normal; }
 /* textes courants et étiquettes un peu plus lisibles */
 :root { --ink2: rgba(242, 239, 233, .76); --ink3: rgba(242, 239, 233, .52); }
 .kick { color: rgba(242, 239, 233, .62); }
+
+/* ---------- avis : les vraies captures d'écran, bien mises en valeur ---------- */
+.rv-head { flex-wrap: wrap; }
+.rv-auth { margin-left: auto; display: inline-flex; align-items: center; gap: 5px; padding: 6px 10px; border-radius: 999px; background: rgba(210, 255, 77, .12); border: 1px solid rgba(210, 255, 77, .38); color: var(--acc); font: 600 11px/1 var(--f-m); letter-spacing: .04em; font-style: normal; white-space: nowrap; }
+.rv-auth svg { width: 12px; height: 12px; fill: none; stroke: currentColor; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+.rv .rv-cap.rv-shot { position: relative; display: block; width: 100%; height: auto; margin: 2px 0 0; padding: 0; overflow: hidden; border-radius: 16px; border: 1px solid rgba(242, 239, 233, .18); background: #fff; box-shadow: 0 26px 50px -26px rgba(0, 0, 0, .95); transform: none; cursor: zoom-in; text-align: left; transition: transform .3s var(--ease-o), box-shadow .3s; }
+.rv-shot img { display: block; width: 100%; height: auto; max-width: none; object-fit: contain; opacity: 1; }
+.rv-shot .rv-bar { display: flex; align-items: center; gap: 6px; padding: 9px 12px; background: #1C1C1F; color: rgba(242, 239, 233, .78); font: 600 11.5px/1 var(--f-d); }
+.rv-shot .rv-bar i { position: static; display: block; width: 8px; height: 8px; border-radius: 50%; background: rgba(255, 255, 255, .2); }
+.rv-shot .rv-bar b { margin-left: 6px; font-weight: 600; }
+.rv-zoom { margin: 10px 2px 0; font-size: 12px; color: var(--ink3); }
+@media (hover: hover) { .rv .rv-cap.rv-shot:hover { transform: translateY(-3px); box-shadow: 0 30px 60px -24px #000, 0 0 0 1px rgba(210, 255, 77, .45); } }
+/* téléphone : les captures l'une sous l'autre, en grand (plus de défilement de côté) */
+@media (max-width: 899px) {
+  .rv-list { grid-auto-flow: row; grid-auto-columns: auto; gap: 14px; margin: 28px 0 0; padding: 0; overflow: visible; scroll-snap-type: none; }
+  .rv-dots { display: none; }
+}
+/* exemple d'une réalisation faite pour un client */
+.rv-ex { display: grid; grid-template-columns: 132px 1fr; gap: 18px; align-items: center; margin-top: 28px; padding: 16px; border-radius: 24px; background: var(--bg2); border: 1px solid var(--line); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .06), 0 24px 60px -34px rgba(0, 0, 0, .9); }
+.rv-ex .rt { border-radius: 16px; }
+.rv-ex-t .kick { margin-bottom: 10px; }
+.rv-ex-t h3 { margin: 0 0 8px; font: 700 clamp(19px, 5vw, 26px)/1.12 var(--f-d); letter-spacing: -.02em; }
+.rv-ex-t p { margin: 0; color: var(--ink2); font-size: 14.5px; line-height: 1.5; }
+@media (min-width: 760px) { .rv-ex { grid-template-columns: 220px 1fr; gap: 32px; padding: 22px; max-width: 780px; } }
+@media (min-width: 900px) { .rv-dm .rv-cap.rv-shot { max-width: 380px; margin-inline: auto; } .rv-dm .rv-zoom { text-align: center; } }
+
+/* ---------- avis : sélection + bloc compact (téléphone) ---------- */
+.rv-sel { margin: -6px 0 0; max-width: 46ch; font-size: 15px; line-height: 1.5; color: var(--ink2); }
+.rv-hint { display: none; }
+.rv-shot { position: relative; }
+.rv-shot::after { content: ""; position: absolute; right: 8px; bottom: 8px; width: 28px; height: 28px; border-radius: 50%; background: var(--acc) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230B0D04' stroke-width='2.6' stroke-linecap='round'%3E%3Ccircle cx='10.5' cy='10.5' r='5.5'/%3E%3Cpath d='M15 15l4.5 4.5'/%3E%3C/svg%3E") center / 15px no-repeat; box-shadow: 0 6px 16px -4px rgba(0, 0, 0, .6); }
+@media (max-width: 899px) {
+  /* un seul bloc : les deux captures côte à côte, puis la vidéo du client */
+  .rv-panel { margin-top: 24px; padding: 12px; border-radius: 26px; background: var(--bg2); border: 1px solid var(--line); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .06), 0 24px 60px -34px rgba(0, 0, 0, .9); }
+  .rv-panel .rv-list { grid-template-columns: 1fr 1fr; gap: 10px; margin: 0; }
+  .rv-panel .rv { padding: 0; background: none; border: 0; border-radius: 0; box-shadow: none; overflow: visible; }
+  .rv-panel .rv-head { display: none; }
+  .rv-panel .rv .rv-cap.rv-shot { margin: 0; border-radius: 14px; }
+  .rv-panel .rv-shot img { height: 196px; object-fit: cover; object-position: 0 0; }
+  .rv-panel .rv-shot .rv-bar { gap: 4px; padding: 7px 8px; font-size: 10px; white-space: nowrap; overflow: hidden; }
+  .rv-panel .rv-shot .rv-bar i { width: 6px; height: 6px; }
+  .rv-panel .rv-shot .rv-bar b { margin-left: 3px; overflow: hidden; text-overflow: ellipsis; }
+  .rv-panel .rv-zoom { display: none; }
+  .rv-hint { display: flex; align-items: center; gap: 6px; margin: 10px 2px 0; font: 600 11.5px/1.3 var(--f-m); letter-spacing: .02em; color: var(--acc); }
+  .rv-hint svg { flex: none; width: 13px; height: 13px; fill: none; stroke: currentColor; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+  .rv-panel .rv-ex { grid-template-columns: 108px 1fr; gap: 14px; margin-top: 12px; padding: 12px 0 0; border: 0; border-top: 1px solid var(--line); border-radius: 0; background: none; box-shadow: none; }
+  .rv-panel .rv-ex-t .kick { margin-bottom: 6px; font-size: 10px; letter-spacing: .12em; }
+  .rv-panel .rv-ex-t h3 { font-size: 17px; }
+  .rv-panel .rv-ex-t p { font-size: 13px; }
+}

@@ -510,11 +510,21 @@
   "reviews": {
     "kicker": "Avis clients",
     "title": "Ils ont *commandé.*",
-    "note": "Extraits de messages reçus de clients, mot pour mot ([…] : passage coupé). Noms masqués par discrétion.",
+    "note": "Captures d’écran réelles de messages de clients. Noms masqués par discrétion.",
     "email": "E-mail reçu",
     "dm": "Message privé",
     "capture": "Voir la capture",
     "captureNote": "Capture d’origine, nom masqué.",
-    "translated": ""
+    "translated": "",
+    "authentic": "Capture réelle",
+    "barMail": "E-mail reçu d’un client",
+    "barDm": "Message privé TikTok",
+    "alt": "Capture d’écran du message d’un client (nom masqué)",
+    "zoom": "Nom masqué · touchez la capture pour l’agrandir",
+    "exKick": "Réalisation client",
+    "example": "Exemple d’une réalisation faite pour un client",
+    "exampleD": "Pub verticale pour TikTok, réalisée sur mesure à partir de sa demande.",
+    "selection": "Une sélection des meilleurs messages reçus de mes clients.",
+    "hint": "Captures réelles · touchez pour agrandir"
   }
 }

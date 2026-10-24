@@ -21,6 +21,7 @@ const U = [
   { key: 'commeca', kind: 'pub', dur: '0:09' },
   { key: 'sites', kind: 'site', dur: '0:22' },
   { key: 'roadster', kind: 'pub', dur: '0:15', wide: true },
+  { key: 'digi', kind: 'pub', dur: '0:16' },
 ];
 // Les deux formules. « guide » : l'échange personnalisé (je t'explique). « creation » : la création sur mesure (je réalise et je livre).
 // Chaque formule a son lien de paiement Stripe et ses types de projet.
@@ -511,7 +512,7 @@ const Rl = { tiles: [] };
 function initReel() {
   const box = $('[data-reel]');
   if (!box) return;
-  Rl.tiles = $$('.rt', box).map(t => ({ t, v: $('video', t), r: 0 }));
+  Rl.tiles = $$('[data-reel] .rt, [data-ex] .rt').map(t => ({ t, v: $('video', t), r: 0 }));
   for (const x of Rl.tiles) x.v.addEventListener('playing', () => x.t.classList.add('playing'));
   const io2 = new IntersectionObserver(es => {
     for (const e of es) { const x = Rl.tiles.find(y => y.t === e.target); if (!x) continue; x.r = e.intersectionRatio; if (e.isIntersecting) x.t.classList.add('in'); }
@@ -620,14 +621,15 @@ function buildReviews() {
       const t = pick(r.text, I.lang);
       return { name: String(pick(r.name, I.lang) ?? '').trim(), source: r.source === 'dm' ? 'dm' : 'email', capture: /^\/assets\/media\/[\w.-]+\.(jpe?g|webp|png)$/.test(r.capture || '') ? r.capture : '', parts: (Array.isArray(t) ? t : [t]).map(x => String(x ?? '').trim()).filter(Boolean) };
     })
-    .filter(r => r.name && r.parts.length);
+    .filter(r => r.name && (r.capture || r.parts.length));
   sec.hidden = !items.length;
   const ICON = { email: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5.5" width="17" height="13" rx="2.5"/><path d="M4 7l8 6 8-6"/></svg>', dm: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11.5a7.5 7.5 0 0 1-11.2 6.5L4 19l1.1-4.4A7.5 7.5 0 1 1 20 11.5z"/></svg>' };
-  // *mot* : passage mis en valeur (le texte reste celui du client, mot pour mot)
-  const em = s => esc(s).replace(/\*([^*]+)\*/g, '<mark>$1</mark>');
+  // la capture d'origine, telle quelle (nom masqué) : un toucher l'ouvre en grand
+  const CHECK = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
   $('[data-rv-list]', sec).innerHTML = items.map((r, i) => `<figure class="rv rv-${r.source}" style="--r:${i}">
-    <figcaption class="rv-head"><span class="rv-av">${ICON[r.source]}</span><span><b>${esc(r.name)}</b><small>${esc(I.t('reviews.' + r.source))}</small></span>${r.capture ? `<button class="rv-cap" type="button" data-cap="${esc(r.capture)}" aria-label="${esc(I.t('reviews.capture'))}"><img src="${esc(r.capture)}" alt="" loading="lazy" decoding="async"><i><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="5.5"/><path d="M15 15l4.5 4.5"/></svg></i></button>` : ''}</figcaption>
-    <div class="rv-msgs"><span class="rv-typing" aria-hidden="true"><i></i><i></i><i></i></span>${r.parts.map((p, k) => `<p class="rv-b" style="--k:${k}">${em(p)}</p>`).join('')}</div>
+    <figcaption class="rv-head"><span class="rv-av">${ICON[r.source]}</span><span><b>${esc(r.name)}</b><small>${esc(I.t('reviews.' + r.source))}</small></span><em class="rv-auth">${CHECK}${esc(I.t('reviews.authentic'))}</em></figcaption>
+    ${r.capture ? `<button class="rv-cap rv-shot" type="button" data-cap="${esc(r.capture)}" aria-label="${esc(I.t('reviews.capture'))}"><span class="rv-bar" aria-hidden="true"><i></i><i></i><i></i><b>${esc(I.t('reviews.bar' + (r.source === 'dm' ? 'Dm' : 'Mail')))}</b></span><img src="${esc(r.capture)}" alt="${esc(I.t('reviews.alt'))}" loading="lazy" decoding="async"></button>
+    <p class="rv-zoom">${esc(I.t('reviews.zoom'))}</p>` : ''}
   </figure>`).join('');
   const list = $('[data-rv-list]', sec), dots = $('[data-rv-dots]', sec);
   if (dots) {

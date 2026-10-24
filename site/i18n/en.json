@@ -510,11 +510,21 @@
   "reviews": {
     "kicker": "Client reviews",
     "title": "They *ordered.*",
-    "note": "Excerpts from messages received from clients, translated from French ([…]: passage cut). Names hidden for privacy.",
+    "note": "Real screenshots of messages from clients (in French). Names hidden for privacy.",
     "email": "Email received",
     "dm": "Direct message",
     "capture": "See the screenshot",
     "captureNote": "Original screenshot (in French), name hidden.",
-    "translated": ""
+    "translated": "",
+    "authentic": "Real screenshot",
+    "barMail": "Email from a client",
+    "barDm": "TikTok direct message",
+    "alt": "Screenshot of a client’s message (name hidden)",
+    "zoom": "Name hidden · tap the screenshot to enlarge",
+    "exKick": "Client work",
+    "example": "Example of a video made for a client",
+    "exampleD": "Vertical TikTok ad, custom-made from their brief.",
+    "selection": "A selection of the best messages I’ve received from clients.",
+    "hint": "Real screenshots · tap to enlarge"
   }
 }

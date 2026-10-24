@@ -17,7 +17,7 @@ const MEDIA = '/assets/media/';
 // Les réalisations, dans l'ordre d'affichage. Fichiers : <key>-mini.mp4 (mur de l'accroche), <key>-teaser.mp4 (extrait muet), <key>.mp4 (vidéo complète, avec le son), <key>-poster.webp.
 // « kind » est le type de projet présélectionné dans le récapitulatif et transmis à Stripe.
 const U = [
-  { key: 'code', kind: 'motion', dur: '0:18', wide: true },
+  { key: 'bmw', kind: 'pub', dur: '0:20', wide: true },
   { key: 'commeca', kind: 'pub', dur: '0:09' },
   { key: 'sites', kind: 'site', dur: '0:22' },
   { key: 'roadster', kind: 'pub', dur: '0:15', wide: true },

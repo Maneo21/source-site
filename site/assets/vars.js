@@ -34,7 +34,7 @@ export function buildVars(config, dict, lang) {
   const T = c.tiers || {}, L = config.launch || {}, until = Date.parse(L.until || ''), launchOn = Number.isFinite(until) && Date.now() <= until;
   const reg = { guide: o.amount, ...Object.fromEntries(TIER_IDS.map(id => [id, T[id]?.amount || 0])) };
   const eff = id => (launchOn && L[id]?.amount) || reg[id] || 0, money = a => formatAmount(a || 0, o.currency, loc);
-  const tierVars = id => { const t = T[id] || {}, n = t.revisions ?? 1; return { deliveryHours: t.deliveryHours || 24, revisions: plural(u.revisions || '{n}', n, loc), revisionsIncluded: plural(u.revisionsIncluded || '{n}', n, loc), revisionCount: n, videoSeconds: t.videoSeconds || 15, priceTier: money(eff(id)), priceTierRegular: money(reg[id]) }; };
+  const tierVars = id => { const t = T[id] || {}, n = t.revisions ?? 1; return { deliveryHours: t.deliveryHours || 24, revisions: plural(u.revisions || '{n}', n, loc), revisionsIncluded: plural(u.revisionsIncluded || '{n}', n, loc), revisionCount: n, videoSeconds: t.videoSeconds || 15, videoCount: t.videos || 1, videos: plural(u.videos || '{n}', t.videos || 1, loc), priceTier: money(eff(id)), priceTierRegular: money(reg[id]) }; };
   const seller = {};
   for (const [k, v] of Object.entries(config.seller || {})) seller[k] = pick(v, lang.code);
   return {

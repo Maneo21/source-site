@@ -77,21 +77,24 @@
         "paymentLink": "https://buy.stripe.com/aFabJ216Wbwn8Ld08q9AA06",
         "deliveryHours": 48,
         "revisions": 3,
-        "videoSeconds": 30
+        "videoSeconds": 30,
+        "videos": 4
       },
       "pro": {
         "amount": 9900,
         "paymentLink": "https://buy.stripe.com/28E8wQ9Ds7g7d1tbR89AA04",
         "deliveryHours": 48,
         "revisions": 2,
-        "videoSeconds": 25
+        "videoSeconds": 25,
+        "videos": 2
       },
       "essentielle": {
         "amount": 3900,
         "paymentLink": "https://buy.stripe.com/dRm4gAbLA2ZR9Phf3k9AA03",
         "deliveryHours": 24,
         "revisions": 1,
-        "videoSeconds": 15
+        "videoSeconds": 15,
+        "videos": 1
       }
     }
   },
@@ -102,7 +105,7 @@
       "paymentLink": "https://buy.stripe.com/4gM7sM2b07g78Ld08q9AA01"
     }
   },
-  "termsVersion": "2026-10-23-2",
+  "termsVersion": "2026-10-25",
   "mediator": {
     "name": "",
     "url": ""

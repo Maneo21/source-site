@@ -1,6 +1,6 @@
 // Page de vente : accueil de langue, animations, vidéos des trois univers, les deux formules, récapitulatif avant paiement.
-import { I, esc, langSwitch, syncSwitch, swapLang } from './i18n.js?v=ead063818e';
-import { pick } from './vars.js?v=8a517853cc';
+import { I, esc, langSwitch, syncSwitch, swapLang } from './i18n.js?v=2f48bb3464';
+import { pick } from './vars.js?v=79753bb137';
 
 const $ = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];

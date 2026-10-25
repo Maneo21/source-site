@@ -10,7 +10,8 @@
     "followUps": "{n} follow-up round|{n} follow-up rounds",
     "followUpsIncluded": "{n} follow-up round included|{n} follow-up rounds included",
     "revisionsIncluded": "{n} revision included|{n} revisions included",
-    "revisions": "{n} revision|{n} revisions"
+    "revisions": "{n} revision|{n} revisions",
+    "videos": "{n} video|{n} videos"
   },
   "common": {
     "skip": "Skip to content",
@@ -105,15 +106,15 @@
       "tag": "Crafted to the max, above everything else. Made to stand out.",
       "cta": "Choose Studio",
       "items": [
-        "Ad or motion video up to {videoSeconds} seconds, in several scenes",
-        "Or a scrolling website with 3D effects, in several sections",
+        "{videos} (ad or motion) up to {videoSeconds} seconds, in several scenes",
+        "Or, instead, a scrolling website with 3D effects",
         "Advanced 3D world, built for your brand",
         "Voice-over and subtitles",
-        "3 different ad openings, to test which one works",
-        "Every format: vertical, square, landscape"
+        "Every format: vertical, square, landscape",
+        "Available to talk about your project, by email or TikTok DM"
       ],
-      "sum": "{videoSeconds} s video or 3D website · advanced 3D · 3 ad openings · every format · {revisions} · {deliveryHours} h",
-      "mini": "{videoSeconds} s video\nor 3D website"
+      "sum": "{videos} of {videoSeconds} s or 3D website · advanced 3D · every format · {revisions} · {deliveryHours} h",
+      "mini": "{videos}\nor 3D website"
     },
     "pro": {
       "name": "Pro",
@@ -121,15 +122,15 @@
       "tag": "Far more detail, far more impact.",
       "cta": "Choose Pro",
       "items": [
-        "Ad or motion video of 20 to {videoSeconds} seconds, custom-made",
-        "Or a custom animated web page, made for phones",
+        "{videos} (ad or motion) of 20 to {videoSeconds} seconds, custom-made",
+        "Or, instead, a custom animated web page",
         "A world built for your brand, rich in detail",
         "Voice-over and subtitles",
         "Vertical and square formats",
-        "We talk about your project by email"
+        "Available to talk about your project, by email or TikTok DM"
       ],
-      "sum": "20 to {videoSeconds} s video or website · voice-over · vertical + square · {revisions} · {deliveryHours} h",
-      "mini": "{videoSeconds} s video\nor website"
+      "sum": "{videos} of 20 to {videoSeconds} s or website · voice-over · vertical + square · {revisions} · {deliveryHours} h",
+      "mini": "{videos}\nor website"
     },
     "essentielle": {
       "name": "Essential",
@@ -138,26 +139,26 @@
       "tag": "A real, polished ad, even on a small budget.",
       "cta": "Choose Essential",
       "items": [
-        "Ad or motion video of about {videoSeconds} seconds",
+        "{videos} (ad or motion) of about {videoSeconds} seconds",
         "Punchy and polished, from your description",
         "Vertical format, ready for TikTok and Instagram",
-        "Delivered ready to publish, the files are yours",
-        "Video only: websites come with Pro and Studio"
+        "Video only: websites come with Pro and Studio",
+        "Available to talk about your project, by email or TikTok DM"
       ],
-      "sum": "≈ {videoSeconds} s video · polished · vertical · {revisions} · {deliveryHours} h",
-      "mini": "{videoSeconds} s video\nin {deliveryHours} h"
+      "sum": "{videos} ≈ {videoSeconds} s · vertical · {revisions} · {deliveryHours} h",
+      "mini": "{videos}\nin {deliveryHours} h"
     },
     "compare": {
       "title": "Compare the three options",
       "rows": [
         {
-          "l": "What I make",
-          "studio": "ad, motion video or website",
-          "pro": "ad, motion video or website",
-          "essentielle": "ad or motion video"
+          "l": "Videos included",
+          "studio": "{tiers.studio.videoCount}",
+          "pro": "{tiers.pro.videoCount}",
+          "essentielle": "{tiers.essentielle.videoCount}"
         },
         {
-          "l": "Video length",
+          "l": "Length per video",
           "studio": "up to {tiers.studio.videoSeconds} s",
           "pro": "20 to {tiers.pro.videoSeconds} s",
           "essentielle": "≈ {tiers.essentielle.videoSeconds} s"
@@ -175,34 +176,16 @@
           "essentielle": "—"
         },
         {
-          "l": "Ad openings to test",
-          "studio": "3",
-          "pro": "1",
-          "essentielle": "1"
-        },
-        {
-          "l": "Video formats",
-          "studio": "vertical, square, landscape",
+          "l": "Formats",
+          "studio": "all: vertical, square, landscape",
           "pro": "vertical, square",
           "essentielle": "vertical"
         },
         {
-          "l": "Website",
-          "studio": "scrolling site, 3D effects, several sections",
-          "pro": "custom animated page, made for phones",
+          "l": "Or, instead: a website",
+          "studio": "scrolling site, 3D effects, put online",
+          "pro": "custom animated page, put online",
           "essentielle": "—"
-        },
-        {
-          "l": "Website put online",
-          "studio": "included",
-          "pro": "included",
-          "essentielle": "—"
-        },
-        {
-          "l": "Talk about your project",
-          "studio": "by email",
-          "pro": "by email",
-          "essentielle": "your description is enough"
         },
         {
           "l": "Revisions",
@@ -279,7 +262,7 @@
         },
         {
           "t": "You describe your project",
-          "d": "In a few words, when you order or by email right after. A logo, copy, photos? Send them over too."
+          "d": "In a few words when you order, then by email or TikTok DM. A logo, copy, photos? Send them to me too."
         },
         {
           "t": "I make it, I deliver",
@@ -331,7 +314,7 @@
       },
       {
         "q": "What’s the difference between the three options?",
-        "a": "The level of detail and what’s included. Essential is a real, polished ad of about {tiers.essentielle.videoSeconds} s, delivered within {tiers.essentielle.deliveryHours} hours. Pro adds a custom world, voice-over, the square format, {tiers.pro.revisionsIncluded}, and can be a website instead of a video. Studio goes all the way: several 3D scenes, 3 ad openings to test, every format, {tiers.studio.revisionsIncluded}, or a 3D website. The “Compare the three options” table has every detail."
+        "a": "The number of videos and the level of detail. Essential: {tiers.essentielle.videos}, polished, about {tiers.essentielle.videoSeconds} s, delivered within {tiers.essentielle.deliveryHours} hours. Pro: {tiers.pro.videos}, custom-made, 20 to {tiers.pro.videoSeconds} s, with voice-over, vertical and square formats, {tiers.pro.revisionsIncluded}, or a web page instead. Studio: {tiers.studio.videos} up to {tiers.studio.videoSeconds} s in advanced 3D, every format, {tiers.studio.revisionsIncluded}, or a 3D website instead. The “Compare the three options” table has every detail."
       },
       {
         "q": "Who owns the video?",
@@ -404,8 +387,8 @@
       "summary": "I make your creation myself and deliver it ready to publish, with {revisionsIncluded}.",
       "kindLabel": "What shall I make for you?",
       "specs": {
-        "pub": "A vertical video ad, up to {videoSeconds} seconds.",
-        "motion": "A vertical motion design video, up to {videoSeconds} seconds.",
+        "pub": "{videos} in ad format (up to {videoSeconds} s).",
+        "motion": "{videos} in motion design (up to {videoSeconds} s).",
         "site": {
           "pro": "A custom animated web page, made for phones. I put it online; the domain name is not included.",
           "studio": "A scrolling website with 3D effects, in several sections. I put it online; the domain name is not included."

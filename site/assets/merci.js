@@ -1,6 +1,6 @@
 // Page de remerciement (après le lien de paiement Stripe).
 // Purement informative : le paiement n'est confirmé que par Stripe (reçu + tableau de bord).
-import { I, langSwitch, swapLang } from './i18n.js?v=ead063818e';
+import { I, langSwitch, swapLang } from './i18n.js?v=2f48bb3464';
 
 // La suite affichée dépend de la formule : « ?offre=creation » (ou studio, pro, essentielle) dans l'adresse
 // de retour réglée dans Stripe, ou, à défaut, la formule choisie sur le site dans les trois dernières heures.

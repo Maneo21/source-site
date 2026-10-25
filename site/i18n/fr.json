@@ -10,7 +10,8 @@
     "followUps": "{n} relance|{n} relances",
     "followUpsIncluded": "{n} relance incluse|{n} relances incluses",
     "revisionsIncluded": "{n} retouche incluse|{n} retouches incluses",
-    "revisions": "{n} retouche|{n} retouches"
+    "revisions": "{n} retouche|{n} retouches",
+    "videos": "{n} vidéo|{n} vidéos"
   },
   "common": {
     "skip": "Aller au contenu",
@@ -105,15 +106,15 @@
       "tag": "Hyper travaillée, au-dessus de tout. Pour marquer les esprits.",
       "cta": "Choisir Studio",
       "items": [
-        "Pub ou vidéo motion jusqu’à {videoSeconds} secondes, en plusieurs scènes",
-        "Ou un site web au défilement, avec effets 3D, en plusieurs sections",
+        "{videos} (pub ou motion) jusqu’à {videoSeconds} secondes, en plusieurs scènes",
+        "Ou, à la place, un site web au défilement avec effets 3D",
         "Univers 3D poussé, créé pour votre marque",
         "Voix off et sous-titres",
-        "3 débuts de pub différents, pour tester lequel marche",
-        "Tous les formats : vertical, carré, horizontal"
+        "Tous les formats : vertical, carré, horizontal",
+        "Disponible pour échanger sur votre projet, par e-mail ou en message privé TikTok"
       ],
-      "sum": "Vidéo {videoSeconds} s ou site 3D · 3D poussée · 3 débuts de pub · tous formats · {revisions} · {deliveryHours} h",
-      "mini": "Vidéo {videoSeconds} s\nou site 3D"
+      "sum": "{videos} de {videoSeconds} s ou site 3D · 3D poussée · tous formats · {revisions} · {deliveryHours} h",
+      "mini": "{videos}\nou site 3D"
     },
     "pro": {
       "name": "Pro",
@@ -121,15 +122,15 @@
       "tag": "Beaucoup plus de détails, beaucoup plus d’impact.",
       "cta": "Choisir Pro",
       "items": [
-        "Pub ou vidéo motion de 20 à {videoSeconds} secondes, sur mesure",
-        "Ou une page web sur mesure et animée, adaptée au téléphone",
+        "{videos} (pub ou motion) de 20 à {videoSeconds} secondes, sur mesure",
+        "Ou, à la place, une page web sur mesure et animée",
         "Un univers créé pour votre marque, riche en détails",
         "Voix off et sous-titres",
         "Formats vertical et carré",
-        "Un échange par e-mail sur votre projet"
+        "Disponible pour échanger sur votre projet, par e-mail ou en message privé TikTok"
       ],
-      "sum": "Vidéo 20 à {videoSeconds} s ou site web · voix off · vertical + carré · {revisions} · {deliveryHours} h",
-      "mini": "Vidéo {videoSeconds} s\nou site web"
+      "sum": "{videos} de 20 à {videoSeconds} s ou site web · voix off · vertical + carré · {revisions} · {deliveryHours} h",
+      "mini": "{videos}\nou site web"
     },
     "essentielle": {
       "name": "Essentielle",
@@ -138,26 +139,26 @@
       "tag": "Une vraie pub soignée, même sans gros budget.",
       "cta": "Choisir Essentielle",
       "items": [
-        "Pub ou vidéo motion d’environ {videoSeconds} secondes",
+        "{videos} (pub ou motion) d’environ {videoSeconds} secondes",
         "Rythmée et soignée, à partir de votre description",
         "Format vertical, prête pour TikTok et Instagram",
-        "Livrée prête à publier, les fichiers sont à vous",
-        "Vidéo uniquement : le site web est dans Pro et Studio"
+        "Vidéo uniquement : le site web est dans Pro et Studio",
+        "Disponible pour échanger sur votre projet, par e-mail ou en message privé TikTok"
       ],
-      "sum": "Vidéo ≈ {videoSeconds} s · soignée · format vertical · {revisions} · {deliveryHours} h",
-      "mini": "Vidéo {videoSeconds} s\nen {deliveryHours} h"
+      "sum": "{videos} ≈ {videoSeconds} s · format vertical · {revisions} · {deliveryHours} h",
+      "mini": "{videos}\nen {deliveryHours} h"
     },
     "compare": {
       "title": "Comparer les trois formules",
       "rows": [
         {
-          "l": "Ce que je crée",
-          "studio": "pub, vidéo motion ou site web",
-          "pro": "pub, vidéo motion ou site web",
-          "essentielle": "pub ou vidéo motion"
+          "l": "Vidéos incluses",
+          "studio": "{tiers.studio.videoCount}",
+          "pro": "{tiers.pro.videoCount}",
+          "essentielle": "{tiers.essentielle.videoCount}"
         },
         {
-          "l": "Durée de la vidéo",
+          "l": "Durée par vidéo",
           "studio": "jusqu’à {tiers.studio.videoSeconds} s",
           "pro": "20 à {tiers.pro.videoSeconds} s",
           "essentielle": "≈ {tiers.essentielle.videoSeconds} s"
@@ -175,34 +176,16 @@
           "essentielle": "—"
         },
         {
-          "l": "Débuts de pub à tester",
-          "studio": "3",
-          "pro": "1",
-          "essentielle": "1"
-        },
-        {
-          "l": "Formats de la vidéo",
-          "studio": "vertical, carré, horizontal",
+          "l": "Formats",
+          "studio": "tous : vertical, carré, horizontal",
           "pro": "vertical, carré",
           "essentielle": "vertical"
         },
         {
-          "l": "Site web",
-          "studio": "site au défilement, effets 3D, plusieurs sections",
-          "pro": "page sur mesure et animée, adaptée au téléphone",
+          "l": "Ou, à la place : un site web",
+          "studio": "site au défilement, effets 3D, mis en ligne",
+          "pro": "page sur mesure et animée, mise en ligne",
           "essentielle": "—"
-        },
-        {
-          "l": "Mise en ligne du site",
-          "studio": "comprise",
-          "pro": "comprise",
-          "essentielle": "—"
-        },
-        {
-          "l": "Échange sur votre projet",
-          "studio": "par e-mail",
-          "pro": "par e-mail",
-          "essentielle": "votre description suffit"
         },
         {
           "l": "Retouches",
@@ -279,7 +262,7 @@
         },
         {
           "t": "Vous décrivez votre projet",
-          "d": "En quelques mots, au moment de la commande ou par e-mail juste après. Un logo, des textes, des photos ? Vous me les envoyez aussi."
+          "d": "En quelques mots, au moment de la commande, puis par e-mail ou en message privé TikTok. Un logo, des textes, des photos ? Vous me les envoyez aussi."
         },
         {
           "t": "Je crée, je vous livre",
@@ -331,7 +314,7 @@
       },
       {
         "q": "Quelle différence entre les trois formules ?",
-        "a": "Le niveau de détail et ce qui est inclus. L’Essentielle est une vraie pub soignée d’environ {tiers.essentielle.videoSeconds} s, livrée en {tiers.essentielle.deliveryHours} h. La Pro ajoute un univers sur mesure, la voix off, le format carré, {tiers.pro.revisionsIncluded}, et peut être un site web à la place de la vidéo. La Studio va au bout : plusieurs scènes en 3D, 3 débuts de pub à tester, tous les formats, {tiers.studio.revisionsIncluded}, ou un site 3D. Le tableau « Comparer les trois formules » détaille tout."
+        "a": "Le nombre de vidéos et le niveau de détail. L’Essentielle : {tiers.essentielle.videos} soignée d’environ {tiers.essentielle.videoSeconds} s, livrée en {tiers.essentielle.deliveryHours} h. La Pro : {tiers.pro.videos} sur mesure de 20 à {tiers.pro.videoSeconds} s, avec voix off, formats vertical et carré, {tiers.pro.revisionsIncluded}, ou une page web à la place. La Studio : {tiers.studio.videos} jusqu’à {tiers.studio.videoSeconds} s en 3D poussée, tous les formats, {tiers.studio.revisionsIncluded}, ou un site 3D à la place. Le tableau « Comparer les trois formules » détaille tout."
       },
       {
         "q": "À qui appartient la création ?",
@@ -404,8 +387,8 @@
       "summary": "Je réalise votre création moi-même et je vous la livre prête à publier, avec {revisionsIncluded}.",
       "kindLabel": "Qu’est-ce que je crée pour vous ?",
       "specs": {
-        "pub": "Une vidéo publicitaire verticale, jusqu’à {videoSeconds} secondes.",
-        "motion": "Une vidéo motion design verticale, jusqu’à {videoSeconds} secondes.",
+        "pub": "{videos} au format pub ({videoSeconds} s max.).",
+        "motion": "{videos} en motion design ({videoSeconds} s max.).",
         "site": {
           "pro": "Une page web sur mesure et animée, adaptée au téléphone. Je la mets en ligne ; le nom de domaine n’est pas compris.",
           "studio": "Un site web au défilement, avec effets 3D, en plusieurs sections. Je le mets en ligne ; le nom de domaine n’est pas compris."

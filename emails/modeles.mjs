@@ -37,6 +37,7 @@ const T = {
       confirmed: (b, p, n) => [`Votre création ${n ? n + ' ' : 'sur mesure '}${b} à `, p, ' a bien été confirmée.'],
       received: what => `J’ai bien reçu votre demande et je commence la réalisation de ${what}.`,
       what: { site: 'votre site web', pub: 'votre vidéo publicitaire', motion: 'votre animation motion design', other: 'votre projet' },
+      whatMany: { pub: 'vos vidéos publicitaires', motion: 'vos vidéos motion design' },
       deliver: h => ['Vous recevrez votre création ', `sous ${h}\u00A0h maximum`, ', directement par e-mail.'],
       assets: `Vous avez un logo, des textes, des images ou des exemples que vous aimez\u00A0? Répondez simplement à cet e-mail pour me les transmettre.`,
       after: (n, d) => `Après la livraison, ${n} retouche${n > 1 ? 's sont incluses' : ' est incluse'} pour ajuster un détail, sous ${d} jours.`,
@@ -81,6 +82,7 @@ const T = {
       confirmed: (b, p, n) => [`Your ${b} ${n ? n + ' ' : 'made-to-order '}creation order for `, p, ' is confirmed.'],
       received: what => `I’ve received your request and I’m starting work on ${what}.`,
       what: { site: 'your website', pub: 'your video ad', motion: 'your motion design animation', other: 'your project' },
+      whatMany: { pub: 'your video ads', motion: 'your motion design videos' },
       deliver: h => ['You’ll receive your creation ', `within ${h} hours`, ', by email.'],
       assets: 'Do you have a logo, copy, images or examples you like? Just reply to this email to send them over.',
       after: (n, d) => `After delivery, ${n} revision${n > 1 ? 's are' : ' is'} included to adjust a detail, within ${d} days.`,
@@ -217,7 +219,7 @@ export function clientMail(order, ctx) {
   // réponse sur TikTok seulement si le client l'a choisie ET a donné son pseudo ; sinon par e-mail
   const handle = !creation && order.channel === 'tiktok' && order.tiktok ? order.tiktok : '';
   // création arrivée sans description : le client est invité à la donner, et le délai court à partir de sa réponse
-  const noBrief = creation && !project, what = creation ? tc.what[order.kind] || tc.what.other : '';
+  const noBrief = creation && !project, what = creation ? ((order.tier === 'pro' || order.tier === 'studio') && tc.whatMany?.[order.kind]) || tc.what[order.kind] || tc.what.other : '';
   const [c1, c2, c3] = (creation ? tc.confirmed : t.confirmed)(brand, price, tierName), [r1, r2, r3] = noBrief ? tc.deliverNoBrief(dh) : creation ? tc.deliver(dh) : t.reply(h, handle);
   const received = noBrief ? tc.receivedNoBrief(what) : creation ? tc.received(what) : t.received;
   const more = creation ? [noBrief ? tc.brief : tc.assets, tc.after(tv.revisions ?? ctx.revisions ?? 1, ctx.revisionDays || 7)] : handle ? [t.dm] : [];

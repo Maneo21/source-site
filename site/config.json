@@ -99,7 +99,7 @@
     }
   },
   "launch": {
-    "until": "2026-10-25T23:59:59+01:00",
+    "until": "2026-10-25T18:00:00+01:00",
     "essentielle": {
       "amount": 1990,
       "paymentLink": "https://buy.stripe.com/4gM7sM2b07g78Ld08q9AA01"

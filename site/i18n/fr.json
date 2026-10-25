@@ -482,7 +482,11 @@
     "text": "Pour une meilleure immersion dans le site.",
     "step1": "Touchez <b class=\"tt-kbd\"><i>•</i><i>•</i><i>•</i></b> tout en haut à droite, au-dessus du site",
     "step2": "Choisissez <b>« Ouvrir dans le navigateur »</b>",
-    "here": "Juste au-dessus"
+    "here": "Juste au-dessus",
+    "or": "Ou copiez le lien et collez-le dans votre navigateur",
+    "copy": "Copier le lien",
+    "copied": "Lien copié ✓",
+    "copyFail": "Appui long pour copier"
   },
   "work": {
     "kicker": "Réalisations",
@@ -504,10 +508,12 @@
     "barDm": "Message privé TikTok",
     "alt": "Capture d’écran du message d’un client (nom masqué)",
     "zoom": "Nom masqué · touchez la capture pour l’agrandir",
-    "exKick": "Réalisation client",
-    "example": "Exemple d’une réalisation faite pour un client",
-    "exampleD": "Pub verticale pour TikTok, réalisée sur mesure à partir de sa demande.",
+    "exKick": "Réalisations clients",
+    "example": "Exemples de réalisations faites pour des clients",
+    "exampleD": "Pubs verticales pour TikTok, réalisées sur mesure.",
     "selection": "Une sélection des meilleurs messages reçus de mes clients.",
-    "hint": "Captures réelles · touchez pour agrandir"
+    "hint": "Captures réelles · touchez pour agrandir",
+    "barMailShort": "E-mail",
+    "barDmShort": "TikTok"
   }
 }

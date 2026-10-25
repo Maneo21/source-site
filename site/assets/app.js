@@ -22,6 +22,7 @@ const U = [
   { key: 'sites', kind: 'site', dur: '0:22' },
   { key: 'roadster', kind: 'pub', dur: '0:15', wide: true },
   { key: 'digi', kind: 'pub', dur: '0:16' },
+  { key: 'tacnaan', kind: 'pub', dur: '0:22' },
 ];
 // Les deux formules. « guide » : l'échange personnalisé (je t'explique). « creation » : la création sur mesure (je réalise et je livre).
 // Chaque formule a son lien de paiement Stripe et ses types de projet.
@@ -628,7 +629,7 @@ function buildReviews() {
   const CHECK = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
   $('[data-rv-list]', sec).innerHTML = items.map((r, i) => `<figure class="rv rv-${r.source}" style="--r:${i}">
     <figcaption class="rv-head"><span class="rv-av">${ICON[r.source]}</span><span><b>${esc(r.name)}</b><small>${esc(I.t('reviews.' + r.source))}</small></span><em class="rv-auth">${CHECK}${esc(I.t('reviews.authentic'))}</em></figcaption>
-    ${r.capture ? `<button class="rv-cap rv-shot" type="button" data-cap="${esc(r.capture)}" aria-label="${esc(I.t('reviews.capture'))}"><span class="rv-bar" aria-hidden="true"><i></i><i></i><i></i><b>${esc(I.t('reviews.bar' + (r.source === 'dm' ? 'Dm' : 'Mail')))}</b></span><img src="${esc(r.capture)}" alt="${esc(I.t('reviews.alt'))}" loading="lazy" decoding="async"></button>
+    ${r.capture ? `<button class="rv-cap rv-shot" type="button" data-cap="${esc(r.capture)}" aria-label="${esc(I.t('reviews.capture'))}"><span class="rv-bar" aria-hidden="true"><i></i><i></i><i></i><b class="l">${esc(I.t('reviews.bar' + (r.source === 'dm' ? 'Dm' : 'Mail')))}</b><b class="s">${esc(I.t('reviews.bar' + (r.source === 'dm' ? 'Dm' : 'Mail') + 'Short'))}</b></span><img src="${esc(r.capture)}" alt="${esc(I.t('reviews.alt'))}" loading="lazy" decoding="async"></button>
     <p class="rv-zoom">${esc(I.t('reviews.zoom'))}</p>` : ''}
   </figure>`).join('');
   const list = $('[data-rv-list]', sec), dots = $('[data-rv-dots]', sec);
@@ -1102,3 +1103,22 @@ async function boot() {
   else { root.classList.remove('is-welcome'); start(); }
 }
 boot();
+
+/* ---------- écran TikTok : copier le lien du site ---------- */
+// Pour qui ne trouve pas « Ouvrir dans le navigateur » : un toucher copie l'adresse, à coller dans Safari ou Chrome.
+async function copyLink(btn) {
+  const url = String(I.config.siteUrl || location.origin).replace(/\/$/, '');
+  let ok = false;
+  try { await navigator.clipboard.writeText(url); ok = true; } catch { /* presse-papiers refusé : solution de secours */ }
+  if (!ok) {
+    const ta = document.createElement('textarea'); ta.value = url; ta.setAttribute('readonly', ''); ta.style.cssText = 'position:fixed;top:0;left:0;opacity:0;font-size:16px';
+    document.body.append(ta); ta.select(); ta.setSelectionRange(0, url.length);
+    try { ok = document.execCommand('copy'); } catch { ok = false; }
+    ta.remove();
+  }
+  const lab = $('[data-copy-label]', btn);
+  lab.textContent = I.t(ok ? 'tt.copied' : 'tt.copyFail');
+  btn.classList.toggle('ok', ok);
+  clearTimeout(btn._t); btn._t = setTimeout(() => { lab.textContent = I.t('tt.copy'); btn.classList.remove('ok'); }, 2800);
+}
+document.addEventListener('click', e => { const b = e.target.closest('[data-copy-link]'); if (b) { e.preventDefault(); copyLink(b); } });

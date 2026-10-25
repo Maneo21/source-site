@@ -57,6 +57,23 @@
           "Thanks a lot for the video […]! The *quality is incredible* […] *fast* too!"
         ]
       }
+    },
+    {
+      "source": "dm",
+      "name": {
+        "fr": "Client · pub TikTok",
+        "en": "Client · TikTok ad"
+      },
+      "capture": "/assets/media/avis-3.jpg",
+      "consent": true,
+      "text": {
+        "fr": [
+          "Ton travail a été *super bien réalisé*, livré *très rapidement*, pas besoin de faire de retouche tellement le premier résultat était *parfait* 🙏"
+        ],
+        "en": [
+          "Your work was *really well done*, delivered *very quickly*, no need for any revision, the first result was *perfect* 🙏"
+        ]
+      }
     }
   ],
   "contactEmail": "contact@maneo-ai.fr",

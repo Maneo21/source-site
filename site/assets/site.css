@@ -946,3 +946,34 @@ em.acc { font-style: normal; }
   .rv-panel .rv-ex-t h3 { font-size: 17px; }
   .rv-panel .rv-ex-t p { font-size: 13px; }
 }
+
+/* ---------- avis : 3 captures côte à côte, 2 vidéos clients côte à côte ---------- */
+.rv-shot .rv-bar b.s { display: none; }
+@media (min-width: 900px) { .rv-list { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.rv-ex { display: grid; grid-template-columns: 1fr; gap: 16px; align-items: center; }
+.rv-ex-v { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+@media (min-width: 760px) { .rv-ex { grid-template-columns: minmax(0, 1fr) auto; gap: 32px; max-width: 900px; } .rv-ex-v { grid-template-columns: 210px 210px; gap: 16px; } }
+@media (max-width: 899px) {
+  .rv-panel .rv-list { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+  .rv-panel .rv-shot img { height: 186px; }
+  .rv-panel .rv-shot .rv-bar { justify-content: center; padding: 7px 6px; }
+  .rv-panel .rv-shot .rv-bar i { display: none; }
+  .rv-panel .rv-shot .rv-bar b { margin: 0; }
+  .rv-panel .rv-shot .rv-bar b.l { display: none; }
+  .rv-panel .rv-shot .rv-bar b.s { display: inline; }
+  .rv-panel .rv-shot::after { right: 6px; bottom: 6px; width: 24px; height: 24px; background-size: 13px; }
+  .rv-panel .rv-ex { grid-template-columns: 1fr; gap: 12px; }
+  .rv-panel .rv-ex-v { grid-template-columns: 1fr 1fr; gap: 10px; }
+}
+
+/* ---------- écran TikTok : copier le lien ---------- */
+.welcome-in > .tt-copy { width: 100%; margin: 2px 0 0; animation-delay: .4s; }
+.tt-or { margin: 0 0 10px; font-size: 14px; line-height: 1.4; color: var(--ink2); }
+.tt-link { display: flex; align-items: center; justify-content: space-between; gap: 12px; width: 100%; padding: 7px 7px 7px 18px; border-radius: 999px; background: rgba(255, 255, 255, .05); border: 1px dashed rgba(210, 255, 77, .5); color: var(--ink); font: 650 16px/1 var(--f-d); letter-spacing: -.01em; transition: border-color .25s, background-color .25s; }
+.tt-url { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; -webkit-user-select: all; user-select: all; }
+.tt-cp { flex: none; padding: 12px 16px; border-radius: 999px; background: var(--acc); color: var(--acc-ink); font: 700 14px/1 var(--f-d); white-space: nowrap; }
+.tt-link.ok { border-style: solid; border-color: var(--acc); background: rgba(210, 255, 77, .1); }
+.tt-link:active { transform: scale(.98); }
+.welcome-in > .tt-copy { min-width: 0; max-width: 100%; }
+.tt-link { min-width: 0; }
+.tt-url { min-width: 0; }

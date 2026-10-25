@@ -482,7 +482,11 @@
     "text": "For a more immersive experience.",
     "step1": "Tap <b class=\"tt-kbd\"><i>•</i><i>•</i><i>•</i></b> at the very top right, above the site",
     "step2": "Choose <b>“Open in browser”</b>",
-    "here": "Right above"
+    "here": "Right above",
+    "or": "Or copy the link and paste it into your browser",
+    "copy": "Copy link",
+    "copied": "Link copied ✓",
+    "copyFail": "Long-press to copy"
   },
   "work": {
     "kicker": "Work",
@@ -505,9 +509,11 @@
     "alt": "Screenshot of a client’s message (name hidden)",
     "zoom": "Name hidden · tap the screenshot to enlarge",
     "exKick": "Client work",
-    "example": "Example of a video made for a client",
-    "exampleD": "Vertical TikTok ad, custom-made from their brief.",
+    "example": "Examples of videos made for clients",
+    "exampleD": "Vertical TikTok ads, custom-made.",
     "selection": "A selection of the best messages I’ve received from clients.",
-    "hint": "Real screenshots · tap to enlarge"
+    "hint": "Real screenshots · tap to enlarge",
+    "barMailShort": "Email",
+    "barDmShort": "TikTok"
   }
 }

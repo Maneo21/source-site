@@ -1,6 +1,6 @@
 {
   "meta": {
-    "title": "IA Motion Studio · Pubs vidéo, motion design et sites web sur mesure",
+    "title": "IA Motion Studio · Des pubs vidéo haut de gamme, à votre portée",
     "description": "Pubs vidéo, motion design et sites web sur mesure, livrés en 24 à 48 h. Formules dès {priceCreation}. Ou je vous guide pour les créer vous-même avec l’IA ({price}).",
     "legalTitle": "Informations légales · {brand}",
     "merciTitle": "Merci · {brand}"
@@ -29,7 +29,7 @@
     "work": "Réalisations"
   },
   "hero": {
-    "aria": "Votre pub. Votre vidéo. Votre site.",
+    "aria": "Des pubs haut de gamme. À votre portée.",
     "pre": "Tu veux créer",
     "words": [
       "une pub",
@@ -37,7 +37,7 @@
       "un site"
     ],
     "post": "comme ça ?",
-    "sub": "Pubs vidéo, motion design et sites web, créés pour votre marque. Sur mesure, livrés en 48 h maximum.",
+    "sub": "Pubs vidéo et motion design sur mesure, au niveau des grandes marques. Livrées en 48 h.",
     "prev": "Vidéo précédente",
     "next": "Vidéo suivante",
     "safe": "Paiement unique · sécurisé par Stripe",
@@ -51,9 +51,9 @@
     "learnShort": "Je vous guide",
     "choose": "Choisir {name} · {price}",
     "safeShort": "Sécurisé par Stripe",
-    "l1": "Votre pub.",
-    "l2": "Votre vidéo.",
-    "l3": "Votre site."
+    "l1": "Des pubs",
+    "l2": "haut de gamme.",
+    "l3": "À votre portée."
   },
   "video": {
     "play": "Regarder avec le son",

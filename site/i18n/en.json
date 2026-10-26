@@ -1,6 +1,6 @@
 {
   "meta": {
-    "title": "IA Motion Studio · Custom video ads, motion design and websites",
+    "title": "IA Motion Studio · High-end video ads, within reach",
     "description": "Custom video ads, motion design and websites, delivered in 24 to 48 hours. Options from {priceCreation}. Or I guide you to create them yourself with AI ({price}).",
     "legalTitle": "Legal information · {brand}",
     "merciTitle": "Thank you · {brand}"
@@ -29,7 +29,7 @@
     "work": "Work"
   },
   "hero": {
-    "aria": "Your ad. Your video. Your website.",
+    "aria": "Ads that look high-end. Within reach.",
     "pre": "Want to create",
     "words": [
       "an ad",
@@ -37,7 +37,7 @@
       "a website"
     ],
     "post": "like this?",
-    "sub": "Video ads, motion design and websites, made for your brand. Custom-made, delivered within 48 hours.",
+    "sub": "Custom video ads and motion design, at big-brand level. Delivered within 48 hours.",
     "prev": "Previous video",
     "next": "Next video",
     "safe": "One-time payment · secured by Stripe",
@@ -51,9 +51,9 @@
     "learnShort": "I guide you",
     "choose": "Choose {name} · {price}",
     "safeShort": "Secured by Stripe",
-    "l1": "Your ad.",
-    "l2": "Your video.",
-    "l3": "Your website."
+    "l1": "Ads that look",
+    "l2": "high-end.",
+    "l3": "Within reach."
   },
   "video": {
     "play": "Watch with sound",

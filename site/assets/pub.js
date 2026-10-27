@@ -18,7 +18,18 @@ const KINDS = { studio: ['pub', 'motion', 'site'], pro: ['pub', 'motion', 'site'
 const TT = /BytedanceWebview|musical_ly|trill_|TikTok/i.test(navigator.userAgent) || /[?&]tiktok=1(&|$)/.test(location.search);
 // dernier défilement, et période de calme après la fermeture d'une vidéo : aucun toucher n'y compte
 let lastScroll = -1e9, calmUntil = 0;
-addEventListener('scroll', () => { lastScroll = performance.now(); }, { passive: true, capture: true });
+addEventListener('scroll', () => { const now = performance.now(); if (now - lastScroll > 300) diag('défilement'); lastScroll = now; }, { passive: true, capture: true });
+
+// Journal à l'écran, seulement avec « ?diag=1 » dans l'adresse : montre ce que fait le navigateur de TikTok sur un vrai téléphone.
+const DIAG = /[?&]diag=1(&|$)/.test(location.search), T0 = performance.now(), diagLines = [];
+let diagEl = null;
+function diag(msg) {
+  if (!DIAG) return;
+  if (!diagEl) { diagEl = document.createElement('pre'); diagEl.className = 'pub-diag'; document.body.append(diagEl); }
+  diagLines.push(`${((performance.now() - T0) / 1000).toFixed(2)}  ${msg}`);
+  if (diagLines.length > 18) diagLines.shift();
+  diagEl.textContent = diagLines.join('\n');
+}
 
 // Les vidéos de la page : aucune n'affiche d'ancien prix. « client » : réalisée pour un vrai client.
 const V = [
@@ -64,22 +75,26 @@ const accent = s => esc(s).replace(/\*([^*]+)\*/g, '<em class="acc">$1</em>');
 // a été posé puis levé au même endroit juste avant. strict (vidéos) : en plus, aucun défilement pendant le geste ni dans le quart
 // de seconde avant (un doigt posé pour arrêter la page qui glisse n'est pas un toucher), et rien juste après la fermeture d'une vidéo.
 // keys : un clic sans doigt ni souris (Entrée ou Espace sur un bouton) compte aussi ; pas sur une vidéo, qui a sa propre touche.
-function onTap(el, fn, { keys = true, strict = false } = {}) {
+function onTap(el, fn, { keys = true, strict = false, tag = '' } = {}) {
   let start = null, armed = 0;
+  const log = m => { if (strict) diag(`${tag} ${m}`); };
   el.addEventListener('pointerdown', e => {
     const now = performance.now();
     start = e.button || (strict && (now - lastScroll < 250 || now < calmUntil)) ? null : { x: e.clientX, y: e.clientY, t: now, id: e.pointerId };
+    log(`doigt posé (${e.pointerType})${start ? '' : now < calmUntil ? ' · ignoré : calme' : ' · ignoré : défilement'}`);
   });
-  el.addEventListener('pointercancel', () => { start = null; });
+  el.addEventListener('pointercancel', () => { start = null; log('geste annulé (défilement)'); });
   el.addEventListener('pointerup', e => {
     const now = performance.now();
     const ok = start && e.pointerId === start.id && Math.hypot(e.clientX - start.x, e.clientY - start.y) < 10 && now - start.t < 800 && (!strict || (lastScroll < start.t && now >= calmUntil));
+    if (start) log(`doigt levé · ${ok ? 'toucher' : 'refusé'} (${Math.round(now - start.t)} ms)`);
     start = null;
     armed = ok ? now : 0;
   });
   el.addEventListener('click', e => {
     const now = performance.now();
     const real = (!strict || now >= calmUntil) && ((keys && e.detail === 0) || (armed && now - armed < 600 && (!strict || lastScroll < armed)));
+    log(`clic ${real ? 'accepté' : 'IGNORÉ'}`);
     armed = 0;
     if (real) fn(e); else { e.preventDefault(); e.stopPropagation(); }
   });
@@ -149,42 +164,47 @@ function checkout(e) {
 // retour depuis Stripe (bouton précédent) : le bouton n'attend plus
 addEventListener('pageshow', () => $('[data-pay]')?.classList.remove('loading'));
 
-/* ---------- vidéos : extrait muet (hors TikTok), puis la vidéo complète avec le son ---------- */
-// Un toucher lance la vidéo complète, un autre la met en pause. Pas de commandes natives dans la page : un toucher égaré
-// dessus relançait la vidéo. Quand une vidéo se ferme (plein écran quitté), elle reste en pause et la page reste calme un instant.
+/* ---------- vidéos ---------- */
+// Hors TikTok : un extrait muet tourne quand la vignette est visible ; un toucher lance la vidéo complète avec le son,
+// un autre la met en pause, dans la page.
+// Dans TikTok : la vignette est une simple image, sans aucune vidéo dans la page. Un toucher crée la vidéo et la lance
+// (TikTok l'ouvre en plein écran) ; dès qu'elle se ferme ou se termine, elle est retirée de la page. Il ne reste alors
+// plus rien qui puisse se relancer en défilant. Une lecture que personne n'a demandée est arrêtée aussitôt.
+const playIcons = '<svg class="pv-ic-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg><svg class="pv-ic-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M7.5 5.5h3v13h-3zM13.5 5.5h3v13h-3z"/></svg>';
 function buildVideos() {
   const box = $('[data-videos]');
   box.innerHTML = V.map((v, k) => `
     <figure class="pv${v.wide ? ' pv-wide' : ''}" data-v="${k}">
       <div class="pv-media" role="button" tabindex="0">
-        <video muted loop playsinline webkit-playsinline preload="none" poster="${MEDIA}${v.key}-poster.webp" data-teaser="${MEDIA}${v.key}-teaser.mp4"></video>
-        <span class="pv-play"><i><svg class="pv-ic-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg><svg class="pv-ic-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M7.5 5.5h3v13h-3zM13.5 5.5h3v13h-3z"/></svg></i><span data-play-label></span></span>
+        ${TT ? `<img class="pv-img" src="${MEDIA}${v.key}-poster.webp" alt="" decoding="async" loading="lazy">`
+              : `<video muted loop playsinline webkit-playsinline preload="none" poster="${MEDIA}${v.key}-poster.webp" data-teaser="${MEDIA}${v.key}-teaser.mp4"></video>`}
+        <span class="pv-play"><i>${playIcons}</i><span data-play-label></span></span>
         ${v.client ? '<em class="pv-client" data-client-label></em>' : ''}
       </div>
       <figcaption data-label></figcaption>
     </figure>`).join('');
   const io = 'IntersectionObserver' in window ? new IntersectionObserver(seen, { threshold: [0, .35] }) : null;
   for (const fig of $$('.pv', box)) {
-    const video = $('video', fig), media = $('.pv-media', fig);
+    const media = $('.pv-media', fig), key = V[+fig.dataset.v].key;
     io?.observe(fig);
-    onTap(media, () => toggle(fig), { keys: false, strict: true });
-    media.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(fig); } });
+    onTap(media, () => (TT ? ttToggle : toggle)(fig), { keys: false, strict: true, tag: key });
+    media.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); (TT ? ttToggle : toggle)(fig); } });
+    if (TT) continue;
+    const video = $('video', fig);
     video.addEventListener('play', () => fig.classList.toggle('playing', fig.classList.contains('full')));
     video.addEventListener('pause', () => fig.classList.remove('playing'));
     video.addEventListener('ended', () => { fig.classList.remove('playing'); video.currentTime = 0; });
-    // plein écran quitté (iPhone) : la vidéo reste en pause, et rien ne compte pendant un instant
-    const quit = () => { video.pause(); calmUntil = performance.now() + 900; };
-    video.addEventListener('webkitendfullscreen', quit);
-    video.addEventListener('webkitfullscreenchange', () => { if (!document.webkitFullscreenElement) quit(); });
-    document.addEventListener('fullscreenchange', () => { if (!document.fullscreenElement && fig.classList.contains('full')) quit(); });
   }
+  diag(`page prête · TikTok : ${TT ? 'oui' : 'non'}`);
 }
-// l'extrait ne tourne que visible ; la vidéo complète s'arrête quand on la quitte
+// l'extrait ne tourne que visible ; une vidéo complète s'arrête quand on la quitte
 function seen(entries) {
   for (const en of entries) {
-    const fig = en.target, video = $('video', fig), on = en.intersectionRatio >= .35;
+    const fig = en.target, on = en.intersectionRatio >= .35;
+    if (TT) { if (!en.isIntersecting && cur?.fig === fig && !cur.fs) ttClose('vignette sortie de l’écran'); continue; }
+    const video = $('video', fig);
     if (fig.classList.contains('full')) { if (!en.isIntersecting) video.pause(); continue; }
-    if (on && !RM && !TT) {
+    if (on && !RM) {
       if (!video.src) video.src = video.dataset.teaser;
       video.play().catch(() => { /* lecture auto refusée : l'affiche reste */ });
     } else video.pause();
@@ -202,6 +222,43 @@ function toggle(fig) {
     video.src = `${MEDIA}${v.key}.mp4`;
   }
   video.play().catch(() => { /* lecture refusée : l'image reste, un nouveau toucher réessaie */ });
+}
+
+// TikTok : une seule vidéo à la fois, créée au toucher, retirée dès qu'elle se ferme
+let cur = null;
+function ttToggle(fig) {
+  if (cur?.fig === fig) { ttClose('toucher sur la vidéo en cours'); return; }
+  ttClose('autre vidéo touchée');
+  const v = V[+fig.dataset.v], video = document.createElement('video');
+  video.setAttribute('playsinline', ''); video.setAttribute('webkit-playsinline', '');
+  video.preload = 'auto';
+  video.poster = `${MEDIA}${v.key}-poster.webp`;
+  video.src = `${MEDIA}${v.key}.mp4`;
+  const c = cur = { fig, video, key: v.key, fs: false, asked: performance.now() };
+  const ev = (type, fn) => video.addEventListener(type, () => { if (cur === c) { diag(`${v.key} ${type}`); fn?.(); } });
+  ev('play', () => { if (performance.now() - c.asked > 2500 && !c.fs) ttClose('lecture non demandée, arrêtée'); else fig.classList.add('playing'); });
+  ev('pause', () => { fig.classList.remove('playing'); if (!c.fs) ttClose('pause'); });
+  ev('ended', () => ttClose('fin de la vidéo'));
+  ev('webkitbeginfullscreen', () => { c.fs = true; });
+  ev('webkitendfullscreen', () => { c.fs = false; ttClose('plein écran quitté'); });
+  ev('error', () => ttClose('erreur de lecture'));
+  fig.classList.add('full');
+  $('.pv-media', fig).prepend(video);
+  diag(`${v.key} lancée`);
+  video.play().catch(err => { diag(`${v.key} lecture refusée (${err.name})`); ttClose('lecture refusée'); });
+}
+function ttClose(why) {
+  const c = cur;
+  if (!c) return;
+  cur = null;
+  diag(`${c.key} retirée · ${why}`);
+  calmUntil = performance.now() + 900;
+  try { c.video.pause(); } catch { /* déjà arrêtée */ }
+  try { if (c.fs) c.video.webkitExitFullscreen?.(); } catch { /* pas en plein écran */ }
+  c.video.removeAttribute('src');
+  try { c.video.load(); } catch { /* rien à décharger */ }
+  c.video.remove();
+  c.fig.classList.remove('full', 'playing');
 }
 
 /* ---------- avis : les vraies captures, côte à côte ---------- */

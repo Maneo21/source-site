@@ -2,6 +2,14 @@
 .pub-main { max-width: 640px; margin: 0 auto; padding: calc(var(--top-h) + env(safe-area-inset-top) + 18px) var(--gut) 8px; }
 .pub .top .logo { cursor: default; }
 
+/* fond du haut : le mur d’images de l’accueil, qui défile doucement sous le même voile, et sa lueur citron */
+.pub-bg { position: absolute; z-index: 0; top: 0; left: 0; right: 0; height: min(100svh, 940px); overflow: clip; isolation: isolate; pointer-events: none; }
+.pub-bg::after { content: ""; position: absolute; z-index: -1; left: -30%; bottom: -14%; width: 120%; height: 60%; background: radial-gradient(closest-side, rgba(210, 255, 77, .09), transparent); }
+.pub-main, .pub .foot { position: relative; z-index: 1; }
+/* ici le titre est en haut, devant le mur : le voile est un peu plus dense derrière le texte */
+.pub-bg .hero-veil { background: linear-gradient(180deg, rgba(9, 9, 10, .74) 0%, rgba(9, 9, 10, .5) 14%, rgba(9, 9, 10, .6) 30%, rgba(9, 9, 10, .9) 50%, var(--bg) 68%); }
+@media (min-width: 900px) { .pub-bg .hero-veil { background: radial-gradient(34% 62% at 50% 42%, rgba(9, 9, 10, .86), rgba(9, 9, 10, .74) 55%, rgba(9, 9, 10, .3) 100%), linear-gradient(180deg, transparent 45%, var(--bg) 94%); } }
+
 /* accroche : la lueur citron de l'accueil, sans le mur de vidéos */
 .pub-hero { position: relative; isolation: isolate; }
 .pub-hero::before { content: ""; position: absolute; z-index: -1; left: -30%; right: -30%; top: -120px; height: 520px; pointer-events: none; background: radial-gradient(50% 45% at 30% 40%, rgba(210, 255, 77, .11), transparent 70%), radial-gradient(40% 40% at 85% 20%, rgba(242, 239, 233, .05), transparent 70%); }
@@ -17,8 +25,12 @@
 .pub-order .kick { margin-bottom: 12px; }
 @keyframes pubIn { from { opacity: 0; transform: translateY(12px); } }
 
-/* sections */
-.pub-sec { padding: 56px 0 0; }
+/* sections : le fin trait citron et la lueur d’ambiance des sections de l’accueil */
+.pub-sec { position: relative; isolation: isolate; padding: 56px 0 0; }
+.pub-sec::before { content: ""; position: absolute; z-index: -1; top: 0; left: 50%; width: 100vw; translate: -50% 0; height: min(760px, 120vw); background: radial-gradient(42% 38% at 14% 42%, rgba(210, 255, 77, .045), transparent 100%); pointer-events: none; }
+#avis::before { background: radial-gradient(42% 38% at 86% 42%, rgba(210, 255, 77, .04), transparent 100%); }
+.pub-sec::after { content: ""; position: absolute; z-index: -1; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, rgba(242, 239, 233, .1) 25%, rgba(210, 255, 77, .32) 50%, rgba(242, 239, 233, .1) 75%, transparent); pointer-events: none; }
+.pub-end::after { display: none; }
 .pub-h2 { margin: 0 0 18px; font: 750 clamp(34px, 9.4vw, 54px)/.95 var(--f-d); font-stretch: 84%; letter-spacing: -.04em; text-wrap: balance; text-shadow: 0 10px 34px rgba(0, 0, 0, .5); }
 .pub-h2 em.acc { color: var(--acc); }
 .pub-note { margin: 14px 0 0; font-size: 12.5px; line-height: 1.45; color: var(--ink3); }

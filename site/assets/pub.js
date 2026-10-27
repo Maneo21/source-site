@@ -16,6 +16,9 @@ const KINDS = { studio: ['pub', 'motion', 'site'], pro: ['pub', 'motion', 'site'
 // touchée, il laisse les autres démarrer seules : un extrait lancé au défilement se rouvrait alors en plein écran.
 // Dans TikTok, aucune vidéo ne démarre donc sans un toucher dessus : les extraits restent des images.
 const TT = /BytedanceWebview|musical_ly|trill_|TikTok/i.test(navigator.userAgent) || /[?&]tiktok=1(&|$)/.test(location.search);
+// Mais TikTok ne se nomme pas toujours (lien ouvert depuis un message privé : « TikTok : non » sur l'iPhone d'Evan, 27 oct.).
+// Sur tout téléphone, on suit donc la voie sûre ; les extraits qui tournent seuls restent pour l'ordinateur.
+const SAFE = TT || matchMedia('(hover: none) and (pointer: coarse)').matches;
 // dernier défilement, et période de calme après la fermeture d'une vidéo : aucun toucher n'y compte
 let lastScroll = -1e9, calmUntil = 0;
 addEventListener('scroll', () => { const now = performance.now(); if (now - lastScroll > 300) diag('défilement'); lastScroll = now; }, { passive: true, capture: true });
@@ -176,7 +179,7 @@ function buildVideos() {
   box.innerHTML = V.map((v, k) => `
     <figure class="pv${v.wide ? ' pv-wide' : ''}" data-v="${k}">
       <div class="pv-media" role="button" tabindex="0">
-        ${TT ? `<img class="pv-img" src="${MEDIA}${v.key}-poster.webp" alt="" decoding="async" loading="lazy">`
+        ${SAFE ? `<img class="pv-img" src="${MEDIA}${v.key}-poster.webp" alt="" decoding="async" loading="lazy">`
               : `<video muted loop playsinline webkit-playsinline preload="none" poster="${MEDIA}${v.key}-poster.webp" data-teaser="${MEDIA}${v.key}-teaser.mp4"></video>`}
         <span class="pv-play"><i>${playIcons}</i><span data-play-label></span></span>
         ${v.client ? '<em class="pv-client" data-client-label></em>' : ''}
@@ -187,21 +190,22 @@ function buildVideos() {
   for (const fig of $$('.pv', box)) {
     const media = $('.pv-media', fig), key = V[+fig.dataset.v].key;
     io?.observe(fig);
-    onTap(media, () => (TT ? ttToggle : toggle)(fig), { keys: false, strict: true, tag: key });
-    media.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); (TT ? ttToggle : toggle)(fig); } });
-    if (TT) continue;
+    onTap(media, () => (SAFE ? ttToggle : toggle)(fig), { keys: false, strict: true, tag: key });
+    media.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); (SAFE ? ttToggle : toggle)(fig); } });
+    if (SAFE) continue;
     const video = $('video', fig);
     video.addEventListener('play', () => fig.classList.toggle('playing', fig.classList.contains('full')));
     video.addEventListener('pause', () => fig.classList.remove('playing'));
     video.addEventListener('ended', () => { fig.classList.remove('playing'); video.currentTime = 0; });
   }
-  diag(`page prête · TikTok : ${TT ? 'oui' : 'non'}`);
+  diag(`page prête · TikTok : ${TT ? 'oui' : 'non'} · voie sûre : ${SAFE ? 'oui' : 'non'}`);
+  diag(navigator.userAgent.slice(0, 160));
 }
 // l'extrait ne tourne que visible ; une vidéo complète s'arrête quand on la quitte
 function seen(entries) {
   for (const en of entries) {
     const fig = en.target, on = en.intersectionRatio >= .35;
-    if (TT) { if (!en.isIntersecting && cur?.fig === fig && !cur.fs) ttClose('vignette sortie de l’écran'); continue; }
+    if (SAFE) { if (!en.isIntersecting && cur?.fig === fig && !cur.fs) ttClose('vignette sortie de l’écran'); continue; }
     const video = $('video', fig);
     if (fig.classList.contains('full')) { if (!en.isIntersecting) video.pause(); continue; }
     if (on && !RM) {

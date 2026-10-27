@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="fr" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>IA Motion Studio · Des pubs vidéo haut de gamme, à votre portée</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#09090A">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,300..800&display=swap">
+<link rel="stylesheet" href="/assets/site.css?v=c09c38f548">
+<link rel="stylesheet" href="/assets/pub.css?v=4c421942f6">
+<script>document.documentElement.className='js';try{var l=localStorage.getItem('lang');if(l)document.documentElement.lang=l}catch(e){}</script>
+<script type="module" src="/assets/pub.js?v=88c7497b7d"></script>
+</head>
+<body class="pub">
+<!-- Page des publicités TikTok : elle s'ouvre directement dans le navigateur de TikTok, sans écran « ouvrez dans le navigateur ».
+     Pas de lecteur plein écran ni de fenêtre par-dessus la page : les vidéos se lisent dans la page. -->
+<header class="top scrolled" data-top>
+  <span class="logo" aria-label="IA Motion Studio"><svg class="mark" viewBox="0 0 512 512" aria-hidden="true"><rect width="512" height="512" rx="118" class="mk-bg"/><path d="M179.4 157.07Q150 140 150 174v148q0 34 29.4 16.93l127.2-73.86Q336 248 306.6 230.93Z" class="mk-tri"/><rect x="258" y="334" width="112" height="40" rx="14" class="mk-cur"/></svg><span data-brand>IA Motion Studio</span></span>
+  <div class="top-r"><div class="lang-switch" role="group" data-langswitch data-i18n-attr="aria-label:common.langLabel"></div></div>
+</header>
+
+<main class="pub-main" id="main">
+  <section class="pub-hero">
+    <p class="hero-kick hero-proof" data-proofline hidden></p>
+    <h1 class="h-hero" data-i18n-attr="aria-label:hero.aria" aria-label="Des pubs haut de gamme. À votre portée.">
+      <span class="hh-l" aria-hidden="true" data-split data-i18n="hero.l1">Des pubs</span>
+      <span class="hh-l hh-acc" aria-hidden="true" data-split data-i18n="hero.l2" style="--d:110ms">haut de gamme.</span>
+      <span class="hh-l" aria-hidden="true" data-split data-i18n="hero.l3" style="--d:220ms">À votre portée.</span>
+    </h1>
+    <p class="hero-sub" data-i18n="hero.sub">Pubs vidéo et motion design sur mesure, au niveau des grandes marques. Livrées en 48 h.</p>
+
+    <div class="hero-offers" id="offres">
+      <div class="trio trio-hero" role="radiogroup" data-i18n-attr="aria-label:sheet.switchLabel">
+        <button type="button" class="tri" data-pick="studio" aria-pressed="false"><b class="tri-n" data-i18n="offers.studio.name">Studio</b><span class="tri-p"><span data-price="studio"></span></span><small class="tri-m" data-mini="studio"></small></button>
+        <button type="button" class="tri is-main sel" data-pick="pro" aria-pressed="true"><em class="tri-badge" data-i18n="offers.pro.badge">Recommandé</em><b class="tri-n" data-i18n="offers.pro.name">Pro</b><span class="tri-p"><span data-price="pro"></span></span><small class="tri-m" data-mini="pro"></small></button>
+        <button type="button" class="tri" data-pick="essentielle" aria-pressed="false"><b class="tri-n" data-i18n="offers.essentielle.name">Essentielle</b><span class="tri-p"><span data-price="essentielle"></span></span><small class="tri-m" data-mini="essentielle"></small></button>
+      </div>
+      <p class="ho-sum" data-sum aria-live="polite"></p>
+      <button class="btn btn-p btn-w ho-cta" type="button" data-go><span data-go-label>Choisir Pro · 99 €</span><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"/></svg></button>
+      <p class="ho-links"><span class="ho-safe"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10.5" width="14" height="10" rx="2.5"/><path d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5"/></svg><span data-i18n="hero.safeShort">Sécurisé par Stripe</span></span></p>
+    </div>
+
+    <!-- le récapitulatif s'ouvre dans la page, juste sous les formules -->
+    <form class="pub-order" id="commande" data-checkout novalidate hidden>
+      <p class="kick" data-i18n="sheet.kicker">Récapitulatif</p>
+      <h2 class="sheet-title" data-o="title"></h2>
+      <p class="sheet-sum" data-o="summary"></p>
+      <ul class="sheet-items" data-o-items></ul>
+      <fieldset class="kinds">
+        <legend data-o="kindLabel"></legend>
+        <div class="kinds-row" data-kinds>
+          <label class="kind"><input type="radio" name="kind" value="pub" checked><span data-i18n="sheet.kinds.pub">Vidéo pub</span></label>
+          <label class="kind"><input type="radio" name="kind" value="motion"><span data-i18n="sheet.kinds.motion">Vidéo motion</span></label>
+          <label class="kind"><input type="radio" name="kind" value="site"><span data-i18n="sheet.kinds.site">Site web</span></label>
+        </div>
+        <p class="chan-help" data-kind-spec></p>
+      </fieldset>
+      <p class="sheet-ship"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg><span data-o-ship></span></p>
+      <div class="sheet-total"><span><span data-i18n="sheet.total">Total</span><small data-i18n="sheet.once">Paiement unique · sans abonnement</small></span><strong data-o-price></strong></div>
+      <label class="check">
+        <input type="checkbox" name="consent" required>
+        <span class="box" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>
+        <span class="check-t" data-o="consent"></span>
+      </label>
+      <p class="form-err" data-o-err role="alert"></p>
+      <button class="btn btn-p btn-w" type="submit" data-pay>
+        <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10.5" width="14" height="10" rx="2.5"/><path d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5"/></svg>
+        <span data-i18n="sheet.pay">Continuer vers le paiement</span>
+        <span class="spin" aria-hidden="true"></span>
+      </button>
+      <p class="sheet-safe"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10.5" width="14" height="10" rx="2.5"/><path d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5"/></svg><span data-i18n="sheet.safe">Paiement chiffré, géré par Stripe</span></p>
+      <p class="sheet-small" data-o="redirect"></p>
+      <p class="sheet-small" data-i18n-html="sheet.legal"></p>
+    </form>
+  </section>
+
+  <section class="pub-sec" id="realisations">
+    <p class="kick" data-i18n="work.kicker">Réalisations</p>
+    <h2 class="pub-h2" data-acc="work.title">Ce que ça donne, en vrai.</h2>
+    <div class="pv-grid" data-videos></div>
+    <p class="pub-note" data-i18n="work.note">Créations réalisées par IA Motion Studio.</p>
+  </section>
+
+  <section class="pub-sec" id="avis">
+    <p class="kick" data-i18n="reviews.kicker">Avis clients</p>
+    <h2 class="pub-h2" data-acc="reviews.title">Ils ont commandé.</h2>
+    <p class="pub-note pub-note-top" data-i18n="reviews.selection">Une sélection des meilleurs messages reçus de mes clients.</p>
+    <div class="pr-row" data-reviews></div>
+    <p class="pub-note" data-i18n="reviews.note">Captures d’écran réelles de messages de clients. Noms masqués par discrétion.</p>
+  </section>
+
+  <section class="pub-sec pub-end">
+    <button class="btn btn-p btn-w" type="button" data-again><span data-again-label>Choisir ma formule</span><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"/></svg></button>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <nav class="foot-links">
+      <a href="/legal#mentions" data-i18n="footer.mentions">Mentions légales</a>
+      <a href="/legal#cgv" data-i18n="footer.cgv">CGV</a>
+      <a href="/legal#confidentialite" data-i18n="footer.privacy">Confidentialité</a>
+      <a data-contact data-i18n="footer.contact">Contact</a>
+    </nav>
+    <p class="foot-legal"><span data-i18n="footer.rights">© 2026 IA Motion Studio</span> · <span data-i18n="footer.stripe">Paiement sécurisé par Stripe</span><br><span data-i18n="footer.legal"></span></p>
+  </div>
+</footer>
+</body>
+</html>

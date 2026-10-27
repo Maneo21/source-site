@@ -1,0 +1,58 @@
+/* Page des publicités TikTok (/pub) : reprend site.css (couleurs, titre, formules, récapitulatif) et n'ajoute que sa mise en page. */
+.pub-main { max-width: 640px; margin: 0 auto; padding: calc(var(--top-h) + env(safe-area-inset-top) + 18px) var(--gut) 8px; }
+.pub .top .logo { cursor: default; }
+
+/* accroche : la lueur citron de l'accueil, sans le mur de vidéos */
+.pub-hero { position: relative; isolation: isolate; }
+.pub-hero::before { content: ""; position: absolute; z-index: -1; left: -30%; right: -30%; top: -120px; height: 520px; pointer-events: none; background: radial-gradient(50% 45% at 30% 40%, rgba(210, 255, 77, .11), transparent 70%), radial-gradient(40% 40% at 85% 20%, rgba(242, 239, 233, .05), transparent 70%); }
+.pub .hero-proof { margin-bottom: 14px; }
+.pub .h-hero { font-size: clamp(42px, 12.2vw, 76px); }
+.pub .hero-sub { margin: 16px 0 6px; max-width: 34ch; }
+.pub .hero-offers { max-width: none; }
+.pub .ho-links { justify-content: center; }
+
+/* récapitulatif, ouvert dans la page sous les formules */
+.pub-order { scroll-margin-top: calc(var(--top-h) + env(safe-area-inset-top) + 12px); margin-top: 14px; padding: 20px 18px 18px; border-radius: 26px; background: linear-gradient(180deg, rgba(20, 22, 14, .92), rgba(11, 11, 12, .96)); border: 1px solid rgba(210, 255, 77, .28); box-shadow: 0 30px 70px -40px rgba(210, 255, 77, .45), inset 0 1px 0 rgba(255, 255, 255, .06); animation: pubIn .5s var(--ease-o); }
+.pub-order[hidden] { display: none; }
+.pub-order .kick { margin-bottom: 12px; }
+@keyframes pubIn { from { opacity: 0; transform: translateY(12px); } }
+
+/* sections */
+.pub-sec { padding: 56px 0 0; }
+.pub-h2 { margin: 0 0 18px; font: 750 clamp(34px, 9.4vw, 54px)/.95 var(--f-d); font-stretch: 84%; letter-spacing: -.04em; text-wrap: balance; text-shadow: 0 10px 34px rgba(0, 0, 0, .5); }
+.pub-h2 em.acc { color: var(--acc); }
+.pub-note { margin: 14px 0 0; font-size: 12.5px; line-height: 1.45; color: var(--ink3); }
+.pub-note-top { margin: -6px 0 16px; font-size: 14px; color: var(--ink2); }
+.pub-end { padding: 44px 0 52px; }
+
+/* vidéos : grandes en largeur, les deux pubs clients côte à côte */
+.pv-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.pv { margin: 0; min-width: 0; }
+.pv-wide { grid-column: 1 / -1; }
+.pv-media { position: relative; overflow: hidden; aspect-ratio: 9 / 16; border-radius: 20px; background: #111113; border: 1px solid var(--line2); box-shadow: 0 24px 50px -30px rgba(0, 0, 0, .9); cursor: pointer; -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
+.pv-wide .pv-media { aspect-ratio: 16 / 10; }
+.pv-media video { display: block; width: 100%; height: 100%; object-fit: cover; background: #111113; }
+.pv-media:focus-visible { outline: 2px solid var(--acc); outline-offset: 3px; }
+.pv-play { position: absolute; left: 10px; bottom: 10px; display: inline-flex; align-items: center; gap: 8px; height: 40px; padding: 0 13px 0 4px; border-radius: 999px; background: rgba(9, 9, 10, .72); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border: 1px solid rgba(242, 239, 233, .14); font: 600 12.5px/1 var(--f-b); color: var(--ink); pointer-events: none; }
+.pv-play i { display: grid; place-items: center; width: 32px; height: 32px; border-radius: 50%; background: var(--acc); }
+.pv-play svg { width: 14px; height: 14px; margin-left: 2px; fill: var(--acc-ink); }
+.pv:not(.pv-wide) .pv-play span { display: none; }
+.pv:not(.pv-wide) .pv-play { padding-right: 4px; }
+.pv-client { position: absolute; top: 10px; left: 10px; padding: 5px 9px; border-radius: 999px; background: var(--acc); color: var(--acc-ink); font: 700 10px/1 var(--f-m); letter-spacing: .06em; text-transform: uppercase; font-style: normal; pointer-events: none; }
+.pv.full .pv-media { cursor: auto; border-color: rgba(210, 255, 77, .4); }
+.pv.full .pv-play, .pv.full .pv-client { display: none; }
+.pv figcaption { margin: 8px 2px 0; font: 500 11px/1.3 var(--f-m); letter-spacing: .08em; text-transform: uppercase; color: var(--ink3); }
+
+/* avis : les captures réelles, côte à côte, défilement horizontal au doigt */
+.pr-row { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(200px, 62%); gap: 10px; overflow-x: auto; scroll-snap-type: x mandatory; margin: 0 calc(var(--gut) * -1); padding: 0 var(--gut) 6px; scrollbar-width: none; overscroll-behavior-x: contain; }
+.pr-row::-webkit-scrollbar { display: none; }
+.pr { margin: 0; scroll-snap-align: start; min-width: 0; }
+.pr-bar { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 9px 12px; border-radius: 16px 16px 0 0; background: #151517; border: 1px solid var(--line2); border-bottom: 0; font: 600 12px/1 var(--f-b); color: var(--ink2); }
+.pr-bar b { font: 600 10px/1 var(--f-m); letter-spacing: .06em; text-transform: uppercase; color: var(--acc); }
+.pr img { display: block; width: 100%; height: auto; border-radius: 0 0 16px 16px; border: 1px solid var(--line2); border-top: 0; background: #0E0E0F; }
+.pr figcaption { margin: 8px 2px 0; font-size: 12px; color: var(--ink3); }
+
+@media (min-width: 720px) {
+  .pr-row { grid-auto-flow: row; grid-template-columns: repeat(3, 1fr); overflow: visible; margin: 0; padding: 0; }
+}
+@media (prefers-reduced-motion: reduce) { .pub-order { animation: none; } }

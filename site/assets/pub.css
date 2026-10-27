@@ -31,7 +31,7 @@
 .pv-wide { grid-column: 1 / -1; }
 .pv-media { position: relative; overflow: hidden; aspect-ratio: 9 / 16; border-radius: 20px; background: #111113; border: 1px solid var(--line2); box-shadow: 0 24px 50px -30px rgba(0, 0, 0, .9); cursor: pointer; -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
 .pv-wide .pv-media { aspect-ratio: 16 / 10; }
-.pv-media video { display: block; width: 100%; height: 100%; object-fit: cover; background: #111113; }
+.pv-media video { display: block; width: 100%; height: 100%; object-fit: cover; background: #111113; pointer-events: none; }
 .pv-media:focus-visible { outline: 2px solid var(--acc); outline-offset: 3px; }
 .pv-play { position: absolute; left: 10px; bottom: 10px; display: inline-flex; align-items: center; gap: 8px; height: 40px; padding: 0 13px 0 4px; border-radius: 999px; background: rgba(9, 9, 10, .72); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border: 1px solid rgba(242, 239, 233, .14); font: 600 12.5px/1 var(--f-b); color: var(--ink); pointer-events: none; }
 .pv-play i { display: grid; place-items: center; width: 32px; height: 32px; border-radius: 50%; background: var(--acc); }
@@ -39,8 +39,13 @@
 .pv:not(.pv-wide) .pv-play span { display: none; }
 .pv:not(.pv-wide) .pv-play { padding-right: 4px; }
 .pv-client { position: absolute; top: 10px; left: 10px; padding: 5px 9px; border-radius: 999px; background: var(--acc); color: var(--acc-ink); font: 700 10px/1 var(--f-m); letter-spacing: .06em; text-transform: uppercase; font-style: normal; pointer-events: none; }
-.pv.full .pv-media { cursor: auto; border-color: rgba(210, 255, 77, .4); }
-.pv.full .pv-play, .pv.full .pv-client { display: none; }
+.pv-ic-pause { display: none; }
+.pv.full .pv-media { border-color: rgba(210, 255, 77, .4); }
+.pv.full .pv-client, .pv.full .pv-play > span { display: none; }
+.pv.full .pv-play { padding-right: 4px; }
+.pv.playing .pv-ic-play { display: none; }
+.pv.playing .pv-ic-pause { display: block; margin: 0; }
+.pv.playing .pv-play { opacity: .55; }
 .pv figcaption { margin: 8px 2px 0; font: 500 11px/1.3 var(--f-m); letter-spacing: .08em; text-transform: uppercase; color: var(--ink3); }
 
 /* avis : les captures réelles, côte à côte, défilement horizontal au doigt */

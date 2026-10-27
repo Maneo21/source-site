@@ -12,6 +12,13 @@ const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const MEDIA = '/assets/media/';
 const TIERS = ['studio', 'pro', 'essentielle'];
 const KINDS = { studio: ['pub', 'motion', 'site'], pro: ['pub', 'motion', 'site'], essentielle: ['pub', 'motion'] };
+// Navigateur intégré de TikTok (même repère que l'accueil). Il lit les vidéos en plein écran, et une fois qu'une vidéo a été
+// touchée, il laisse les autres démarrer seules : un extrait lancé au défilement se rouvrait alors en plein écran.
+// Dans TikTok, aucune vidéo ne démarre donc sans un toucher dessus : les extraits restent des images.
+const TT = /BytedanceWebview|musical_ly|trill_|TikTok/i.test(navigator.userAgent) || /[?&]tiktok=1(&|$)/.test(location.search);
+// dernier défilement, et période de calme après la fermeture d'une vidéo : aucun toucher n'y compte
+let lastScroll = -1e9, calmUntil = 0;
+addEventListener('scroll', () => { lastScroll = performance.now(); }, { passive: true, capture: true });
 
 // Les vidéos de la page : aucune n'affiche d'ancien prix. « client » : réalisée pour un vrai client.
 const V = [
@@ -54,19 +61,25 @@ const accent = s => esc(s).replace(/\*([^*]+)\*/g, '<em class="acc">$1</em>');
 
 /* ---------- un vrai toucher, jamais un « clic » de fin de défilement ---------- */
 // Dans TikTok, un clic peut arriver à la fin d'un défilement. Ici, une action ne part que si le doigt (ou la souris)
-// a été posé puis levé au même endroit juste avant : un défilement annule le geste (pointercancel) ou le fait bouger.
+// a été posé puis levé au même endroit juste avant. strict (vidéos) : en plus, aucun défilement pendant le geste ni dans le quart
+// de seconde avant (un doigt posé pour arrêter la page qui glisse n'est pas un toucher), et rien juste après la fermeture d'une vidéo.
 // keys : un clic sans doigt ni souris (Entrée ou Espace sur un bouton) compte aussi ; pas sur une vidéo, qui a sa propre touche.
-function onTap(el, fn, { keys = true } = {}) {
+function onTap(el, fn, { keys = true, strict = false } = {}) {
   let start = null, armed = 0;
-  el.addEventListener('pointerdown', e => { start = e.button ? null : { x: e.clientX, y: e.clientY, t: e.timeStamp, id: e.pointerId }; });
+  el.addEventListener('pointerdown', e => {
+    const now = performance.now();
+    start = e.button || (strict && (now - lastScroll < 250 || now < calmUntil)) ? null : { x: e.clientX, y: e.clientY, t: now, id: e.pointerId };
+  });
   el.addEventListener('pointercancel', () => { start = null; });
   el.addEventListener('pointerup', e => {
-    const ok = start && e.pointerId === start.id && Math.hypot(e.clientX - start.x, e.clientY - start.y) < 10 && e.timeStamp - start.t < 800;
+    const now = performance.now();
+    const ok = start && e.pointerId === start.id && Math.hypot(e.clientX - start.x, e.clientY - start.y) < 10 && now - start.t < 800 && (!strict || (lastScroll < start.t && now >= calmUntil));
     start = null;
-    armed = ok ? e.timeStamp : 0;
+    armed = ok ? now : 0;
   });
   el.addEventListener('click', e => {
-    const real = (keys && e.detail === 0) || (armed && e.timeStamp - armed < 600);
+    const now = performance.now();
+    const real = (!strict || now >= calmUntil) && ((keys && e.detail === 0) || (armed && now - armed < 600 && (!strict || lastScroll < armed)));
     armed = 0;
     if (real) fn(e); else { e.preventDefault(); e.stopPropagation(); }
   });
@@ -136,14 +149,16 @@ function checkout(e) {
 // retour depuis Stripe (bouton précédent) : le bouton n'attend plus
 addEventListener('pageshow', () => $('[data-pay]')?.classList.remove('loading'));
 
-/* ---------- vidéos : extrait muet qui tourne, puis la vidéo complète avec le son, dans la page ---------- */
+/* ---------- vidéos : extrait muet (hors TikTok), puis la vidéo complète avec le son ---------- */
+// Un toucher lance la vidéo complète, un autre la met en pause. Pas de commandes natives dans la page : un toucher égaré
+// dessus relançait la vidéo. Quand une vidéo se ferme (plein écran quitté), elle reste en pause et la page reste calme un instant.
 function buildVideos() {
   const box = $('[data-videos]');
   box.innerHTML = V.map((v, k) => `
     <figure class="pv${v.wide ? ' pv-wide' : ''}" data-v="${k}">
       <div class="pv-media" role="button" tabindex="0">
         <video muted loop playsinline webkit-playsinline preload="none" poster="${MEDIA}${v.key}-poster.webp" data-teaser="${MEDIA}${v.key}-teaser.mp4"></video>
-        <span class="pv-play"><i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg></i><span data-play-label></span></span>
+        <span class="pv-play"><i><svg class="pv-ic-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg><svg class="pv-ic-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M7.5 5.5h3v13h-3zM13.5 5.5h3v13h-3z"/></svg></i><span data-play-label></span></span>
         ${v.client ? '<em class="pv-client" data-client-label></em>' : ''}
       </div>
       <figcaption data-label></figcaption>
@@ -152,9 +167,16 @@ function buildVideos() {
   for (const fig of $$('.pv', box)) {
     const video = $('video', fig), media = $('.pv-media', fig);
     io?.observe(fig);
-    onTap(media, () => playFull(fig), { keys: false });
-    media.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); playFull(fig); } });
-    video.addEventListener('ended', () => { if (fig.classList.contains('full')) fig.classList.add('done'); });
+    onTap(media, () => toggle(fig), { keys: false, strict: true });
+    media.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(fig); } });
+    video.addEventListener('play', () => fig.classList.toggle('playing', fig.classList.contains('full')));
+    video.addEventListener('pause', () => fig.classList.remove('playing'));
+    video.addEventListener('ended', () => { fig.classList.remove('playing'); video.currentTime = 0; });
+    // plein écran quitté (iPhone) : la vidéo reste en pause, et rien ne compte pendant un instant
+    const quit = () => { video.pause(); calmUntil = performance.now() + 900; };
+    video.addEventListener('webkitendfullscreen', quit);
+    video.addEventListener('webkitfullscreenchange', () => { if (!document.webkitFullscreenElement) quit(); });
+    document.addEventListener('fullscreenchange', () => { if (!document.fullscreenElement && fig.classList.contains('full')) quit(); });
   }
 }
 // l'extrait ne tourne que visible ; la vidéo complète s'arrête quand on la quitte
@@ -162,25 +184,24 @@ function seen(entries) {
   for (const en of entries) {
     const fig = en.target, video = $('video', fig), on = en.intersectionRatio >= .35;
     if (fig.classList.contains('full')) { if (!en.isIntersecting) video.pause(); continue; }
-    if (on && !RM) {
+    if (on && !RM && !TT) {
       if (!video.src) video.src = video.dataset.teaser;
       video.play().catch(() => { /* lecture auto refusée : l'affiche reste */ });
     } else video.pause();
   }
 }
-function playFull(fig) {
-  if (fig.classList.contains('full')) return;
-  for (const other of $$('.pv.full')) $('video', other).pause();
+function toggle(fig) {
   const v = V[+fig.dataset.v], video = $('video', fig);
-  fig.classList.add('full');
-  video.loop = false;
-  video.muted = false;
-  video.controls = true;
-  video.preload = 'auto';
-  video.src = `${MEDIA}${v.key}.mp4`;
-  $('.pv-media', fig).removeAttribute('role');
-  $('.pv-media', fig).removeAttribute('tabindex');
-  video.play().catch(() => { /* le lecteur reste affiché, avec son bouton lecture */ });
+  if (fig.classList.contains('full') && !video.paused) { video.pause(); return; }
+  for (const other of $$('.pv.full')) if (other !== fig) $('video', other).pause();
+  if (!fig.classList.contains('full')) {
+    fig.classList.add('full');
+    video.loop = false;
+    video.muted = false;
+    video.preload = 'auto';
+    video.src = `${MEDIA}${v.key}.mp4`;
+  }
+  video.play().catch(() => { /* lecture refusée : l'image reste, un nouveau toucher réessaie */ });
 }
 
 /* ---------- avis : les vraies captures, côte à côte ---------- */

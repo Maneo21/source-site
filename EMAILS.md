@@ -3,9 +3,9 @@
 Dès que **Stripe confirme un paiement**, deux e-mails partent tout seuls :
 
 1. **Au client** : sa confirmation de commande, en français ou en anglais selon le champ « Langue souhaitée ».
-2. **À toi** (contact@maneo-ai.fr) : la fiche de la commande. Elle contient l’e-mail du client, sa langue, son pseudo TikTok, le type de projet choisi sur le site (site web, vidéo publicitaire, motion design ou autre), sa description, la date, la référence et l’heure limite de réponse. Le bouton « Répondre » de ta messagerie écrit directement au client.
+2. **À toi** (contact@ia-motionstudio.fr) : la fiche de la commande, intitulée « Nouvelle commande » pour un échange à 7,90 € ou « Création à livrer » pour une création à 19,90 €. Elle contient la formule, l’e-mail du client, sa langue, son pseudo TikTok, le type de projet choisi sur le site (site web, vidéo publicitaire, motion design ou autre), le canal de réponse choisi (TikTok ou e-mail), sa description, la date, la référence et l’heure limite de réponse. Le bouton « Répondre » de ta messagerie écrit directement au client.
 
-Expéditeur des deux e-mails : `AI Web Studio <contact@maneo-ai.fr>`.
+Expéditeur des deux e-mails : `IA Motion Studio <contact@ia-motionstudio.fr>` (le nom et l’adresse viennent de `site/config.json` : `brand` et `contactEmail`). Le domaine ia-motionstudio.fr est validé chez Postmark (DKIM + Return-Path, 28 oct. 2026) : sans cette validation, Postmark refuserait l’envoi. Le logo de l’en-tête est `site/assets/media/mail-logo.png`.
 
 Pour voir les e-mails sans rien envoyer : ouvre l’aperçu (`OUVRIR-APERCU.command`), puis **Outils d’aperçu → Voir les e-mails**.
 
@@ -19,8 +19,11 @@ Paiement réussi → Stripe prévient le site (webhook signé) → le site véri
 - **Pas de doublon** : chaque commande est notée comme « envoyée ». Si Stripe renvoie le même message, rien ne repart.
 - **En cas de panne d’envoi** : le site répond « erreur » à Stripe, qui réessaie tout seul pendant 3 jours. Seul l’e-mail manquant repart.
 - **Si l’adresse du client est refusée** : tu reçois quand même ta fiche, avec un avertissement en haut.
+- **Si une création arrive sans description du projet** (champ absent du lien Stripe, ou laissé vide) : le client est invité à décrire son projet en répondant à sa confirmation, et ta fiche te prévient. Le délai de 24 h court alors à partir de sa réponse.
+- **Si un client étranger paie dans sa devise** : la formule reste reconnue. Dans le cas rare où Stripe ne donne pas le montant en euros, ta fiche te demande de vérifier le montant.
 - Aucune clé n’est écrite dans le code. Elles sont rangées dans les variables secrètes de Cloudflare.
 - MANEO n’est pas touché : même compte Postmark, mais un « serveur » Postmark à part.
+- **Les deux formules passent par le même chemin.** Le site reconnaît la formule au montant encaissé par Stripe (19,90 € = création), jamais à ce que le navigateur du client envoie. Pour une création, le client lit « livraison sous 24 h maximum, par e-mail » et il est invité à t’envoyer son logo, ses textes et ses images en répondant à l’e-mail.
 
 Fichiers concernés : `emails/` (modèles et logique) et `functions/api/stripe-webhook.js` (l’adresse appelée par Stripe).
 
@@ -60,6 +63,7 @@ Fais les étapes **dans cet ordre**. La publication vient en dernier.
 
 > Cette destination s’ajoute à côté de celles qui existent déjà : rien n’est modifié pour MANEO.
 > Les ventes d’autres produits du même compte Stripe sont ignorées par le site.
+> Cette destination reçoit les paiements de **tous** tes liens de paiement : rien à refaire pour le lien de la formule « Je crée pour toi ».
 
 ### 4 · Cloudflare : les deux clés secrètes
 
@@ -99,7 +103,7 @@ Tu reçois les deux e-mails, marqués **[TEST]** dans l’objet.
 
 ### Essai réel
 
-Fais un achat de 7,90 € sur le site avec ton adresse personnelle. Tu dois recevoir la confirmation client sur cette adresse et la fiche sur contact@maneo-ai.fr. Rembourse-toi ensuite : Stripe → **Paiements** → **⋯** → **Rembourser**.
+Fais un achat de 7,90 € sur le site avec ton adresse personnelle (puis, si tu veux, un achat de 19,90 € pour voir les e-mails de la création). Tu dois recevoir la confirmation client sur cette adresse et la fiche sur contact@maneo-ai.fr. Rembourse-toi ensuite : Stripe → **Paiements** → **⋯** → **Rembourser**.
 
 ### Si un e-mail n’arrive pas
 
@@ -113,7 +117,8 @@ Stripe → **Webhooks** → ta destination → **Livraisons d’événements**. 
 - Garde les e-mails de Stripe activés (reçu au client, « Paiements réussis » pour toi). Ils servent de filet de sécurité si Postmark est bloqué.
 - **Changement d’adresse du site** (domaine personnalisé) : dans Stripe, remplace l’URL de la destination par `https://ton-domaine/api/stripe-webhook`. La clé `whsec_` ne change pas.
 - **Réglages facultatifs** (Cloudflare, mêmes écrans) :
-  - `STRIPE_PAYMENT_LINK` : l’identifiant `plink_…` de ton lien, si tu vends un jour autre chose par lien de paiement sur le même compte Stripe ;
+  - `STRIPE_PAYMENT_LINK` : les identifiants `plink_…` de tes **deux** liens, séparés par une virgule, si tu vends un jour autre chose par lien de paiement sur le même compte Stripe. Attention : si tu n’y mets qu’un seul lien, les commandes de l’autre formule sont ignorées ;
   - `ADMIN_EMAIL` : une autre adresse pour recevoir les fiches ;
   - `MAIL_FROM` : un autre expéditeur.
+- **Prix d’une formule modifié dans Stripe** : reporte-le aussi dans `site/config.json` (`offer.amount` ou `creation.amount`, en centimes). C’est ce montant qui permet de reconnaître la formule. Pour ne plus en dépendre, ajoute dans Stripe, sur le lien de la création, la métadonnée `offre` = `creation`.
 - **Vérifier le code après une modification** : `node outils/test-emails.mjs` (rien n’est envoyé).

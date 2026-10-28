@@ -3,7 +3,7 @@
   "siteUrl": "https://ia-motionstudio.fr",
   "creator": {
     "name": "Evan",
-    "tiktok": "",
+    "tiktok": "maneo.ai",
     "photo": ""
   },
   "proof": [
@@ -76,7 +76,7 @@
       }
     }
   ],
-  "contactEmail": "contact@maneo-ai.fr",
+  "contactEmail": "contact@ia-motionstudio.fr",
   "paymentLink": "https://buy.stripe.com/eVq4gA3f4eIzbXp3kC9AA02",
   "offer": {
     "amount": 1490,
@@ -137,7 +137,7 @@
       "fr": "19 rue d’Ecancourt, 78510 Triel-sur-Seine, France",
       "en": "19 rue d’Ecancourt, 78510 Triel-sur-Seine, France"
     },
-    "email": "contact@maneo-ai.fr",
+    "email": "contact@ia-motionstudio.fr",
     "phone": {
       "fr": "06 22 51 96 64",
       "en": "+33 6 22 51 96 64"

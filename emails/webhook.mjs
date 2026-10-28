@@ -150,6 +150,8 @@ export function contextFrom(cfg, origin) {
   return {
     tiers, amounts: amountsFrom(c),
     brand: clean(c.brand) || DEFAULTS.brand, contact: clean(c.contactEmail) || DEFAULTS.contactEmail,
+    // signature et coordonnées affichées dans l'e-mail du client (prénom du créateur, pseudo TikTok sans « @ »)
+    creator: clean(c.creator?.name), tiktok: clean(c.creator?.tiktok).replace(/^@/, ''),
     replyHours: Number(c.offer?.replyHours) || 24, guideAmount: Number(c.offer?.amount) || DEFAULTS.offer.amount, currency: clean(c.offer?.currency) || 'EUR',
     creationAmount: tiers.essentielle.amount, deliveryHours: tiers.essentielle.deliveryHours,
     revisions: tiers.essentielle.revisions, revisionDays: Number(c.creation?.revisionDays) || 7,

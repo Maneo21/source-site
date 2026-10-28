@@ -492,7 +492,11 @@
     "kicker": "Work",
     "title": "What it looks like, *for real.*",
     "play": "Watch with sound",
-    "note": "Created by IA Motion Studio."
+    "note": "Created by IA Motion Studio.",
+    "askTitle": "A question about your ad?",
+    "askText": "Email me or message me on TikTok: I reply personally.",
+    "askMail": "{contact}",
+    "askTikTok": "@{tiktok} on TikTok"
   },
   "reviews": {
     "kicker": "Client reviews",
@@ -510,7 +514,8 @@
     "zoom": "Name hidden · tap the screenshot to enlarge",
     "exKick": "Client work",
     "example": "Examples of videos made for clients",
-    "exampleD": "Vertical TikTok ads, custom-made.",
+    "exampleD": "Vertical TikTok ads, custom-made with the Essential plan at {prices.essentielle}.",
+    "tier": "Essential · {prices.essentielle}",
     "selection": "A selection of the best messages I’ve received from clients.",
     "hint": "Real screenshots · tap to enlarge",
     "barMailShort": "Email",

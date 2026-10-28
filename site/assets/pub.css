@@ -7,7 +7,7 @@
 @media (max-width: 999px) { .pub .hero { min-height: 0; justify-content: flex-start; } }
 
 /* vidéo complète lancée au toucher : le bouton et le dégradé du bas s'effacent */
-.pub .rt.full::after, .pub .rt.full .rt-play { opacity: 0; transition: opacity .3s; }
+.pub .rt.full::after, .pub .rt.full .rt-play, .pub .rt.full .rt-tier { opacity: 0; transition: opacity .3s; }
 .pub .rt.full .rt-play { pointer-events: none; }
 .pub .rt.full video { opacity: 1; z-index: 1; background: #111113; }
 

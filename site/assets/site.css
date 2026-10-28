@@ -305,6 +305,20 @@ main, .foot, .top-r, .sticky .btn { transition: opacity .3s var(--ease-o); }
 .rt-v .rt-play { padding-right: 12px; }
 @media (hover: hover) { .rt:hover { box-shadow: 0 0 0 1px rgba(210, 255, 77, .45), 0 30px 70px -30px rgba(210, 255, 77, .3); } .rt { cursor: pointer; } }
 @media (min-width: 700px) { .reel { gap: 14px; } .reel-pair { gap: 14px; } .rt-v .rt-play span:nth-child(2) { display: inline; } .rt { border-radius: 26px; } }
+/* formule utilisée pour une réalisation client (badge en haut de la vignette) */
+.rt-tier { position: absolute; z-index: 2; top: 8px; left: 8px; max-width: calc(100% - 16px); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding: 5px 9px; border-radius: 999px; background: rgba(9, 9, 10, .7); border: 1px solid rgba(210, 255, 77, .42); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); font: 700 10.5px/1.15 var(--f-b); color: var(--acc); pointer-events: none; }
+/* une question avant de commander : e-mail et TikTok, sous les réalisations */
+.ask { display: grid; gap: 16px; max-width: 880px; margin: 30px auto 0; padding: 20px; border-radius: 24px; background: var(--bg2); border: 1px solid var(--line); }
+.ask-t h3 { margin: 0 0 6px; font: 700 clamp(19px, 5vw, 24px)/1.15 var(--f-d); letter-spacing: -.02em; }
+.ask-t p { margin: 0; color: var(--ink2); font-size: 14.5px; line-height: 1.5; text-wrap: pretty; }
+.ask-l { display: flex; flex-wrap: wrap; gap: 10px; }
+.ask-l a { display: inline-flex; align-items: center; gap: 9px; min-width: 0; max-width: 100%; height: 46px; padding: 0 16px 0 14px; border-radius: 999px; background: rgba(255, 255, 255, .05); border: 1px solid var(--line2); color: var(--ink); font-size: 15px; font-weight: 600; text-decoration: none; transition: border-color .3s, transform .2s; }
+.ask-l a[hidden] { display: none; }
+.ask-l a span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ask-l svg { flex: none; width: 19px; height: 19px; fill: none; stroke: var(--acc); stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; }
+.ask-l a:active { transform: scale(.97); }
+@media (hover: hover) { .ask-l a:hover { border-color: rgba(210, 255, 77, .5); } }
+@media (min-width: 760px) { .ask { grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 28px; padding: 24px 28px; } .ask-l { justify-content: flex-end; } }
 /* le lecteur : au format horizontal pour les vidéos horizontales */
 .player.wide .player-frame { height: auto; width: min(94vw, calc(86svh * 1.6)); aspect-ratio: 16 / 10; }
 

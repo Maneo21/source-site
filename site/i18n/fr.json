@@ -492,7 +492,11 @@
     "kicker": "Réalisations",
     "title": "Ce que ça donne, *en vrai.*",
     "play": "Regarder avec le son",
-    "note": "Créations réalisées par IA Motion Studio."
+    "note": "Créations réalisées par IA Motion Studio.",
+    "askTitle": "Une question pour votre pub ?",
+    "askText": "Écrivez-moi par e-mail ou sur TikTok : je vous réponds personnellement.",
+    "askMail": "{contact}",
+    "askTikTok": "@{tiktok} sur TikTok"
   },
   "reviews": {
     "kicker": "Avis clients",
@@ -510,7 +514,8 @@
     "zoom": "Nom masqué · touchez la capture pour l’agrandir",
     "exKick": "Réalisations clients",
     "example": "Exemples de réalisations faites pour des clients",
-    "exampleD": "Pubs verticales pour TikTok, réalisées sur mesure.",
+    "exampleD": "Pubs verticales pour TikTok, réalisées sur mesure avec la formule Essentielle à {prices.essentielle}.",
+    "tier": "Essentielle · {prices.essentielle}",
     "selection": "Une sélection des meilleurs messages reçus de mes clients.",
     "hint": "Captures réelles · touchez pour agrandir",
     "barMailShort": "E-mail",

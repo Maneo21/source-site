@@ -41,6 +41,7 @@ export function buildVars(config, dict, lang) {
     brand: config.brand,
     creator: config.creator?.name || '',
     contact: config.contactEmail,
+    tiktok: String(config.creator?.tiktok || '').replace(/^@/, ''),
     price: money(eff('guide')),
     priceCreation: money(eff('essentielle')),
     prices: Object.fromEntries(OFFER_IDS.map(id => [id, money(eff(id))])),

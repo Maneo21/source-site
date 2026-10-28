@@ -1,7 +1,7 @@
 // Moteur de langue des pages du site.
 // Les textes vivent dans /i18n/<code>.json ; la liste des langues dans /i18n/languages.json.
 // Ajouter une langue = un fichier de textes + une ligne dans languages.json (voir LISEZ-MOI).
-import { get, interpolate, buildVars, isPlaceholder } from './vars.js?v=79753bb137';
+import { get, interpolate, buildVars, isPlaceholder } from './vars.js?v=03c62dff32';
 
 const KEY = 'lang';
 export const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));

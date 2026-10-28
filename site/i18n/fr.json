@@ -124,7 +124,7 @@
       "items": [
         "{videos} (pub ou motion) de 20 à {videoSeconds} secondes, sur mesure",
         "Ou, à la place, une page web sur mesure et animée",
-        "Un univers créé pour votre marque, riche en détails",
+        "Qualité studio : 3D, lumière, reflets et détails",
         "Voix off et sous-titres",
         "Formats vertical et carré",
         "Disponible pour échanger sur votre projet, par e-mail ou en message privé TikTok"
@@ -141,11 +141,12 @@
       "items": [
         "{videos} (pub ou motion) d’environ {videoSeconds} secondes",
         "Rythmée et soignée, à partir de votre description",
+        "Avec voix off",
         "Format vertical, prête pour TikTok et Instagram",
         "Vidéo uniquement : le site web est dans Pro et Studio",
         "Disponible pour échanger sur votre projet, par e-mail ou en message privé TikTok"
       ],
-      "sum": "{videos} ≈ {videoSeconds} s · format vertical · {revisions} · {deliveryHours} h",
+      "sum": "{videos} ≈ {videoSeconds} s · voix off · format vertical · {revisions} · {deliveryHours} h",
       "mini": "{videos}\nen {deliveryHours} h"
     },
     "compare": {
@@ -166,14 +167,14 @@
         {
           "l": "Niveau de création",
           "studio": "3D poussée, plusieurs scènes",
-          "pro": "sur mesure, détaillée",
+          "pro": "qualité studio, très poussée",
           "essentielle": "soignée, dans mes styles"
         },
         {
           "l": "Voix off et sous-titres",
           "studio": "✓",
           "pro": "✓",
-          "essentielle": "—"
+          "essentielle": "voix off"
         },
         {
           "l": "Formats",
@@ -314,7 +315,7 @@
       },
       {
         "q": "Quelle différence entre les trois formules ?",
-        "a": "Le nombre de vidéos et le niveau de détail. L’Essentielle : {tiers.essentielle.videos} soignée d’environ {tiers.essentielle.videoSeconds} s, livrée en {tiers.essentielle.deliveryHours} h. La Pro : {tiers.pro.videos} sur mesure de 20 à {tiers.pro.videoSeconds} s, avec voix off, formats vertical et carré, {tiers.pro.revisionsIncluded}, ou une page web à la place. La Studio : {tiers.studio.videos} jusqu’à {tiers.studio.videoSeconds} s en 3D poussée, tous les formats, {tiers.studio.revisionsIncluded}, ou un site 3D à la place. Le tableau « Comparer les trois formules » détaille tout."
+        "a": "Le nombre de vidéos et le niveau de détail. L’Essentielle : {tiers.essentielle.videos} soignée d’environ {tiers.essentielle.videoSeconds} s, avec voix off, livrée en {tiers.essentielle.deliveryHours} h. La Pro : {tiers.pro.videos} très poussée, qualité studio, de 20 à {tiers.pro.videoSeconds} s, avec voix off, formats vertical et carré, {tiers.pro.revisionsIncluded}, ou une page web à la place. La Studio : {tiers.studio.videos} jusqu’à {tiers.studio.videoSeconds} s en 3D poussée, tous les formats, {tiers.studio.revisionsIncluded}, ou un site 3D à la place. Le tableau « Comparer les trois formules » détaille tout."
       },
       {
         "q": "À qui appartient la création ?",

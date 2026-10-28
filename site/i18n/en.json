@@ -124,7 +124,7 @@
       "items": [
         "{videos} (ad or motion) of 20 to {videoSeconds} seconds, custom-made",
         "Or, instead, a custom animated web page",
-        "A world built for your brand, rich in detail",
+        "Studio quality: 3D, lighting, reflections and detail",
         "Voice-over and subtitles",
         "Vertical and square formats",
         "Available to talk about your project, by email or TikTok DM"
@@ -141,11 +141,12 @@
       "items": [
         "{videos} (ad or motion) of about {videoSeconds} seconds",
         "Punchy and polished, from your description",
+        "With voice-over",
         "Vertical format, ready for TikTok and Instagram",
         "Video only: websites come with Pro and Studio",
         "Available to talk about your project, by email or TikTok DM"
       ],
-      "sum": "{videos} ≈ {videoSeconds} s · vertical · {revisions} · {deliveryHours} h",
+      "sum": "{videos} ≈ {videoSeconds} s · voice-over · vertical · {revisions} · {deliveryHours} h",
       "mini": "{videos}\nin {deliveryHours} h"
     },
     "compare": {
@@ -166,14 +167,14 @@
         {
           "l": "Level of craft",
           "studio": "advanced 3D, several scenes",
-          "pro": "custom, detailed",
+          "pro": "studio quality, highly detailed",
           "essentielle": "polished, in my styles"
         },
         {
           "l": "Voice-over and subtitles",
           "studio": "✓",
           "pro": "✓",
-          "essentielle": "—"
+          "essentielle": "voice-over"
         },
         {
           "l": "Formats",
@@ -314,7 +315,7 @@
       },
       {
         "q": "What’s the difference between the three options?",
-        "a": "The number of videos and the level of detail. Essential: {tiers.essentielle.videos}, polished, about {tiers.essentielle.videoSeconds} s, delivered within {tiers.essentielle.deliveryHours} hours. Pro: {tiers.pro.videos}, custom-made, 20 to {tiers.pro.videoSeconds} s, with voice-over, vertical and square formats, {tiers.pro.revisionsIncluded}, or a web page instead. Studio: {tiers.studio.videos} up to {tiers.studio.videoSeconds} s in advanced 3D, every format, {tiers.studio.revisionsIncluded}, or a 3D website instead. The “Compare the three options” table has every detail."
+        "a": "The number of videos and the level of detail. Essential: {tiers.essentielle.videos}, polished, about {tiers.essentielle.videoSeconds} s, with voice-over, delivered within {tiers.essentielle.deliveryHours} hours. Pro: {tiers.pro.videos}, studio quality, 20 to {tiers.pro.videoSeconds} s, with voice-over, vertical and square formats, {tiers.pro.revisionsIncluded}, or a web page instead. Studio: {tiers.studio.videos} up to {tiers.studio.videoSeconds} s in advanced 3D, every format, {tiers.studio.revisionsIncluded}, or a 3D website instead. The “Compare the three options” table has every detail."
       },
       {
         "q": "Who owns the video?",

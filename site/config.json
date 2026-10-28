@@ -95,7 +95,7 @@
         "deliveryHours": 48,
         "revisions": 3,
         "videoSeconds": 30,
-        "videos": 4
+        "videos": 2
       },
       "pro": {
         "amount": 9900,
@@ -103,7 +103,7 @@
         "deliveryHours": 48,
         "revisions": 2,
         "videoSeconds": 25,
-        "videos": 2
+        "videos": 1
       },
       "essentielle": {
         "amount": 3900,

@@ -269,7 +269,7 @@ export function clientMail(order, ctx) {
   // réponse sur TikTok seulement si le client l'a choisie ET a donné son pseudo ; sinon par e-mail
   const handle = !creation && order.channel === 'tiktok' && order.tiktok ? order.tiktok : '';
   // création arrivée sans description : le client est invité à la donner, et le délai court à partir de sa réponse
-  const noBrief = creation && !project, what = creation ? ((order.tier === 'pro' || order.tier === 'studio') && tc.whatMany?.[order.kind]) || tc.what[order.kind] || tc.what.other : '';
+  const noBrief = creation && !project, what = creation ? (order.tier === 'studio' && tc.whatMany?.[order.kind]) || tc.what[order.kind] || tc.what.other : '';
   const [c1, c2, c3] = (creation ? tc.confirmed : t.confirmed)(brand, price, tierName), [r1, r2, r3] = noBrief ? tc.deliverNoBrief(dh) : creation ? tc.deliver(dh) : t.reply(h, handle);
   const received = noBrief ? tc.receivedNoBrief(what) : creation ? tc.received(what) : t.received;
   const revisions = tv.revisions ?? ctx.revisions ?? 1;

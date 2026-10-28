@@ -18,8 +18,8 @@ const MEDIA = '/assets/media/';
 // « kind » est le type de projet présélectionné dans le récapitulatif et transmis à Stripe.
 const U = [
   { key: 'bmw', kind: 'pub', dur: '0:20', wide: true },
-  { key: 'commeca', kind: 'pub', dur: '0:09' },
-  { key: 'sites', kind: 'site', dur: '0:22' },
+  { key: 'canette', kind: 'pub', dur: '0:28', wide: true },
+  { key: 'montre', kind: 'pub', dur: '0:23', wide: true },
   { key: 'roadster', kind: 'pub', dur: '0:15', wide: true },
   { key: 'digi', kind: 'pub', dur: '0:16' },
   { key: 'tacnaan', kind: 'pub', dur: '0:22' },

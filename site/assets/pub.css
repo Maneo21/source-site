@@ -2,6 +2,10 @@
    le logo n'est pas un lien, et sur téléphone une vidéo se lit dans sa vignette (assets/pub.js). */
 .pub .logo { cursor: default; }
 
+/* téléphone : l'accroche commence juste sous la barre du haut. Sur l'accueil, elle remplit tout l'écran et se cale en bas,
+   ce qui laisse un vide sous la barre quand l'écran est haut (navigateur de TikTok : jusqu'à 150 px, vu par Evan le 28 oct.). */
+@media (max-width: 999px) { .pub .hero { min-height: 0; justify-content: flex-start; } }
+
 /* vidéo complète lancée au toucher : le bouton et le dégradé du bas s'effacent */
 .pub .rt.full::after, .pub .rt.full .rt-play { opacity: 0; transition: opacity .3s; }
 .pub .rt.full .rt-play { pointer-events: none; }

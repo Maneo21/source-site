@@ -122,15 +122,15 @@
       "tag": "Far more detail, far more impact.",
       "cta": "Choose Pro",
       "items": [
-        "{videos} (ad or motion) of 20 to {videoSeconds} seconds, custom-made",
+        "{videos} (ad or motion), studio grade, 20 to {videoSeconds} seconds, custom-made",
         "Or, instead, a custom animated web page",
         "Studio quality: 3D, lighting, reflections and detail",
         "Voice-over and subtitles",
         "Vertical and square formats",
         "Available to talk about your project, by email or TikTok DM"
       ],
-      "sum": "{videos} of 20 to {videoSeconds} s or website · voice-over · vertical + square · {revisions} · {deliveryHours} h",
-      "mini": "{videos}\nor website"
+      "sum": "{videos} (studio) of {videoSeconds} s or website · voice-over · vertical + square · {revisions} · {deliveryHours} h",
+      "mini": "{videos} (studio)\nor website"
     },
     "essentielle": {
       "name": "Essential",
@@ -153,6 +153,12 @@
       "title": "Compare the three options",
       "rows": [
         {
+          "l": "Level of craft",
+          "studio": "advanced 3D, several scenes",
+          "pro": "studio quality, highly detailed",
+          "essentielle": "polished, in my styles"
+        },
+        {
           "l": "Videos included",
           "studio": "{tiers.studio.videoCount}",
           "pro": "{tiers.pro.videoCount}",
@@ -163,12 +169,6 @@
           "studio": "up to {tiers.studio.videoSeconds} s",
           "pro": "20 to {tiers.pro.videoSeconds} s",
           "essentielle": "≈ {tiers.essentielle.videoSeconds} s"
-        },
-        {
-          "l": "Level of craft",
-          "studio": "advanced 3D, several scenes",
-          "pro": "studio quality, highly detailed",
-          "essentielle": "polished, in my styles"
         },
         {
           "l": "Voice-over and subtitles",

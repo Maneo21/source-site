@@ -122,15 +122,15 @@
       "tag": "Beaucoup plus de détails, beaucoup plus d’impact.",
       "cta": "Choisir Pro",
       "items": [
-        "{videos} (pub ou motion) de 20 à {videoSeconds} secondes, sur mesure",
+        "{videos} studio (pub ou motion) de 20 à {videoSeconds} secondes, sur mesure",
         "Ou, à la place, une page web sur mesure et animée",
         "Qualité studio : 3D, lumière, reflets et détails",
         "Voix off et sous-titres",
         "Formats vertical et carré",
         "Disponible pour échanger sur votre projet, par e-mail ou en message privé TikTok"
       ],
-      "sum": "{videos} de 20 à {videoSeconds} s ou site web · voix off · vertical + carré · {revisions} · {deliveryHours} h",
-      "mini": "{videos}\nou site web"
+      "sum": "{videos} studio de {videoSeconds} s ou site web · voix off · vertical + carré · {revisions} · {deliveryHours} h",
+      "mini": "{videos} studio\nou site web"
     },
     "essentielle": {
       "name": "Essentielle",
@@ -153,6 +153,12 @@
       "title": "Comparer les trois formules",
       "rows": [
         {
+          "l": "Niveau de création",
+          "studio": "3D poussée, plusieurs scènes",
+          "pro": "qualité studio, très poussée",
+          "essentielle": "soignée, dans mes styles"
+        },
+        {
           "l": "Vidéos incluses",
           "studio": "{tiers.studio.videoCount}",
           "pro": "{tiers.pro.videoCount}",
@@ -163,12 +169,6 @@
           "studio": "jusqu’à {tiers.studio.videoSeconds} s",
           "pro": "20 à {tiers.pro.videoSeconds} s",
           "essentielle": "≈ {tiers.essentielle.videoSeconds} s"
-        },
-        {
-          "l": "Niveau de création",
-          "studio": "3D poussée, plusieurs scènes",
-          "pro": "qualité studio, très poussée",
-          "essentielle": "soignée, dans mes styles"
         },
         {
           "l": "Voix off et sous-titres",

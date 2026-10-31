@@ -23,6 +23,7 @@ const U = [
   { key: 'roadster', kind: 'pub', dur: '0:15', wide: true },
   { key: 'digi', kind: 'pub', dur: '0:16' },
   { key: 'tacnaan', kind: 'pub', dur: '0:22' },
+  { key: 'etages', kind: 'pub', dur: '0:18' },
 ];
 // Les deux formules. « guide » : l'échange personnalisé (je t'explique). « creation » : la création sur mesure (je réalise et je livre).
 // Chaque formule a son lien de paiement Stripe et ses types de projet.
@@ -836,6 +837,8 @@ function openPlayer(k = 0, origin = null, kind = 'key') {
   diag(`lecteur ouvert (${u.key}, ${kind})`);
   mediaHold();
   if (v.dataset.key !== u.key) { v.dataset.key = u.key; v.poster = `${MEDIA}${u.key}-poster.webp`; v.src = `${MEDIA}${u.key}.mp4`; }
+  // canette et montre finissent sur d'anciens cartons de prix (« Pro · 2 vidéos ») : la lecture s'arrête juste avant
+  { const cut = { canette: 20.4, montre: 16.8 }[u.key]; v.ontimeupdate = cut ? () => { if (v.currentTime >= cut) { v.pause(); v.currentTime = cut - .05; } } : null; }
   try { v.currentTime = 0; } catch { /* pas encore chargée */ }
   v.muted = false;
   el.classList.toggle('muted', false);

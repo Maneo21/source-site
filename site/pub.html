@@ -28,6 +28,7 @@
 <link rel="preload" href="/i18n/languages.json" as="fetch" crossorigin>
 <link rel="stylesheet" href="/assets/site.css?v=0694ec4964">
 <link rel="stylesheet" href="/assets/pub.css?v=1ce09c2f64">
+<link rel="stylesheet" href="/assets/x2.css?v=9ddff9bc4e">
 <script>
 (function(){var d=document.documentElement,l=null;d.className=d.className.replace('no-js','js');
 try{l=localStorage.getItem('lang')}catch(e){}
@@ -36,7 +37,7 @@ d.lang=l||'fr';
 var c=l||'fr',k=document.createElement('link');k.rel='preload';k.as='fetch';k.crossOrigin='anonymous';k.href='/i18n/'+(/^[a-z]{2}$/.test(c)?c:'fr')+'.json';document.head.appendChild(k)})();
 </script>
 <script type="module" src="/assets/pub.js?v=c1ca6c9a1d"></script>
-<script type="module" src="/assets/app.js?v=33e4e404db"></script>
+<script type="module" src="/assets/app.js?v=f8f6af85d2"></script>
 </head>
 <body class="pub">
 <a class="skip" href="#main" data-i18n="common.skip">Aller au contenu</a>
@@ -46,9 +47,9 @@ var c=l||'fr',k=document.createElement('link');k.rel='preload';k.as='fetch';k.cr
   <span class="logo"><svg class="mark" viewBox="0 0 512 512" aria-hidden="true"><rect width="512" height="512" rx="118" class="mk-bg"/><path d="M179.4 157.07Q150 140 150 174v148q0 34 29.4 16.93l127.2-73.86Q336 248 306.6 230.93Z" class="mk-tri"/><rect x="258" y="334" width="112" height="40" rx="14" class="mk-cur"/></svg><span data-brand>IA Motion Studio</span></span>
   <nav class="top-nav" data-i18n-attr="aria-label:nav.label">
     <a href="#top" data-go-offers data-i18n="nav.offers">Formules</a>
-    <a href="#realisations" data-i18n="nav.work">Réalisations</a>
-    <a href="#deroulement" data-i18n="nav.how">Déroulé</a>
-    <a href="#faq" data-i18n="nav.faq">Questions</a>
+    <a href="#metiers">Métiers</a>
+    <a href="#realisations">Pubs studio</a>
+    <a href="#avis">Avis</a>
   </nav>
   <div class="top-r">
     <div class="lang-switch" role="group" data-langswitch data-i18n-attr="aria-label:common.langLabel"></div>
@@ -85,139 +86,178 @@ var c=l||'fr',k=document.createElement('link');k.rel='preload';k.as='fetch';k.cr
         <button class="btn btn-p btn-w ho-cta" type="button" data-book="pro" data-ho-cta><span data-ho-label>Choisir Pro · 99 €</span><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
         <p class="ho-links"><button type="button" data-open-compare data-i18n="hero.compare">Comparer les formules</button><span class="ho-safe"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10.5" width="14" height="10" rx="2.5"/><path d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5"/></svg><span data-i18n="hero.safeShort">Paiement sécurisé par Stripe</span></span></p>
       </div>
-      <button class="ho-guide" type="button" data-book="guide" data-h style="--d:660ms"><span class="hg-t"><small data-i18n="offers.guide.for">Vous préférez le faire vous-même ?</small><b data-i18n="offers.guide.name">Je vous guide</b></span><span class="hg-p"><s data-price-was="guide" hidden></s><span data-price="guide">14,90 €</span></span><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+      <button class="ho-guide" type="button" data-book="guide" data-h style="--d:660ms"><span class="hg-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5z"/><path d="M4 20.5A2.5 2.5 0 0 0 6.5 23H20v-5"/><path d="M9 8h7M9 11.5h5"/></svg></span><span class="hg-t"><small data-i18n="offers.guide.for">Vous préférez le faire vous-même ?</small><b data-i18n="offers.guide.name">Je vous guide</b></span><span class="hg-p"><s data-price-was="guide" hidden></s><span data-price="guide">14,90 €</span></span><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+      <div class="qband" data-h style="--d:720ms">
+        <p class="qband-t"><b>Me contacter</b></p>
+        <div class="qband-l">
+          <a class="qbd" data-contact href="mailto:contact@ia-motionstudio.fr"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5.5" width="17" height="13" rx="2.5"/><path d="M4.5 7l7.5 6 7.5-6"/></svg>E-mail</a>
+          <a class="qbd" data-x-tiktok href="https://www.tiktok.com/@maneo.ai" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4v10.5a3.5 3.5 0 1 1-3.5-3.5"/><path d="M14 4c.4 2.6 2.2 4.3 5 4.5"/></svg>TikTok</a>
+          <a class="qbd qbd-call" data-phone-link href="tel:+33622519664"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 3.5h3l1.5 4-2 1.3a11 11 0 0 0 6.1 6.1l1.3-2 4 1.5v3A2 2 0 0 1 18.4 20 15.5 15.5 0 0 1 4 5.6a2 2 0 0 1 2.6-2.1z"/></svg>Appeler</a>
+        </div>
+      </div>
     </div>
-    <a class="hero-next" href="#realisations" data-h style="--d:820ms"><span data-i18n="hero.scroll">Voir les réalisations</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"/></svg></a>
+
+    <aside class="qbox" data-h style="--d:760ms" aria-label="Une question pour votre pub ?">
+      <p class="qb-t"><b>Une question pour votre pub ?</b><span>Écrivez-moi ou appelez-moi, je vous réponds personnellement.</span></p>
+      <div class="qb-l">
+        <a class="qb-a" data-contact href="mailto:contact@ia-motionstudio.fr"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5.5" width="17" height="13" rx="2.5"/><path d="M4.5 7l7.5 6 7.5-6"/></svg><span>E-mail</span></a>
+        <a class="qb-a" data-x-tiktok href="https://www.tiktok.com/@maneo.ai" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4v10.5a3.5 3.5 0 1 1-3.5-3.5"/><path d="M14 4c.4 2.6 2.2 4.3 5 4.5"/></svg><span>TikTok</span></a>
+        <a class="qb-a qb-call" data-phone-link href="tel:+33622519664"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 3.5h3l1.5 4-2 1.3a11 11 0 0 0 6.1 6.1l1.3-2 4 1.5v3A2 2 0 0 1 18.4 20 15.5 15.5 0 0 1 4 5.6a2 2 0 0 1 2.6-2.1z"/></svg><span data-phone-text>06 22 51 96 64</span></a>
+      </div>
+    </aside>
+    <a class="hero-next" href="#metiers" data-h style="--d:820ms"><span>Voir les pubs</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"/></svg></a>
   </section>
 
   <!-- Réalisations : d'abord « Une question pour votre pub ? », puis mes créations, sans titres ; chaque vidéo garde son format -->
-  <section class="sec work" id="realisations">
-    <div class="wrap">
-      <!-- Une question avant de commander : l'adresse (contactEmail) et le TikTok (creator.tiktok) viennent de config.json -->
-      <div class="ask" data-r>
-        <div class="ask-t">
-          <h3 data-i18n="work.askTitle">Une question pour votre pub ?</h3>
-          <p data-i18n="work.askText">Écrivez-moi par e-mail ou sur TikTok : je vous réponds personnellement.</p>
-        </div>
-        <div class="ask-l">
-          <a data-contact><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5.5" width="17" height="13" rx="2.5"/><path d="M4.5 7l7.5 6 7.5-6"/></svg><span data-i18n="work.askMail"></span></a>
-          <a data-tiktok hidden target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4v10.5a3.5 3.5 0 1 1-3.5-3.5"/><path d="M14 4c.4 2.6 2.2 4.3 5 4.5"/></svg><span data-i18n="work.askTikTok"></span></a>
-        </div>
-      </div>
-      <p class="kick" data-r data-i18n="work.kicker">Réalisations</p>
-      <h2 class="h2" data-split data-i18n="work.title">Ce que ça donne, en vrai.</h2>
-      <div class="reel" data-pub-reel>
-          <figure class="rt rt-h" data-k="bmw">
-            <img src="/assets/media/bmw-poster.webp" alt="" width="960" height="600" loading="lazy" decoding="async">
-            <video muted playsinline loop preload="none" disablepictureinpicture disableremoteplayback tabindex="-1" aria-hidden="true"></video>
-            <button class="rt-play" type="button" data-play="bmw"><span class="vplay-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg></span><span data-i18n="work.play">Regarder avec le son</span><span class="vdur">0:20</span></button>
-          </figure>
-        <div class="reel-pair reel-pair-h">
-          <figure class="rt rt-h" data-k="canette">
-            <img src="/assets/media/canette-poster.webp" alt="" width="960" height="600" loading="lazy" decoding="async">
-            <video muted playsinline loop preload="none" disablepictureinpicture disableremoteplayback tabindex="-1" aria-hidden="true"></video>
-            <button class="rt-play" type="button" data-play="canette"><span class="vplay-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg></span><span data-i18n="work.play">Regarder avec le son</span><span class="vdur">0:28</span></button>
-          </figure>
-          <figure class="rt rt-h" data-k="montre">
-            <img src="/assets/media/montre-poster.webp" alt="" width="960" height="600" loading="lazy" decoding="async">
-            <video muted playsinline loop preload="none" disablepictureinpicture disableremoteplayback tabindex="-1" aria-hidden="true"></video>
-            <button class="rt-play" type="button" data-play="montre"><span class="vplay-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg></span><span data-i18n="work.play">Regarder avec le son</span><span class="vdur">0:23</span></button>
-          </figure>
-        </div>
-          <figure class="rt rt-h" data-k="roadster">
-            <img src="/assets/media/roadster-poster.webp" alt="" width="960" height="600" loading="lazy" decoding="async">
-            <video muted playsinline loop preload="none" disablepictureinpicture disableremoteplayback tabindex="-1" aria-hidden="true"></video>
-            <button class="rt-play" type="button" data-play="roadster"><span class="vplay-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg></span><span data-i18n="work.play">Regarder avec le son</span><span class="vdur">0:15</span></button>
-          </figure>
-      </div>
-      <p class="uni-note" data-r data-i18n="work.note"></p>
-    </div>
-  </section>
+<!-- ============ UNE PUB POUR CHAQUE MÉTIER ============ -->
+<section class="sec x2 x2-metiers x2-first" id="metiers">
+  <div class="glow glow-l" aria-hidden="true"></div>
+  <div class="wrap sec-head">
+    <p class="kick" data-r>Pour votre activité</p>
+    <h2 class="h2" data-r>Une pub pour <em class="acc">chaque métier.</em></h2>
+  </div>
+  <div class="wrap mgrid">
+    <article class="mcard" data-play="etages" role="button" tabindex="0" aria-label="Regarder un exemple : Restaurant et snack">
+      <div class="mmedia"><video muted playsinline loop preload="none" data-poster="/assets/media/metier-resto.webp" data-src="/assets/media/metier-resto.mp4" data-lazy></video></div>
+      <div class="mmeta"><h3>Restaurant &amp; snack</h3><p>Votre plat signature, en majesté.</p></div>
+    </article>
+    <article class="mcard" data-play="etages" role="button" tabindex="0" aria-label="Regarder un exemple : Coiffeur et barbier">
+      <div class="mmedia"><video muted playsinline loop preload="none" data-poster="/assets/media/metier-salon.webp" data-src="/assets/media/metier-salon.mp4" data-lazy></video></div>
+      <div class="mmeta"><h3>Coiffeur &amp; barbier</h3><p>Vos outils et votre style, en gros plan.</p></div>
+    </article>
+    <article class="mcard" data-play="etages" role="button" tabindex="0" aria-label="Regarder un exemple : Boutique et mode">
+      <div class="mmedia"><video muted playsinline loop preload="none" data-poster="/assets/media/metier-boutique.webp" data-src="/assets/media/metier-boutique.mp4" data-lazy></video></div>
+      <div class="mmeta"><h3>Boutique &amp; mode</h3><p>Vos produits, matière par matière.</p></div>
+    </article>
+    <article class="mcard" data-play="etages" role="button" tabindex="0" aria-label="Regarder un exemple : Marque et produit">
+      <div class="mmedia"><video muted playsinline loop preload="none" data-poster="/assets/media/metier-marque.webp" data-src="/assets/media/metier-marque.mp4" data-lazy></video></div>
+      <div class="mmeta"><h3>Marque &amp; produit</h3><p>Un packshot digne d’un parfum de luxe.</p></div>
+    </article>
+    <article class="mcard" data-play="etages" role="button" tabindex="0" aria-label="Regarder un exemple : Garage et auto">
+      <div class="mmedia"><video muted playsinline loop preload="none" data-poster="/assets/media/metier-garage.webp" data-src="/assets/media/metier-garage.mp4" data-lazy></video></div>
+      <div class="mmeta"><h3>Garage &amp; auto</h3><p>Le détail qui inspire confiance.</p></div>
+    </article>
+    <a class="mcard mcard-cta" href="#contact">
+      <span class="mc-ic"><svg class="xic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></span>
+      <h3>Votre activité ?</h3>
+      <p>Décrivez-moi votre commerce : je vous propose une idée.</p>
+    </a>
+  </div>
+</section>
 
-  <!-- 5. Avis clients : uniquement de vrais avis, publiés avec l’accord de leurs auteurs (config.json, « reviews ») -->
-  <section class="sec reviews" id="avis" data-reviews hidden>
-    <div class="wrap">
-      <p class="kick" data-r data-i18n="reviews.kicker">Avis clients</p>
-      <h2 class="h2" data-split data-i18n="reviews.title">Ils ont commandé.</h2>
-      <p class="rv-sel" data-i18n="reviews.selection">Une sélection des meilleurs messages reçus de mes clients.</p>
-      <div class="rv-panel">
-        <div class="rv-list" data-rv-list></div>
-        <div class="rv-dots" data-rv-dots aria-hidden="true"></div>
-        <p class="rv-hint"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span data-i18n="reviews.hint">Captures réelles · touchez pour agrandir</span></p>
-        <div class="rv-ex" data-ex data-r>
-        <div class="rv-ex-t">
-          <h3 data-i18n="reviews.example">Réalisations clients</h3>
-          <p data-i18n="reviews.exampleD">Exemples de pubs faites pour des clients.</p>
-        </div>
-        <div class="rv-ex-v">
-          <figure class="rt rt-v" data-k="digi">
-          <span class="rt-tier" data-i18n="reviews.tier"></span>
-          <img src="/assets/media/digi-poster.webp" alt="" width="720" height="1280" loading="lazy" decoding="async">
-          <video muted playsinline loop preload="none" disablepictureinpicture disableremoteplayback tabindex="-1" aria-hidden="true"></video>
-          <button class="rt-play" type="button" data-play="digi"><span class="vplay-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg></span><span data-i18n="work.play">Regarder avec le son</span><span class="vdur">0:16</span></button>
-        </figure>
-          <figure class="rt rt-v" data-k="tacnaan">
-          <span class="rt-tier" data-i18n="reviews.tier"></span>
-          <img src="/assets/media/tacnaan-poster.webp" alt="" width="720" height="1280" loading="lazy" decoding="async">
-          <video muted playsinline loop preload="none" disablepictureinpicture disableremoteplayback tabindex="-1" aria-hidden="true"></video>
-          <button class="rt-play" type="button" data-play="tacnaan"><span class="vplay-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg></span><span data-i18n="work.play">Regarder avec le son</span><span class="vdur">0:22</span></button>
-        </figure>
-        </div>
-        </div>
-      </div>
-      <p class="uni-note" data-i18n="reviews.note">Captures d’écran réelles de messages de clients. Noms masqués par discrétion.</p>
+<!-- ============ RÉALISATIONS ============ -->
+<section class="sec x2 x2-work" id="realisations">
+  <div class="glow glow-r" aria-hidden="true"></div>
+  <div class="wrap sec-head sec-head-row">
+    <div>
+      <p class="kick" data-r>Très poussées · qualité studio</p>
+      <h2 class="h2" data-r>Pubs studio, <em class="acc">en 3D.</em></h2>
     </div>
-  </section>
-
-  <!-- 4. Comment ça se passe, et ce que tu reçois -->
-  <section class="sec how" id="deroulement">
-    <div class="wrap">
-      <p class="kick" data-r data-i18n="how.kicker">Après le paiement</p>
-      <h2 class="h2" data-split data-i18n="how.title">Trois étapes. Aucune surprise.</h2>
-      <div class="seg" role="tablist" data-tabs data-r data-i18n-attr="aria-label:how.tabsLabel">
-        <span class="seg-pill" aria-hidden="true"></span>
-        <button type="button" role="tab" aria-selected="true" data-tab="creation" data-i18n="offers.creation.name">Je crée pour vous</button>
-        <button type="button" role="tab" aria-selected="false" data-tab="guide" data-i18n="offers.guide.name">Je vous guide</button>
-      </div>
-      <div class="steps" data-steps>
-        <ol class="st-list">
-          <li class="step" data-r><span class="st-ic" data-step-ic aria-hidden="true"></span><span class="st-n" aria-hidden="true">01</span><h3 data-step-t></h3><p data-step-d></p></li>
-          <li class="step" data-r style="--d:90ms"><span class="st-ic" data-step-ic aria-hidden="true"></span><span class="st-n" aria-hidden="true">02</span><h3 data-step-t></h3><p data-step-d></p></li>
-          <li class="step" data-r style="--d:180ms"><span class="st-ic" data-step-ic aria-hidden="true"></span><span class="st-n" aria-hidden="true">03</span><h3 data-step-t></h3><p data-step-d></p></li>
-        </ol>
+    <p class="xlead" data-r>Lumière, matières, mouvements de caméra : des pubs très poussées, travaillées comme une grande campagne. Dont deux projets livrés à de vrais clients.</p>
+  </div>
+  <div class="wrap">
+    <div class="wtop">
+      <article class="vcard vfeat" data-feat data-play="bmw" role="button" tabindex="0" aria-label="Regarder avec le son : voiture de sport, démo du studio">
+        <video muted playsinline loop preload="none" data-poster="/assets/media/bmw-poster.webp" data-src="/assets/media/bmw-teaser.mp4" data-lazy></video>
+        <span class="vtag"><span class="xrec"></span>Showreel · démo automobile</span>
+        <span class="chip"><span class="chip-pl"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5z"/></svg></span> Regarder avec le son <i>0:20</i></span>
+      </article>
+      <div class="vclients">
+        <article class="vcard vclient" data-play="tacnaan" role="button" tabindex="0" aria-label="Regarder avec le son : restaurant, projet client">
+          <video muted playsinline loop preload="none" data-poster="/assets/media/tacnaan-poster.webp" data-src="/assets/media/tacnaan-teaser.mp4" data-lazy></video>
+          <span class="vtag vtag-c"><svg class="xic" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 12.5l3.5 3.5 7.5-8"/></svg> Projet client</span>
+          <span class="vname">Restaurant</span>
+          <span class="chip"><span class="chip-pl"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5z"/></svg></span> <i>0:22</i></span>
+        </article>
+        <article class="vcard vclient" data-play="digi" role="button" tabindex="0" aria-label="Regarder avec le son : formation e-commerce, projet client">
+          <video muted playsinline loop preload="none" data-poster="/assets/media/digi-poster.webp" data-src="/assets/media/digi-teaser.mp4" data-lazy></video>
+          <span class="vtag vtag-c"><svg class="xic" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 12.5l3.5 3.5 7.5-8"/></svg> Projet client</span>
+          <span class="vname">E-commerce</span>
+          <span class="chip"><span class="chip-pl"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5z"/></svg></span> <i>0:16</i></span>
+        </article>
       </div>
     </div>
-  </section>
+    <div class="wgrid">
+      <article class="vcard" data-play="canette" role="button" tabindex="0" aria-label="Regarder avec le son : canette, démo du studio">
+        <video muted playsinline loop preload="none" data-poster="/assets/media/canette-poster.webp" data-src="/assets/media/canette-teaser.mp4" data-lazy></video>
+        <span class="vtag">Démo · boisson</span>
+        <span class="chip"><span class="chip-pl"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5z"/></svg></span> Regarder avec le son <i>0:20</i></span>
+      </article>
+      <article class="vcard" data-play="montre" role="button" tabindex="0" aria-label="Regarder avec le son : montre en or, démo du studio">
+        <video muted playsinline loop preload="none" data-poster="/assets/media/montre-poster.webp" data-src="/assets/media/montre-teaser.mp4" data-lazy></video>
+        <span class="vtag">Démo · luxe</span>
+        <span class="chip"><span class="chip-pl"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5z"/></svg></span> Regarder avec le son <i>0:17</i></span>
+      </article>
+      <article class="vcard vcard-3" data-play="roadster" role="button" tabindex="0" aria-label="Regarder avec le son : roadster, démo du studio">
+        <video muted playsinline loop preload="none" data-poster="/assets/media/roadster-poster.webp" data-src="/assets/media/roadster-teaser.mp4" data-lazy></video>
+        <span class="vtag">Démo · motion 3D</span>
+        <span class="chip"><span class="chip-pl"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5z"/></svg></span> Regarder avec le son <i>0:16</i></span>
+      </article>
+    </div>
+    <p class="fine">Les démos sont réalisées par IA Motion Studio, sans lien avec les marques représentées.</p>
+  </div>
+</section>
 
-  <!-- 7. FAQ -->
-  <section class="sec faq" id="faq">
-    <div class="wrap">
-      <h2 class="h2" data-split data-i18n="faq.title">Questions fréquentes</h2>
-      <div class="qas">
-        <details class="qa" data-r><summary><span data-i18n="faq.items.0.q"></span><i class="pm" aria-hidden="true"></i></summary><div class="qa-a"><p data-i18n-html="faq.items.0.a"></p></div></details>
-        <details class="qa" data-r><summary><span data-i18n="faq.items.1.q"></span><i class="pm" aria-hidden="true"></i></summary><div class="qa-a"><p data-i18n-html="faq.items.1.a"></p></div></details>
-        <details class="qa" data-r><summary><span data-i18n="faq.items.2.q"></span><i class="pm" aria-hidden="true"></i></summary><div class="qa-a"><p data-i18n-html="faq.items.2.a"></p></div></details>
-        <details class="qa" data-r><summary><span data-i18n="faq.items.3.q"></span><i class="pm" aria-hidden="true"></i></summary><div class="qa-a"><p data-i18n-html="faq.items.3.a"></p></div></details>
-        <details class="qa" data-r><summary><span data-i18n="faq.items.4.q"></span><i class="pm" aria-hidden="true"></i></summary><div class="qa-a"><p data-i18n-html="faq.items.4.a"></p></div></details>
-        <details class="qa" data-r><summary><span data-i18n="faq.items.5.q"></span><i class="pm" aria-hidden="true"></i></summary><div class="qa-a"><p data-i18n-html="faq.items.5.a"></p></div></details>
-        <details class="qa" data-r><summary><span data-i18n="faq.items.6.q"></span><i class="pm" aria-hidden="true"></i></summary><div class="qa-a"><p data-i18n-html="faq.items.6.a"></p></div></details>
+<!-- ============ AVIS ============ -->
+<section class="sec x2 x2-avis" id="avis">
+  <div class="glow glow-r" aria-hidden="true"></div>
+  <div class="wrap sec-head sec-head-row">
+    <div>
+      <p class="kick" data-r>Avis clients</p>
+      <h2 class="h2" data-r>Ils ont <em class="acc">commandé.</em></h2>
+    </div>
+    <p class="xlead" data-r>Une sélection des meilleurs messages reçus de mes clients. Touchez une capture pour l’agrandir.</p>
+  </div>
+  <div class="wrap xrv">
+    <figure class="rcard"><figcaption><span><b>Client · pub vidéo</b><small>E-mail reçu</small></span><span class="real"><svg class="xic" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 12.5l3.5 3.5 7.5-8"/></svg> Capture réelle</span></figcaption><button class="rshot" type="button" data-cap="/assets/media/avis-1.jpg" aria-label="Agrandir la capture de l’e-mail du client"><span class="rbar"><i></i><i></i><i></i>E-mail reçu d’un client</span><img src="/assets/media/avis-1.jpg" alt="Capture d’écran de l’e-mail d’un client, nom masqué" loading="lazy" decoding="async"></button></figure>
+    <figure class="rcard"><figcaption><span><b>Client · vidéo TikTok</b><small>Message privé</small></span><span class="real"><svg class="xic" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 12.5l3.5 3.5 7.5-8"/></svg> Capture réelle</span></figcaption><button class="rshot" type="button" data-cap="/assets/media/avis-2.jpg" aria-label="Agrandir la capture du message privé du client"><span class="rbar"><i></i><i></i><i></i>Message privé TikTok</span><img src="/assets/media/avis-2.jpg" alt="Capture d’écran du message privé TikTok d’un client, nom masqué" loading="lazy" decoding="async"></button></figure>
+    <figure class="rcard"><figcaption><span><b>Client · pub TikTok</b><small>Message privé</small></span><span class="real"><svg class="xic" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 12.5l3.5 3.5 7.5-8"/></svg> Capture réelle</span></figcaption><button class="rshot" type="button" data-cap="/assets/media/avis-3.jpg" aria-label="Agrandir la capture du message privé du client"><span class="rbar"><i></i><i></i><i></i>Message privé TikTok</span><img src="/assets/media/avis-3.jpg" alt="Capture d’écran du message privé TikTok d’un client, nom masqué" loading="lazy" decoding="async"></button></figure>
+  </div>
+  <p class="wrap fine">Captures réelles de messages de clients, noms masqués par discrétion.</p>
+</section>
+
+<!-- ============ LE STUDIO ============ -->
+<section class="sec x2 x2-studio" id="studio">
+  <div class="glow glow-l" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="studio">
+      <div class="studio-photo"><img src="/assets/img/evan.jpg" alt="Evan, fondateur d’IA Motion Studio" loading="lazy" decoding="async"></div>
+      <div class="studio-text">
+        <p class="kick" data-r>Le studio</p>
+        <h2 class="h2 h2-s" data-r>Un studio indépendant. <em class="acc">Un seul interlocuteur.</em></h2>
+        <p class="xlead">Je m’appelle Evan. J’ai créé IA Motion Studio dans les Yvelines, et je réalise chaque pub moi-même, du brief à la livraison.</p>
+      </div>
+      <div class="studio-watch" aria-hidden="true"><img src="/assets/img/montre-studio.jpg" alt="" loading="lazy" decoding="async"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FIN : PARLONS DE VOTRE PUB ============ -->
+<section class="sec x2 x2-final" id="contact" data-hide-sticky>
+  <div class="final-fan" aria-hidden="true">
+    <span class="ft-t"><img src="/assets/media/canette-tile.webp" alt="" loading="lazy" decoding="async"></span>
+    <span class="ft-t"><img src="/assets/media/montre-tile.webp" alt="" loading="lazy" decoding="async"></span>
+    <span class="ft-t"><video muted playsinline loop preload="none" data-poster="/assets/media/code-tile.webp" data-src="/assets/media/code-mini.mp4" data-lazy></video></span>
+    <span class="ft-t"><img src="/assets/media/roadster-tile.webp" alt="" loading="lazy" decoding="async"></span>
+    <span class="ft-t"><img src="/assets/media/tacnaan-poster.webp" alt="" loading="lazy" decoding="async"></span>
+  </div>
+  <div class="wrap final-in">
+    <p class="kick" data-r>Parlons de votre pub</p>
+    <h2 class="final-title" data-r>Au niveau des <em class="acc">grandes marques.</em></h2>
+    <p class="final-sub" data-r>Votre pub sur mesure, livrée en 24 à 48 h, <span data-price-from>dès 39 €</span>.</p>
+    <div class="final-ctas" data-r>
+      <a class="btn btn-p" href="#top" data-go-offers>Choisir ma formule <svg class="ar" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div>
+    <div class="talk" data-r>
+      <div class="talk-t"><b>Une question pour votre pub ?</b><span>Écrivez-moi par e-mail ou sur TikTok, ou appelez-moi : je vous réponds personnellement.</span></div>
+      <div class="talk-btns">
+        <a class="btn btn-g" href="mailto:contact@ia-motionstudio.fr" data-contact-mail><svg class="xic" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5.5" width="18" height="13" rx="2.5"/><path d="M4 7l8 6 8-6"/></svg> <span data-contact-mail-text>contact@ia-motionstudio.fr</span></a>
+        <a class="btn btn-g" href="https://www.tiktok.com/@maneo.ai" target="_blank" rel="noopener" data-tiktok-link><svg class="xic" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3.5v11.2a3.3 3.3 0 1 1-3.3-3.3"/><path d="M14 3.5c.4 2.6 2.2 4.4 4.8 4.6"/></svg> <span data-tiktok-text>@maneo.ai</span> sur TikTok</a>
+        <a class="btn btn-g" href="tel:+33622519664" data-phone-link><svg class="xic" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 3.5h3l1.5 4-2 1.3a11 11 0 0 0 6.1 6.1l1.3-2 4 1.5v3A2 2 0 0 1 18.4 20 15.5 15.5 0 0 1 4 5.6a2 2 0 0 1 2.6-2.1z"/></svg> <span data-phone-text>06 22 51 96 64</span></a>
       </div>
     </div>
-  </section>
-
-  <!-- 8. Le choix, une dernière fois -->
-  <section class="sec final" id="choisir" data-hide-sticky>
-    <div class="final-reel" aria-hidden="true"><span class="wt" style="--k:-2"><img src="/assets/media/canette-tile.webp" alt="" width="720" height="1280" loading="lazy" decoding="async"></span><span class="wt" style="--k:-1"><img src="/assets/media/roadster-tile.webp" alt="" width="720" height="1280" loading="lazy" decoding="async"></span><span class="wt" style="--k:0"><img src="/assets/media/code-tile.webp" alt="" width="720" height="1280" loading="lazy" decoding="async"></span><span class="wt" style="--k:1"><img src="/assets/media/montre-tile.webp" alt="" width="720" height="1280" loading="lazy" decoding="async"></span><span class="wt" style="--k:2"><img src="/assets/media/roadster-tile.webp" alt="" width="720" height="1280" loading="lazy" decoding="async"></span></div>
-    <div class="wrap">
-      <h2 class="h2" data-split data-i18n="final.title">Alors, tu le fais ou je le fais ?</h2>
-      <div class="final-cta" data-r>
-        <button class="btn btn-i btn-xl" type="button" data-book="guide"><span data-i18n="offers.guide.name">Je vous guide</span><span class="btn-price" data-price>7,90 €</span></button>
-        <button class="btn btn-p btn-xl" type="button" data-book="pro"><span data-i18n="final.creation">Je crée pour vous</span><span class="btn-price"><small data-i18n="offers.pro.name">Pro</small> <span data-price="pro">99 €</span></span></button>
-      </div>
-      <p class="final-note" data-r style="--d:120ms"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10.5" width="14" height="10" rx="2.5"/><path d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5"/></svg><span data-i18n="final.note">Paiement unique · sécurisé par Stripe</span></p>
-    </div>
-  </section>
-
+  </div>
+</section>
 </main>
 
 <footer class="foot" data-hide-sticky>
@@ -359,5 +399,6 @@ var c=l||'fr',k=document.createElement('link');k.rel='preload';k.as='fetch';k.cr
   </div>
 </div>
 
+<script src="/assets/x2.js?v=f069af1118" defer></script>
 </body>
 </html>

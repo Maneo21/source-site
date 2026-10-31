@@ -118,3 +118,57 @@ if (!SAFE) {
   diag(`page prête · TikTok : ${TT ? 'oui' : 'non'} · voie sûre : oui · ${tiles.length} vidéos`);
   diag(navigator.userAgent.slice(0, 150));
 }
+
+/* ---------- invitation à ouvrir le site dans le vrai navigateur (téléphone, page TikTok) ---------- */
+// Une petite carte en haut à droite, avec une flèche vers le ••• de TikTok (sa barre est au-dessus de la page, centre à ~26 px du
+// bord droit, mesuré sur la capture d'Evan du 22 oct.). Elle ne bloque rien : « Plus tard » la ferme pour la visite. Elle revient une
+// fois, au moment de choisir une formule (le paiement est plus simple dans Safari ou Chrome).
+if (SAFE) {
+  const EN = /^en/i.test(document.documentElement.lang || '');
+  const T = EN
+    ? { t: 'Open the site in your browser', d: 'For a better experience and an easier checkout.', pt: 'To pay, open the site in your browser', pd: 'Checkout is easier in Safari or Chrome.', s: 'Tap <b class="ttb-k"><i>•</i><i>•</i><i>•</i></b> at the top right, then <b>“Open in browser”</b>.', copy: 'Copy link', copied: 'Link copied ✓', later: 'Later', fail: 'Long-press to copy' }
+    : { t: 'Ouvrez le site dans votre navigateur', d: 'Pour une meilleure expérience et un paiement plus simple.', pt: 'Pour payer, ouvrez le site dans votre navigateur', pd: 'Le paiement est plus simple dans Safari ou Chrome.', s: 'Touchez <b class="ttb-k"><i>•</i><i>•</i><i>•</i></b> en haut à droite, puis <b>« Ouvrir dans le navigateur »</b>.', copy: 'Copier le lien', copied: 'Lien copié ✓', later: 'Plus tard', fail: 'Appui long pour copier' };
+  const box = document.createElement('div');
+  box.className = 'ttb'; box.hidden = true;
+  box.setAttribute('role', 'dialog'); box.setAttribute('aria-live', 'polite');
+  box.innerHTML = `<span class="ttb-ar" aria-hidden="true"><svg viewBox="0 0 24 40"><path d="M12 38V4M4 12l8-8 8 8"/></svg></span>
+    <div class="ttb-in">
+      <p class="ttb-t" data-ttb-t></p>
+      <p class="ttb-d" data-ttb-d></p>
+      <p class="ttb-s">${T.s}</p>
+      <div class="ttb-b"><button type="button" class="ttb-copy" data-ttb-copy>${T.copy}</button><button type="button" class="ttb-x" data-ttb-x>${T.later}</button></div>
+    </div>`;
+  document.body.append(box);
+  const KEY = 'ttb-ferme';
+  let closed = false, payShown = false;
+  try { closed = sessionStorage.getItem(KEY) === '1'; } catch { /* navigation privée */ }
+  const show = pay => {
+    $('[data-ttb-t]', box).textContent = pay ? T.pt : T.t;
+    $('[data-ttb-d]', box).textContent = pay ? T.pd : T.d;
+    box.hidden = false;
+    requestAnimationFrame(() => requestAnimationFrame(() => box.classList.add('on')));
+    diag(`invitation navigateur${pay ? ' (paiement)' : ''}`);
+  };
+  const hide = () => {
+    box.classList.remove('on');
+    try { sessionStorage.setItem(KEY, '1'); } catch { /* navigation privée */ }
+    setTimeout(() => { if (!box.classList.contains('on')) box.hidden = true; }, 450);
+  };
+  if (!closed) setTimeout(() => show(false), 1500);
+  $('[data-ttb-x]', box).addEventListener('click', hide);
+  $('[data-ttb-copy]', box).addEventListener('click', async e => {
+    const b = e.currentTarget, url = location.origin + '/';
+    let ok = false;
+    try { await navigator.clipboard.writeText(url); ok = true; } catch {
+      const ta = document.createElement('textarea'); ta.value = url; ta.setAttribute('readonly', ''); ta.style.cssText = 'position:fixed;opacity:0;top:0';
+      document.body.append(ta); ta.select(); try { ok = document.execCommand('copy'); } catch { ok = false; } ta.remove();
+    }
+    b.textContent = ok ? T.copied : T.fail;
+  });
+  // au moment de choisir une formule : rappel, une seule fois
+  document.addEventListener('click', e => {
+    if (payShown || !e.target.closest('[data-book]')) return;
+    payShown = true;
+    setTimeout(() => show(true), 650);
+  }, true);
+}

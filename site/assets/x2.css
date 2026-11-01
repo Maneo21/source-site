@@ -217,3 +217,24 @@
 .x2 .xpv { position: absolute; inset: 0; z-index: 3; width: 100%; height: 100%; object-fit: cover; background: #111113; }
 .x2 .mcard .xpv { position: absolute; }
 .x2 .xfull .chip, .x2 .xfull .vtag, .x2 .xfull .vname { opacity: 0; transition: opacity .3s; }
+
+/* ---------- formules de l'accueil (1er nov.) : Essentielle en premier et mise en avant ; Pro « Meilleur rendu » ---------- */
+.trio-hero { grid-template-columns: 1.3fr 1fr 1fr; }
+.tri-badge2 { background: rgba(14, 14, 16, .92); color: var(--acc); box-shadow: inset 0 0 0 1px rgba(210, 255, 77, .55); }
+
+/* récapitulatif : rappel de la Pro quand on choisit l'Essentielle */
+.sheet-up { display: flex; align-items: center; gap: 12px; margin: 14px 0 4px; padding: 12px 12px 12px 14px; border-radius: 14px; border: 1px solid rgba(210, 255, 77, .4); background: linear-gradient(110deg, rgba(210, 255, 77, .12), rgba(210, 255, 77, .03) 70%); }
+.sheet-up[hidden] { display: none; }
+.sheet-up p { margin: 0; flex: 1; font-size: 13.5px; line-height: 1.45; color: var(--ink2); }
+.sheet-up-go { flex: none; height: 38px; padding: 0 14px; border-radius: 999px; border: 0; background: var(--acc); color: var(--acc-ink); font: 700 13.5px/1 var(--f-d); white-space: nowrap; cursor: pointer; }
+@media (max-width: 380px) { .sheet-up { flex-direction: column; align-items: stretch; } }
+
+/* accueil : la phrase sous le titre, plus lisible sur le mur animé (blanc presque plein, ombre douce ; le citron reste réservé à la pastille et aux boutons) */
+.hero-sub { color: rgba(242, 239, 233, .94); text-shadow: 0 1px 2px rgba(0, 0, 0, .5), 0 2px 18px rgba(0, 0, 0, .55); }
+
+/* ---------- ordinateur seulement (≥ 1000 px) : sections alignées sur l'accueil, titres sur une ligne ---------- */
+@media (min-width: 1000px) {
+  .x2 .wrap, .foot .wrap { max-width: 1240px; }
+  .x2 .h2 { max-width: none; }
+  .x2 .h2-s { max-width: 20ch; }
+}

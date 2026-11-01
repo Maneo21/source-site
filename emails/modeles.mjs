@@ -255,7 +255,7 @@ ${items}
 }
 
 // Le nom de chaque formule de création, dans la langue du client.
-const TIER_NAMES = { fr: { studio: 'Studio', pro: 'Pro', essentielle: 'Essentielle' }, en: { studio: 'Studio', pro: 'Pro', essentielle: 'Essential' } };
+const TIER_NAMES = { fr: { studio: 'Premium', pro: 'Pro', essentielle: 'Essentielle' }, en: { studio: 'Premium', pro: 'Pro', essentielle: 'Essential' } };
 
 /* ---------- e-mail du client ---------- */
 

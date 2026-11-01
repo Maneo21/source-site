@@ -232,8 +232,8 @@ function buildExample() {
   };
 }
 
-// L'accueil : la formule choisie (Pro d'avance), ce qu'elle comprend, et le bouton qui ouvre son récapitulatif.
-let heroTier = 'pro';
+// L'accueil : la formule choisie (Essentielle d'avance, depuis le 1er nov.), ce qu'elle comprend, et le bouton qui ouvre son récapitulatif.
+let heroTier = 'essentielle';
 function heroPick(id = heroTier) {
   heroTier = id;
   for (const b of $$('[data-pick-tier]')) { const on = b.dataset.pickTier === id; b.classList.toggle('sel', on); b.setAttribute('aria-pressed', String(on)); }
@@ -308,7 +308,7 @@ const validLink = o => { try { return new URL(payLink(o)).protocol === 'https:';
 // Une formule sans lien de paiement est annoncée « bientôt disponible » sur le site public et ne peut pas être commandée.
 // L'aperçu local garde tout actif, pour montrer le parcours complet.
 const isOpen = o => validLink(o) || PREVIEW;
-const firstOpenTier = () => ['pro', 'essentielle', 'studio'].find(isOpen) || null;
+const firstOpenTier = () => ['essentielle', 'pro', 'studio'].find(isOpen) || null;
 function offerState() {
   for (const o of OFFERS) {
     const open = isOpen(o);
@@ -568,7 +568,7 @@ function initTiers() {
   const rail = $('[data-tiers]');
   if (!rail) return;
   const cards = $$('.tier', rail), dots = $$('.tier-dots i');
-  requestAnimationFrame(() => centerTier('pro', false));
+  requestAnimationFrame(() => centerTier('essentielle', false));
   let t = 0;
   rail.addEventListener('scroll', () => {
     clearTimeout(t);
@@ -583,7 +583,7 @@ function initTiers() {
   }, { passive: true });
   // les cartes apparaissent l'une après l'autre quand la section arrive à l'écran
   new IntersectionObserver((es, o) => { if (es[0].isIntersecting) { rail.classList.add('in'); o.disconnect(); } }, { threshold: .15 }).observe(rail);
-  addEventListener('resize', () => centerTier('pro', false));
+  addEventListener('resize', () => centerTier('essentielle', false));
   for (const b of $$('[data-tier-go]')) b.addEventListener('click', () => {
     centerTier(b.dataset.tierGo);
     // la carte choisie s'allume un instant, et la bande des cartes vient à l'écran
@@ -727,7 +727,8 @@ function sheetText() {
   f.dataset.offer = fam;
   f.dataset.tier = offer;
   for (const r of f.elements.offer) r.checked = r.value === offer;
-  $('[data-offer-switch]', f).style.setProperty('--i', Math.max(0, TIERS.indexOf(offer)));
+  // le sélecteur du récapitulatif suit l'ordre de l'accueil : Essentielle, Pro, Premium (clé « studio »)
+  $('[data-offer-switch]', f).style.setProperty('--i', Math.max(0, ['essentielle', 'pro', 'studio'].indexOf(offer)));
   for (const el of $$('[data-sheet]', f)) el.textContent = I.t(`sheet.${fam}.${el.dataset.sheet}`, tv);
   // le délai suit la formule choisie (24 h ou 48 h)
   if (fam === 'creation') $('[data-sheet-ship]', f).textContent = I.t('sheet.creation.ship', tv);
@@ -749,6 +750,17 @@ function sheetText() {
   other.hidden = !alt;
   other.textContent = I.t(`sheet.${fam}.other`);
   other.dataset.to = alt || '';
+  // au moment de payer l'Essentielle : la Pro, pour la différence de prix
+  const up = $('[data-sheet-up]', f);
+  if (up) {
+    const T = I.config.creation?.tiers || {}, d = (T.pro?.amount || 0) - (T.essentielle?.amount || 0), show = offer === 'essentielle' && isOpen('pro') && d > 0 && !I.vars.launchOn;
+    up.hidden = !show;
+    if (show) {
+      const diff = (d / 100).toLocaleString(I.lang === 'en' ? 'en-GB' : 'fr-FR', { style: 'currency', currency: 'EUR', minimumFractionDigits: d % 100 ? 2 : 0, maximumFractionDigits: d % 100 ? 2 : 0 });
+      $('[data-sheet-up-t]', up).textContent = I.t('sheet.up.text', { diff });
+      $('[data-sheet-up-go]', up).textContent = I.t('sheet.up.cta');
+    }
+  }
   modeTag();
 }
 function openSheet(o) {
@@ -1054,6 +1066,7 @@ function wire() {
   document.addEventListener('keydown', e => { if (e.key !== 'Escape') return; if (!els.sheet.hidden) closeSheet(); else if (!$('#cmpbox').hidden) closeCompare(); });
   els.form.addEventListener('submit', checkout);
   // « Plutôt apprendre… » / « Plutôt une création… » : on passe d'un récapitulatif à l'autre
+  $('[data-sheet-up-go]')?.addEventListener('click', () => { offer = 'pro'; sheetText(); });
   $('[data-sheet-other]').addEventListener('click', e => {
     const to = e.currentTarget.dataset.to;
     if (to === 'guide') { offer = 'guide'; sheetText(); }

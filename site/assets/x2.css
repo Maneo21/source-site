@@ -218,10 +218,6 @@
 .x2 .mcard .xpv { position: absolute; }
 .x2 .xfull .chip, .x2 .xfull .vtag, .x2 .xfull .vname { opacity: 0; transition: opacity .3s; }
 
-/* ---------- formules de l'accueil (1er nov.) : Essentielle en premier et mise en avant ; Pro « Meilleur rendu » ---------- */
-.trio-hero { grid-template-columns: 1.3fr 1fr 1fr; }
-.tri-badge2 { background: rgba(14, 14, 16, .92); color: var(--acc); box-shadow: inset 0 0 0 1px rgba(210, 255, 77, .55); }
-
 /* récapitulatif : rappel de la Pro quand on choisit l'Essentielle */
 .sheet-up { display: flex; align-items: center; gap: 12px; margin: 14px 0 4px; padding: 12px 12px 12px 14px; border-radius: 14px; border: 1px solid rgba(210, 255, 77, .4); background: linear-gradient(110deg, rgba(210, 255, 77, .12), rgba(210, 255, 77, .03) 70%); }
 .sheet-up[hidden] { display: none; }
@@ -237,4 +233,59 @@
   .x2 .wrap, .foot .wrap { max-width: 1240px; }
   .x2 .h2 { max-width: none; }
   .x2 .h2-s { max-width: 20ch; }
+}
+
+/* téléphone pas très haut (presque tous les iPhone dans Safari) : la phrase sous le titre reste affichée, plus compacte */
+@media (max-width: 999px) and (max-height: 800px) { .hero-sub { display: block; max-width: 40ch; margin: 10px 0 0; font-size: 15px; line-height: 1.42; } }
+@media (max-width: 999px) and (max-height: 660px) { .hero-sub { margin-top: 8px; font-size: 14px; line-height: 1.38; } }
+/* téléphone pas très haut : avec la phrase, l'accueil reste dans le premier écran jusqu'à « Je vous guide »
+   (pastilles sur une seule rangée : celles qui ne tiennent pas restent dans le récapitulatif et le comparatif) */
+@media (max-width: 999px) and (max-height: 800px) {
+  .hero-proof { margin-bottom: 8px !important; }
+  .h-hero { font-size: clamp(36px, 9.8vw, 132px); }
+  .trio-hero .tri { padding: 9px 5px 8px; }
+  .trio-hero .tri.is-main { padding: 14px 6px 10px; }
+  .ho-sum { max-height: 28px; overflow: hidden; align-content: flex-start; margin: 9px 0; row-gap: 12px; }
+  .ho-sum span { height: 28px; }
+  .ho-cta { height: 50px; }
+  .ho-guide { margin-top: 8px; padding-top: 9px; padding-bottom: 9px; }
+}
+
+/* ---------- avis, ordinateur et tablette : captures entières (aucun mot coupé) et « Agrandir » dans la barre du haut, jamais sur le message ---------- */
+@media (min-width: 761px) {
+  .x2 .rshot img { object-fit: contain; object-position: top center; }
+  .x2 .rbar { min-height: 34px; }
+  .x2 .zbadge { top: 5px; bottom: auto; left: auto; right: 6px; gap: 5px; padding: 5px 10px 5px 8px; font-size: 11.5px; transform: none; }
+  .x2 .zbadge svg { width: 13px; height: 13px; }
+  .x2 .rshot:hover .zbadge { transform: scale(1.04); }
+}
+@media (min-width: 761px) and (max-width: 1199px) { .x2 .zb-l, .x2 .zb-c { display: none !important; } .x2 .zb-s { display: inline; } }
+.x2 .wrap.fine { margin-left: auto; margin-right: auto; }
+
+/* ---------- le studio, sur téléphone : photo et titre côte à côte, texte en pleine largeur dessous ---------- */
+@media (max-width: 760px) {
+  .x2 .studio { grid-template-columns: 88px minmax(0, 1fr); grid-template-areas: "ph k" "ph t" "l l"; column-gap: 16px; row-gap: 0; align-items: center; }
+  .x2 .studio-text { display: contents; }
+  .x2 .studio-photo { grid-area: ph; }
+  .x2 .studio .kick { grid-area: k; align-self: end; margin-bottom: 8px; }
+  .x2 .studio .h2 { grid-area: t; align-self: start; font-size: 23px; }
+  .x2 .studio .h2 .acc { display: block; }
+  .x2 .studio .xlead { grid-area: l; margin-top: 14px; }
+}
+
+/* ---------- fin de page, ordinateur et tablette : la carte contact centrée sur le même axe que le titre ---------- */
+@media (min-width: 761px) {
+  .x2 .talk { flex-direction: column; justify-content: center; width: min(760px, 100%); margin-left: auto; margin-right: auto; text-align: center; }
+  .x2 .talk-t span { margin-left: auto; margin-right: auto; }
+  .x2 .talk-btns { justify-content: center; }
+}
+@media (min-width: 1000px) { .foot-top p { text-wrap: balance; } }
+
+/* formules de l'accueil : petit badge discret sur la Pro et la Premium (l'Essentielle garde le badge citron plein) */
+.trio-hero .tri-badge2 { top: -9px; padding: 4px 7px; font-size: 8px; letter-spacing: .05em; background: rgba(14, 14, 16, .94); color: var(--acc); box-shadow: inset 0 0 0 1px rgba(210, 255, 77, .5); }
+@media (min-width: 1000px) { .trio-hero .tri-badge2 { padding: 5px 9px; font-size: 9px; letter-spacing: .08em; } }
+/* téléphone et tablette : Pro et Premium à la même hauteur, leurs petits badges alignés */
+@media (max-width: 999px) {
+  .trio-hero .tri:not(.is-main) { padding-top: 12px; }
+  .trio-hero .tri:not(.is-main) .tri-m { min-height: 3.75em; }
 }

@@ -232,7 +232,7 @@ function buildExample() {
   };
 }
 
-// L'accueil : la formule choisie (Essentielle d'avance, depuis le 1er nov.), ce qu'elle comprend, et le bouton qui ouvre son récapitulatif.
+// L'accueil : la formule choisie (Essentielle d'avance, au centre et mise en avant), ce qu'elle comprend, et le bouton qui ouvre son récapitulatif.
 let heroTier = 'essentielle';
 function heroPick(id = heroTier) {
   heroTier = id;

@@ -103,6 +103,7 @@
     "studio": {
       "name": "Premium",
       "badge": "Most advanced",
+      "heroBadge": "Studio campaign",
       "tag": "Crafted to the max, above everything else. Made to stand out.",
       "cta": "Choose Premium",
       "items": [

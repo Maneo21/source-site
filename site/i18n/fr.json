@@ -86,7 +86,7 @@
       ],
       "delay": "Réponse presque immédiate après ta commande",
       "cta": "Réserver mon échange",
-      "for": "Vous préférez le faire vous-même ?",
+      "for": "Vous préférez le faire vous‑même ?",
       "for2": "Tu veux apprendre",
       "ctaShort": "Réserver"
     },
@@ -103,6 +103,7 @@
     "studio": {
       "name": "Premium",
       "badge": "Le plus poussé",
+      "heroBadge": "Campagne studio",
       "tag": "Hyper travaillée, au-dessus de tout. Pour marquer les esprits.",
       "cta": "Choisir Premium",
       "items": [

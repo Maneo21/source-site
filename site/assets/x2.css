@@ -111,6 +111,14 @@
 .x2 .rshot img { flex: 1; width: 100%; min-height: 0; object-fit: cover; object-position: top; transition: transform 1s var(--ease); }
 .x2 .rshot:hover img { transform: scale(1.04); }
 
+/* étiquette citron sur chaque capture : on comprend qu'un toucher l'agrandit */
+.x2 .zbadge { position: absolute; z-index: 2; left: 50%; bottom: 12px; display: inline-flex; align-items: center; gap: 7px; padding: 8px 13px 8px 10px; border-radius: 999px; background: var(--acc); color: var(--acc-ink); font: 700 12.5px/1 var(--f-d); white-space: nowrap; transform: translateX(-50%); box-shadow: 0 10px 26px -8px rgba(0, 0, 0, .55), 0 0 0 4px rgba(210, 255, 77, .18); pointer-events: none; animation: zpulse 2.4s ease-in-out infinite; transition: transform .4s var(--ease); }
+.x2 .zbadge svg { width: 15px; height: 15px; flex: none; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; }
+.x2 .zb-c, .x2 .zb-s { display: none; }
+@media (hover: hover) and (pointer: fine) { .x2 .zb-l { display: none; } .x2 .zb-c { display: inline; } }
+@keyframes zpulse { 0%, 100% { box-shadow: 0 10px 26px -8px rgba(0, 0, 0, .55), 0 0 0 4px rgba(210, 255, 77, .18); } 50% { box-shadow: 0 10px 26px -8px rgba(0, 0, 0, .55), 0 0 0 8px rgba(210, 255, 77, .08); } }
+.x2 .rshot:hover .zbadge { transform: translateX(-50%) scale(1.05); }
+
 /* studio */
 .x2 .studio { position: relative; overflow: hidden; display: grid; grid-template-columns: clamp(150px, 15vw, 210px) minmax(0, 1fr) minmax(0, .8fr); gap: clamp(18px, 2.4vw, 34px); align-items: center; padding: clamp(18px, 2vw, 26px); border-radius: var(--r); background: linear-gradient(135deg, rgba(210, 255, 77, .05), transparent 40%), linear-gradient(180deg, var(--card2), var(--card)); box-shadow: inset 0 0 0 1px var(--line); }
 .x2 .studio-photo { aspect-ratio: 4 / 5; border-radius: 16px; overflow: hidden; box-shadow: 0 30px 60px -30px #000; }
@@ -184,6 +192,10 @@
   .x2 .real { font-size: 9px; padding: 4px 6px; }
   .x2 .rshot { height: 190px; }
   .x2 .rbar { padding: 6px; font-size: 0; }
+  .x2 .zbadge { bottom: 7px; gap: 4px; padding: 5px 8px 5px 6px; font-size: 10.5px; }
+  .x2 .zbadge svg { width: 12px; height: 12px; }
+  .x2 .zb-l, .x2 .zb-c { display: none !important; }
+  .x2 .zb-s { display: inline; }
   .x2 .rbar i { width: 5px; height: 5px; }
   .x2 .studio { grid-template-columns: 104px 1fr; align-items: start; gap: 16px; }
   .x2 .h2-s { font-size: 26px; }
@@ -194,7 +206,7 @@
   .x2 .talk-btns { flex-direction: column; }
   .x2 .talk-btns .btn { width: 100%; }
 }
-@media (prefers-reduced-motion: reduce) { .x2 .xrec { animation: none; } }
+@media (prefers-reduced-motion: reduce) { .x2 .xrec, .x2 .zbadge { animation: none; } }
 
 /* page TikTok (téléphone) : vignettes en images ; la vidéo lancée au toucher remplit sa carte */
 .x2 .xposter { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }

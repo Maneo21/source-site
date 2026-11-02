@@ -289,3 +289,20 @@
   .trio-hero .tri:not(.is-main) { padding-top: 12px; }
   .trio-hero .tri:not(.is-main) .tri-m { min-height: 3.75em; }
 }
+
+/* comparatif : la ligne discrète pour les projets sur devis */
+.cmp-custom { margin: 12px 20px 0; font-size: 12.5px; line-height: 1.45; color: var(--ink3); text-align: center; }
+.cmp-custom a { color: var(--ink2); text-decoration: underline; text-underline-offset: 2px; white-space: nowrap; }
+/* comparatif sur téléphone : les trois formules visibles d'un coup, sans défiler sur le côté */
+@media (max-width: 600px) {
+  .cmp, .cmp thead, .cmp tbody, .cmp tfoot { display: block; min-width: 0; }
+  .cmp tr { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .cmp thead td:first-child, .cmp tfoot td:first-child { display: none; }
+  .cmp thead th { padding: 10px 8px; font-size: 14px; }
+  .cmp tbody th { grid-column: 1 / -1; width: auto; padding: 10px 8px 3px; font-size: 12px; color: var(--ink3); }
+  .cmp tbody td { padding: 3px 8px 10px; border-top: 0; font-size: 12.5px; }
+  .cmp tfoot td { padding: 10px 4px; }
+  .cmp-pick { width: 100%; min-width: 0; padding: 0 6px; }
+}
+/* petits téléphones : le texte des cartes garde trois lignes, « Je vous guide » reste dans le premier écran */
+@media (max-width: 374px) { .trio-hero .tri-m { font-size: 9.5px; letter-spacing: 0; } }

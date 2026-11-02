@@ -30,7 +30,7 @@ const U = [
 // « guide » : Je te guide. Trois créations : studio, pro (mise en avant), essentielle. HOW_TABS : les deux onglets du déroulé.
 const TIERS = ['studio', 'pro', 'essentielle'], OFFERS = ['guide', ...TIERS], HOW_TABS = ['creation', 'guide'];
 const isTier = o => TIERS.includes(o);
-const KINDS = { guide: ['site', 'pub', 'motion', 'autre'], studio: ['pub', 'motion', 'site'], pro: ['pub', 'motion', 'site'], essentielle: ['pub', 'motion'] };
+const KINDS = { guide: ['site', 'pub', 'motion', 'autre'], studio: ['pub', 'motion'], pro: ['pub', 'motion'], essentielle: ['pub', 'motion'] };
 // Aperçu sur le Mac (et non site public). « ?public=1 » montre l'aperçu comme le verra un visiteur.
 const PREVIEW = /^(localhost|127\.|192\.168\.|10\.|172\.(1[6-9]|2\d|3[01])\.)/.test(location.hostname) && !/[?&]public=1(&|$)/.test(location.search);
 
@@ -737,7 +737,7 @@ function sheetText() {
   $('[data-sheet-items]', f).innerHTML = items.map(x => `<li>${esc(x)}</li>`).join('');
   $('[data-sheet-price]', f).textContent = I.vars.prices?.[offer] || I.vars.price;
   for (const el of $$('[data-only]', f)) el.hidden = el.dataset.only !== fam;
-  // seuls les types proposés par la formule restent : le site web est dans Pro et Studio, pas dans l'Essentielle
+  // seuls les types proposés par la formule restent : le site web est sur devis (formules de création : pub ou motion)
   const kinds = $('[data-kinds]', f);
   for (const l of $$('.kind', kinds)) l.hidden = !KINDS[offer].includes($('input', l).value);
   const nk = KINDS[offer].length;

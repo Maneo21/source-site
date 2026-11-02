@@ -90,24 +90,24 @@
     "revisionDays": 7,
     "tiers": {
       "studio": {
-        "amount": 19900,
-        "paymentLink": "https://buy.stripe.com/aFabJ216Wbwn8Ld08q9AA06",
+        "amount": 9900,
+        "paymentLink": "https://buy.stripe.com/8x2fZi2b00RJgdF6wO9AA09",
         "deliveryHours": 48,
-        "revisions": 3,
+        "revisions": 5,
         "videoSeconds": 30,
-        "videos": 2
+        "videos": 1
       },
       "pro": {
-        "amount": 9900,
-        "paymentLink": "https://buy.stripe.com/28E8wQ9Ds7g7d1tbR89AA04",
+        "amount": 4900,
+        "paymentLink": "https://buy.stripe.com/cNidRaaHwbwn6D54oG9AA08",
         "deliveryHours": 48,
-        "revisions": 2,
-        "videoSeconds": 25,
+        "revisions": 3,
+        "videoSeconds": 20,
         "videos": 1
       },
       "essentielle": {
-        "amount": 3900,
-        "paymentLink": "https://buy.stripe.com/dRm4gAbLA2ZR9Phf3k9AA03",
+        "amount": 1990,
+        "paymentLink": "https://buy.stripe.com/28EfZi2b01VN0eHdZg9AA07",
         "deliveryHours": 24,
         "revisions": 1,
         "videoSeconds": 15,
@@ -122,7 +122,7 @@
       "paymentLink": "https://buy.stripe.com/4gM7sM2b07g78Ld08q9AA01"
     }
   },
-  "termsVersion": "2026-11-01",
+  "termsVersion": "2026-11-02",
   "mediator": {
     "name": "",
     "url": ""

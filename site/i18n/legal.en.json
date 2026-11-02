@@ -42,7 +42,7 @@
       },
       {
         "h": "3. Price",
-        "html": "<p>The total price of the personal exchange is {pricesRegular.guide}. The total prices of the made-to-order creation are {pricesRegular.studio} for the Premium option, {pricesRegular.pro} for the Pro option and {pricesRegular.essentielle} for the Essential option. As part of the launch offer, the Essential option is offered at {launch.price} for any order placed until {launch.until} (Paris time). Each price is payable once. {seller.vat}.</p><p>The applicable price is the one shown on the website and on the payment page when the order is placed.</p><p>There is no subscription and no recurring payment.</p>"
+        "html": "<p>The total price of the personal exchange is {pricesRegular.guide}. The total prices of the made-to-order creation are {pricesRegular.studio} for the Premium option, {pricesRegular.pro} for the Pro Studio option and {pricesRegular.essentielle} for the Essential option. Each price is payable once. {seller.vat}.</p><p>The applicable price is the one shown on the website and on the payment page when the order is placed.</p><p>There is no subscription and no recurring payment.</p>"
       },
       {
         "h": "4. Order and payment",

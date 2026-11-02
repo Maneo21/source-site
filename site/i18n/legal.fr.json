@@ -42,7 +42,7 @@
       },
       {
         "h": "3. Prix",
-        "html": "<p>Le prix total de l’échange personnalisé est de {pricesRegular.guide}. Les prix totaux de la création sur mesure sont de {pricesRegular.studio} pour la formule Premium, {pricesRegular.pro} pour la formule Pro et {pricesRegular.essentielle} pour la formule Essentielle. Dans le cadre de l’offre de lancement, la formule Essentielle est proposée au prix de {launch.price} pour toute commande passée jusqu’au {launch.until} (heure de Paris). Chaque prix est payable en une seule fois. {seller.vat}.</p><p>Le prix applicable est celui affiché sur le site et sur la page de paiement au moment de la commande.</p><p>Aucun abonnement ni paiement récurrent n’est mis en place.</p>"
+        "html": "<p>Le prix total de l’échange personnalisé est de {pricesRegular.guide}. Les prix totaux de la création sur mesure sont de {pricesRegular.studio} pour la formule Premium, {pricesRegular.pro} pour la formule Pro Studio et {pricesRegular.essentielle} pour la formule Essentielle. Chaque prix est payable en une seule fois. {seller.vat}.</p><p>Le prix applicable est celui affiché sur le site et sur la page de paiement au moment de la commande.</p><p>Aucun abonnement ni paiement récurrent n’est mis en place.</p>"
       },
       {
         "h": "4. Commande et paiement",

@@ -13,7 +13,7 @@ const RECIPIENT = new Set([300, 406]); // refus liés à l'adresse du destinatai
 const KINDS = { guide: ['site', 'pub', 'motion', 'autre'], creation: ['site', 'pub', 'motion'] };
 const TIERS = ['studio', 'pro', 'essentielle'];
 const DEFAULTS = {
-  brand: 'IA Motion Studio', contactEmail: 'contact@maneo-ai.fr', offer: { amount: 1490, replyHours: 24 },
+  brand: 'IA Motion Studio', contactEmail: 'contact@ia-motionstudio.fr', offer: { amount: 1490, replyHours: 24 },
   creation: { revisionDays: 7, tiers: { studio: { amount: 9900, deliveryHours: 48, revisions: 5 }, pro: { amount: 4900, deliveryHours: 48, revisions: 3 }, essentielle: { amount: 1990, deliveryHours: 24, revisions: 1 } } },
   launch: { guide: { amount: 790 }, essentielle: { amount: 1990 } }, seller: {},
 };
@@ -210,10 +210,10 @@ function status(env) {
       'POSTMARK_TOKEN (envoi des e-mails)': say(r.POSTMARK_TOKEN),
       'COMMANDES (anti-doublons)': say(r.COMMANDES),
       'STRIPE_WEBHOOK_SECRET_TEST (facultatif, pour les essais)': clean(env.STRIPE_WEBHOOK_SECRET_TEST) ? 'ok' : 'absent',
-      // deux formules = deux liens de paiement : un filtre qui n'en nomme qu'un ferait ignorer les commandes de l'autre
-      'STRIPE_PAYMENT_LINK (facultatif, filtre des liens de paiement)': links ? `${links} lien${links > 1 ? 's' : ''} accepté${links > 1 ? 's' : ''}${links < 2 ? ' · ATTENTION : il en faut deux, un par formule' : ''}` : 'absent : tous les liens de paiement du compte sont acceptés'
+      // quatre offres = quatre liens de paiement : un filtre qui en oublie un ferait ignorer ses commandes
+      'STRIPE_PAYMENT_LINK (facultatif, filtre des liens de paiement)': links ? `${links} lien${links > 1 ? 's' : ''} accepté${links > 1 ? 's' : ''}${links < 4 ? ' · ATTENTION : il en faut quatre, un par offre' : ''}` : 'absent : tous les liens de paiement du compte sont acceptés'
     },
-    formules: 'Je te guide · Je crée pour toi'
+    formules: 'Je vous guide · Essentielle · Pro Studio · Premium'
   });
 }
 

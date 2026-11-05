@@ -307,14 +307,18 @@
 /* petits téléphones : le texte des cartes garde trois lignes, « Je vous guide » reste dans le premier écran */
 @media (max-width: 374px) { .trio-hero .tri-m { font-size: 9.5px; letter-spacing: 0; } }
 
-/* 5 nov. — la pub Premium (pizzeria) en premier : sur ordinateur, verticale à gauche de la BMW, sans bouton ; sur téléphone, en grand avec le bouton Premium dessous */
+/* 5 nov. — la pub Premium (pizzeria) : sur ordinateur, verticale à gauche de la BMW ; sur téléphone, les trois pubs à étiquette côte à côte en premier, la BMW en entier dessous. Seulement l'étiquette, pas de bouton. */
 .x2 .wtop3 { --wh: clamp(280px, 26.5vw, 400px); height: var(--wh); grid-template-columns: calc(var(--wh) * 9 / 16) minmax(0, 1.45fr) minmax(0, 1fr); }
 .x2 .vved { height: 100%; }
-.x2 .wved-cta { display: none; }
 @media (max-width: 760px) {
-  .x2 .wtop3 { height: auto; grid-template-columns: 1fr; }
-  .x2 .vved, .x2 .wved-cta { width: min(100%, calc(78svh * 9 / 16)); justify-self: center; }
-  .x2 .vved { height: auto; aspect-ratio: 9 / 16; }
-  .x2 .wved-cta { display: flex; justify-content: center; }
-  .x2 .vved .vtag { font-size: 12px; }
+  .x2 .wtop3 { height: auto; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px 8px; }
+  .x2 .wtop3 .vfeat { grid-column: 1 / -1; order: 1; }
+  .x2 .wtop3 .vclients { display: contents; }
+  .x2 .wtop3 .vclient { height: auto; aspect-ratio: 9 / 14; }
+  /* trois cartes étroites : l'étiquette passe sur deux lignes (formule, puis prix), le nom du projet un peu plus petit */
+  .x2 .wtop3 .vclient .vtag { left: 6px; top: 6px; max-width: calc(100% - 12px); padding: 5px 8px; border-radius: 10px; font-size: 11px; line-height: 1.1; white-space: normal; }
+  .x2 .wtop3 .vtag .vt { display: flex; flex-direction: column; gap: 1px; }
+  .x2 .wtop3 .vtag .vt-s, .x2 .wtop3 .vclient .vtag .xic { display: none; }
+  .x2 .wtop3 .vname { left: 8px; bottom: 42px; font-size: 13px; }
+  .x2 .wtop3 .vname small { font-size: 8.5px; letter-spacing: .08em; margin-bottom: 3px; }
 }

@@ -28,7 +28,7 @@
 <link rel="preload" href="/config.json" as="fetch" crossorigin>
 <link rel="preload" href="/i18n/languages.json" as="fetch" crossorigin>
 <link rel="stylesheet" href="/assets/site.css?v=0694ec4964">
-<link rel="stylesheet" href="/assets/x2.css?v=12a3e45bdc">
+<link rel="stylesheet" href="/assets/x2.css?v=ee8184f4f9">
 <script>
 (function(){var d=document.documentElement,l=null;d.className=d.className.replace('no-js','js');
 try{l=localStorage.getItem('lang')}catch(e){}
@@ -41,7 +41,7 @@ if(tt)d.classList.add('is-tt');
 d.lang=l||'fr';
 var c=l||'fr',k=document.createElement('link');k.rel='preload';k.as='fetch';k.crossOrigin='anonymous';k.href='/i18n/'+(/^[a-z]{2}$/.test(c)?c:'fr')+'.json';document.head.appendChild(k)})();
 </script>
-<script type="module" src="/assets/app.js?v=3270c21d29"></script>
+<script type="module" src="/assets/app.js?v=8f70f3dbe8"></script>
 </head>
 <body>
 <a class="skip" href="#main" data-i18n="common.skip">Aller au contenu</a>
@@ -199,12 +199,18 @@ var c=l||'fr',k=document.createElement('link');k.rel='preload';k.as='fetch';k.cr
   <div class="wrap sec-head sec-head-row">
     <div>
       <p class="kick" data-r>Très poussées · qualité studio</p>
-      <h2 class="h2" data-r>Pubs studio, <em class="acc">en 3D.</em></h2>
+      <h2 class="h2" data-r>Pubs studio en 3D, <em class="acc">exemples de réalisations.</em></h2>
     </div>
     <p class="xlead" data-r>Lumière, matières, mouvements de caméra : des pubs très poussées, travaillées comme une grande campagne. Les deux projets clients, eux, sont des pubs Pro Studio et Essentielle.</p>
   </div>
   <div class="wrap">
-    <div class="wtop">
+    <div class="wtop wtop3">
+      <article class="vcard vclient vved" data-play="pizzissima" role="button" tabindex="0" aria-label="Regarder avec le son : pizzeria, pub Premium">
+        <video muted playsinline loop preload="none" data-poster="/assets/media/pizzissima-poster.webp" data-src="/assets/media/pizzissima-teaser.mp4" data-lazy></video>
+        <span class="vtag vtag-c"><svg class="xic" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 12.5l3.5 3.5 7.5-8"/></svg> Premium · 99 €</span>
+        <span class="chip"><span class="chip-pl"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5z"/></svg></span> <i>0:35</i></span>
+      </article>
+      <button class="btn btn-p wved-cta" type="button" data-book="studio">Choisir Premium · 99 €<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
       <article class="vcard vfeat" data-feat data-play="bmw" role="button" tabindex="0" aria-label="Regarder avec le son : voiture de sport, démo du studio">
         <video muted playsinline loop preload="none" data-poster="/assets/media/bmw-poster.webp" data-src="/assets/media/bmw-teaser.mp4" data-lazy></video>
         <span class="vtag"><span class="xrec"></span>Showreel · démo automobile</span>

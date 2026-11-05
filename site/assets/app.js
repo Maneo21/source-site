@@ -24,6 +24,7 @@ const U = [
   { key: 'digi', kind: 'pub', dur: '0:16' },
   { key: 'tacnaan', kind: 'pub', dur: '0:22' },
   { key: 'etages', kind: 'pub', dur: '0:18' },
+  { key: 'pizzissima', kind: 'pub', dur: '0:35' },   // affichée en premier dans les pubs studio ; placée en fin de liste pour ne pas changer U[0]
 ];
 // Les deux formules. « guide » : l'échange personnalisé (je t'explique). « creation » : la création sur mesure (je réalise et je livre).
 // Chaque formule a son lien de paiement Stripe et ses types de projet.

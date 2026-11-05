@@ -306,3 +306,15 @@
 }
 /* petits téléphones : le texte des cartes garde trois lignes, « Je vous guide » reste dans le premier écran */
 @media (max-width: 374px) { .trio-hero .tri-m { font-size: 9.5px; letter-spacing: 0; } }
+
+/* 5 nov. — la pub Premium (pizzeria) en premier : sur ordinateur, verticale à gauche de la BMW, sans bouton ; sur téléphone, en grand avec le bouton Premium dessous */
+.x2 .wtop3 { --wh: clamp(280px, 26.5vw, 400px); height: var(--wh); grid-template-columns: calc(var(--wh) * 9 / 16) minmax(0, 1.45fr) minmax(0, 1fr); }
+.x2 .vved { height: 100%; }
+.x2 .wved-cta { display: none; }
+@media (max-width: 760px) {
+  .x2 .wtop3 { height: auto; grid-template-columns: 1fr; }
+  .x2 .vved, .x2 .wved-cta { width: min(100%, calc(78svh * 9 / 16)); justify-self: center; }
+  .x2 .vved { height: auto; aspect-ratio: 9 / 16; }
+  .x2 .wved-cta { display: flex; justify-content: center; }
+  .x2 .vved .vtag { font-size: 12px; }
+}

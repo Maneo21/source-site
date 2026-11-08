@@ -307,18 +307,36 @@
 /* petits téléphones : le texte des cartes garde trois lignes, « Je vous guide » reste dans le premier écran */
 @media (max-width: 374px) { .trio-hero .tri-m { font-size: 9.5px; letter-spacing: 0; } }
 
-/* 5 nov. — la pub Premium (pizzeria) : sur ordinateur, verticale à gauche de la BMW ; sur téléphone, les trois pubs à étiquette côte à côte en premier, la BMW en entier dessous. Seulement l'étiquette, pas de bouton. */
-.x2 .wtop3 { --wh: clamp(280px, 26.5vw, 400px); height: var(--wh); grid-template-columns: calc(var(--wh) * 9 / 16) minmax(0, 1.45fr) minmax(0, 1fr); }
-.x2 .vved { height: 100%; }
-@media (max-width: 760px) {
-  .x2 .wtop3 { height: auto; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px 8px; }
-  .x2 .wtop3 .vfeat { grid-column: 1 / -1; order: 1; }
-  .x2 .wtop3 .vclients { display: contents; }
-  .x2 .wtop3 .vclient { height: auto; aspect-ratio: 9 / 14; }
-  /* trois cartes étroites : l'étiquette passe sur deux lignes (formule, puis prix), le nom du projet un peu plus petit */
-  .x2 .wtop3 .vclient .vtag { left: 6px; top: 6px; max-width: calc(100% - 12px); padding: 5px 8px; border-radius: 10px; font-size: 11px; line-height: 1.1; white-space: normal; }
-  .x2 .wtop3 .vtag .vt { display: flex; flex-direction: column; gap: 1px; }
-  .x2 .wtop3 .vtag .vt-s, .x2 .wtop3 .vclient .vtag .xic { display: none; }
-  .x2 .wtop3 .vname { left: 8px; bottom: 42px; font-size: 13px; }
-  .x2 .wtop3 .vname small { font-size: 8.5px; letter-spacing: .08em; margin-bottom: 3px; }
+/* 8 nov. — pubs studio. Ordinateur : ligne 1 = Pizzeria et MacTrade (verticales) puis la BMW qui remplit la ligne ;
+   ligne 2 = les deux projets clients (verticales) puis la canette et la montre. Téléphone : les 4 pubs à étiquette en 2 × 2,
+   puis la BMW en entier, puis la canette et la montre. Seulement les étiquettes, pas de bouton. */
+.x2 .wtop4 { --wh: clamp(300px, 30vw, 445px); height: var(--wh); grid-template-columns: calc(var(--wh) * 9 / 16) calc(var(--wh) * 9 / 16) minmax(0, 1fr); }
+.x2 .wtop4 .vclient { height: 100%; }
+.x2 .wgrid2 { --h2: clamp(220px, 19.5vw, 290px); height: var(--h2); grid-template-columns: calc(var(--h2) * 9 / 14) calc(var(--h2) * 9 / 14) minmax(0, 1fr) minmax(0, 1fr); }
+.x2 .wgrid2 .vcard { height: 100%; aspect-ratio: auto; }
+/* écrans d'ordinateur étroits : l'étiquette des deux projets clients de la 2e ligne passe sur deux lignes (formule, puis prix) */
+@media (min-width: 761px) and (max-width: 1150px) {
+  .x2 .wgrid2 .vclient .vtag { left: 8px; top: 8px; max-width: calc(100% - 16px); padding: 5px 8px; border-radius: 10px; font-size: 11px; line-height: 1.1; white-space: normal; }
+  .x2 .wgrid2 .vclient .vtag .vt { display: flex; flex-direction: column; gap: 1px; }
+  .x2 .wgrid2 .vclient .vtag .vt-s, .x2 .wgrid2 .vclient .vtag .xic { display: none; }
+  .x2 .wgrid2 .vname { left: 10px; font-size: 14px; }
+  .x2 .wgrid2 .vname small { font-size: 8.5px; letter-spacing: .08em; }
+  .x2 .wgrid2 .vname-haut .vname { top: 54px; }
 }
+@media (max-width: 760px) {
+  .x2 .wwork { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .x2 .wwork > .wtop4, .x2 .wwork > .wgrid2 { display: contents; }
+  .x2 .wwork .vclient { height: auto; aspect-ratio: 9 / 14; }
+  .x2 .wwork .vfeat { grid-column: 1 / -1; height: auto; aspect-ratio: 16 / 10; }
+  .x2 .wwork .wgrid2 .vcard:not(.vclient) { height: auto; aspect-ratio: 16 / 10; }
+  .x2 .wwork .vved { order: 1; }
+  .x2 .wwork [data-play="mactrade"], .x2 .wwork [data-xpv="mactrade"], .x2 .wwork [data-pv="mactrade"] { order: 2; }
+  .x2 .wwork .wgrid2 .vclient { order: 3; }
+  .x2 .wwork .vfeat { order: 4; }
+  .x2 .wwork .wgrid2 .vcard:not(.vclient) { order: 5; }
+  .x2 .wwork .wgrid2 .vclient .vtag { display: inline-flex; }
+}
+
+/* 8 nov. — les 3 projets clients (MacTrade, Restaurant, E-commerce) : « Projet client · … » en haut, sous l'étiquette jaune, pour ne pas passer sous les sous-titres de l'extrait */
+.x2 .vname-haut .vname { top: 46px; bottom: auto; max-width: calc(100% - 20px); padding: 6px 9px 7px; border-radius: 10px; background: rgba(10, 10, 12, .62); border: 1px solid rgba(255, 255, 255, .12); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); text-shadow: none; }
+@media (max-width: 760px) { .x2 .vname-haut .vname { top: 40px; } }

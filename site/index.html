@@ -28,7 +28,7 @@
 <link rel="preload" href="/config.json" as="fetch" crossorigin>
 <link rel="preload" href="/i18n/languages.json" as="fetch" crossorigin>
 <link rel="stylesheet" href="/assets/site.css?v=0694ec4964">
-<link rel="stylesheet" href="/assets/x2.css?v=359bb8590b">
+<link rel="stylesheet" href="/assets/x2.css?v=6f455d1ec8">
 <script>
 (function(){var d=document.documentElement,l=null;d.className=d.className.replace('no-js','js');
 try{l=localStorage.getItem('lang')}catch(e){}
@@ -41,7 +41,7 @@ if(tt)d.classList.add('is-tt');
 d.lang=l||'fr';
 var c=l||'fr',k=document.createElement('link');k.rel='preload';k.as='fetch';k.crossOrigin='anonymous';k.href='/i18n/'+(/^[a-z]{2}$/.test(c)?c:'fr')+'.json';document.head.appendChild(k)})();
 </script>
-<script type="module" src="/assets/app.js?v=8f70f3dbe8"></script>
+<script type="module" src="/assets/app.js?v=7ba3cbfc03"></script>
 </head>
 <body>
 <a class="skip" href="#main" data-i18n="common.skip">Aller au contenu</a>
@@ -204,33 +204,39 @@ var c=l||'fr',k=document.createElement('link');k.rel='preload';k.as='fetch';k.cr
     <p class="xlead" data-r>Lumière, matières, mouvements de caméra : des pubs très poussées, travaillées comme une grande campagne.</p>
   </div>
   <div class="wrap">
-    <div class="wtop wtop3">
-      <article class="vcard vclient vved" data-play="pizzissima" role="button" tabindex="0" aria-label="Regarder avec le son : pizzeria, pub Premium">
+    <div class="wwork">
+    <div class="wtop wtop4">
+      <article class="vcard vclient vved vname-haut" data-play="pizzissima" role="button" tabindex="0" aria-label="Regarder avec le son : restaurant, projet client">
         <video muted playsinline loop preload="none" data-poster="/assets/media/pizzissima-poster.webp" data-src="/assets/media/pizzissima-teaser.mp4" data-lazy></video>
         <span class="vtag vtag-c"><svg class="xic" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 12.5l3.5 3.5 7.5-8"/></svg> <span class="vt"><span class="vt-n">Premium</span><span class="vt-s"> · </span><span class="vt-p">99 €</span></span></span>
+        <span class="vname"><small>Projet client</small>Restaurant</span>
         <span class="chip"><span class="chip-pl"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5z"/></svg></span> <i>0:35</i></span>
+      </article>
+      <article class="vcard vclient vname-haut" data-play="mactrade" role="button" tabindex="0" aria-label="Regarder avec le son : trading, projet client">
+        <video muted playsinline loop preload="none" data-poster="/assets/media/mactrade-poster.webp" data-src="/assets/media/mactrade-teaser.mp4" data-lazy></video>
+        <span class="vtag vtag-c"><svg class="xic" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 12.5l3.5 3.5 7.5-8"/></svg> <span class="vt"><span class="vt-n">Pro Studio</span><span class="vt-s"> · </span><span class="vt-p">49&nbsp;€</span></span></span>
+        <span class="vname"><small>Projet client</small>Trading</span>
+        <span class="chip"><span class="chip-pl"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5z"/></svg></span> <i>0:21</i></span>
       </article>
       <article class="vcard vfeat" data-feat data-play="bmw" role="button" tabindex="0" aria-label="Regarder avec le son : voiture de sport, démo du studio">
         <video muted playsinline loop preload="none" data-poster="/assets/media/bmw-poster.webp" data-src="/assets/media/bmw-teaser.mp4" data-lazy></video>
         <span class="vtag"><span class="xrec"></span>Showreel · démo automobile</span>
         <span class="chip"><span class="chip-pl"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5z"/></svg></span> Regarder avec le son <i>0:20</i></span>
       </article>
-      <div class="vclients">
-        <article class="vcard vclient" data-play="tacnaan" role="button" tabindex="0" aria-label="Regarder avec le son : restaurant, projet client">
-          <video muted playsinline loop preload="none" data-poster="/assets/media/tacnaan-poster.webp" data-src="/assets/media/tacnaan-teaser.mp4" data-lazy></video>
-          <span class="vtag vtag-c"><svg class="xic" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 12.5l3.5 3.5 7.5-8"/></svg> <span class="vt"><span class="vt-n">Pro Studio</span><span class="vt-s"> · </span><span class="vt-p">49 €</span></span></span>
-          <span class="vname"><small>Projet client</small>Restaurant</span>
-          <span class="chip"><span class="chip-pl"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5z"/></svg></span> <i>0:22</i></span>
-        </article>
-        <article class="vcard vclient" data-play="digi" role="button" tabindex="0" aria-label="Regarder avec le son : formation e-commerce, projet client">
-          <video muted playsinline loop preload="none" data-poster="/assets/media/digi-poster.webp" data-src="/assets/media/digi-teaser.mp4" data-lazy></video>
-          <span class="vtag vtag-c"><svg class="xic" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 12.5l3.5 3.5 7.5-8"/></svg> <span class="vt"><span class="vt-n">Essentielle</span><span class="vt-s"> · </span><span class="vt-p">19,90 €</span></span></span>
-          <span class="vname"><small>Projet client</small>E-commerce</span>
-          <span class="chip"><span class="chip-pl"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5z"/></svg></span> <i>0:16</i></span>
-        </article>
-      </div>
     </div>
-    <div class="wgrid">
+    <div class="wgrid wgrid2">
+      <article class="vcard vclient vname-haut" data-play="tacnaan" role="button" tabindex="0" aria-label="Regarder avec le son : restaurant, projet client">
+        <video muted playsinline loop preload="none" data-poster="/assets/media/tacnaan-poster.webp" data-src="/assets/media/tacnaan-teaser.mp4" data-lazy></video>
+        <span class="vtag vtag-c"><svg class="xic" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 12.5l3.5 3.5 7.5-8"/></svg> <span class="vt"><span class="vt-n">Pro Studio</span><span class="vt-s"> · </span><span class="vt-p">49 €</span></span></span>
+        <span class="vname"><small>Projet client</small>Restaurant</span>
+        <span class="chip"><span class="chip-pl"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5z"/></svg></span> <i>0:22</i></span>
+      </article>
+      <article class="vcard vclient vname-haut" data-play="digi" role="button" tabindex="0" aria-label="Regarder avec le son : formation e-commerce, projet client">
+        <video muted playsinline loop preload="none" data-poster="/assets/media/digi-poster.webp" data-src="/assets/media/digi-teaser.mp4" data-lazy></video>
+        <span class="vtag vtag-c"><svg class="xic" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 12.5l3.5 3.5 7.5-8"/></svg> <span class="vt"><span class="vt-n">Essentielle</span><span class="vt-s"> · </span><span class="vt-p">19,90 €</span></span></span>
+        <span class="vname"><small>Projet client</small>E-commerce</span>
+        <span class="chip"><span class="chip-pl"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5z"/></svg></span> <i>0:16</i></span>
+      </article>
       <article class="vcard" data-play="canette" role="button" tabindex="0" aria-label="Regarder avec le son : canette, démo du studio">
         <video muted playsinline loop preload="none" data-poster="/assets/media/canette-poster.webp" data-src="/assets/media/canette-teaser.mp4" data-lazy></video>
         <span class="vtag">Démo · boisson</span>
@@ -241,11 +247,7 @@ var c=l||'fr',k=document.createElement('link');k.rel='preload';k.as='fetch';k.cr
         <span class="vtag">Démo · luxe</span>
         <span class="chip"><span class="chip-pl"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5z"/></svg></span> Regarder avec le son <i>0:17</i></span>
       </article>
-      <article class="vcard vcard-3" data-play="roadster" role="button" tabindex="0" aria-label="Regarder avec le son : roadster, démo du studio">
-        <video muted playsinline loop preload="none" data-poster="/assets/media/roadster-poster.webp" data-src="/assets/media/roadster-teaser.mp4" data-lazy></video>
-        <span class="vtag">Démo · motion 3D</span>
-        <span class="chip"><span class="chip-pl"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5z"/></svg></span> Regarder avec le son <i>0:16</i></span>
-      </article>
+    </div>
     </div>
     <p class="fine">Les démos sont réalisées par IA Motion Studio, sans lien avec les marques représentées.</p>
   </div>

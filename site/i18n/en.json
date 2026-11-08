@@ -417,8 +417,8 @@
       "lead": "Here is exactly what happens next.",
       "steps": [
         {
-          "t": "Your Stripe receipt",
-          "d": "Stripe emails you a receipt: that is what confirms your payment. I start as soon as Stripe has validated it."
+          "t": "Your receipt and invoice",
+          "d": "Stripe emails you your receipt and invoice: they confirm your payment. I start as soon as Stripe has validated it."
         },
         {
           "t": "Your project, in detail",
@@ -443,8 +443,8 @@
       "lead": "Here’s exactly how our exchange works.",
       "steps": [
         {
-          "t": "Your Stripe receipt",
-          "d": "Stripe emails you a receipt: that’s what confirms your payment. I start as soon as your payment is confirmed on Stripe."
+          "t": "Your receipt and invoice",
+          "d": "Stripe emails you your receipt and invoice: they confirm your payment. I start as soon as your payment is confirmed on Stripe."
         },
         {
           "t": "I read your project",

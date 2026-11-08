@@ -417,8 +417,8 @@
       "lead": "Voici exactement comment se passe la suite.",
       "steps": [
         {
-          "t": "Votre reçu Stripe",
-          "d": "Stripe vous envoie un reçu par e-mail : c’est lui qui confirme votre paiement. Je commence dès que votre paiement est validé chez Stripe."
+          "t": "Votre reçu et votre facture",
+          "d": "Stripe vous envoie votre reçu et votre facture par e-mail : ils confirment votre paiement. Je commence dès que votre paiement est validé chez Stripe."
         },
         {
           "t": "Votre projet, en détail",
@@ -443,8 +443,8 @@
       "lead": "Voici exactement comment se passe notre échange.",
       "steps": [
         {
-          "t": "Votre reçu Stripe",
-          "d": "Stripe vous envoie un reçu par e-mail : c’est lui qui confirme votre paiement. Je commence dès que votre paiement est validé chez Stripe."
+          "t": "Votre reçu et votre facture",
+          "d": "Stripe vous envoie votre reçu et votre facture par e-mail : ils confirment votre paiement. Je commence dès que votre paiement est validé chez Stripe."
         },
         {
           "t": "Je lis votre projet",

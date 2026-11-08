@@ -10,3 +10,9 @@
 
 /merci*
   Cache-Control: no-store
+
+# 8 nov. — l'adresse technique de Cloudflare (source-site.pages.dev) ne doit pas apparaître dans Google : seule ia-motionstudio.fr compte
+https://:project.pages.dev/*
+  X-Robots-Tag: noindex
+https://:version.:project.pages.dev/*
+  X-Robots-Tag: noindex

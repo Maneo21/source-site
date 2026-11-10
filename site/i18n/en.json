@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Custom video ads & 3D motion design · IA Motion Studio",
-    "description": "Custom video ads in 3D motion design for TikTok and Instagram: restaurants, barbers, shops, garages, brands. From {priceCreation}, delivered in 24 to 48 hours.",
+    "description": "Custom video ads in 3D motion design for TikTok and Instagram: restaurants, barbers, shops, garages, brands. From {priceCreation}, delivered in 48 hours.",
     "legalTitle": "Legal information · {brand}",
     "merciTitle": "Thank you · {brand}"
   },
@@ -37,7 +37,7 @@
       "a website"
     ],
     "post": "like this?",
-    "sub": "Custom video ads and motion design, at big-brand level. Delivered within 24 to 48 hours.",
+    "sub": "Custom video ads and motion design, at big-brand level. Delivered within 48 hours.",
     "prev": "Previous video",
     "next": "Next video",
     "safe": "One-time payment · secured by Stripe",
@@ -70,7 +70,7 @@
   "offers": {
     "kicker": "The options",
     "title": "Pick your creation.",
-    "text": "An ad or a motion video built to stop the scroll. Made by me, delivered in 24 to 48 hours.",
+    "text": "An ad or a motion video built to stop the scroll. Made by me, delivered in 48 hours.",
     "once": "One-time payment",
     "soon": "Coming soon",
     "guide": {
@@ -129,8 +129,8 @@
         "Available to talk about your project, by email or TikTok DM"
       ],
       "sum": "{videos} (studio) of {videoSeconds} s · more advanced 3D · voice-over and subtitles · vertical + square · {revisions} · {deliveryHours} h",
-      "mini": "Studio quality\n{videoSeconds} s",
-      "heroBadge": "Studio finish"
+      "mini": "Studio finish\n{videoSeconds} s",
+      "heroBadge": "Start here"
     },
     "essentielle": {
       "name": "Essential",
@@ -155,57 +155,85 @@
         {
           "l": "For whom",
           "essentielle": "To start, small budget",
-          "pro": "For a studio finish",
-          "studio": "To stand out"
+          "pro": "Start here, with a studio finish",
+          "studio": "To stand out",
+          "campagne": "For a full campaign"
         },
         {
           "l": "In one sentence",
           "essentielle": "A real, polished, punchy ad at a small price",
           "pro": "More detail, more impact",
-          "studio": "A complete world with insane detail"
+          "studio": "A complete world with insane detail",
+          "campagne": "Several ads designed together, for all your communication"
         },
         {
           "l": "3D",
           "essentielle": "Yes, in my styles",
           "pro": "Yes, more advanced: lighting, reflections, detail",
-          "studio": "Yes, highly advanced, insane detail, several scenes"
+          "studio": "Yes, highly advanced, insane detail, several scenes",
+          "campagne": "Yes, at the level you choose"
         },
         {
           "l": "Length",
           "essentielle": "≈ {tiers.essentielle.videoSeconds} s",
           "pro": "{tiers.pro.videoSeconds} s",
-          "studio": "up to {tiers.studio.videoSeconds} s"
+          "studio": "up to {tiers.studio.videoSeconds} s",
+          "campagne": "depends on the project"
         },
         {
           "l": "Voice-over and subtitles",
           "essentielle": "✓",
           "pro": "✓",
-          "studio": "✓"
+          "studio": "✓",
+          "campagne": "✓"
         },
         {
           "l": "Formats",
           "essentielle": "vertical",
           "pro": "vertical, square",
-          "studio": "vertical, square, landscape"
+          "studio": "vertical, square, landscape",
+          "campagne": "all formats"
         },
         {
           "l": "Revisions",
           "essentielle": "{tiers.essentielle.revisionCount}",
           "pro": "{tiers.pro.revisionCount}",
-          "studio": "{tiers.studio.revisionCount}"
+          "studio": "{tiers.studio.revisionCount}",
+          "campagne": "set in the quote"
         },
         {
           "l": "Delivery",
           "essentielle": "{tiers.essentielle.deliveryHours} h",
           "pro": "{tiers.pro.deliveryHours} h",
-          "studio": "{tiers.studio.deliveryHours} h"
+          "studio": "{tiers.studio.deliveryHours} h",
+          "campagne": "set in the quote"
         }
       ],
       "pick": "Choose",
-      "custom": "Several videos, a website, a special project? Email me: I’ll reply with a quote."
+      "custom": "A website or a special project? Email me: I’ll reply with a quote."
     },
     "trioHint": "Tap an option to see everything it includes",
-    "launchHero": "Essentielle: launch price"
+    "launchHero": "Essentielle: launch price",
+    "campagne": {
+      "name": "Campaign",
+      "price": "On quote",
+      "heroBadge": "Several videos",
+      "mini": "All formats\n& platforms",
+      "sum": "Several videos · all formats · price on quote",
+      "cta": "Request a quote",
+      "pick": "Get a quote",
+      "devis": {
+        "title": "Let’s talk about your campaign",
+        "text": "Several videos, a campaign, every format: tell me about your project and I’ll get back to you quickly with a quote.",
+        "wa": "WhatsApp",
+        "mail": "Email",
+        "tel": "Call",
+        "note": "Once the quote is accepted, you receive your invoice with a secure Stripe payment link.",
+        "waText": "Hello, I’d like a quote for a video campaign (several videos).",
+        "mailSubject": "Quote request · video campaign",
+        "mailBody": "Hello,\n\nI’d like a quote for a video campaign.\n\nCompany or brand:\nNumber of videos:\nFormats:\nTarget date:\n\nThank you!"
+      }
+    }
   },
   "trust": {
     "methodsLabel": "Payment methods",
@@ -262,7 +290,7 @@
         },
         {
           "t": "I make it, I deliver",
-          "d": "Within 24 to 48 hours depending on the option, by email. Then your revisions to adjust a detail."
+          "d": "Within 48 hours, by email. Then your revisions to adjust a detail."
         }
       ]
     },
@@ -352,7 +380,7 @@
   },
   "sticky": {
     "cta": "Choose my option",
-    "note": "Start here: Essential at {tiers.essentielle.priceTier} · delivered in 24 h"
+    "note": "Start here: Pro Studio at {tiers.pro.priceTier} · delivered in {tiers.pro.deliveryHours} h"
   },
   "sheet": {
     "kicker": "Summary",

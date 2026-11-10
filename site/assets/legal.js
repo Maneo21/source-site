@@ -1,5 +1,5 @@
 // Mentions légales, CGV et confidentialité, dans la langue choisie (/i18n/legal.<code>.json).
-import { I, esc, json, langSwitch, syncSwitch, swapLang } from './i18n.js?v=e86590dced';
+import { I, esc, json, langSwitch, syncSwitch, swapLang } from './i18n.js?v=674eb04ef9';
 
 const $ = (s, r = document) => r.querySelector(s);
 const DOCS = ['mentions', 'cgv', 'confidentialite'];

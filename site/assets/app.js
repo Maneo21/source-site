@@ -1,6 +1,6 @@
 // Page de vente : accueil de langue, animations, vidéos des trois univers, les deux formules, récapitulatif avant paiement.
-import { I, esc, langSwitch, syncSwitch, swapLang } from './i18n.js?v=e86590dced';
-import { pick } from './vars.js?v=03c62dff32';
+import { I, esc, langSwitch, syncSwitch, swapLang } from './i18n.js?v=674eb04ef9';
+import { pick } from './vars.js?v=c9345eb05a';
 
 const $ = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
@@ -29,8 +29,10 @@ const U = [
 ];
 // Les deux formules. « guide » : l'échange personnalisé (je t'explique). « creation » : la création sur mesure (je réalise et je livre).
 // Chaque formule a son lien de paiement Stripe et ses types de projet.
-// « guide » : Je te guide. Trois créations : studio, pro (mise en avant), essentielle. HOW_TABS : les deux onglets du déroulé.
-const TIERS = ['studio', 'pro', 'essentielle'], OFFERS = ['guide', ...TIERS], HOW_TABS = ['creation', 'guide'];
+// « guide » : Je te guide. Deux créations à prix fixe : studio (Premium) et pro (Pro Studio, mise en avant). L'Essentielle (19,90 €)
+// n'est plus vendue depuis le 10 nov. 2026 ; la troisième case de l'accueil, « Campagne », est sur devis (fenêtre #devbox, pas de paiement).
+// HOW_TABS : les deux onglets du déroulé.
+const TIERS = ['studio', 'pro'], OFFERS = ['guide', ...TIERS], HOW_TABS = ['creation', 'guide'];
 const isTier = o => TIERS.includes(o);
 const KINDS = { guide: ['site', 'pub', 'motion', 'autre'], studio: ['pub', 'motion'], pro: ['pub', 'motion'], essentielle: ['pub', 'motion'] };
 // Aperçu sur le Mac (et non site public). « ?public=1 » montre l'aperçu comme le verra un visiteur.
@@ -234,14 +236,15 @@ function buildExample() {
   };
 }
 
-// L'accueil : la formule choisie (Essentielle d'avance, au centre et mise en avant), ce qu'elle comprend, et le bouton qui ouvre son récapitulatif.
-let heroTier = 'essentielle';
+// L'accueil : la formule choisie (Pro Studio d'avance, au centre et mise en avant), ce qu'elle comprend, et le bouton qui ouvre son récapitulatif.
+// « Campagne » n'a pas de prix : son bouton devient « Demander un devis » et ouvre la fenêtre de contact.
+let heroTier = 'pro';
 function heroPick(id = heroTier) {
   heroTier = id;
   for (const b of $$('[data-pick-tier]')) { const on = b.dataset.pickTier === id; b.classList.toggle('sel', on); b.setAttribute('aria-pressed', String(on)); }
   const v = { ...I.vars.tiers?.[id] }, sum = $('[data-ho-sum]'), cta = $('[data-ho-cta]');
   if (sum) sum.innerHTML = I.t(`offers.${id}.sum`, v).split(' · ').map((x, k) => `<span${k ? '' : ' class="on"'}>${esc(x)}</span>`).join('');
-  if (cta) { cta.dataset.book = id; $('[data-ho-label]', cta).textContent = I.t('hero.choose', { name: I.t(`offers.${id}.name`), price: I.vars.prices?.[id] }); }
+  if (cta) { const devis = id === 'campagne'; cta.dataset.book = devis ? 'devis' : id; $('[data-ho-label]', cta).textContent = devis ? I.t('offers.campagne.cta') : I.t('hero.choose', { name: I.t(`offers.${id}.name`), price: I.vars.prices?.[id] }); }
   offerState();
 }
 function buildTiers() {
@@ -310,7 +313,7 @@ const validLink = o => { try { return new URL(payLink(o)).protocol === 'https:';
 // Une formule sans lien de paiement est annoncée « bientôt disponible » sur le site public et ne peut pas être commandée.
 // L'aperçu local garde tout actif, pour montrer le parcours complet.
 const isOpen = o => validLink(o) || PREVIEW;
-const firstOpenTier = () => ['essentielle', 'pro', 'studio'].find(isOpen) || null;
+const firstOpenTier = () => ['pro', 'studio'].find(isOpen) || null;
 function offerState() {
   for (const o of OFFERS) {
     const open = isOpen(o);
@@ -570,7 +573,7 @@ function initTiers() {
   const rail = $('[data-tiers]');
   if (!rail) return;
   const cards = $$('.tier', rail), dots = $$('.tier-dots i');
-  requestAnimationFrame(() => centerTier('essentielle', false));
+  requestAnimationFrame(() => centerTier('pro', false));
   let t = 0;
   rail.addEventListener('scroll', () => {
     clearTimeout(t);
@@ -585,7 +588,7 @@ function initTiers() {
   }, { passive: true });
   // les cartes apparaissent l'une après l'autre quand la section arrive à l'écran
   new IntersectionObserver((es, o) => { if (es[0].isIntersecting) { rail.classList.add('in'); o.disconnect(); } }, { threshold: .15 }).observe(rail);
-  addEventListener('resize', () => centerTier('essentielle', false));
+  addEventListener('resize', () => centerTier('pro', false));
   for (const b of $$('[data-tier-go]')) b.addEventListener('click', () => {
     centerTier(b.dataset.tierGo);
     // la carte choisie s'allume un instant, et la bande des cartes vient à l'écran
@@ -607,6 +610,34 @@ function openCompare() {
 }
 function closeCompare(then) {
   const box = $('#cmpbox');
+  if (!box || box.hidden) { then?.(); return; }
+  box.classList.remove('open');
+  setTimeout(() => { box.hidden = true; lock(false); if (then) then(); else lastFocus?.focus?.({ preventScroll: true }); }, 280);
+}
+
+/* ---------- formule Campagne : la demande de devis ---------- */
+// Pas de lien de paiement (le prix se fixe avec le client) : WhatsApp avec un message déjà écrit, l'e-mail ou l'appel.
+// Les liens sont faits ici, à l'ouverture (numéro et e-mail de config.json, textes de la langue choisie). Une fois le devis
+// accepté, Evan envoie une facture Stripe avec son lien de paiement.
+function devisLinks(box) {
+  const c = I.config, tel = String(c.seller?.phone?.en || '').replace(/\D/g, ''), mail = c.contactEmail;
+  const wa = $('[data-dev="wa"]', box), em = $('[data-dev="mail"]', box), call = $('[data-dev="tel"]', box);
+  if (wa && tel) wa.href = `https://wa.me/${tel}?text=${encodeURIComponent(I.t('offers.campagne.devis.waText'))}`;
+  if (em && mail) em.href = `mailto:${mail}?subject=${encodeURIComponent(I.t('offers.campagne.devis.mailSubject'))}&body=${encodeURIComponent(I.t('offers.campagne.devis.mailBody'))}`;
+  if (call && tel) call.href = `tel:+${tel}`;
+}
+function openDevis() {
+  const box = $('#devbox');
+  if (!box || !box.hidden) return;
+  if (P.open) { closePlayer(); setTimeout(openDevis, 420); return; }
+  devisLinks(box);
+  lastFocus = document.activeElement;
+  box.hidden = false;
+  lock(true);
+  requestAnimationFrame(() => requestAnimationFrame(() => { box.classList.add('open'); $('[data-dev-close].x', box)?.focus({ preventScroll: true }); }));
+}
+function closeDevis(then) {
+  const box = $('#devbox');
   if (!box || box.hidden) { then?.(); return; }
   box.classList.remove('open');
   setTimeout(() => { box.hidden = true; lock(false); if (then) then(); else lastFocus?.focus?.({ preventScroll: true }); }, 280);
@@ -729,8 +760,8 @@ function sheetText() {
   f.dataset.offer = fam;
   f.dataset.tier = offer;
   for (const r of f.elements.offer) r.checked = r.value === offer;
-  // le sélecteur du récapitulatif suit l'ordre de l'accueil : Essentielle, Pro, Premium (clé « studio »)
-  $('[data-offer-switch]', f).style.setProperty('--i', Math.max(0, ['essentielle', 'pro', 'studio'].indexOf(offer)));
+  // le sélecteur du récapitulatif suit l'ordre de l'accueil : Premium (clé « studio »), puis Pro Studio
+  $('[data-offer-switch]', f).style.setProperty('--i', Math.max(0, ['studio', 'pro'].indexOf(offer)));
   for (const el of $$('[data-sheet]', f)) el.textContent = I.t(`sheet.${fam}.${el.dataset.sheet}`, tv);
   // le délai suit la formule choisie (24 h ou 48 h)
   if (fam === 'creation') $('[data-sheet-ship]', f).textContent = I.t('sheet.creation.ship', tv);
@@ -1055,6 +1086,8 @@ function wire() {
     const go = e.target.closest('[data-go-offers]');
     if (e.target.closest('[data-open-compare]')) { e.preventDefault(); openCompare(); return; }
     if (e.target.closest('[data-cmp-close]')) { e.preventDefault(); closeCompare(); return; }
+    if (e.target.closest('[data-dev-close]')) { e.preventDefault(); closeDevis(); return; }
+    if (book?.dataset.book === 'devis') { e.preventDefault(); if (book.closest('#cmpbox')) closeCompare(openDevis); else openDevis(); return; }
     if (go || book?.dataset.book === 'creation') { e.preventDefault(); if (P.open) { closePlayer(); setTimeout(goOffers, 450); } else goOffers(); }
     else if (book && book.closest('#cmpbox')) { e.preventDefault(); closeCompare(() => openSheet(book.dataset.book)); }
     else if (book) { e.preventDefault(); openSheet(book.dataset.book); }
@@ -1065,7 +1098,7 @@ function wire() {
       openPlayer(Math.max(0, k), card || null, kind);
     } else if (e.target.closest('#sheet [data-close]')) closeSheet();
   });
-  document.addEventListener('keydown', e => { if (e.key !== 'Escape') return; if (!els.sheet.hidden) closeSheet(); else if (!$('#cmpbox').hidden) closeCompare(); });
+  document.addEventListener('keydown', e => { if (e.key !== 'Escape') return; if (!els.sheet.hidden) closeSheet(); else if (!$('#cmpbox').hidden) closeCompare(); else if ($('#devbox') && !$('#devbox').hidden) closeDevis(); });
   els.form.addEventListener('submit', checkout);
   // « Plutôt apprendre… » / « Plutôt une création… » : on passe d'un récapitulatif à l'autre
   $('[data-sheet-up-go]')?.addEventListener('click', () => { offer = 'pro'; sheetText(); });

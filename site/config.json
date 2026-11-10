@@ -106,6 +106,7 @@
         "videos": 1
       },
       "essentielle": {
+        "retired": true,
         "amount": 1990,
         "paymentLink": "https://buy.stripe.com/28EfZi2b01VN0eHdZg9AA07",
         "deliveryHours": 24,
@@ -122,7 +123,7 @@
       "paymentLink": "https://buy.stripe.com/4gM7sM2b07g78Ld08q9AA01"
     }
   },
-  "termsVersion": "2026-11-02",
+  "termsVersion": "2026-11-10",
   "mediator": {
     "name": "",
     "url": ""

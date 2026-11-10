@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Pub vidéo personnalisée et motion design 3D · IA Motion Studio",
-    "description": "Pubs vidéo personnalisées en motion design 3D pour TikTok et Instagram : restaurants, barbiers, boutiques, garages, marques. Dès {priceCreation}, livrées en 24 à 48 h.",
+    "description": "Pubs vidéo personnalisées en motion design 3D pour TikTok et Instagram : restaurants, barbiers, boutiques, garages, marques. Dès {priceCreation}, livrées en 48 h.",
     "legalTitle": "Informations légales · {brand}",
     "merciTitle": "Merci · {brand}"
   },
@@ -37,7 +37,7 @@
       "un site"
     ],
     "post": "comme ça ?",
-    "sub": "Pubs vidéo et motion design sur mesure, au niveau des grandes marques, livrées dès 24 h.",
+    "sub": "Pubs vidéo et motion design sur mesure, au niveau des grandes marques, livrées en 48 h.",
     "prev": "Vidéo précédente",
     "next": "Vidéo suivante",
     "safe": "Paiement unique · sécurisé par Stripe",
@@ -70,7 +70,7 @@
   "offers": {
     "kicker": "Les formules",
     "title": "Choisis ta création.",
-    "text": "Une pub ou une vidéo motion pensée pour arrêter le scroll. Réalisée par moi, livrée en 24 à 48 h.",
+    "text": "Une pub ou une vidéo motion pensée pour arrêter le scroll. Réalisée par moi, livrée en 48 h.",
     "once": "Paiement unique",
     "soon": "Bientôt disponible",
     "guide": {
@@ -129,8 +129,8 @@
         "Disponible pour échanger sur votre projet, par e-mail ou en message privé TikTok"
       ],
       "sum": "{videos} studio de {videoSeconds} s · 3D plus poussée · voix off et sous-titres · vertical + carré · {revisions} · {deliveryHours} h",
-      "mini": "Qualité studio\n{videoSeconds} s",
-      "heroBadge": "Rendu studio"
+      "mini": "Rendu studio\n{videoSeconds} s",
+      "heroBadge": "Pour commencer"
     },
     "essentielle": {
       "name": "Essentielle",
@@ -155,57 +155,85 @@
         {
           "l": "Pour qui",
           "essentielle": "Pour commencer, petit budget",
-          "pro": "Pour un rendu studio",
-          "studio": "Pour marquer les esprits"
+          "pro": "Pour commencer, avec un rendu studio",
+          "studio": "Pour marquer les esprits",
+          "campagne": "Pour une campagne complète"
         },
         {
           "l": "En une phrase",
           "essentielle": "Une vraie pub soignée et rythmée, à petit prix",
           "pro": "Plus de détails, plus d’impact",
-          "studio": "Un univers complet, avec des détails fous"
+          "studio": "Un univers complet, avec des détails fous",
+          "campagne": "Plusieurs pubs pensées ensemble, pour toute votre communication"
         },
         {
           "l": "3D",
           "essentielle": "Oui, dans mes styles",
           "pro": "Oui, plus poussée : lumière, reflets, détails",
-          "studio": "Oui, très poussée, détails fous, plusieurs scènes"
+          "studio": "Oui, très poussée, détails fous, plusieurs scènes",
+          "campagne": "Oui, au niveau que vous choisissez"
         },
         {
           "l": "Durée",
           "essentielle": "≈ {tiers.essentielle.videoSeconds} s",
           "pro": "{tiers.pro.videoSeconds} s",
-          "studio": "jusqu’à {tiers.studio.videoSeconds} s"
+          "studio": "jusqu’à {tiers.studio.videoSeconds} s",
+          "campagne": "selon le projet"
         },
         {
           "l": "Voix off et sous-titres",
           "essentielle": "✓",
           "pro": "✓",
-          "studio": "✓"
+          "studio": "✓",
+          "campagne": "✓"
         },
         {
           "l": "Formats",
           "essentielle": "vertical",
           "pro": "vertical, carré",
-          "studio": "vertical, carré, horizontal"
+          "studio": "vertical, carré, horizontal",
+          "campagne": "tous formats"
         },
         {
           "l": "Retouches",
           "essentielle": "{tiers.essentielle.revisionCount}",
           "pro": "{tiers.pro.revisionCount}",
-          "studio": "{tiers.studio.revisionCount}"
+          "studio": "{tiers.studio.revisionCount}",
+          "campagne": "fixées dans le devis"
         },
         {
           "l": "Livraison",
           "essentielle": "{tiers.essentielle.deliveryHours} h",
           "pro": "{tiers.pro.deliveryHours} h",
-          "studio": "{tiers.studio.deliveryHours} h"
+          "studio": "{tiers.studio.deliveryHours} h",
+          "campagne": "fixée dans le devis"
         }
       ],
       "pick": "Choisir",
-      "custom": "Plusieurs vidéos, un site web, un projet particulier ? Écrivez-moi : je vous réponds avec un devis."
+      "custom": "Un site web, un projet particulier ? Écrivez-moi : je vous réponds avec un devis."
     },
     "trioHint": "Touche une formule pour voir tout ce qu’elle comprend",
-    "launchHero": "Essentielle : prix de lancement"
+    "launchHero": "Essentielle : prix de lancement",
+    "campagne": {
+      "name": "Campagne",
+      "price": "Sur devis",
+      "heroBadge": "Plusieurs vidéos",
+      "mini": "Tous formats\net supports",
+      "sum": "Plusieurs vidéos · tous formats · prix sur devis",
+      "cta": "Demander un devis",
+      "pick": "Un devis",
+      "devis": {
+        "title": "Parlons de votre campagne",
+        "text": "Plusieurs vidéos, une campagne, tous les formats : dites-moi votre projet, je vous réponds rapidement avec un devis.",
+        "wa": "WhatsApp",
+        "mail": "E-mail",
+        "tel": "Appeler",
+        "note": "Une fois le devis accepté, vous recevez votre facture avec un lien de paiement sécurisé par Stripe.",
+        "waText": "Bonjour, je souhaite un devis pour une campagne vidéo (plusieurs vidéos).",
+        "mailSubject": "Demande de devis · campagne vidéo",
+        "mailBody": "Bonjour,\n\nJe souhaite un devis pour une campagne vidéo.\n\nEntreprise ou marque :\nNombre de vidéos :\nFormats souhaités :\nDate souhaitée :\n\nMerci !"
+      }
+    }
   },
   "trust": {
     "methodsLabel": "Moyens de paiement",
@@ -262,7 +290,7 @@
         },
         {
           "t": "Je crée, je vous livre",
-          "d": "En 24 à 48 h selon la formule, par e-mail. Puis vos retouches pour ajuster un détail."
+          "d": "En 48 h, par e-mail. Puis vos retouches pour ajuster un détail."
         }
       ]
     },
@@ -352,7 +380,7 @@
   },
   "sticky": {
     "cta": "Choisir ma formule",
-    "note": "Pour commencer : Essentielle à {tiers.essentielle.priceTier} · livrée en 24 h"
+    "note": "Pour commencer : Pro Studio à {tiers.pro.priceTier} · livrée en {tiers.pro.deliveryHours} h"
   },
   "sheet": {
     "kicker": "Récapitulatif",

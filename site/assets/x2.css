@@ -340,3 +340,22 @@
 /* 8 nov. — les 3 projets clients (MacTrade, Restaurant, E-commerce) : « Projet client · … » en haut, sous l'étiquette jaune, pour ne pas passer sous les sous-titres de l'extrait */
 .x2 .vname-haut .vname { top: 46px; bottom: auto; max-width: calc(100% - 20px); padding: 6px 9px 7px; border-radius: 10px; background: rgba(10, 10, 12, .62); border: 1px solid rgba(255, 255, 255, .12); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); text-shadow: none; }
 @media (max-width: 760px) { .x2 .vname-haut .vname { top: 40px; } }
+
+/* 10 nov. — trois formules : Premium · Pro Studio (choisie d'office) · Campagne (sur devis). L'Essentielle n'est plus vendue. */
+/* la case Campagne : « Sur devis » à la place d'un prix, plus petit pour tenir dans la case */
+.trio-hero .tri-devis .tri-p > span { font-size: 19px; letter-spacing: -.02em; line-height: 1.1; }
+@media (max-width: 380px) { .trio-hero .tri-devis .tri-p > span { font-size: 16px; } }
+/* récapitulatif : deux formules à choisir (Premium, Pro Studio) ; rien à choisir pour « Je vous guide » */
+.seg.sw2 .seg-pill { width: calc((100% - 8px) / 2); }
+.sheet-panel[data-offer="guide"] .seg.sw2 { display: none; }
+/* fenêtre « Demander un devis » : même cadre que le comparatif */
+.devbox .cmpbox-panel { max-width: 460px; padding-bottom: calc(22px + env(safe-area-inset-bottom)); }
+.devbox-t { margin: 8px 20px 18px; font-size: 14.5px; line-height: 1.5; color: var(--ink2); }
+.devbox-l { display: grid; gap: 10px; margin: 0 20px; }
+.devbox-a { width: 100%; height: 52px; justify-content: center; gap: 10px; font-size: 15.5px; }
+.devbox-a .ic { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; }
+.devbox-n { margin: 16px 20px 0; font-size: 12.5px; line-height: 1.45; color: var(--ink3); text-align: center; }
+/* DigiEcomX : plus d'étiquette de formule, le nom du projet remonte en haut de la vignette */
+.x2 .wwork .vname-haut.sans-tag .vname { top: 10px; }
+/* petits téléphones : l'étiquette « Plusieurs vidéos » se resserre pour rester dans sa case */
+@media (max-width: 400px) { .trio-hero .tri-devis .tri-badge2 { padding: 4px 6px; letter-spacing: .02em; } }

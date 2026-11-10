@@ -105,7 +105,7 @@
     if (mail) { $$('[data-contact-mail]').forEach(a => { a.href = 'mailto:' + mail; }); $$('[data-contact-mail-text]').forEach(el => { el.textContent = mail; }); }
     if (tk) { $$('[data-tiktok-link], [data-x-tiktok]').forEach(a => { a.href = 'https://www.tiktok.com/@' + tk; }); $$('[data-tiktok-text]').forEach(el => { el.textContent = '@' + tk; }); }
     if (ph) { $$('[data-phone-text]').forEach(el => { el.textContent = ph.replace(/ /g, NB); }); $$('[data-phone-link]').forEach(a => { a.href = 'tel:+33' + ph.replace(/\D/g, '').replace(/^0/, ''); }); }
-    const tiers = c.creation?.tiers || {}, amounts = Object.values(tiers).map(t => t.amount).filter(Boolean);
+    const tiers = c.creation?.tiers || {}, amounts = Object.values(tiers).filter(t => !t.retired).map(t => t.amount).filter(Boolean);   // une formule « retired » (l'Essentielle) ne compte plus
     if (amounts.length) { const m = Math.min(...amounts); $$('[data-price-from]').forEach(el => { el.textContent = `dès ${m % 100 ? (m / 100).toFixed(2).replace('.', ',') : m / 100}${NB}€`; }); }
   }).catch(() => {});
 })();

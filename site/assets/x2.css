@@ -359,3 +359,11 @@
 .x2 .wwork .vname-haut.sans-tag .vname { top: 10px; }
 /* petits téléphones : l'étiquette « Plusieurs vidéos » se resserre pour rester dans sa case */
 @media (max-width: 400px) { .trio-hero .tri-devis .tri-badge2 { padding: 4px 6px; letter-spacing: .02em; } }
+
+/* 11 nov. — Premium (à gauche) et Campagne (à droite) exactement de la même taille, la Pro Studio reste la plus grande :
+   « Sur devis » prend la hauteur d'un prix, le petit texte garde la place de trois lignes partout (ordinateur compris),
+   et de 375 à 389 px le texte de la Premium ne passe plus sur cinq lignes */
+.trio-hero .tri-devis .tri-p > span { line-height: 25px; }
+@media (max-width: 380px) { .trio-hero .tri-devis .tri-p > span { line-height: 21px; } }
+.trio-hero .tri:not(.is-main) .tri-m { min-height: 3.75em; }
+@media (max-width: 389px) { .trio-hero .tri-m { font-size: 9.5px; letter-spacing: 0; } }
